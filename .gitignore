@@ -57,7 +57,7 @@ fabric.properties
 
 .log
 /modules/
-yorha-core/modules
+uni-core/modules
 /config/config.json
 *.jar
 token.txt
