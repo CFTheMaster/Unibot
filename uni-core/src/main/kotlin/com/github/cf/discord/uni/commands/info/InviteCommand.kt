@@ -18,31 +18,14 @@ package com.github.cf.discord.uni.commands.info
 import com.github.kvnxiao.discord.meirei.annotations.Command
 import com.github.kvnxiao.discord.meirei.annotations.CommandGroup
 import com.github.kvnxiao.discord.meirei.annotations.Permissions
-import com.github.kvnxiao.discord.meirei.annotations.RegistryAware
 import com.github.kvnxiao.discord.meirei.command.CommandContext
-import com.github.kvnxiao.discord.meirei.command.CommandDefaults
-import com.github.kvnxiao.discord.meirei.command.CommandProperties
-import com.github.kvnxiao.discord.meirei.command.DiscordCommand
-import com.github.kvnxiao.discord.meirei.command.database.CommandRegistryRead
-import com.github.kvnxiao.discord.meirei.utility.SplitString.Companion.splitString
-import com.github.cf.discord.uni.Lib.LINE_SEPARATOR
 import net.dv8tion.jda.core.EmbedBuilder
-import net.dv8tion.jda.core.entities.Message
-import net.dv8tion.jda.core.entities.MessageEmbed
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
-import net.dv8tion.jda.core.requests.RestAction
 import java.awt.Color
-import java.time.Duration
-import java.time.Instant
-import java.util.StringJoiner
+import java.util.Random
 
 @CommandGroup("system")
 class InviteCommand {
-
-    companion object {
-        @JvmStatic
-        val EMBED_COLOUR = Color(125, 165, 222)
-    }
 
     @Command(
             prefix = "uni!",
@@ -54,8 +37,13 @@ class InviteCommand {
             allowDm = true
     )
     fun invite(context: CommandContext, event: MessageReceivedEvent) {
+        val randomColor = (Math.floor(Math.random()*(255))+1).toInt();
+        val randomColor1 = (Math.floor(Math.random()*(255))+1).toInt();
+        val randomColor2 = (Math.floor(Math.random()*(255))+1).toInt();
+        val embedColor = Color(randomColor, randomColor1, randomColor2)
+
         val embed = EmbedBuilder()
-                .setColor(EMBED_COLOUR)
+                .setColor(embedColor)
                 .setDescription("Uni invite: [click me](https://discordapp.com/oauth2/authorize?client_id=${event.jda.selfUser.id}&scope=bot&permissions=66186303)")
                 .build()
         event.textChannel.sendMessage(embed).queue()
