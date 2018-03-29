@@ -13,20 +13,14 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
-package com.github.cf.discord.uni.database.nosql
+package com.github.cf.discord.uni.reactions
 
-import com.github.cf.discord.uni.core.EnvVars
-import org.redisson.Redisson
-import org.redisson.api.RedissonClient
-import org.redisson.config.Config
+import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionAddEvent
+import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionRemoveAllEvent
+import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionRemoveEvent
 
-object Redis {
-
-    private val config = Config().apply {
-        this.useSingleServer()
-                .setAddress("redis://127.0.0.1:6379")
-                .setConnectionPoolSize(200)
-    }
-
-    val client: RedissonClient = Redisson.create(config)
+interface ReactionChangeListener {
+    fun onReactionAdd(event: GuildMessageReactionAddEvent) {}
+    fun onReactionRemove(event: GuildMessageReactionRemoveEvent) {}
+    fun onReactionRemoveAll(event: GuildMessageReactionRemoveAllEvent) {}
 }

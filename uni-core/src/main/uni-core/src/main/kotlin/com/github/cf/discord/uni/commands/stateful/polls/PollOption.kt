@@ -13,20 +13,22 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
-package com.github.cf.discord.uni.database.nosql
+package com.github.cf.discord.uni.commands.stateful.polls
 
-import com.github.cf.discord.uni.core.EnvVars
-import org.redisson.Redisson
-import org.redisson.api.RedissonClient
-import org.redisson.config.Config
+import net.dv8tion.jda.core.entities.Member
 
-object Redis {
+data class PollOption(
+        val optionName: String,
+        private val votes: MutableSet<Member> = mutableSetOf()
+) {
 
-    private val config = Config().apply {
-        this.useSingleServer()
-                .setAddress("redis://127.0.0.1:6379")
-                .setConnectionPoolSize(200)
-    }
+    fun add(user: Member) = votes.add(user)
 
-    val client: RedissonClient = Redisson.create(config)
+    fun retract(user: Member) = votes.remove(user)
+
+    fun count(): Int = votes.size
+
+    fun votes(): List<Member> = votes.toList()
+
+    override fun toString(): String = optionName
 }

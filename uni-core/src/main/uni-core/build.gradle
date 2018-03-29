@@ -1,0 +1,70 @@
+buildscript {
+    ext.jda_version = '3.5.1_342'
+    ext.lavaplayer_version = '1.2.56'
+    ext.meirei_version = '0.8.6'
+    ext.jackson_version = '2.9.4'
+    ext.jsoup_version = '1.11.2'
+    ext.redisson_version = '3.6.0'
+    ext.hikaricp_version = '2.7.6'
+    ext.postgresql_version = '42.2.1'
+    ext.exposed_version = '0.9.1'
+    ext.ssh_host = System.getenv("ssh_host")
+    ext.ssh_user = System.getenv("ssh_user")
+    ext.ssh_id = System.getenv("ssh_id")
+    ext.scp_dir = "/home/${ssh_user}/unibot/bin/"
+}
+
+plugins {
+    id 'org.hidetake.ssh' version '2.9.0'
+}
+
+mainClassName = "com.github.cf.discord.uni.MainKt"
+
+dependencies {
+    compile "com.github.kvnxiao.meirei:meirei-jda:$meirei_version"
+    compile "net.dv8tion:JDA:$jda_version"
+    compile "com.sedmelluq:lavaplayer:$lavaplayer_version"
+    compile "com.fasterxml.jackson.core:jackson-core:$jackson_version"
+    compile "com.fasterxml.jackson.core:jackson-annotations:$jackson_version"
+    compile "com.fasterxml.jackson.core:jackson-databind:$jackson_version"
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version"
+    compile "org.jsoup:jsoup:$jsoup_version"
+    compile "org.redisson:redisson:$redisson_version"
+    compile "com.zaxxer:HikariCP:$hikaricp_version"
+    compile "org.postgresql:postgresql:$postgresql_version"
+    compile "org.jetbrains.exposed:exposed:$exposed_version"
+}
+
+jar {
+    manifest {
+        attributes('Implementation-Title': rootProject.name,
+                'Implementation-Version': version)
+    }
+}
+
+remotes {
+    rpi {
+        host = "$ssh_host"
+        user = "$ssh_user"
+        identity = file("${System.getProperty("user.home")}/.ssh/$ssh_id")
+    }
+}
+
+task deploy(dependsOn: shadowJar) {
+    group = "deploy"
+    doFirst {
+        ssh.run {
+            session(remotes.rpi) {
+                execute "pkill java || true"
+            }
+        }
+    }
+    doLast {
+        ssh.run {
+            session(remotes.rpi) {
+                put from: "${projectDir}/build/libs/${project.name}-${project.version}-all.jar", into: "$scp_dir/${project.name}-${project.version}-all.jar"
+                execute "cd $scp_dir; nohup $scp_dir/run.sh > /dev/null 2>&1 &"
+            }
+        }
+    }
+}

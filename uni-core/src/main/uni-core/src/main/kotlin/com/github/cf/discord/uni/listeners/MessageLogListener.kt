@@ -15,21 +15,21 @@
  */
 package com.github.cf.discord.uni.listeners
 
+import com.github.cf.discord.uni.Uni
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
-import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
 
-class CommandListener : ListenerAdapter() {
+class MessageLogListener : ListenerAdapter() {
 
     override fun onMessageReceived(event: MessageReceivedEvent) {
-        if(event.message.member.user.isBot || event.message.member.user.isFake) {
-            return
+        if (event.message.attachments.isNotEmpty()) {
+            Uni.LOGGER.debug { "${event.guild.name} - ${event.author.name}#${event.author.discriminator} sent an attachment." }
         }
-    }
-
-    override fun onGuildMessageReceived(event: GuildMessageReceivedEvent) {
-        if (event.message.member.user.isBot || event.message.member.user.isFake) {
-            return
+        if (event.message.embeds.isNotEmpty()) {
+            Uni.LOGGER.debug { "${event.guild.name} - ${event.author.name}#${event.author.discriminator} sent an embedded message." }
+        }
+        if (event.message.contentRaw.isNotEmpty()) {
+            Uni.LOGGER.debug { "${event.guild.name} - ${event.author.name}#${event.author.discriminator}: ${event.message.contentDisplay}" }
         }
     }
 }
