@@ -30,6 +30,7 @@ import com.github.cf.discord.uni.commands.stateful.PollCommand
 import com.github.cf.discord.uni.commands.system.RestartCommand
 import com.github.cf.discord.uni.commands.system.ShutdownCommand
 import com.github.cf.discord.uni.jsr223.KotlinScriptCommand
+import com.github.cf.discord.uni.listeners.CommandListener
 import com.github.cf.discord.uni.listeners.MessageLogListener
 import com.github.cf.discord.uni.listeners.ReadyEventListener
 import com.github.kvnxiao.discord.meirei.Meirei
@@ -45,7 +46,7 @@ class Uni(token: String) {
         val LOGGER = KotlinLogging.logger(Uni::class.java.name)
     }
 
-    private val clientBuilder = JDABuilder(AccountType.BOT).setToken(token)
+    private val clientBuilder = JDABuilder(AccountType.BOT).setToken(token).addEventListener(ReadyEventListener(), MessageLogListener(), CommandListener())
     private val meirei: Meirei = MeireiJDA(clientBuilder)
 
     fun start(): Boolean {
@@ -54,10 +55,6 @@ class Uni(token: String) {
             LOGGER.debug { "Logging in..." }
             clientBuilder
                     .registerCommands()
-                    .addEventListener(
-                            ReadyEventListener(),
-                            MessageLogListener()
-                    )
                     .buildAsync()
             true
         } catch (e: Exception) {
@@ -95,7 +92,6 @@ class Uni(token: String) {
                 // Scripting
                 KotlinScriptCommand()
         )
-        meirei.registerEventListeners(this)
         return this
     }
 }
