@@ -37,6 +37,7 @@ import com.sedmelluq.discord.lavaplayer.source.nico.NicoAudioSourceManager
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import net.dv8tion.jda.core.Permission
 import net.dv8tion.jda.core.entities.Guild
+import net.dv8tion.jda.core.entities.Message
 import net.dv8tion.jda.core.entities.TextChannel
 import net.dv8tion.jda.core.events.ReadyEvent
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
@@ -95,7 +96,7 @@ class AudioPlayerCommand : ListenerAdapter() {
             val npChannel = if (id != null) {
                 guild.getTextChannelById(id)
             } else {
-                guild.getTextChannelsByName("general", true).firstOrNull()
+                guild.getTextChannelsByName("${guild.defaultChannel.toString()}", true).firstOrNull()
                         ?: guild.textChannels.first()
             }
             npChannel
@@ -159,7 +160,7 @@ class AudioPlayerCommand : ListenerAdapter() {
     /// @@@@@@@@@@@@@@@@@@@@@@@@@@
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "tracks.play",
             aliases = ["play"],
             description = "Plays audio in the current voice channel the bot is in."
@@ -173,7 +174,7 @@ class AudioPlayerCommand : ListenerAdapter() {
     }
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "source.soundcloud",
             aliases = ["sc"],
             description = "Searches SoundCloud and plays audio from the first result in the current voice channel the bot is in.",
@@ -192,7 +193,7 @@ class AudioPlayerCommand : ListenerAdapter() {
     }
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "source.soundcloud_search",
             aliases = ["scs"],
             description = "Queries SoundCloud for search results and uses reactions to select the song to play.",
@@ -207,7 +208,7 @@ class AudioPlayerCommand : ListenerAdapter() {
     }
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "source.youtube",
             aliases = ["yt"],
             description = "Searches YouTube and plays audio from the first result in the current voice channel the bot is in.",
@@ -233,7 +234,7 @@ class AudioPlayerCommand : ListenerAdapter() {
     }
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "source.youtube_query",
             aliases = ["yts"],
             description = "Queries YouTube for search results and uses reactions to select the song to play.",
@@ -248,7 +249,7 @@ class AudioPlayerCommand : ListenerAdapter() {
     }
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "tracks.skip",
             aliases = ["skip", "next"],
             description = "Skips the current playing track to the next one."
@@ -261,7 +262,7 @@ class AudioPlayerCommand : ListenerAdapter() {
     }
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "tracks.stop",
             aliases = ["stop"],
             description = "Stops the current playing track."
@@ -274,7 +275,7 @@ class AudioPlayerCommand : ListenerAdapter() {
     }
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "channel.set_now_playing",
             aliases = ["setnpch"],
             description = "Sets the channel for the bot to print the now playing information"
@@ -292,7 +293,7 @@ class AudioPlayerCommand : ListenerAdapter() {
     }
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "channel.set_audio_panel",
             aliases = ["setapch"],
             description = "Sets the channel for the bot to print and updateEmbedBuilder the audio player panel"
@@ -320,7 +321,7 @@ class AudioPlayerCommand : ListenerAdapter() {
     }
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "channel.delete_audio_panel",
             aliases = ["delapch"],
             description = "Deletes the audio player panel"
@@ -338,7 +339,7 @@ class AudioPlayerCommand : ListenerAdapter() {
     }
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "tracks.shuffle",
             aliases = ["shuffle"],
             description = "Shuffles all queued tracks in the audio player."
@@ -352,7 +353,7 @@ class AudioPlayerCommand : ListenerAdapter() {
     }
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "tracks.playing",
             aliases = ["playing", "np"],
             description = "Shows the current playing track and the rest of the queue."
@@ -366,7 +367,7 @@ class AudioPlayerCommand : ListenerAdapter() {
     }
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "tracks.clear",
             aliases = ["clear"],
             description = "Clears the audio queue for this guild."

@@ -15,6 +15,7 @@
  */
 package com.github.cf.discord.uni.commands.`fun`
 
+import com.github.cf.discord.uni.core.EnvVars
 import com.github.kvnxiao.discord.meirei.annotations.Command
 import com.github.kvnxiao.discord.meirei.annotations.CommandGroup
 import com.github.kvnxiao.discord.meirei.command.CommandContext
@@ -50,7 +51,7 @@ class EightBallCommand {
     }
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "eightball",
             aliases = ["8ball"],
             description = "The magic eight-ball sees all.",

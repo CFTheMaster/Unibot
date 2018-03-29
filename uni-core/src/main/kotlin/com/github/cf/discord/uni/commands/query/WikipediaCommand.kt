@@ -19,6 +19,7 @@ import com.github.kvnxiao.discord.meirei.annotations.Command
 import com.github.kvnxiao.discord.meirei.annotations.CommandGroup
 import com.github.kvnxiao.discord.meirei.command.CommandContext
 import com.github.cf.discord.uni.Lib.LINE_SEPARATOR
+import com.github.cf.discord.uni.core.EnvVars
 import com.github.cf.discord.uni.http.HttpQuery
 import com.github.cf.discord.uni.http.HttpQuery.OBJECT_MAPPER
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
@@ -41,7 +42,7 @@ class WikipediaCommand {
     }
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "wikipedia",
             aliases = ["wikipedia", "wiki"],
             description = "Searches wikipedia for articles.",

@@ -39,7 +39,7 @@ class GoogleCommand {
     }
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "google",
             aliases = ["google", "g"],
             description = "Gives you a google link to click on.",

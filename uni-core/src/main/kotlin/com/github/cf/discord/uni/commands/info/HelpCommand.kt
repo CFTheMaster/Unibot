@@ -26,6 +26,7 @@ import com.github.kvnxiao.discord.meirei.command.DiscordCommand
 import com.github.kvnxiao.discord.meirei.command.database.CommandRegistryRead
 import com.github.kvnxiao.discord.meirei.utility.SplitString.Companion.splitString
 import com.github.cf.discord.uni.Lib.LINE_SEPARATOR
+import com.github.cf.discord.uni.core.EnvVars
 import net.dv8tion.jda.core.EmbedBuilder
 import net.dv8tion.jda.core.entities.Message
 import net.dv8tion.jda.core.entities.MessageEmbed
@@ -47,7 +48,7 @@ class HelpCommand {
     }
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             aliases = ["help"],
             id = "main",
             description = "The help page for Uni.",

@@ -20,6 +20,7 @@ import com.github.kvnxiao.discord.meirei.annotations.CommandGroup
 import com.github.kvnxiao.discord.meirei.command.CommandContext
 import com.github.kvnxiao.discord.meirei.utility.SplitString.Companion.splitString
 import com.github.cf.discord.uni.Lib.LINE_SEPARATOR
+import com.github.cf.discord.uni.core.EnvVars
 import com.github.cf.discord.uni.getFromQuotes
 import com.github.cf.discord.uni.http.HttpError
 import com.github.cf.discord.uni.http.HttpQuery
@@ -63,7 +64,7 @@ class PcPartPickerCommand {
     }
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "completedBuilds",
             aliases = ["pcpp"],
             description = "Searches PCPartPicker for completed builds by username",
@@ -88,7 +89,7 @@ class PcPartPickerCommand {
     }
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "savedBuilds",
             parentId = "completedBuilds",
             aliases = ["s", "saved"],

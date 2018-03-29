@@ -39,6 +39,8 @@ object EnvVars {
     val DATABASE_USERNAME = readEnvVars("database_username")
     val DATABASE_PASSWORD = readEnvVars("database_password")
 
+    const val PREFIX = "uni!"
+
     @JvmStatic
     private fun readEnvVars(envVar: String): String {
         return System.getenv(envVar) ?: throw RuntimeException("Could not read environment variable \"$envVar\", make sure it is supplied and not empty!")

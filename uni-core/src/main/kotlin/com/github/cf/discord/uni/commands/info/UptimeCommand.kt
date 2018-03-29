@@ -15,6 +15,7 @@
  */
 package com.github.cf.discord.uni.commands.info
 
+import com.github.cf.discord.uni.core.EnvVars
 import com.github.kvnxiao.discord.meirei.annotations.Command
 import com.github.kvnxiao.discord.meirei.annotations.CommandGroup
 import com.github.kvnxiao.discord.meirei.annotations.Permissions
@@ -29,7 +30,7 @@ class UptimeCommand {
     private val startTime = Instant.now()
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "uptime",
             aliases = ["uptime"],
             description = "Shows how long the bot has been running for."

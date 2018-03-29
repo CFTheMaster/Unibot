@@ -15,6 +15,7 @@
  */
 package com.github.cf.discord.uni.listeners
 
+import com.github.cf.discord.uni.core.EnvVars
 import net.dv8tion.jda.core.OnlineStatus
 import net.dv8tion.jda.core.entities.Game
 import net.dv8tion.jda.core.events.ReadyEvent
@@ -23,6 +24,6 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter
 class ReadyEventListener : ListenerAdapter() {
 
     override fun onReady(event: ReadyEvent) {
-        event.jda.presence.setPresence(OnlineStatus.ONLINE, Game.of(Game.GameType.DEFAULT, "uni!help"))
+        event.jda.presence.setPresence(OnlineStatus.ONLINE, Game.of(Game.GameType.DEFAULT, "${EnvVars.PREFIX}help"))
     }
 }

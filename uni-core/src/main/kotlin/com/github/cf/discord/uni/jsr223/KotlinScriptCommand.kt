@@ -22,6 +22,7 @@ import com.github.kvnxiao.discord.meirei.command.CommandContext
 import com.github.cf.discord.uni.Lib.LINE_SEPARATOR
 import com.github.cf.discord.uni.Reactions
 import com.github.cf.discord.uni.Uni.Companion.LOGGER
+import com.github.cf.discord.uni.core.EnvVars
 import com.github.cf.discord.uni.getFromCodeBlock
 import com.github.kvnxiao.discord.meirei.jda.permission.PermissionLevel
 import net.dv8tion.jda.core.EmbedBuilder
@@ -45,7 +46,7 @@ class KotlinScriptCommand {
     @Command(
             id = "kotlin_script",
             aliases = ["kts"],
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             usage = "<>",
             description = "Evaluates a Kotlin script on runtime."
     )

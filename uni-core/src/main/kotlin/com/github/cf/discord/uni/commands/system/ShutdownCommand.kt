@@ -15,6 +15,7 @@
  */
 package com.github.cf.discord.uni.commands.system
 
+import com.github.cf.discord.uni.core.EnvVars
 import com.github.kvnxiao.discord.meirei.annotations.Command
 import com.github.kvnxiao.discord.meirei.annotations.CommandGroup
 import com.github.kvnxiao.discord.meirei.annotations.Permissions
@@ -28,7 +29,7 @@ import kotlin.system.exitProcess
 class ShutdownCommand {
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "shutdown",
             aliases = ["shutdown"],
             description = "Shuts down the bot."

@@ -19,6 +19,7 @@ import com.github.kvnxiao.discord.meirei.annotations.Command
 import com.github.kvnxiao.discord.meirei.annotations.CommandGroup
 import com.github.kvnxiao.discord.meirei.command.CommandContext
 import com.github.cf.discord.uni.Lib.LINE_SEPARATOR
+import com.github.cf.discord.uni.core.EnvVars
 import com.github.cf.discord.uni.http.HttpQuery
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import okhttp3.HttpUrl
@@ -37,7 +38,7 @@ class UrbanDictionaryCommand {
     }
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "urbandictionary",
             aliases = ["udict"],
             description = "Searches for definitions from Urban Dictionary.",

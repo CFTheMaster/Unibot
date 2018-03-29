@@ -15,6 +15,7 @@
  */
 package com.github.cf.discord.uni.commands.info
 
+import com.github.cf.discord.uni.core.EnvVars
 import com.github.kvnxiao.discord.meirei.annotations.Command
 import com.github.kvnxiao.discord.meirei.annotations.CommandGroup
 import com.github.kvnxiao.discord.meirei.annotations.Permissions
@@ -26,7 +27,7 @@ import java.time.Duration
 class PingCommand {
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "ping",
             aliases = ["ping"],
             description = "Pings the bot for a response."

@@ -15,6 +15,7 @@
  */
 package com.github.cf.discord.uni.commands.audio
 
+import com.github.cf.discord.uni.core.EnvVars
 import com.github.kvnxiao.discord.meirei.annotations.Command
 import com.github.kvnxiao.discord.meirei.annotations.CommandGroup
 import com.github.kvnxiao.discord.meirei.command.CommandContext
@@ -43,7 +44,7 @@ class VoiceChannelCommand {
     /// @@@@@@@@@@@@@@@@@@@@@@@@@@
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "join",
             aliases = ["join"],
             description = "Makes the bot join the current voice channel you are in"
@@ -52,11 +53,11 @@ class VoiceChannelCommand {
         if (event.channelType.isGuild && event.member.voiceState.inVoiceChannel()) {
             connectToVoiceChannel(event.guild.audioManager, event.member.voiceState.channel)
         }
-        event.channel.sendMessage("don't forget to do uni!setapch to set the music channel \uD83D\uDC9C")
+        event.channel.sendMessage("don't forget to do ${EnvVars.PREFIX}setapch to set the music channel \uD83D\uDC9C")
     }
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "leave",
             aliases = ["leave"],
             description = "Makes the bot leave the current voice channel it is in."

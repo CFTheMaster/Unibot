@@ -23,6 +23,7 @@ import com.github.cf.discord.uni.commands.stateful.polls.Poll
 import com.github.cf.discord.uni.commands.stateful.polls.PollEmbed
 import com.github.cf.discord.uni.commands.stateful.polls.PollManager
 import com.github.cf.discord.uni.commands.stateful.polls.PollOption
+import com.github.cf.discord.uni.core.EnvVars
 import com.github.cf.discord.uni.getFromQuotes
 import com.github.cf.discord.uni.splitByLines
 import com.github.cf.discord.uni.stateful.GuildStateManager
@@ -72,7 +73,7 @@ class PollCommand {
     /// @@@@@@@@@@@@@@@@@@@@@@@@@@
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "poll",
             aliases = ["poll"],
             description = "Fetches poll information based on provided name of poll.",
@@ -103,7 +104,7 @@ class PollCommand {
     }
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "poll_create",
             aliases = ["makepoll"],
             description = "Creates a poll with the provided name, and options to vote for on subsequent lines.",
@@ -133,7 +134,7 @@ class PollCommand {
     }
 
     @Command(
-            prefix = "uni!",
+            prefix = "${EnvVars.PREFIX}",
             id = "poll_close",
             aliases = ["closepoll"],
             description = "Closes a poll with the provided name and outputs the winning vote.",
