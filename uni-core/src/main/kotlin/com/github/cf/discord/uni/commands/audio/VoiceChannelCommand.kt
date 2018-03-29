@@ -52,6 +52,7 @@ class VoiceChannelCommand {
         if (event.channelType.isGuild && event.member.voiceState.inVoiceChannel()) {
             connectToVoiceChannel(event.guild.audioManager, event.member.voiceState.channel)
         }
+        event.channel.sendMessage("don't forget to do uni!setapch to set the music channel \uD83D\uDC9C")
     }
 
     @Command(

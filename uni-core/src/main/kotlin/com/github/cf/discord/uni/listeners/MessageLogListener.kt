@@ -23,13 +23,13 @@ class MessageLogListener : ListenerAdapter() {
 
     override fun onMessageReceived(event: MessageReceivedEvent) {
         if (event.message.attachments.isNotEmpty()) {
-            Uni.LOGGER.debug { "${event.guild.name} - ${event.author.name}#${event.author.discriminator} sent an attachment." }
+            Uni.LOGGER.debug { "${event.guild?.name ?: "DM"} - ${event.author.name}#${event.author.discriminator} sent an attachment." }
         }
         if (event.message.embeds.isNotEmpty()) {
-            Uni.LOGGER.debug { "${event.guild.name} - ${event.author.name}#${event.author.discriminator} sent an embedded message." }
+            Uni.LOGGER.debug { "${event.guild?.name ?: "DM"} - ${event.author.name}#${event.author.discriminator} sent an embedded message." }
         }
         if (event.message.contentRaw.isNotEmpty()) {
-            Uni.LOGGER.debug { "${event.guild.name} - ${event.author.name}#${event.author.discriminator}: ${event.message.contentDisplay}" }
+            Uni.LOGGER.debug { "${event.guild?.name ?: "DM"} - ${event.author.name}#${event.author.discriminator}: ${event.message.contentDisplay}" }
         }
     }
 }

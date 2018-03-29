@@ -18,17 +18,25 @@ package com.github.cf.discord.uni.listeners
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
+import net.dv8tion.jda.core.utils.PermissionUtil
+import net.dv8tion.jda.core.Permission
 
 class CommandListener : ListenerAdapter() {
 
     override fun onMessageReceived(event: MessageReceivedEvent) {
-        if(event.message.member.user.isBot || event.message.member.user.isFake) {
+        val author = event?.author
+        if(author!!.isBot) {
             return
         }
     }
 
     override fun onGuildMessageReceived(event: GuildMessageReceivedEvent) {
-        if (event.message.member.user.isBot || event.message.member.user.isFake) {
+        val channel = event?.channel
+        val guild = event?.guild
+        val author = event?.author
+        if(!PermissionUtil.checkPermission(channel, guild?.selfMember, Permission.MESSAGE_WRITE)
+                || !PermissionUtil.checkPermission(channel, guild?.selfMember, Permission.MESSAGE_EMBED_LINKS)
+                || author!!.isBot) {
             return
         }
     }
