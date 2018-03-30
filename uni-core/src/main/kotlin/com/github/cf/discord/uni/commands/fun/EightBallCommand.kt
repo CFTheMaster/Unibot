@@ -59,7 +59,7 @@ class EightBallCommand {
     )
     fun onCommand(context: CommandContext, event: MessageReceivedEvent) {
         val args = context.args ?: return
-        event.textChannel.sendMessage("**Question:** $args\n$EIGHTBALL_EMOJI**: ${randAnswer()}**").queue()
+        event.channel.sendMessage("**Question:** $args\n$EIGHTBALL_EMOJI**: ${randAnswer()}**").queue()
     }
 
     private fun randAnswer(): String {

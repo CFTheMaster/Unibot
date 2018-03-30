@@ -52,7 +52,7 @@ class WikipediaCommand {
         val query = context.args ?: return
         val url = SEARCH_URL_BUILDER.newBuilder().addQueryParameter("srsearch", query).build()
         val request = Request.Builder().url(url).build()
-        val messageFuture = event.textChannel.sendMessage("Searching for **$query** on Wikipedia...").submit()
+        val messageFuture = event.channel.sendMessage("Searching for **$query** on Wikipedia...").submit()
 
         HttpQuery.queryMono(request)
                 .doOnError { messageFuture.get().editMessage("Search for **$it** on Wikipedia failed! ${it.localizedMessage}").queue() }

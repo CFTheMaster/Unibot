@@ -45,11 +45,11 @@ class PollCommand {
 
     private fun validatePollLines(lines: Int, event: MessageReceivedEvent): Boolean = when {
         lines < MIN_LINES -> {
-            event.textChannel.sendMessage("To create a poll, you must specify a title and at least two options on a line-by-line basis.").queue()
+            event.channel.sendMessage("To create a poll, you must specify a title and at least two options on a line-by-line basis.").queue()
             false
         }
         lines > MAX_LINES -> {
-            event.textChannel.sendMessage("To create a poll, you are limited to specifying a maximum of 9 poll options.").queue()
+            event.channel.sendMessage("To create a poll, you are limited to specifying a maximum of 9 poll options.").queue()
             false
         }
         else -> true
@@ -57,11 +57,11 @@ class PollCommand {
 
     private fun validatePollTitle(title: String, event: MessageReceivedEvent): Boolean {
         if (title.isBlank()) {
-            event.textChannel.sendMessage("A poll may not have an empty title, please try creating a poll with an actual title").queue()
+            event.channel.sendMessage("A poll may not have an empty title, please try creating a poll with an actual title").queue()
             return false
         }
         return if (guildPollManager.getOrPut(event.guild.idLong).hasPoll(title)) {
-            event.textChannel.sendMessage("A poll with this title already exists, please try creating a poll using a different title.").queue()
+            event.channel.sendMessage("A poll with this title already exists, please try creating a poll using a different title.").queue()
             false
         } else {
             true
@@ -99,7 +99,7 @@ class PollCommand {
                                 false)
                     }
                     embed.addField("", "Poll created by: ${it.author.asMention}", false)
-                    event.textChannel.sendMessage(embed.build()).queue()
+                    event.channel.sendMessage(embed.build()).queue()
                 }
     }
 
@@ -169,7 +169,7 @@ class PollCommand {
                         embed.addField("${i + 1}. ${option.optionName}", "${option.votes().joinToString(separator = " ", prefix = "`${option.count()} votes`") { it.asMention }} ", false)
                     }
                     embed.addField("", "Poll created by: ${it.author.asMention}>", false)
-                    event.textChannel.sendMessage(
+                    event.channel.sendMessage(
                             embed.build()
                     ).queue()
 

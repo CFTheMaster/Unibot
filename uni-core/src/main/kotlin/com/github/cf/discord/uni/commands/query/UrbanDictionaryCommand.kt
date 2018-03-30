@@ -48,7 +48,7 @@ class UrbanDictionaryCommand {
         val query = context.args ?: return
         val url = SEARCH_URL_BUILDER.newBuilder().addQueryParameter("term", query).build()
         val request = Request.Builder().url(url).build()
-        val messageFuture = event.textChannel.sendMessage("Searching for **$query** on Urban Dictionary...").submit()
+        val messageFuture = event.channel.sendMessage("Searching for **$query** on Urban Dictionary...").submit()
 
         HttpQuery.queryMono(request)
                 .doOnError { messageFuture.get().editMessage("Search for **$it** on Urban Dictionary failed! ${it.localizedMessage}").queue() }

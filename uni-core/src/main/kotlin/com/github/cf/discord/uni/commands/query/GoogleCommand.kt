@@ -50,7 +50,7 @@ class GoogleCommand {
 
         val url = CUSTOM_SEARCH_URL_BUILDER.newBuilder().addQueryParameter("q", query).build()
         val request = Request.Builder().url(url).build()
-        val messageFuture = event.textChannel.sendMessage("Searching for **$query** on Google...").submit()
+        val messageFuture = event.channel.sendMessage("Searching for **$query** on Google...").submit()
 
         // Query for google search results and edit message
         HttpQuery.queryMono(request)

@@ -74,7 +74,7 @@ class PcPartPickerCommand {
         val args = context.args ?: return
         val (user, buildName) = splitString(args)
         user.let { userName ->
-            val messageFuture = event.textChannel.sendMessage("Searching for **$userName**'s completed builds on PCPP.").submit()
+            val messageFuture = event.channel.sendMessage("Searching for **$userName**'s completed builds on PCPP.").submit()
 
             HttpQuery
                     .queryMono(Request.Builder().url(userCompletedBuildsUrl(userName)).build())
@@ -100,7 +100,7 @@ class PcPartPickerCommand {
         val args = context.args ?: return
         val (user, buildName) = splitString(args)
         user.let { userName ->
-            val messageFuture = event.textChannel.sendMessage("Searching for **$userName**'s saved builds on PCPP.").submit()
+            val messageFuture = event.channel.sendMessage("Searching for **$userName**'s saved builds on PCPP.").submit()
 
             HttpQuery
                     .queryMono(Request.Builder().url(userSavedBuildsUrl(userName)).build())

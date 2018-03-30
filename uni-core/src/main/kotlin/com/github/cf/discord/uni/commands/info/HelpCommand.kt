@@ -94,7 +94,7 @@ class HelpCommand {
                 .addField("List of all commands", "`${registry.getAllCommandAliases().joinToString()}`", false)
                 .setFooter("$totalCommandsCount commands, ${maxPageSize(totalCommandsCount)} pages available", null)
                 .build()
-        event.textChannel.sendMessage(embed).queue()
+        event.channel.sendMessage(embed).queue()
     }
 
     private fun maxPageSize(size: Int): Int {
@@ -112,7 +112,7 @@ class HelpCommand {
                 if (subAlias != null) {
                     return this.sendSubCommandInfo(context, it, subAlias)
                 }
-                return this.textChannel.sendMessage(createHelpEmbed(context, registry, registry.getPropertiesById(it.id)!!, this.jda.selfUser.avatarUrl))
+                return this.channel.sendMessage(createHelpEmbed(context, registry, registry.getPropertiesById(it.id)!!, this.jda.selfUser.avatarUrl))
             }
         }
         return null
@@ -144,7 +144,7 @@ class HelpCommand {
                 if (subAlias != null) {
                     return this.sendSubCommandInfo(context, it, subAlias)
                 }
-                return this.textChannel.sendMessage(createHelpEmbed(context, registry, registry.getPropertiesById(it.id)!!, this.jda.selfUser.avatarUrl))
+                return this.channel.sendMessage(createHelpEmbed(context, registry, registry.getPropertiesById(it.id)!!, this.jda.selfUser.avatarUrl))
             }
         }
         return null
@@ -163,13 +163,13 @@ class HelpCommand {
                 .addField("View a specific command", "`$prefixedAlias <command alias>`: view a specific command's details (e.g. `$prefixedAlias ${context.properties.prefix}ping`).", false)
                 .setFooter("$totalCommandsCount commands, ${maxPageSize(totalCommandsCount)} pages available", null)
                 .build()
-        return this.textChannel.sendMessage(embed)
+        return this.channel.sendMessage(embed)
     }
 
     private fun MessageReceivedEvent.sendHelpBook(context: CommandContext, page: Int): RestAction<Message> {
         val registry = context.readOnlyCommandRegistry!!
         val allAliases = registry.getAllCommandAliases()
-        return this.textChannel.sendMessage(allAliases.toEmbed(page, registry.getAllCommandAliases().size, this.jda.selfUser.avatarUrl))
+        return this.channel.sendMessage(allAliases.toEmbed(page, registry.getAllCommandAliases().size, this.jda.selfUser.avatarUrl))
     }
 
     private fun List<String>.toEmbed(p: Int, totalCommandCount: Int, avatarUrl: String): MessageEmbed {
