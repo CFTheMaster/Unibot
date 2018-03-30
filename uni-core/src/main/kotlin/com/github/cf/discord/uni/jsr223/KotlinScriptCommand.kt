@@ -23,6 +23,7 @@ import com.github.cf.discord.uni.Lib.LINE_SEPARATOR
 import com.github.cf.discord.uni.Reactions
 import com.github.cf.discord.uni.Uni.Companion.LOGGER
 import com.github.cf.discord.uni.core.EnvVars
+import com.github.cf.discord.uni.data.authorOnly
 import com.github.cf.discord.uni.getFromCodeBlock
 import com.github.kvnxiao.discord.meirei.jda.permission.PermissionLevel
 import net.dv8tion.jda.core.EmbedBuilder
@@ -50,10 +51,9 @@ class KotlinScriptCommand {
             usage = "<>",
             description = "Evaluates a Kotlin script on runtime."
     )
-    @Permissions(reqBotOwner = true,
-            allowDm = true)
+    @Permissions(allowDm = true)
     fun ktscript(context: CommandContext, event: MessageReceivedEvent) {
-        if (event.message.author.id == "138302166619258880" || event.message.author.id == "345577792773160965") {
+        if (event.message.author.id in authorOnly.authors) {
             val args = context.args?.getFromCodeBlock() ?: return
             engine.setBindings(engine.createBindings().apply {
                 put("event", event)

@@ -16,6 +16,7 @@
 package com.github.cf.discord.uni.commands.system
 
 import com.github.cf.discord.uni.core.EnvVars
+import com.github.cf.discord.uni.data.authorOnly
 import com.github.kvnxiao.discord.meirei.annotations.Command
 import com.github.kvnxiao.discord.meirei.annotations.CommandGroup
 import com.github.kvnxiao.discord.meirei.annotations.Permissions
@@ -35,12 +36,14 @@ class RestartCommand {
             description = "Restarts the bot."
     )
     @Permissions(
-            reqBotOwner = true
+            allowDm = true
     )
     fun onCommand(context: CommandContext, event: MessageReceivedEvent) {
-        event.channel.sendMessage("**Shutting down and restarting after 3 seconds.**").queue({
-            val timer = Timer()
-            timer.schedule(timerTask { exitProcess(ReturnCodes.RESTART) }, 3000)
-        })
+        if(event.message.author.id in authorOnly.authors) {
+            event.channel.sendMessage("**Shutting down and restarting after 3 seconds.**").queue({
+                val timer = Timer()
+                timer.schedule(timerTask { exitProcess(ReturnCodes.RESTART) }, 3000)
+            })
+        }
     }
 }

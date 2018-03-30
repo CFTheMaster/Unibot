@@ -13,37 +13,33 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
-package com.github.cf.discord.uni.commands.system
+package com.github.cf.discord.uni.commands.owner
 
 import com.github.cf.discord.uni.core.EnvVars
-import com.github.cf.discord.uni.data.authorOnly
 import com.github.kvnxiao.discord.meirei.annotations.Command
 import com.github.kvnxiao.discord.meirei.annotations.CommandGroup
-import com.github.kvnxiao.discord.meirei.annotations.Permissions
 import com.github.kvnxiao.discord.meirei.command.CommandContext
+import net.dv8tion.jda.core.OnlineStatus
+import net.dv8tion.jda.core.entities.Game
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
-import java.util.Timer
-import kotlin.concurrent.timerTask
-import kotlin.system.exitProcess
+import com.github.cf.discord.uni.data.authorOnly
+import com.github.kvnxiao.discord.meirei.annotations.Permissions
 
-@CommandGroup("system")
-class ShutdownCommand {
-
+@CommandGroup("owner")
+class StatusCommand {
     @Command(
             prefix = "${EnvVars.PREFIX}",
-            id = "shutdown",
-            aliases = ["shutdown"],
-            description = "Shuts down the bot."
+            id = "status",
+            aliases = ["s"],
+            description = "Change the current status",
+            usage = "<input to change the playing status>"
     )
     @Permissions(
             allowDm = true
     )
-    fun onCommand(context: CommandContext, event: MessageReceivedEvent) {
-        if(event.message.author.id in authorOnly.authors){
-            event.channel.sendMessage("**Shutting down in 3 seconds.**").queue({
-                val timer = Timer()
-                timer.schedule(timerTask { exitProcess(ReturnCodes.SHUTDOWN) }, 3000)
-            })
+    fun status(context: CommandContext, event: MessageReceivedEvent){
+        if (event.message.author.id in authorOnly.authors) {
+            event.jda.presence.setPresence(OnlineStatus.ONLINE, Game.of(Game.GameType.STREAMING, "${event.message.contentDisplay}", "https://www.twitch.tv/computerfreaker"))
         }
     }
 }

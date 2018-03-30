@@ -22,6 +22,7 @@ import com.github.cf.discord.uni.commands.info.HelpCommand
 import com.github.cf.discord.uni.commands.info.PingCommand
 import com.github.cf.discord.uni.commands.info.UptimeCommand
 import com.github.cf.discord.uni.commands.info.InviteCommand
+import com.github.cf.discord.uni.commands.owner.StatusCommand
 import com.github.cf.discord.uni.commands.query.GoogleCommand
 import com.github.cf.discord.uni.commands.query.PcPartPickerCommand
 import com.github.cf.discord.uni.commands.query.UrbanDictionaryCommand
@@ -90,7 +91,10 @@ class Uni(token: String) {
                 EightBallCommand(),
 
                 // Scripting
-                KotlinScriptCommand()
+                KotlinScriptCommand(),
+
+                // Owner Only
+                StatusCommand()
         )
         return this
     }

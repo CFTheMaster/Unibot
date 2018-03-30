@@ -24,6 +24,6 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter
 class ReadyEventListener : ListenerAdapter() {
 
     override fun onReady(event: ReadyEvent) {
-        event.jda.presence.setPresence(OnlineStatus.ONLINE, Game.of(Game.GameType.DEFAULT, "${EnvVars.PREFIX}help"))
+        event.jda.presence.setPresence(OnlineStatus.ONLINE, Game.of(Game.GameType.STREAMING, "${EnvVars.PREFIX}help", "https://www.twitch.tv/computerfreaker"))
     }
 }
