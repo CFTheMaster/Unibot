@@ -373,6 +373,7 @@ class AudioPlayerCommand : ListenerAdapter() {
             description = "Clears the audio queue for this guild."
     )
     fun clear(context: CommandContext, event: MessageReceivedEvent) {
+        event.message.channel.sendMessage("cleared the current queue!")
         if (event.channelType.isGuild) {
             val audioManager = guildAudioManager.getOrPut(event.guild)
             audioManager.clear(event.author, event.textChannel)

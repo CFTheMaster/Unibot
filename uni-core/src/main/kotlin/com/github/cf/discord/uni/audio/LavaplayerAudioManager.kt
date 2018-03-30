@@ -113,6 +113,7 @@ class LavaplayerAudioManager(private val playerManager: AudioPlayerManager) : Au
     }
 
     override fun clear(requester: User, channel: TextChannel) {
+        channel.sendMessage(AudioEmbed.clearPlaying()).queue()
         scheduler.clearAll()
     }
 
