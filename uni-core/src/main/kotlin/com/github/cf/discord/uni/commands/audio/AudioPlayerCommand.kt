@@ -35,6 +35,7 @@ import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers
 import com.sedmelluq.discord.lavaplayer.source.nico.NicoAudioSourceManager
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
+import net.dv8tion.jda.core.EmbedBuilder
 import net.dv8tion.jda.core.Permission
 import net.dv8tion.jda.core.entities.Guild
 import net.dv8tion.jda.core.entities.Message
@@ -42,6 +43,7 @@ import net.dv8tion.jda.core.entities.TextChannel
 import net.dv8tion.jda.core.events.ReadyEvent
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
+import java.awt.Color
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
@@ -317,6 +319,17 @@ class AudioPlayerCommand : ListenerAdapter() {
     )
     @PermissionLevel([Permission.ADMINISTRATOR])
     fun setNowPlaying(context: CommandContext, event: MessageReceivedEvent) {
+        val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt()
+        val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt()
+        val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt()
+        val embedColor = Color(randomColor, randomColor1, randomColor2)
+
+        val embed = EmbedBuilder()
+                .setColor(embedColor)
+                .setAuthor("Uni", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
+                .setTitle("music")
+                .setDescription("i have set the current playing channel to ${event.message.channel.name.toString()}")
+                .build()
         val author = event.author
         if(author!!.isBot) {
             return
@@ -328,6 +341,7 @@ class AudioPlayerCommand : ListenerAdapter() {
                 Redis.client.getBucket<String>("${event.guild.idLong}:setnpch").set(channelId.toString())
                 // Invalidate cache
                 nowPlayingChannelCache.invalidate(event.guild.idLong)
+                event.channel.sendMessage(embed).queue()
             }
         }
     }
@@ -341,6 +355,17 @@ class AudioPlayerCommand : ListenerAdapter() {
     @Permissions(removeCallMsg = true)
     @PermissionLevel([Permission.ADMINISTRATOR])
     fun setAudioPlayerPanel(context: CommandContext, event: MessageReceivedEvent) {
+        val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt()
+        val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt()
+        val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt()
+        val embedColor = Color(randomColor, randomColor1, randomColor2)
+
+        val embed = EmbedBuilder()
+                .setColor(embedColor)
+                .setAuthor("Uni", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
+                .setTitle("music")
+                .setDescription("i have set the current update embed for the audio player panel set to channel ${event.message.channel.name.toString()}")
+                .build()
         val author = event.author
         if(author!!.isBot) {
             return
@@ -361,6 +386,7 @@ class AudioPlayerCommand : ListenerAdapter() {
                 val audioManager = guildAudioManager.getOrPut(event.guild)
                 val audioPanel = AudioPlayerPanel(event.textChannel, audioManager)
                 guildAudioPanelManager.put(event.guild.idLong, audioPanel.start())
+                event.channel.sendMessage(embed).queue()
             }
         }
     }
