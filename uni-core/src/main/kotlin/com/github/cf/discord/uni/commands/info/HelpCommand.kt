@@ -59,18 +59,23 @@ class HelpCommand {
     )
     @RegistryAware
     fun help(context: CommandContext, event: MessageReceivedEvent) {
-        val args = context.args
-        if (args != null) {
-            val page = args.toIntOrNull()
-            if (page != null) {
-                // Send help book
-                event.sendHelpBook(context, page).queue()
-            }
-            // Send command info
-            event.sendCommandInfo(context, args)?.queue()
+        val author = event.author
+        if(author!!.isBot) {
+            return
         } else {
-            // Send help book
-            event.sendHelpBook(context).queue()
+            val args = context.args
+            if (args != null) {
+                val page = args.toIntOrNull()
+                if (page != null) {
+                    // Send help book
+                    event.sendHelpBook(context, page).queue()
+                }
+                // Send command info
+                event.sendCommandInfo(context, args)?.queue()
+            } else {
+                // Send help book
+                event.sendHelpBook(context).queue()
+            }
         }
     }
 
@@ -85,16 +90,21 @@ class HelpCommand {
     )
     @RegistryAware
     fun helpAll(context: CommandContext, event: MessageReceivedEvent) {
-        val registry = context.readOnlyCommandRegistry!!
-        val totalCommandsCount = registry.getAllCommandAliases().size
-        val embed = EmbedBuilder()
-                .setColor(EMBED_COLOUR)
-                .setAuthor(EMBED_TITLE, WEBSITE_URL, event.jda.selfUser.avatarUrl)
-                .setDescription("Uni v$VERSION_NUMBER | Displaying all available commands.")
-                .addField("List of all commands", "`${registry.getAllCommandAliases().joinToString()}`", false)
-                .setFooter("$totalCommandsCount commands, ${maxPageSize(totalCommandsCount)} pages available", null)
-                .build()
-        event.channel.sendMessage(embed).queue()
+        val author = event.author
+        if (author!!.isBot) {
+            return
+        } else {
+            val registry = context.readOnlyCommandRegistry!!
+            val totalCommandsCount = registry.getAllCommandAliases().size
+            val embed = EmbedBuilder()
+                    .setColor(EMBED_COLOUR)
+                    .setAuthor(EMBED_TITLE, WEBSITE_URL, event.jda.selfUser.avatarUrl)
+                    .setDescription("Uni v$VERSION_NUMBER | Displaying all available commands.")
+                    .addField("List of all commands", "`${registry.getAllCommandAliases().joinToString()}`", false)
+                    .setFooter("$totalCommandsCount commands, ${maxPageSize(totalCommandsCount)} pages available", null)
+                    .build()
+            event.channel.sendMessage(embed).queue()
+        }
     }
 
     private fun maxPageSize(size: Int): Int {

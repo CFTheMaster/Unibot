@@ -39,7 +39,12 @@ class UptimeCommand {
             allowDm = true
     )
     fun uptime(context: CommandContext, event: MessageReceivedEvent) {
-        event.channel.sendMessage("System uptime: ${Duration.between(startTime, Instant.now()).formatDuration()}").queue()
+        val author = event.author
+        if(author!!.isBot) {
+            return
+        } else {
+            event.channel.sendMessage("System uptime: ${Duration.between(startTime, Instant.now()).formatDuration()}").queue()
+        }
     }
 
     private fun Duration.formatDuration(): String {

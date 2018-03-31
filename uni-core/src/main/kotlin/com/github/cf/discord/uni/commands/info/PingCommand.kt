@@ -36,10 +36,15 @@ class PingCommand {
             allowDm = true
     )
     fun ping(context: CommandContext, event: MessageReceivedEvent) {
-        val receivedTime = event.message.creationTime.toInstant()
-        event.channel.sendMessage("pong!").queue {
-            val sentTime = it.creationTime.toInstant().plusMillis(event.jda.ping)
-            it.editMessage("${it.contentRaw} ${Duration.between(receivedTime, sentTime).toMillis()}ms").queue()
+        val author = event.author
+        if (author!!.isBot) {
+            return
+        } else {
+            val receivedTime = event.message.creationTime.toInstant()
+            event.channel.sendMessage("pong!").queue {
+                val sentTime = it.creationTime.toInstant().plusMillis(event.jda.ping)
+                it.editMessage("${it.contentRaw} ${Duration.between(receivedTime, sentTime).toMillis()}ms").queue()
+            }
         }
     }
 }

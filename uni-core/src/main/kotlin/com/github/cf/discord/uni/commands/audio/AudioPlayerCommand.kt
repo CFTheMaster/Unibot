@@ -166,10 +166,15 @@ class AudioPlayerCommand : ListenerAdapter() {
             description = "Plays audio in the current voice channel the bot is in."
     )
     fun play(context: CommandContext, event: MessageReceivedEvent) {
-        if (event.channelType.isGuild && event.guild.selfMember.voiceState.inVoiceChannel()) {
-            val args = context.args ?: return
-            val audioManager = guildAudioManager.getOrPut(event.guild)
-            audioManager.loadAndPlay(event.author, event.textChannel, args, false)
+        val author = event.author
+        if(author!!.isBot) {
+            return
+        } else {
+            if (event.channelType.isGuild && event.guild.selfMember.voiceState.inVoiceChannel()) {
+                val args = context.args ?: return
+                val audioManager = guildAudioManager.getOrPut(event.guild)
+                audioManager.loadAndPlay(event.author, event.textChannel, args, false)
+            }
         }
     }
 
@@ -181,13 +186,18 @@ class AudioPlayerCommand : ListenerAdapter() {
             usage = "<soundcloud search query>"
     )
     fun soundcloud(context: CommandContext, event: MessageReceivedEvent) {
-        if (event.channelType.isGuild && event.guild.selfMember.voiceState.inVoiceChannel()) {
-            val args = context.args ?: return
-            val audioManager = guildAudioManager.getOrPut(event.guild)
-            if (args.startsWith("https://www.soundcloud.com")) {
-                audioManager.loadAndPlay(event.author, event.textChannel, args, true)
-            } else {
-                audioManager.loadAndPlay(event.author, event.textChannel, "$PREFIX_SOUNDCLOUD$args", true)
+        val author = event.author
+        if(author!!.isBot) {
+            return
+        } else {
+            if (event.channelType.isGuild && event.guild.selfMember.voiceState.inVoiceChannel()) {
+                val args = context.args ?: return
+                val audioManager = guildAudioManager.getOrPut(event.guild)
+                if (args.startsWith("https://www.soundcloud.com")) {
+                    audioManager.loadAndPlay(event.author, event.textChannel, args, true)
+                } else {
+                    audioManager.loadAndPlay(event.author, event.textChannel, "$PREFIX_SOUNDCLOUD$args", true)
+                }
             }
         }
     }
@@ -200,10 +210,15 @@ class AudioPlayerCommand : ListenerAdapter() {
             usage = "<soundcloud search query>"
     )
     fun soundcloudSearch(context: CommandContext, event: MessageReceivedEvent) {
-        if (event.channelType.isGuild && event.guild.selfMember.voiceState.inVoiceChannel()) {
-            val args = context.args ?: return
-            val audioManager = guildAudioManager.getOrPut(event.guild)
-            audioManager.searchAndPlay(event.author, event.textChannel, "$PREFIX_SOUNDCLOUD$args")
+        val author = event.author
+        if(author!!.isBot) {
+            return
+        } else {
+            if (event.channelType.isGuild && event.guild.selfMember.voiceState.inVoiceChannel()) {
+                val args = context.args ?: return
+                val audioManager = guildAudioManager.getOrPut(event.guild)
+                audioManager.searchAndPlay(event.author, event.textChannel, "$PREFIX_SOUNDCLOUD$args")
+            }
         }
     }
 
@@ -215,20 +230,25 @@ class AudioPlayerCommand : ListenerAdapter() {
             usage = "<youtube search query>"
     )
     fun youtube(context: CommandContext, event: MessageReceivedEvent) {
-        if (event.channelType.isGuild && event.guild.selfMember.voiceState.inVoiceChannel()) {
-            val args = context.args ?: return
-            val audioManager = guildAudioManager.getOrPut(event.guild)
-            if (args.startsWith("https://")) {
-                // Playlist
-                if (validYoutubePlaylistPatterns.any { it.matcher(args).matches() }) {
-                    audioManager.loadAndPlay(event.author, event.textChannel, args, false)
+        val author = event.author
+        if(author!!.isBot) {
+            return
+        } else {
+            if (event.channelType.isGuild && event.guild.selfMember.voiceState.inVoiceChannel()) {
+                val args = context.args ?: return
+                val audioManager = guildAudioManager.getOrPut(event.guild)
+                if (args.startsWith("https://")) {
+                    // Playlist
+                    if (validYoutubePlaylistPatterns.any { it.matcher(args).matches() }) {
+                        audioManager.loadAndPlay(event.author, event.textChannel, args, false)
+                    } else {
+                        // Single track
+                        audioManager.loadAndPlay(event.author, event.textChannel, args, true)
+                    }
                 } else {
-                    // Single track
-                    audioManager.loadAndPlay(event.author, event.textChannel, args, true)
+                    // Single track search
+                    audioManager.loadAndPlay(event.author, event.textChannel, "$PREFIX_YOUTUBE$args", true)
                 }
-            } else {
-                // Single track search
-                audioManager.loadAndPlay(event.author, event.textChannel, "$PREFIX_YOUTUBE$args", true)
             }
         }
     }
@@ -241,10 +261,15 @@ class AudioPlayerCommand : ListenerAdapter() {
             usage = "<url to valid source>"
     )
     fun youtubeSearch(context: CommandContext, event: MessageReceivedEvent) {
-        if (event.channelType.isGuild && event.guild.selfMember.voiceState.inVoiceChannel()) {
-            val args = context.args ?: return
-            val audioManager = guildAudioManager.getOrPut(event.guild)
-            audioManager.searchAndPlay(event.author, event.textChannel, "$PREFIX_YOUTUBE$args")
+        val author = event.author
+        if(author!!.isBot) {
+            return
+        } else {
+            if (event.channelType.isGuild && event.guild.selfMember.voiceState.inVoiceChannel()) {
+                val args = context.args ?: return
+                val audioManager = guildAudioManager.getOrPut(event.guild)
+                audioManager.searchAndPlay(event.author, event.textChannel, "$PREFIX_YOUTUBE$args")
+            }
         }
     }
 
@@ -255,9 +280,14 @@ class AudioPlayerCommand : ListenerAdapter() {
             description = "Skips the current playing track to the next one."
     )
     fun skip(context: CommandContext, event: MessageReceivedEvent) {
-        if (event.channelType.isGuild) {
-            val audioManager = guildAudioManager.getOrPut(event.guild)
-            audioManager.skip(event.author, event.textChannel)
+        val author = event.author
+        if (author!!.isBot) {
+            return
+        } else {
+            if (event.channelType.isGuild) {
+                val audioManager = guildAudioManager.getOrPut(event.guild)
+                audioManager.skip(event.author, event.textChannel)
+            }
         }
     }
 
@@ -268,9 +298,14 @@ class AudioPlayerCommand : ListenerAdapter() {
             description = "Stops the current playing track."
     )
     fun stop(context: CommandContext, event: MessageReceivedEvent) {
-        if (event.channelType.isGuild && event.guild.selfMember.voiceState.inVoiceChannel()) {
-            val audioManager = guildAudioManager.getOrPut(event.guild)
-            audioManager.stop(event.author, event.textChannel)
+        val author = event.author
+        if(author!!.isBot) {
+            return
+        } else {
+            if (event.channelType.isGuild && event.guild.selfMember.voiceState.inVoiceChannel()) {
+                val audioManager = guildAudioManager.getOrPut(event.guild)
+                audioManager.stop(event.author, event.textChannel)
+            }
         }
     }
 
@@ -282,13 +317,18 @@ class AudioPlayerCommand : ListenerAdapter() {
     )
     @PermissionLevel([Permission.ADMINISTRATOR])
     fun setNowPlaying(context: CommandContext, event: MessageReceivedEvent) {
-        if (event.channelType.isGuild) {
-            val channelId = event.textChannel.idLong
+        val author = event.author
+        if(author!!.isBot) {
+            return
+        } else {
+            if (event.channelType.isGuild) {
+                val channelId = event.textChannel.idLong
 
-            // Set channel ID in Redis
-            Redis.client.getBucket<String>("${event.guild.idLong}:setnpch").set(channelId.toString())
-            // Invalidate cache
-            nowPlayingChannelCache.invalidate(event.guild.idLong)
+                // Set channel ID in Redis
+                Redis.client.getBucket<String>("${event.guild.idLong}:setnpch").set(channelId.toString())
+                // Invalidate cache
+                nowPlayingChannelCache.invalidate(event.guild.idLong)
+            }
         }
     }
 
@@ -301,22 +341,27 @@ class AudioPlayerCommand : ListenerAdapter() {
     @Permissions(removeCallMsg = true)
     @PermissionLevel([Permission.ADMINISTRATOR])
     fun setAudioPlayerPanel(context: CommandContext, event: MessageReceivedEvent) {
-        // Set channel only if audio panel doesn't exit
-        if (event.channelType.isGuild && !guildAudioPanelManager.contains(event.guild.idLong)) {
-            // Set channel ID in Redis
-            val channelId = event.textChannel.idLong
-            try {
-                // Create the SessionFactory from hibernate.cfg.xml
-                Redis.client.getBucket<String>("${event.guild.idLong}:setapch").set(channelId.toString())
-            } catch (ex: Throwable) {
-                System.err.println("Initial SessionFactory creation failed. $ex")
-                throw ExceptionInInitializerError(ex)
-            }
+        val author = event.author
+        if(author!!.isBot) {
+            return
+        } else {
+            // Set channel only if audio panel doesn't exit
+            if (event.channelType.isGuild && !guildAudioPanelManager.contains(event.guild.idLong)) {
+                // Set channel ID in Redis
+                val channelId = event.textChannel.idLong
+                try {
+                    // Create the SessionFactory from hibernate.cfg.xml
+                    Redis.client.getBucket<String>("${event.guild.idLong}:setapch").set(channelId.toString())
+                } catch (ex: Throwable) {
+                    System.err.println("Initial SessionFactory creation failed. $ex")
+                    throw ExceptionInInitializerError(ex)
+                }
 
-            // Create a new audio player panel
-            val audioManager = guildAudioManager.getOrPut(event.guild)
-            val audioPanel = AudioPlayerPanel(event.textChannel, audioManager)
-            guildAudioPanelManager.put(event.guild.idLong, audioPanel.start())
+                // Create a new audio player panel
+                val audioManager = guildAudioManager.getOrPut(event.guild)
+                val audioPanel = AudioPlayerPanel(event.textChannel, audioManager)
+                guildAudioPanelManager.put(event.guild.idLong, audioPanel.start())
+            }
         }
     }
 
@@ -328,13 +373,18 @@ class AudioPlayerCommand : ListenerAdapter() {
     )
     @PermissionLevel([Permission.ADMINISTRATOR])
     fun deleteAudioPlayerPanel(context: CommandContext, event: MessageReceivedEvent) {
+        val author = event.author
+        if (author!!.isBot) {
+            return
+        } else {
         // Delete channel only if audio panel exists
-        if (event.channelType.isGuild && guildAudioPanelManager.contains(event.guild.idLong)) {
-            // Delete channel ID in Redis
-            Redis.client.getBucket<String>("${event.guild.idLong}:setapch").delete()
-            val audioPlayer = guildAudioPanelManager.delete(event.guild.idLong)!!
-            // Dispose the periodic update scheduler
-            audioPlayer.dispose()
+            if (event.channelType.isGuild && guildAudioPanelManager.contains(event.guild.idLong)) {
+                // Delete channel ID in Redis
+                Redis.client.getBucket<String>("${event.guild.idLong}:setapch").delete()
+                val audioPlayer = guildAudioPanelManager.delete(event.guild.idLong)!!
+                // Dispose the periodic update scheduler
+                audioPlayer.dispose()
+            }
         }
     }
 
@@ -345,10 +395,15 @@ class AudioPlayerCommand : ListenerAdapter() {
             description = "Shuffles all queued tracks in the audio player."
     )
     fun shuffle(context: CommandContext, event: MessageReceivedEvent) {
-        if (event.channelType.isGuild && event.guild.selfMember.voiceState.inVoiceChannel()) {
-            val audioManager = guildAudioManager.getOrPut(event.guild)
-            // Shuffle tracks in current guild
-            audioManager.shuffle(event.author, event.textChannel)
+        val author = event.author
+        if(author!!.isBot) {
+            return
+        } else {
+            if (event.channelType.isGuild && event.guild.selfMember.voiceState.inVoiceChannel()) {
+                val audioManager = guildAudioManager.getOrPut(event.guild)
+                // Shuffle tracks in current guild
+                audioManager.shuffle(event.author, event.textChannel)
+            }
         }
     }
 
@@ -359,10 +414,15 @@ class AudioPlayerCommand : ListenerAdapter() {
             description = "Shows the current playing track and the rest of the queue."
     )
     fun nowPlaying(context: CommandContext, event: MessageReceivedEvent) {
-        if (event.channelType.isGuild) {
-            val audioManager = guildAudioManager.getOrPut(event.guild)
-            val page = context.args?.toIntOrNull() ?: 1
-            AudioEmbed.nowPlayingPaginatedEmbed(audioManager, event.textChannel, event.author, page).queue()
+        val author = event.author
+        if(author!!.isBot) {
+            return
+        } else {
+            if (event.channelType.isGuild) {
+                val audioManager = guildAudioManager.getOrPut(event.guild)
+                val page = context.args?.toIntOrNull() ?: 1
+                AudioEmbed.nowPlayingPaginatedEmbed(audioManager, event.textChannel, event.author, page).queue()
+            }
         }
     }
 
@@ -373,10 +433,15 @@ class AudioPlayerCommand : ListenerAdapter() {
             description = "Clears the audio queue for this guild."
     )
     fun clear(context: CommandContext, event: MessageReceivedEvent) {
-        event.message.channel.sendMessage("cleared the current queue!")
-        if (event.channelType.isGuild) {
-            val audioManager = guildAudioManager.getOrPut(event.guild)
-            audioManager.clear(event.author, event.textChannel)
+        val author = event.author
+        if(author!!.isBot) {
+            return
+        } else {
+            event.message.channel.sendMessage("cleared the current queue!")
+            if (event.channelType.isGuild) {
+                val audioManager = guildAudioManager.getOrPut(event.guild)
+                audioManager.clear(event.author, event.textChannel)
+            }
         }
     }
 

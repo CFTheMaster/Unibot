@@ -45,29 +45,36 @@ class UrbanDictionaryCommand {
             usage = "<input to search on Urban Dictionary>"
     )
     fun urbanDictionary(context: CommandContext, event: MessageReceivedEvent) {
-        val query = context.args ?: return
-        val url = SEARCH_URL_BUILDER.newBuilder().addQueryParameter("term", query).build()
-        val request = Request.Builder().url(url).build()
-        val messageFuture = event.channel.sendMessage("Searching for **$query** on Urban Dictionary...").submit()
+        val author = event.author
+        if (author!!.isBot) {
+            return
+        } else {
+            val query = context.args ?: return
+            val url = SEARCH_URL_BUILDER.newBuilder().addQueryParameter("term", query).build()
+            val request = Request.Builder().url(url).build()
+            val messageFuture = event.channel.sendMessage("Searching for **$query** on Urban Dictionary...").submit()
 
-        HttpQuery.queryMono(request)
-                .doOnError { messageFuture.get().editMessage("Search for **$it** on Urban Dictionary failed! ${it.localizedMessage}").queue() }
-                .flatMap(HttpQuery::responseBody)
-                .map { HttpQuery.OBJECT_MAPPER.readTree(it.bytes())["list"].toList() }
-                .doOnError { messageFuture.get().editMessage("Could not read response from Urban Dictionary!").queue() }
-                .subscribe {
-                    val message = messageFuture.get()
-                    if (it.isNotEmpty()) {
-                        message.editMessage(it.subList(0, min(5, it.size)).mapIndexed { i, node -> "`${i + 1}. ${node["definition"].textValue().let {
-                            if (it.length > 150) {
-                                "${it.substring(0, 147)}..."
-                            } else {
-                                it
-                            }
-                        }}`" }.joinToString(separator = LINE_SEPARATOR)).queue()
-                    } else {
-                        message.editMessage("${message.contentRaw} but no results were found.").queue()
+            HttpQuery.queryMono(request)
+                    .doOnError { messageFuture.get().editMessage("Search for **$it** on Urban Dictionary failed! ${it.localizedMessage}").queue() }
+                    .flatMap(HttpQuery::responseBody)
+                    .map { HttpQuery.OBJECT_MAPPER.readTree(it.bytes())["list"].toList() }
+                    .doOnError { messageFuture.get().editMessage("Could not read response from Urban Dictionary!").queue() }
+                    .subscribe {
+                        val message = messageFuture.get()
+                        if (it.isNotEmpty()) {
+                            message.editMessage(it.subList(0, min(5, it.size)).mapIndexed { i, node ->
+                                "`${i + 1}. ${node["definition"].textValue().let {
+                                    if (it.length > 150) {
+                                        "${it.substring(0, 147)}..."
+                                    } else {
+                                        it
+                                    }
+                                }}`"
+                            }.joinToString(separator = LINE_SEPARATOR)).queue()
+                        } else {
+                            message.editMessage("${message.contentRaw} but no results were found.").queue()
+                        }
                     }
-                }
+        }
     }
 }

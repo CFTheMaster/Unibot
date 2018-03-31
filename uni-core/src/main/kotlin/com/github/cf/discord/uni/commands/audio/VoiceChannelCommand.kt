@@ -52,19 +52,24 @@ class VoiceChannelCommand {
             description = "Makes the bot join the current voice channel you are in"
     )
     fun join(context: CommandContext, event: MessageReceivedEvent) {
-        val randomColor = (Math.floor(Math.random()*(255))+1).toInt()
-        val randomColor1 = (Math.floor(Math.random()*(255))+1).toInt()
-        val randomColor2 = (Math.floor(Math.random()*(255))+1).toInt()
-        val embedColor = Color(randomColor, randomColor1, randomColor2)
-        val embed = EmbedBuilder()
-                .setColor(embedColor)
-                .setAuthor("Uni", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
-                .setTitle("joined the voice channel")
-                .setDescription("don't forget to do ${EnvVars.PREFIX}setapch to set the music channel \uD83D\uDC9C")
-                .build()
-        if (event.channelType.isGuild && event.member.voiceState.inVoiceChannel()) {
-            connectToVoiceChannel(event.guild.audioManager, event.member.voiceState.channel)
-            event.message.channel.sendMessage(embed).queue()
+        val author = event.author
+        if (author!!.isBot) {
+            return
+        } else {
+            val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt()
+            val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt()
+            val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt()
+            val embedColor = Color(randomColor, randomColor1, randomColor2)
+            val embed = EmbedBuilder()
+                    .setColor(embedColor)
+                    .setAuthor("Uni", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
+                    .setTitle("joined the voice channel")
+                    .setDescription("don't forget to do ${EnvVars.PREFIX}setapch to set the music channel \uD83D\uDC9C")
+                    .build()
+            if (event.channelType.isGuild && event.member.voiceState.inVoiceChannel()) {
+                connectToVoiceChannel(event.guild.audioManager, event.member.voiceState.channel)
+                event.message.channel.sendMessage(embed).queue()
+            }
         }
     }
 
@@ -75,20 +80,25 @@ class VoiceChannelCommand {
             description = "Makes the bot leave the current voice channel it is in."
     )
     fun leave(context: CommandContext, event: MessageReceivedEvent) {
-        val randomColor = (Math.floor(Math.random()*(255))+1).toInt()
-        val randomColor1 = (Math.floor(Math.random()*(255))+1).toInt()
-        val randomColor2 = (Math.floor(Math.random()*(255))+1).toInt()
-        val embedColor = Color(randomColor, randomColor1, randomColor2)
+        val author = event.author
+        if (author!!.isBot) {
+            return
+        } else {
+            val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt()
+            val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt()
+            val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt()
+            val embedColor = Color(randomColor, randomColor1, randomColor2)
 
-        val embed = EmbedBuilder()
-                .setColor(embedColor)
-                .setAuthor("Uni", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
-                .setTitle("left the current voice channel")
-                .setDescription("i left the current voice channel <:TheSaddest:370615171464429569>")
-                .build()
-        if (event.channelType.isGuild) {
-            leaveVoiceChannel(event.guild.audioManager)
-            event.message.channel.sendMessage(embed).queue()
+            val embed = EmbedBuilder()
+                    .setColor(embedColor)
+                    .setAuthor("Uni", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
+                    .setTitle("left the current voice channel")
+                    .setDescription("i left the current voice channel <:TheSaddest:370615171464429569>")
+                    .build()
+            if (event.channelType.isGuild) {
+                leaveVoiceChannel(event.guild.audioManager)
+                event.message.channel.sendMessage(embed).queue()
+            }
         }
     }
 }

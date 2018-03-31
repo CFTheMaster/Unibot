@@ -49,31 +49,36 @@ class WikipediaCommand {
             usage = "<input to search on wikipedia>"
     )
     fun wikipedia(context: CommandContext, event: MessageReceivedEvent) {
-        val query = context.args ?: return
-        val url = SEARCH_URL_BUILDER.newBuilder().addQueryParameter("srsearch", query).build()
-        val request = Request.Builder().url(url).build()
-        val messageFuture = event.channel.sendMessage("Searching for **$query** on Wikipedia...").submit()
+        val author = event.author
+        if(author!!.isBot) {
+            return
+        } else {
+            val query = context.args ?: return
+            val url = SEARCH_URL_BUILDER.newBuilder().addQueryParameter("srsearch", query).build()
+            val request = Request.Builder().url(url).build()
+            val messageFuture = event.channel.sendMessage("Searching for **$query** on Wikipedia...").submit()
 
-        HttpQuery.queryMono(request)
-                .doOnError { messageFuture.get().editMessage("Search for **$it** on Wikipedia failed! ${it.localizedMessage}").queue() }
-                .flatMap(HttpQuery::responseBody)
-                .map { OBJECT_MAPPER.readTree(it.bytes())["query"]["search"].toList() }
-                .doOnError { messageFuture.get().editMessage("Could not read response from Wikipedia!").queue() }
-                .subscribe {
-                    val message = messageFuture.get()
-                    if (it.isNotEmpty()) {
-                        val articleTitles = it.map { it["title"].asText() }
-                        message.editMessage(
-                                "${message.contentRaw}$LINE_SEPARATOR" +
-                                        "${getArticleUrl(articleTitles.first())}$LINE_SEPARATOR" +
-                                        "Other relevant articles: ${
-                                        if (articleTitles.size > 1)
-                                            articleTitles.subList(1, articleTitles.size).joinToString()
-                                        else "none."}").queue()
-                    } else {
-                        message.editMessage("${message.contentRaw} but no results were found.").queue()
+            HttpQuery.queryMono(request)
+                    .doOnError { messageFuture.get().editMessage("Search for **$it** on Wikipedia failed! ${it.localizedMessage}").queue() }
+                    .flatMap(HttpQuery::responseBody)
+                    .map { OBJECT_MAPPER.readTree(it.bytes())["query"]["search"].toList() }
+                    .doOnError { messageFuture.get().editMessage("Could not read response from Wikipedia!").queue() }
+                    .subscribe {
+                        val message = messageFuture.get()
+                        if (it.isNotEmpty()) {
+                            val articleTitles = it.map { it["title"].asText() }
+                            message.editMessage(
+                                    "${message.contentRaw}$LINE_SEPARATOR" +
+                                            "${getArticleUrl(articleTitles.first())}$LINE_SEPARATOR" +
+                                            "Other relevant articles: ${
+                                            if (articleTitles.size > 1)
+                                                articleTitles.subList(1, articleTitles.size).joinToString()
+                                            else "none."}").queue()
+                        } else {
+                            message.editMessage("${message.contentRaw} but no results were found.").queue()
+                        }
                     }
-                }
+        }
     }
 
     private fun getArticleUrl(title: String): String {

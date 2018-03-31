@@ -71,20 +71,25 @@ class PcPartPickerCommand {
             usage = "<PCPP username> <build name, can be in quotes>"
     )
     fun pcppCompleted(context: CommandContext, event: MessageReceivedEvent) {
-        val args = context.args ?: return
-        val (user, buildName) = splitString(args)
-        user.let { userName ->
-            val messageFuture = event.channel.sendMessage("Searching for **$userName**'s completed builds on PCPP.").submit()
+        val author = event.author
+        if(author!!.isBot) {
+            return
+        } else {
+            val args = context.args ?: return
+            val (user, buildName) = splitString(args)
+            user.let { userName ->
+                val messageFuture = event.channel.sendMessage("Searching for **$userName**'s completed builds on PCPP.").submit()
 
-            HttpQuery
-                    .queryMono(Request.Builder().url(userCompletedBuildsUrl(userName)).build())
-                    .doOnError { if (it is HttpError) userNotExistMsg(userName, messageFuture.get()) }
-                    .flatMap(HttpQuery::responseBody)
-                    .map { getHref(it.string(), buildName, PcppBuildType.COMPLETED) }
-                    .doOnError { if (it !is HttpError) userNoBuildsMsg(userName, messageFuture.get()) }
-                    .flatMap(this::getCompleted)
-                    .doOnSuccess { sendBuildParts(it, messageFuture.get()) }
-                    .subscribe()
+                HttpQuery
+                        .queryMono(Request.Builder().url(userCompletedBuildsUrl(userName)).build())
+                        .doOnError { if (it is HttpError) userNotExistMsg(userName, messageFuture.get()) }
+                        .flatMap(HttpQuery::responseBody)
+                        .map { getHref(it.string(), buildName, PcppBuildType.COMPLETED) }
+                        .doOnError { if (it !is HttpError) userNoBuildsMsg(userName, messageFuture.get()) }
+                        .flatMap(this::getCompleted)
+                        .doOnSuccess { sendBuildParts(it, messageFuture.get()) }
+                        .subscribe()
+            }
         }
     }
 
@@ -97,20 +102,25 @@ class PcPartPickerCommand {
             usage = "<PCPP username> <build name, can be in quotes>"
     )
     fun pcppSaved(context: CommandContext, event: MessageReceivedEvent) {
-        val args = context.args ?: return
-        val (user, buildName) = splitString(args)
-        user.let { userName ->
-            val messageFuture = event.channel.sendMessage("Searching for **$userName**'s saved builds on PCPP.").submit()
+        val author = event.author
+        if(author!!.isBot) {
+            return
+        } else {
+            val args = context.args ?: return
+            val (user, buildName) = splitString(args)
+            user.let { userName ->
+                val messageFuture = event.channel.sendMessage("Searching for **$userName**'s saved builds on PCPP.").submit()
 
-            HttpQuery
-                    .queryMono(Request.Builder().url(userSavedBuildsUrl(userName)).build())
-                    .doOnError { if (it is HttpError) userNotExistMsg(userName, messageFuture.get()) }
-                    .flatMap(HttpQuery::responseBody)
-                    .map { getHref(it.string(), buildName, PcppBuildType.SAVED) }
-                    .doOnError { if (it !is HttpError) userNoBuildsMsg(userName, messageFuture.get()) }
-                    .flatMap { getSaved(userName, it) }
-                    .doOnSuccess { sendBuildParts(it, messageFuture.get()) }
-                    .subscribe()
+                HttpQuery
+                        .queryMono(Request.Builder().url(userSavedBuildsUrl(userName)).build())
+                        .doOnError { if (it is HttpError) userNotExistMsg(userName, messageFuture.get()) }
+                        .flatMap(HttpQuery::responseBody)
+                        .map { getHref(it.string(), buildName, PcppBuildType.SAVED) }
+                        .doOnError { if (it !is HttpError) userNoBuildsMsg(userName, messageFuture.get()) }
+                        .flatMap { getSaved(userName, it) }
+                        .doOnSuccess { sendBuildParts(it, messageFuture.get()) }
+                        .subscribe()
+            }
         }
     }
 

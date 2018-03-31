@@ -46,33 +46,38 @@ class GoogleCommand {
             usage = "<input to search on google>"
     )
     fun google(context: CommandContext, event: MessageReceivedEvent) {
-        val query = context.args ?: return
+        val author = event.author
+        if (author!!.isBot) {
+            return
+        } else {
+            val query = context.args ?: return
 
-        val url = CUSTOM_SEARCH_URL_BUILDER.newBuilder().addQueryParameter("q", query).build()
-        val request = Request.Builder().url(url).build()
-        val messageFuture = event.channel.sendMessage("Searching for **$query** on Google...").submit()
+            val url = CUSTOM_SEARCH_URL_BUILDER.newBuilder().addQueryParameter("q", query).build()
+            val request = Request.Builder().url(url).build()
+            val messageFuture = event.channel.sendMessage("Searching for **$query** on Google...").submit()
 
-        // Query for google search results and edit message
-        HttpQuery.queryMono(request)
-                .doOnError { messageFuture.get().editMessage("Search for **$it** on Google failed! ${it.localizedMessage}").queue() }
-                .flatMap(HttpQuery::responseBody)
-                .map { HttpQuery.OBJECT_MAPPER.readTree(it.bytes()) }
-                .filter { it.has("items") }
-                .map { it["items"].toList() }
-                .subscribe { results ->
-                    val message = messageFuture.get()
-                    val titles = results.map { it["title"].asText() }
-                    if (results.isNotEmpty()) {
-                        message.editMessage(
-                                "${message.contentRaw}$LINE_SEPARATOR" +
-                                        "**${titles.first()}** - ${results.first()["link"].asText()}$LINE_SEPARATOR" +
-                                        "${results.first()["snippet"].asText()}$LINE_SEPARATOR" +
-                                        LINE_SEPARATOR +
-                                        "Other relevant results:$LINE_SEPARATOR" +
-                                        if (titles.size > 1) titles.subList(1, titles.size).joinToString(LINE_SEPARATOR, prefix = "`", postfix = "`") else "none.").queue()
-                    } else {
-                        message.editMessage("${message.contentRaw} but no results were found.").queue()
+            // Query for google search results and edit message
+            HttpQuery.queryMono(request)
+                    .doOnError { messageFuture.get().editMessage("Search for **$it** on Google failed! ${it.localizedMessage}").queue() }
+                    .flatMap(HttpQuery::responseBody)
+                    .map { HttpQuery.OBJECT_MAPPER.readTree(it.bytes()) }
+                    .filter { it.has("items") }
+                    .map { it["items"].toList() }
+                    .subscribe { results ->
+                        val message = messageFuture.get()
+                        val titles = results.map { it["title"].asText() }
+                        if (results.isNotEmpty()) {
+                            message.editMessage(
+                                    "${message.contentRaw}$LINE_SEPARATOR" +
+                                            "**${titles.first()}** - ${results.first()["link"].asText()}$LINE_SEPARATOR" +
+                                            "${results.first()["snippet"].asText()}$LINE_SEPARATOR" +
+                                            LINE_SEPARATOR +
+                                            "Other relevant results:$LINE_SEPARATOR" +
+                                            if (titles.size > 1) titles.subList(1, titles.size).joinToString(LINE_SEPARATOR, prefix = "`", postfix = "`") else "none.").queue()
+                        } else {
+                            message.editMessage("${message.contentRaw} but no results were found.").queue()
+                        }
                     }
-                }
+        }
     }
 }

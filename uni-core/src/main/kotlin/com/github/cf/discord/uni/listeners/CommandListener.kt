@@ -24,16 +24,16 @@ import net.dv8tion.jda.core.Permission
 class CommandListener : ListenerAdapter() {
 
     override fun onMessageReceived(event: MessageReceivedEvent) {
-        val author = event?.author
+        val author = event.author
         if(author!!.isBot) {
             return
         }
     }
 
     override fun onGuildMessageReceived(event: GuildMessageReceivedEvent) {
-        val channel = event?.channel
-        val guild = event?.guild
-        val author = event?.author
+        val channel = event.channel
+        val guild = event.guild
+        val author = event.author
         if(!PermissionUtil.checkPermission(channel, guild?.selfMember, Permission.MESSAGE_WRITE)
                 || !PermissionUtil.checkPermission(channel, guild?.selfMember, Permission.MESSAGE_EMBED_LINKS)
                 || author!!.isBot) {

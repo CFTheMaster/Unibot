@@ -58,8 +58,13 @@ class EightBallCommand {
             usage = "<question to ask 8ball>"
     )
     fun onCommand(context: CommandContext, event: MessageReceivedEvent) {
-        val args = context.args ?: return
-        event.channel.sendMessage("**Question:** $args\n$EIGHTBALL_EMOJI**: ${randAnswer()}**").queue()
+        val author = event.author
+        if(author!!.isBot) {
+            return
+        } else {
+            val args = context.args ?: return
+            event.channel.sendMessage("**Question:** $args\n$EIGHTBALL_EMOJI**: ${randAnswer()}**").queue()
+        }
     }
 
     private fun randAnswer(): String {
