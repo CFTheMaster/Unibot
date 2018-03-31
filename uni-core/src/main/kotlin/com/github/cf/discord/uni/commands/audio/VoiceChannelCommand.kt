@@ -64,7 +64,7 @@ class VoiceChannelCommand {
                     .setColor(embedColor)
                     .setAuthor("Uni", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
                     .setTitle("joined the voice channel")
-                    .setDescription("don't forget to do ${EnvVars.PREFIX}setapch to set the music channel \uD83D\uDC9C")
+                    .setDescription("don't forget to do ${EnvVars.PREFIX}setapch and ${EnvVars.PREFIX}setnpch to set the music channel \uD83D\uDC9C")
                     .build()
             if (event.channelType.isGuild && event.member.voiceState.inVoiceChannel()) {
                 connectToVoiceChannel(event.guild.audioManager, event.member.voiceState.channel)
