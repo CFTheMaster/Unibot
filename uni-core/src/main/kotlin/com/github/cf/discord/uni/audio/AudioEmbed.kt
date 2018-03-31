@@ -50,7 +50,7 @@ object AudioEmbed {
         }else{
             return embed("Now Playing")
                     .setDescription("${track.info.titleLink()}${if (track.info.isStream) "" else " (${track.duration.toDurationString()})"}".bold())
-                    .setFooter("$remaining tracks left in queue.}", "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
+                    .setFooter("$remaining tracks left in queue.", "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
                     .build()
         }
     }
@@ -81,7 +81,7 @@ object AudioEmbed {
         else{
             return embed("Now Playing")
                     .setDescription("${track.info.titleLink()}${if (track.info.isStream) "" else " (${track.duration.toDurationString()})"}".bold())
-                    .setFooter("$remaining tracks left in queue.}", "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
+                    .setFooter("$remaining tracks left in queue.", "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
                     .build()
         }
     }
