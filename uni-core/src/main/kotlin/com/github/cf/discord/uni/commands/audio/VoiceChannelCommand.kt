@@ -52,12 +52,24 @@ class VoiceChannelCommand {
             description = "Makes the bot join the current voice channel you are in"
     )
     fun join(context: CommandContext, event: MessageReceivedEvent) {
+        val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt()
+        val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt()
+        val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt()
+        val embedColor = Color(randomColor, randomColor1, randomColor2)
+
+        val embed = EmbedBuilder()
+                .setColor(embedColor)
+                .setAuthor("Uni", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
+                .setTitle("joined the current voice channel")
+                .setDescription("don't forget to do **${EnvVars.PREFIX}setapch** and **${EnvVars.PREFIX}setnpch** to set the current music channel")
+                .build()
         val author = event.author
         if (author!!.isBot) {
             return
         } else {
             if (event.channelType.isGuild && event.member.voiceState.inVoiceChannel()) {
                 connectToVoiceChannel(event.guild.audioManager, event.member.voiceState.channel)
+                event.message.channel.sendMessage(embed).queue()
             }
         }
     }

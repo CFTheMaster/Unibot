@@ -328,7 +328,7 @@ class AudioPlayerCommand : ListenerAdapter() {
                 .setColor(embedColor)
                 .setAuthor("Uni", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
                 .setTitle("music")
-                .setDescription("i have set the current playing channel to ${event.message.channel.name.toString()}")
+                .setDescription("i have set the current playing channel to <#${event.message.channel.id}>")
                 .build()
         val author = event.author
         if(author!!.isBot) {
