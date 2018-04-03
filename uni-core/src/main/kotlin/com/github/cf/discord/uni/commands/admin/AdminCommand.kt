@@ -27,7 +27,10 @@ class AdminCommand {
         } else {
             val mentioned = event.message.mentionedUsers
             if (mentioned.isEmpty()) event.channel.sendMessage("please provide user/users to be banned")
-            else if (event.member.hasPermission(Permission.BAN_MEMBERS) || event.member.hasPermission(Permission.ADMINISTRATOR)) {
+             else if (event.member.isOwner.equals(mentioned) || event.jda.selfUser.equals(mentioned)){
+                event.channel.sendMessage("i can not ban the owner of this guild/myself").queue()
+             }
+             else if (event.member.hasPermission(Permission.BAN_MEMBERS) || event.member.hasPermission(Permission.ADMINISTRATOR)) {
                 mentioned.forEach {
                     try {
                         event.guild.controller.ban(it, 0, "Banned by ${event.author.name}").queue()
@@ -73,10 +76,12 @@ class AdminCommand {
     )
     fun kick(context: CommandContext, event: MessageReceivedEvent){
         val author = event.author
+        val mentioned = event.message.mentionedUsers
         if (author!!.isBot) {
             return
+        } else if (event.member.isOwner.equals(mentioned) || event.jda.selfUser.equals(mentioned)){
+            event.channel.sendMessage("i can not kick the owner of this guild/myself").queue()
         } else {
-            val mentioned = event.message.mentionedUsers
             if (mentioned.isEmpty()) event.channel.sendMessage("please provide user/users to be kicked")
             else if (event.member.hasPermission(Permission.KICK_MEMBERS) || event.member.hasPermission(Permission.ADMINISTRATOR)) {
                 mentioned.forEach {
