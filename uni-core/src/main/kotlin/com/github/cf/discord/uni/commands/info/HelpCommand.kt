@@ -42,7 +42,7 @@ class HelpCommand {
         const val EMBED_TITLE = "Uni Help Page"
         const val WEBSITE_URL = "https://bots.computerfreaker.cf/uni/"
         const val COMMANDS_PER_PAGE = 10
-        const val VERSION_NUMBER = "0.0.3"
+        const val VERSION_NUMBER = "0.0.4"
         @JvmStatic
         val EMBED_COLOUR = Color(125, 165, 222)
     }
