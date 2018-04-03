@@ -19,29 +19,29 @@ class AdminCommand {
             usage = "<input to ban a certained user>"
     )
     fun ban(context: CommandContext, event: MessageReceivedEvent) {
-        val channel = event.channel
-        val guild = event.guild
         val author = event.author
-        if (author!!.isBot) {
-            return
-        } else {
-            val mentioned = event.message.mentionedUsers
-            if (mentioned.isEmpty()) event.channel.sendMessage("please provide user/users to be banned")
-             else if (event.member.isOwner.equals(mentioned) || event.jda.selfUser.equals(mentioned)){
-                event.channel.sendMessage("i can not ban the owner of this guild/myself").queue()
-             }
-             else if (event.member.hasPermission(Permission.BAN_MEMBERS) || event.member.hasPermission(Permission.ADMINISTRATOR)) {
-                mentioned.forEach {
-                    try {
-                        event.guild.controller.ban(it, 0, "Banned by ${event.author.name}").queue()
-                    } catch (e: Exception) {
-                        event.channel.sendMessage("Please make sure I have the proper permission to ban ${it.toString()}")
+        val guild = event.guild
+        val mentioned = event.message.mentionedUsers
+        if (author!!.isBot) return
+        else if (mentioned.isEmpty()) event.channel.sendMessage("please provide user/users to be kicked")
+        else if (event.member.hasPermission(Permission.BAN_MEMBERS) || event.member.hasPermission(Permission.ADMINISTRATOR)) {
+            var hasBanned = false
+            mentioned.forEach {
+                try {
+                    if (PermissionUtil.canInteract(event.guild.selfMember, event.message.guild.getMemberById(it.id)) || event.jda.selfUser.equals(mentioned)){
+                        event.guild.controller.ban(it.id, 0,"Kicked by ${event.author.name}").queue()
+                        hasBanned = true
+                    }else{
+                        event.channel.sendMessage("I can not ban<@!${it.id}>").queue()
                     }
+                } catch (e: Exception) {
+                    event.channel.sendMessage("Please make sure I have the proper permission to ban ${it.toString()}")
                 }
-                event.channel.sendMessage("i have banned the user(s)").queue()
-            } else {
-                event.channel.sendMessage("You need the `Ban Members` permission to use this command!").queue()
             }
+            if(hasBanned)
+                event.channel.sendMessage("i have banned the user(s)").queue()
+        } else {
+            event.channel.sendMessage("You need the `Ban Members` permission to use this command!").queue()
         }
     }
     @Command(
@@ -76,25 +76,28 @@ class AdminCommand {
     )
     fun kick(context: CommandContext, event: MessageReceivedEvent){
         val author = event.author
+        val guild = event.guild
         val mentioned = event.message.mentionedUsers
-        if (author!!.isBot) {
-            return
-        } else if (event.member.isOwner.equals(mentioned) || event.jda.selfUser.equals(mentioned)){
-            event.channel.sendMessage("i can not kick the owner of this guild/myself").queue()
-        } else {
-            if (mentioned.isEmpty()) event.channel.sendMessage("please provide user/users to be kicked")
-            else if (event.member.hasPermission(Permission.KICK_MEMBERS) || event.member.hasPermission(Permission.ADMINISTRATOR)) {
-                mentioned.forEach {
-                    try {
-                        event.guild.controller.kick(it.id, "Banned by ${event.author.name}").queue()
-                    } catch (e: Exception) {
-                        event.channel.sendMessage("Please make sure I have the proper permission to kick ${it.toString()}")
+        if (author!!.isBot) return
+        else if (mentioned.isEmpty()) event.channel.sendMessage("please provide user/users to be kicked")
+        else if (event.member.hasPermission(Permission.KICK_MEMBERS) || event.member.hasPermission(Permission.ADMINISTRATOR)) {
+            var hasKicked = false
+            mentioned.forEach {
+                try {
+                    if (PermissionUtil.canInteract(event.guild.selfMember, event.message.guild.getMemberById(it.id)) || event.jda.selfUser.equals(mentioned)){
+                        event.guild.controller.kick(it.id, "Kicked by ${event.author.name}").queue()
+                        hasKicked = true
+                    }else{
+                        event.channel.sendMessage("I can not kick <@!${it.id}>").queue()
                     }
+                } catch (e: Exception) {
+                    event.channel.sendMessage("Please make sure I have the proper permission to kick ${it.toString()}")
                 }
-                event.channel.sendMessage("i have kicked the user(s)").queue()
-            } else {
-                event.channel.sendMessage("You need the `Kick Members` permission to use this command!").queue()
             }
+            if(hasKicked)
+                event.channel.sendMessage("i have kicked the user(s)").queue()
+        } else {
+            event.channel.sendMessage("You need the `Kick Members` permission to use this command!").queue()
         }
     }
 }
