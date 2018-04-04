@@ -14,7 +14,7 @@ class ChangeNickNameCommand {
     @Command(
             prefix = "${EnvVars.PREFIX}",
             id = "nickname",
-            aliases = ["nickname"],
+            aliases = ["nickname", "nick"],
             description = "Change the current nickname of the bot",
             usage = "<input to change the bot nickname>"
     )
