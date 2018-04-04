@@ -20,10 +20,14 @@ import net.dv8tion.jda.core.OnlineStatus
 import net.dv8tion.jda.core.entities.Game
 import net.dv8tion.jda.core.events.ReadyEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
+import java.util.*
 
 class ReadyEventListener : ListenerAdapter() {
 
     override fun onReady(event: ReadyEvent) {
-        event.jda.presence.setPresence(OnlineStatus.ONLINE, Game.of(Game.GameType.STREAMING, "with computerfreaker \uD83C\uDF38| ${EnvVars.PREFIX}help", "https://www.twitch.tv/computerfreaker"))
+        val text = arrayOf("with computerfreaker \uD83C\uDF38", "with guns \uD83C\uDF38", "\uD83D\uDC9C computerfreaker")
+        val idx = Random().nextInt(text.size)
+        val random = text[idx]
+        event.jda.presence.setPresence(OnlineStatus.ONLINE, Game.of(Game.GameType.STREAMING, "$random| ${EnvVars.PREFIX}help", "https://www.twitch.tv/computerfreaker"))
     }
 }
