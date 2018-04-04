@@ -31,7 +31,7 @@ class StatusCommand {
     @Command(
             prefix = "${EnvVars.PREFIX}",
             id = "status",
-            aliases = ["s"],
+            aliases = ["status", "s"],
             description = "Change the current status",
             usage = "<input to change the playing status>"
     )
@@ -40,7 +40,7 @@ class StatusCommand {
     )
     fun status(context: CommandContext, event: MessageReceivedEvent){
         if (event.message.author.id in authorOnly.authors) {
-            event.jda.presence.setPresence(OnlineStatus.ONLINE, Game.of(Game.GameType.STREAMING, "i changed it into something else \uD83C\uDF38", "https://www.twitch.tv/computerfreaker"))
+            event.jda.presence.setPresence(OnlineStatus.ONLINE, Game.of(Game.GameType.STREAMING, "${context.args} | ${EnvVars.PREFIX}help", "https://www.twitch.tv/computerfreaker"))
         }else{
             event.channel.sendMessage(
                     EmbedBuilder()
