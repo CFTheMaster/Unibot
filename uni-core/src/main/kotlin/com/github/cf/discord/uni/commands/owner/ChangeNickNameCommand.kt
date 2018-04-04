@@ -8,25 +8,25 @@ import com.github.kvnxiao.discord.meirei.annotations.Permissions
 import com.github.kvnxiao.discord.meirei.command.CommandContext
 import net.dv8tion.jda.core.EmbedBuilder
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
-import org.jetbrains.kotlin.utils.addToStdlib.cast
 
 @CommandGroup("owner")
-class ChangeNameCommand{
+class ChangeNickNameCommand {
     @Command(
             prefix = "${EnvVars.PREFIX}",
-            id = "changename",
-            aliases = ["changename", "cn"],
-            description = "Change the current name of the bot",
-            usage = "<input to change the bot name>"
+            id = "nickname",
+            aliases = ["nickname"],
+            description = "Change the current nickname of the bot",
+            usage = "<input to change the bot nickname>"
     )
     @Permissions(
             allowDm = true
     )
-    fun changeName(context: CommandContext, event: MessageReceivedEvent){
+    fun changeNickName(context: CommandContext, event: MessageReceivedEvent){
         val author = event.author
+        val self = event.guild.selfMember
         if(author!!.isBot) return
         else if(event.message.author.id in authorOnly.authors){
-            event.jda.selfUser.manager.setName(context.args).queue()
+            event.guild.controller.setNickname(self, context.args).queue()
         }
         else{
             event.channel.sendMessage(

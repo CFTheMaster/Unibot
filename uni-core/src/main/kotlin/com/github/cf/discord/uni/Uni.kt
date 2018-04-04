@@ -26,6 +26,7 @@ import com.github.cf.discord.uni.commands.info.PingCommand
 import com.github.cf.discord.uni.commands.info.UptimeCommand
 import com.github.cf.discord.uni.commands.info.InviteCommand
 import com.github.cf.discord.uni.commands.owner.ChangeNameCommand
+import com.github.cf.discord.uni.commands.owner.ChangeNickNameCommand
 import com.github.cf.discord.uni.commands.owner.StatusCommand
 import com.github.cf.discord.uni.commands.query.GoogleCommand
 import com.github.cf.discord.uni.commands.query.PcPartPickerCommand
@@ -104,7 +105,8 @@ class Uni(token: String) {
 
                 // Owner Only
                 StatusCommand(),
-                ChangeNameCommand()
+                ChangeNameCommand(),
+                ChangeNickNameCommand()
         )
         return this
     }
