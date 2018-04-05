@@ -39,7 +39,9 @@ class StatusCommand {
             allowDm = true
     )
     fun status(context: CommandContext, event: MessageReceivedEvent){
-        if (event.message.author.id in authorOnly.authors) {
+        val author = event.author
+        if(author!!.isBot) return
+        else if (event.message.author.id in authorOnly.authors) {
             event.jda.presence.setPresence(OnlineStatus.ONLINE, Game.of(Game.GameType.STREAMING, "${context.args} | ${EnvVars.PREFIX}help", "https://www.twitch.tv/computerfreaker"))
         }else{
             event.channel.sendMessage(
