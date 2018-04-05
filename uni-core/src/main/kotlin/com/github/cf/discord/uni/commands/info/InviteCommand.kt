@@ -48,8 +48,10 @@ class InviteCommand {
             val embedColor = Color(randomColor, randomColor1, randomColor2)
 
             val embed = EmbedBuilder()
+                    .setTitle("invite for bot/support server")
                     .setColor(embedColor)
                     .setDescription("Uni invite: [click me](https://discordapp.com/oauth2/authorize?client_id=${event.jda.selfUser.id}&scope=bot&permissions=66186303)")
+                    .addField("invite to my server ", "[server invite]( https://discord.gg/rMVju6a)", true)
                     .build()
             event.textChannel.sendMessage(embed).queue()
         }

@@ -27,6 +27,7 @@ import com.github.cf.discord.uni.audio.AudioEmbed
 import com.github.cf.discord.uni.audio.AudioEventAdapter
 import com.github.cf.discord.uni.audio.LavaplayerAudioManager
 import com.github.cf.discord.uni.core.EnvVars
+import com.github.cf.discord.uni.data.authorOnly
 import com.github.cf.discord.uni.database.nosql.Redis
 import com.github.cf.discord.uni.stateful.GuildStateManager
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer
@@ -317,7 +318,6 @@ class AudioPlayerCommand : ListenerAdapter() {
             aliases = ["setnpch"],
             description = "Sets the channel for the bot to print the now playing information"
     )
-    @PermissionLevel([Permission.ADMINISTRATOR])
     fun setNowPlaying(context: CommandContext, event: MessageReceivedEvent) {
         val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt()
         val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt()
@@ -333,16 +333,24 @@ class AudioPlayerCommand : ListenerAdapter() {
         val author = event.author
         if(author!!.isBot) {
             return
-        } else {
+        } else if(event.member.hasPermission(Permission.ADMINISTRATOR) || event.message.author.id in authorOnly.authors){
             if (event.channelType.isGuild) {
+                event.channel.sendMessage(embed).queue()
                 val channelId = event.textChannel.idLong
 
                 // Set channel ID in Redis
                 Redis.client.getBucket<String>("${event.guild.idLong}:setnpch").set(channelId.toString())
                 // Invalidate cache
                 nowPlayingChannelCache.invalidate(event.guild.idLong)
-                event.channel.sendMessage(embed).queue()
             }
+        }else{
+            event.channel.sendMessage(
+                    EmbedBuilder()
+                            .setAuthor("Uni", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
+                            .setTitle("not sufficient perms to do this command")
+                            .setDescription("do you have the permission Admin <:OhISee:397902772865073154>")
+                            .build()
+            ).queue()
         }
     }
 
@@ -352,8 +360,6 @@ class AudioPlayerCommand : ListenerAdapter() {
             aliases = ["setapch"],
             description = "Sets the channel for the bot to print and updateEmbedBuilder the audio player panel"
     )
-    @Permissions(removeCallMsg = true)
-    @PermissionLevel([Permission.ADMINISTRATOR])
     fun setAudioPlayerPanel(context: CommandContext, event: MessageReceivedEvent) {
         val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt()
         val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt()
@@ -367,14 +373,14 @@ class AudioPlayerCommand : ListenerAdapter() {
                 .setDescription("i have set the current update embed for the audio player panel set to channel ${event.message.channel.name.toString()}")
                 .build()
         val author = event.author
-        if(author!!.isBot) {
-            return
-        } else {
+        if(author!!.isBot) return
+        else if(event.member.hasPermission(Permission.ADMINISTRATOR) || event.message.author.id in authorOnly.authors) {
             // Set channel only if audio panel doesn't exit
             if (event.channelType.isGuild && !guildAudioPanelManager.contains(event.guild.idLong)) {
                 // Set channel ID in Redis
                 val channelId = event.textChannel.idLong
                 try {
+                    event.channel.sendMessage(embed).queue()
                     // Create the SessionFactory from hibernate.cfg.xml
                     Redis.client.getBucket<String>("${event.guild.idLong}:setapch").set(channelId.toString())
                 } catch (ex: Throwable) {
@@ -386,8 +392,16 @@ class AudioPlayerCommand : ListenerAdapter() {
                 val audioManager = guildAudioManager.getOrPut(event.guild)
                 val audioPanel = AudioPlayerPanel(event.textChannel, audioManager)
                 guildAudioPanelManager.put(event.guild.idLong, audioPanel.start())
-                event.channel.sendMessage(embed).queue()
             }
+        }
+        else{
+            event.channel.sendMessage(
+                    EmbedBuilder()
+                            .setAuthor("Uni", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
+                            .setTitle("not sufficient perms to do this command")
+                            .setDescription("do you have the permission Admin<:OhISee:397902772865073154>")
+                            .build()
+            ).queue()
         }
     }
 
@@ -397,12 +411,11 @@ class AudioPlayerCommand : ListenerAdapter() {
             aliases = ["delapch"],
             description = "Deletes the audio player panel"
     )
-    @PermissionLevel([Permission.ADMINISTRATOR])
     fun deleteAudioPlayerPanel(context: CommandContext, event: MessageReceivedEvent) {
         val author = event.author
         if (author!!.isBot) {
             return
-        } else {
+        }  else if(event.member.hasPermission(Permission.ADMINISTRATOR) || event.message.author.id in authorOnly.authors) {
         // Delete channel only if audio panel exists
             if (event.channelType.isGuild && guildAudioPanelManager.contains(event.guild.idLong)) {
                 // Delete channel ID in Redis
@@ -411,6 +424,14 @@ class AudioPlayerCommand : ListenerAdapter() {
                 // Dispose the periodic update scheduler
                 audioPlayer.dispose()
             }
+        } else{
+            event.channel.sendMessage(
+                    EmbedBuilder()
+                            .setAuthor("Uni", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
+                            .setTitle("not sufficient perms to do this command")
+                            .setDescription("do you have the permission Admin<:OhISee:397902772865073154>")
+                            .build()
+            ).queue()
         }
     }
 
