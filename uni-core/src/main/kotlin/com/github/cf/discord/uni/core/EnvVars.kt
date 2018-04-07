@@ -39,6 +39,8 @@ object EnvVars {
     val DATABASE_USERNAME = readEnvVars("database_username")
     val DATABASE_PASSWORD = readEnvVars("database_password")
 
+    val DBL_TOKEN = readEnvVars("dbl_token")
+
     const val PREFIX = "uni!"
 
     @JvmStatic
