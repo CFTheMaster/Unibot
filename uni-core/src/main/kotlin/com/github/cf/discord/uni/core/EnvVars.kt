@@ -39,7 +39,10 @@ object EnvVars {
     val DATABASE_USERNAME = readEnvVars("database_username")
     val DATABASE_PASSWORD = readEnvVars("database_password")
 
+
+    // guild counter tokens
     val DBL_TOKEN = readEnvVars("dbl_token")
+    val TERMINAL_TOKEN = readEnvVars("terminal_token")
 
     const val PREFIX = "uni!"
 

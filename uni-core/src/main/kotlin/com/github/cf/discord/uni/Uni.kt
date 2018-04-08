@@ -37,6 +37,7 @@ import com.github.cf.discord.uni.commands.system.RestartCommand
 import com.github.cf.discord.uni.commands.system.ShutdownCommand
 import com.github.cf.discord.uni.jsr223.KotlinScriptCommand
 import com.github.cf.discord.uni.listeners.CommandListener
+import com.github.cf.discord.uni.listeners.GuildJoinLeaveListener
 import com.github.cf.discord.uni.listeners.MessageLogListener
 import com.github.cf.discord.uni.listeners.ReadyEventListener
 import com.github.kvnxiao.discord.meirei.Meirei
@@ -52,7 +53,8 @@ class Uni(token: String) {
         val LOGGER = KotlinLogging.logger(Uni::class.java.name)
     }
 
-    private val clientBuilder = JDABuilder(AccountType.BOT).setToken(token).addEventListener(ReadyEventListener(), MessageLogListener(), CommandListener())
+    private val clientBuilder = JDABuilder(AccountType.BOT)
+            .setToken(token)
     private val meirei: Meirei = MeireiJDA(clientBuilder)
 
     fun start(): Boolean {
@@ -60,6 +62,10 @@ class Uni(token: String) {
             // TODO: load external commands
             LOGGER.debug { "Logging in..." }
             clientBuilder
+                    .addEventListener(ReadyEventListener(),
+                            MessageLogListener(),
+                            CommandListener(),
+                            GuildJoinLeaveListener())
                     .registerCommands()
                     .buildAsync()
             true

@@ -5,6 +5,7 @@ import com.github.kvnxiao.discord.meirei.annotations.Command
 import com.github.kvnxiao.discord.meirei.annotations.CommandGroup
 import com.github.kvnxiao.discord.meirei.annotations.Permissions
 import com.github.kvnxiao.discord.meirei.command.CommandContext
+import net.dv8tion.jda.core.EmbedBuilder
 import net.dv8tion.jda.core.Permission
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import net.dv8tion.jda.core.utils.PermissionUtil
@@ -32,7 +33,11 @@ class AdminCommand {
                         event.guild.controller.ban(it.id, 0,"banned by ${event.author.name}").queue()
                         hasBanned = true
                     }else{
-                        event.channel.sendMessage("I can not ban<@!${it.id}>").queue()
+                        event.channel.sendMessage(EmbedBuilder()
+                                .setAuthor("Uni", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
+                                .setTitle("person to high ranked")
+                                .setDescription("i can't ban <@!${it.id}>")
+                                .build()).queue()
                     }
                 } catch (e: Exception) {
                     event.channel.sendMessage("Please make sure I have the proper permission to ban ${it.toString()}")
@@ -88,7 +93,11 @@ class AdminCommand {
                         event.guild.controller.kick(it.id, "Kicked by ${event.author.name}").queue()
                         hasKicked = true
                     }else{
-                        event.channel.sendMessage("I can not kick <@!${it.id}>").queue()
+                        event.channel.sendMessage(EmbedBuilder()
+                                .setAuthor("Uni", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
+                                .setTitle("person to high ranked")
+                                .setDescription("i can't kick <@!${it.id}>")
+                                .build()).queue()
                     }
                 } catch (e: Exception) {
                     event.channel.sendMessage("Please make sure I have the proper permission to kick ${it.toString()}")
