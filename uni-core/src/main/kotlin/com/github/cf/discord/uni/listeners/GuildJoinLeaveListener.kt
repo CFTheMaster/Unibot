@@ -14,14 +14,12 @@ import java.io.IOException
 class GuildJoinLeaveListener : ListenerAdapter() {
     override fun onGuildJoin(event: GuildJoinEvent) {
         Uni.LOGGER.info("New guild: ${event.guild.name} (${event.guild.id})")
-
         updateStats(event.jda)
     }
 
 
     override fun onGuildLeave(event: GuildLeaveEvent) {
         Uni.LOGGER.info("Left guild: ${event.guild.name} (${event.guild.id}")
-
         updateStats(event.jda)
     }
 

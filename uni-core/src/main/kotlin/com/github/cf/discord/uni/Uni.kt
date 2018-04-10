@@ -21,10 +21,7 @@ import com.github.cf.discord.uni.commands.`fun`.LewdCatgirlCommand
 import com.github.cf.discord.uni.commands.admin.AdminCommand
 import com.github.cf.discord.uni.commands.audio.AudioPlayerCommand
 import com.github.cf.discord.uni.commands.audio.VoiceChannelCommand
-import com.github.cf.discord.uni.commands.info.HelpCommand
-import com.github.cf.discord.uni.commands.info.PingCommand
-import com.github.cf.discord.uni.commands.info.UptimeCommand
-import com.github.cf.discord.uni.commands.info.InviteCommand
+import com.github.cf.discord.uni.commands.info.*
 import com.github.cf.discord.uni.commands.owner.ChangeNameCommand
 import com.github.cf.discord.uni.commands.owner.ChangeNickNameCommand
 import com.github.cf.discord.uni.commands.owner.StatusCommand
@@ -78,6 +75,7 @@ class Uni(token: String) {
     private fun JDABuilder.registerCommands(): JDABuilder {
         meirei.addAnnotatedCommands(
                 // System
+                BotInfoCommand(),
                 HelpCommand(),
                 PingCommand(),
                 UptimeCommand(),
