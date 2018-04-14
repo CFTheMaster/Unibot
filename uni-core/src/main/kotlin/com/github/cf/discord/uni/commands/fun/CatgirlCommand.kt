@@ -47,8 +47,18 @@ class CatgirlCommand {
         }
     }
 
-    private fun getCatgirl(): String {
-        val json = JSONObject(OkHttpClient().newCall(Request.Builder().url(BASE_URL).build()).execute().body()!!.string())
-        return json.getString("url")
+    private fun getCatgirl(): String? {
+        val response = OkHttpClient().newCall(Request.Builder()
+                .url(BASE_URL)
+                .build()).execute()
+
+        if (response.isSuccessful) {
+            val content = JSONObject(response.body()?.string())
+            response.body()?.close()
+            return content.getString("url")
+        } else {
+            response.body()?.close()
+            return null
+        }
     }
 }

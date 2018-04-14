@@ -25,6 +25,7 @@ import com.github.cf.discord.uni.commands.info.*
 import com.github.cf.discord.uni.commands.owner.ChangeNameCommand
 import com.github.cf.discord.uni.commands.owner.ChangeNickNameCommand
 import com.github.cf.discord.uni.commands.owner.StatusCommand
+import com.github.cf.discord.uni.commands.owner.TestApiCommand
 import com.github.cf.discord.uni.commands.query.GoogleCommand
 import com.github.cf.discord.uni.commands.query.PcPartPickerCommand
 import com.github.cf.discord.uni.commands.query.UrbanDictionaryCommand
@@ -110,7 +111,8 @@ class Uni(token: String) {
                 // Owner Only
                 StatusCommand(),
                 ChangeNameCommand(),
-                ChangeNickNameCommand()
+                ChangeNickNameCommand(),
+                TestApiCommand()
         )
         return this
     }

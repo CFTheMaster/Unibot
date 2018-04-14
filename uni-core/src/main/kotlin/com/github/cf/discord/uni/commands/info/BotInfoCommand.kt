@@ -43,7 +43,7 @@ class BotInfoCommand {
             val embed = EmbedBuilder()
                     .setAuthor("Bot Info", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
                     .setColor(embedColor)
-                    .addField("Bot Devs: ", "computerfreaker#4054", true)
+                    .addField("Bot Devs: ", "computerfreaker#4054\n<@!138302166619258880>", true)
                     .addField("Bot Name: ", "${event.jda.selfUser.name}", true)
                     .addField("Bot Id: ", "${event.jda.selfUser.id}", true)
                     .addField("JDA Version: ", "${JDAInfo.VERSION}", true)
