@@ -27,6 +27,41 @@ class TestApiCommand {
             allowDm = true
     )
     fun onCommand(context: CommandContext, event: MessageReceivedEvent){
+        if(event.textChannel.isNSFW) {
+            if (event.message.author.id in authorOnly.authors) {
+                val author = event.author
+                if(author!!.isBot) {
+                    return
+                } else {
+                    val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt();
+                    val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt();
+                    val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt();
+                    val embedColor = Color(randomColor, randomColor1, randomColor2)
+
+                    val myAss = getTestApi()
+
+                    val embed = EmbedBuilder()
+                            .setAuthor("hentai in my city", "$myAss", null)
+                            .setColor(embedColor)
+                            .setImage("$myAss")
+                            .build()
+                    event.channel.sendMessage(embed).queue()
+                }
+            }
+        }
+    }
+
+    @Command(
+            prefix = "${EnvVars.PREFIX}",
+            id = "animeapi",
+            aliases = ["animetestapi"],
+            description = "just a test",
+            usage = "<test>"
+    )
+    @Permissions(
+            allowDm = true
+    )
+    fun onAnimeCommand(context: CommandContext, event: MessageReceivedEvent){
         if (event.message.author.id in authorOnly.authors) {
             val author = event.author
             if(author!!.isBot) {
@@ -37,12 +72,12 @@ class TestApiCommand {
                 val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt();
                 val embedColor = Color(randomColor, randomColor1, randomColor2)
 
-                val myAss = getTestApi()
+                val ohMyGod = getAnimeTestApi()
 
                 val embed = EmbedBuilder()
-                        .setAuthor("hentai in my city", "$myAss", null)
+                        .setAuthor("anime in my city", "$ohMyGod", null)
                         .setColor(embedColor)
-                        .setImage("$myAss")
+                        .setImage("$ohMyGod")
                         .build()
                 event.channel.sendMessage(embed).queue()
             }
@@ -63,4 +98,23 @@ class TestApiCommand {
             return null
         }
     }
+
+    private fun getAnimeTestApi(): String? {
+        val response = OkHttpClient().newCall(Request.Builder()
+                .url("https://computerfreaker.cf/api/anime/read.php")
+                .build()).execute()
+
+        if (response.isSuccessful) {
+            val content = JSONObject(response.body()?.string())
+            response.body()?.close()
+            return content.getString("url")
+        } else {
+            response.body()?.close()
+            return null
+        }
+    }
+
+
+
+
 }

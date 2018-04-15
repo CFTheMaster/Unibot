@@ -52,6 +52,7 @@ class BotInfoCommand {
                     .addField("Creation Date: ", "$time", true)
                     .addField("Uni invite: ", "[invite me](https://discordapp.com/oauth2/authorize?client_id=${event.jda.selfUser.id}&scope=bot&permissions=2146958591)", true)
                     .addField("Support Server Invite: ", "[support server](https://discord.gg/WmDyx7C)", true)
+                    .addField("CFs API server", "[API server](https://discord.gg/gzWwtWG )", true)
                     .build()
             event.textChannel.sendMessage(embed).queue()
         }
