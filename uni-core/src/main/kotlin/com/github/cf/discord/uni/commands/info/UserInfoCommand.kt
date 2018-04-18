@@ -80,7 +80,7 @@ class UserInfoCommand {
                 .addField("Username: ", "${member?.user?.name}", true)
                 .addField("Nickname: ", "${member?.nickname ?: "none"}", true)
                 .addField("Joined Discord On: ", "${member?.user?.creationTime?.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))}", true)
-                .addField("Joined ${event.guild!!.name} on: ", "${member?.joinDate?.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))}", true)
+                .addField("Joined this server on: ", "${member?.joinDate?.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))}", true)
                 .addField("Playing: ", "${member?.game?.name ?: "nothing"}", true)
                 .addField("Avatar Url: ", "[Avatar]( ${member?.user?.avatarUrl} )", true)
                 .setFooter("requested by ${event.author.name}#${event.author.discriminator} (${event.author.id})", "${event.author.avatarUrl}")

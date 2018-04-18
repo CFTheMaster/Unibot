@@ -58,7 +58,7 @@ class BotInfoCommand {
 
             val time =  OffsetDateTime.parse(event.jda.selfUser.creationTime.toString()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
             val embed = EmbedBuilder()
-                    .setAuthor("Bot Info", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
+                    .setAuthor("Uni v${HelpCommand.VERSION_NUMBER}", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
                     .setColor(embedColor)
                     .addField("Bot Devs: ", "computerfreaker#4054\n<@!138302166619258880>", true)
                     .addField("Bot Name: ", "${event.jda.selfUser.name}", true)
