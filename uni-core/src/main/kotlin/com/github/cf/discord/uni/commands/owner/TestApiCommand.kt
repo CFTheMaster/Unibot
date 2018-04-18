@@ -59,6 +59,7 @@ class TestApiCommand {
                             .setAuthor("hentai in my city", "$myAss", null)
                             .setColor(embedColor)
                             .setImage("$myAss")
+                            .setFooter("powered by: https://computerfreaker.cf", "${event.jda.getUserById(138302166619258880).avatarUrl}")
                             .build()
                     event.channel.sendMessage(embed).queue()
                 }
@@ -93,6 +94,7 @@ class TestApiCommand {
                         .setAuthor("anime in my city", "$ohMyGod", null)
                         .setColor(embedColor)
                         .setImage("$ohMyGod")
+                        .setFooter("powered by: https://computerfreaker.cf", "${event.jda.getUserById(138302166619258880).avatarUrl}")
                         .build()
                 event.channel.sendMessage(embed).queue()
             }
@@ -128,8 +130,4 @@ class TestApiCommand {
             return null
         }
     }
-
-
-
-
 }

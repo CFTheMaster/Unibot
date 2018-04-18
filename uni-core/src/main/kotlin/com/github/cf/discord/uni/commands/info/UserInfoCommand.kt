@@ -38,9 +38,9 @@ class UserInfoCommand {
             description = "get the user info for the user tagged or yourself"
     )
     fun userInfoCommand(context: CommandContext, event: MessageReceivedEvent): MessageAction? {
-        val query = context?.args
+        val query = context.args
         val temp : Member? = if(event.isFromType(ChannelType.TEXT)) {
-            if(query!!.isEmpty())
+            if(query == null)
                 event.member
             else {
                 val found = event.guild.findMembers(query)
