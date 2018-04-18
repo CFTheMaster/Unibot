@@ -1,5 +1,6 @@
 buildscript {
     ext.jda_version = '3.6.0_354'
+    ext.jda_utilities_version = '2.0'
     ext.lavaplayer_version = '1.2.58'
     ext.meirei_version = '0.8.6'
     ext.jackson_version = '2.9.4'
@@ -23,6 +24,7 @@ mainClassName = "com.github.cf.discord.uni.MainKt"
 dependencies {
     compile "com.github.kvnxiao.meirei:meirei-jda:$meirei_version"
     compile "net.dv8tion:JDA:$jda_version"
+    compile "com.jagrosh:jda-utilities-commons:$jda_utilities_version"
     compile "com.sedmelluq:lavaplayer:$lavaplayer_version"
     compile "com.fasterxml.jackson.core:jackson-core:$jackson_version"
     compile "com.fasterxml.jackson.core:jackson-annotations:$jackson_version"

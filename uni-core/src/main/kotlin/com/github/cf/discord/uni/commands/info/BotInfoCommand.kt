@@ -1,3 +1,18 @@
+/*
+ *   Copyright (C) 2017-2018 computerfreaker
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
 package com.github.cf.discord.uni.commands.info
 
 import com.github.cf.discord.uni.core.EnvVars
@@ -39,7 +54,6 @@ class BotInfoCommand {
             val embedColor = Color(randomColor, randomColor1, randomColor2)
 
             val time =  OffsetDateTime.parse(event.jda.selfUser.creationTime.toString()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
-
             val embed = EmbedBuilder()
                     .setAuthor("Bot Info", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
                     .setColor(embedColor)
@@ -49,9 +63,11 @@ class BotInfoCommand {
                     .addField("JDA Version: ", "${JDAInfo.VERSION}", true)
                     .addField("System Uptime: ", "${Duration.between(startTime, Instant.now()).formatDuration()}", true)
                     .addField("Guild Count: ", "${event.jda.guilds.size}", true)
+                    .addField("Users:", "${event.jda.users.size}", true)
                     .addField("Creation Date: ", "$time", true)
+                    .addField("Ping: ", "${event.jda.ping}ms", true)
                     .addField("Uni invite: ", "[invite me](https://discordapp.com/oauth2/authorize?client_id=${event.jda.selfUser.id}&scope=bot&permissions=2146958591)", true)
-                    .addField("Support Server Invite: ", "[support server](https://discord.gg/WmDyx7C)", true)
+                    .addField("Support Server Invite: ", "[support server](https://discord.gg/rMVju6a)", true)
                     .addField("CFs API server", "[API server](https://discord.gg/gzWwtWG )", true)
                     .build()
             event.textChannel.sendMessage(embed).queue()

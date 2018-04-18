@@ -80,6 +80,7 @@ class Uni(token: String) {
                 ShutdownCommand(),
                 RestartCommand(),
                 InviteCommand(),
+                UserInfoCommand(),
 
                 // Moderation Commands
                 AdminCommand(),
