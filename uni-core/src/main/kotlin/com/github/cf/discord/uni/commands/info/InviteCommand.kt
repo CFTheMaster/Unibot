@@ -53,6 +53,7 @@ class InviteCommand {
                     .setDescription("Uni invite: [click me](https://discordapp.com/oauth2/authorize?client_id=${event.jda.selfUser.id}&scope=bot&permissions=2146958591)")
                     .addField("invite to my server ", "[server invite]( https://discord.gg/rMVju6a)", true)
                     .addField("invite to my API server", "[API server invite](https://discord.gg/gzWwtWG)", true)
+                    .setFooter("requested by ${event.author.name}#${event.author.discriminator} (${event.author.id})", "${event.author.avatarUrl}")
                     .build()
             event.textChannel.sendMessage(embed).queue()
         }

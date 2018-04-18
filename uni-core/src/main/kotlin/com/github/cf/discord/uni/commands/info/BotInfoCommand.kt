@@ -24,6 +24,8 @@ import net.dv8tion.jda.core.EmbedBuilder
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import net.dv8tion.jda.*
 import net.dv8tion.jda.core.JDAInfo
+import net.dv8tion.jda.core.entities.ChannelType
+import net.dv8tion.jda.core.entities.Member
 import java.awt.Color
 import java.time.Duration
 import java.time.Instant
@@ -46,6 +48,7 @@ class BotInfoCommand {
     )
     fun botInfoCommand(context: CommandContext, event: MessageReceivedEvent){
         val author = event.author
+        val member : Member? = event.guild.getMember(event.jda.selfUser)
         if (author!!.isBot) return
         else {
             val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt();
@@ -65,10 +68,12 @@ class BotInfoCommand {
                     .addField("Guild Count: ", "${event.jda.guilds.size}", true)
                     .addField("Users:", "${event.jda.users.size}", true)
                     .addField("Creation Date: ", "$time", true)
+                    .addField("Joined ${event.guild!!.name} on: ", "${member!!.joinDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))}", true)
                     .addField("Ping: ", "${event.jda.ping}ms", true)
                     .addField("Uni invite: ", "[invite me](https://discordapp.com/oauth2/authorize?client_id=${event.jda.selfUser.id}&scope=bot&permissions=2146958591)", true)
                     .addField("Support Server Invite: ", "[support server](https://discord.gg/rMVju6a)", true)
                     .addField("CFs API server", "[API server](https://discord.gg/gzWwtWG )", true)
+                    .setFooter("requested by ${event.author.name}#${event.author.discriminator} (${event.author.id})", "${event.author.avatarUrl}")
                     .build()
             event.textChannel.sendMessage(embed).queue()
         }
