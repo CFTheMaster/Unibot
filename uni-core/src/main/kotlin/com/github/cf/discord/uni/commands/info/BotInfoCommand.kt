@@ -68,7 +68,7 @@ class BotInfoCommand {
                     .addField("Guild Count: ", "${event.jda.guilds.size}", true)
                     .addField("Users:", "${event.jda.users.size}", true)
                     .addField("Creation Date: ", "$time", true)
-                    .addField("Joined ${event.guild!!.name} on: ", "${member!!.joinDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))}", true)
+                    .addField("Joined this server on: ", "${member!!.joinDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))}", true)
                     .addField("Ping: ", "${event.jda.ping}ms", true)
                     .addField("Avatar URL: ", "[Avatar URL](  ${event.jda.selfUser.avatarUrl} )", true)
                     .addField("Uni invite: ", "[invite me](https://discordapp.com/oauth2/authorize?client_id=${event.jda.selfUser.id}&scope=bot&permissions=2146958591)", true)
