@@ -16,6 +16,7 @@
 package com.github.cf.discord.uni
 
 import com.github.cf.discord.uni.commands.`fun`.CatgirlCommand
+import com.github.cf.discord.uni.commands.`fun`.DuckCommand
 import com.github.cf.discord.uni.commands.`fun`.EightBallCommand
 import com.github.cf.discord.uni.commands.`fun`.LewdCatgirlCommand
 import com.github.cf.discord.uni.commands.admin.AdminCommand
@@ -102,6 +103,7 @@ class Uni(token: String) {
                 EightBallCommand(),
                 CatgirlCommand(),
                 LewdCatgirlCommand(),
+                DuckCommand(),
 
                 // Scripting
                 KotlinScriptCommand(),
