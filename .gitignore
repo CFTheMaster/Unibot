@@ -62,3 +62,4 @@ uni-core/modules
 *.jar
 token.txt
 /kommandb/
+.env

@@ -22,6 +22,6 @@ import org.jetbrains.kotlin.cli.common.environment.setIdeaIoUseFallback
 fun main(args: Array<String>) {
     setIdeaIoUseFallback()
     LOGGER.debug { "Loading bot token..." }
-    val bot = Uni(EnvVars.BOT_TOKEN)
+    val bot = Uni(EnvVars.BOT_TOKEN!!)
     bot.start()
 }

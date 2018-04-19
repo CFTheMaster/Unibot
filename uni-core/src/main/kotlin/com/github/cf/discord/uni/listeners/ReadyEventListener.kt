@@ -44,7 +44,7 @@ class ReadyEventListener : ListenerAdapter() {
             val body = JSONObject().put("server_count", jda.guilds.size)
 
 
-            if (EnvVars.DBL_TOKEN.isNotEmpty()) {
+            if (EnvVars.DBL_TOKEN?.isNotEmpty()!!) {
                 client.newRequest({
                     post(RequestBody.create(MediaType.parse("application/json"), body.toString()))
                     url("https://discordbots.org/api/bots/${jda.selfUser.id}/stats")
@@ -60,7 +60,7 @@ class ReadyEventListener : ListenerAdapter() {
                 })
             }
 
-            if (EnvVars.TERMINAL_TOKEN.isNotEmpty()) {
+            if (EnvVars.TERMINAL_TOKEN?.isNotEmpty()!!) {
                 client.newRequest({
                     post(RequestBody.create(MediaType.parse("application/json"), body.toString()))
                     url("https://ls.terminal.ink/api/v1/bots/${jda.selfUser.id}")

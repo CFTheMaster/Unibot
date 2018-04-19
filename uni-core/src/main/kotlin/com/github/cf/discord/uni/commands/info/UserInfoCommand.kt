@@ -83,6 +83,7 @@ class UserInfoCommand {
                 .addField("Joined this server on: ", "${member?.joinDate?.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))}", true)
                 .addField("Playing: ", "${member?.game?.name ?: "nothing"}", true)
                 .addField("Avatar Url: ", "[Avatar]( ${member?.user?.avatarUrl} )", true)
+                .addField("Is a bot: ", "${member?.user?.isBot}", true)
                 .setFooter("requested by ${event.author.name}#${event.author.discriminator} (${event.author.id})", "${event.author.avatarUrl}")
                 .build()
         val author = event.author

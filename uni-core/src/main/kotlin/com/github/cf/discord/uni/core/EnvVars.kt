@@ -14,40 +14,46 @@
  *   limitations under the License.
  */
 package com.github.cf.discord.uni.core
+import io.github.cdimascio.dotenv.dotenv
 
 object EnvVars {
+    val dotenv = dotenv{
+        ignoreIfMalformed = true
+        ignoreIfMissing = true
+    }
+
     @JvmStatic
-    val BOT_TOKEN = readEnvVars("bot_token")
+    val BOT_TOKEN = dotenv["bot_token"]
     @JvmStatic
-    val LAVAPLAYER_NICONICO_EMAIL = readEnvVars("lavaplayer_niconico_email")
+    val LAVAPLAYER_NICONICO_EMAIL = dotenv["lavaplayer_niconico_email"]
     @JvmStatic
-    val LAVAPLAYER_NICONICO_PASSWORD = readEnvVars("lavaplayer_niconico_password")
+    val LAVAPLAYER_NICONICO_PASSWORD = dotenv["lavaplayer_niconico_password"]
     @JvmStatic
-    val GOOGLE_API_KEY = readEnvVars("google_api_key")
+    val GOOGLE_API_KEY = dotenv["google_api_key"]
     @JvmStatic
-    val GOOGLE_SEARCH_ENGINE = readEnvVars("google_search_engine_id")
+    val GOOGLE_SEARCH_ENGINE = dotenv["google_search_engine_id"]
 
     // Redis env vars
-    val REDIS_HOST = readEnvVars("redis_host")
+    val REDIS_HOST = dotenv["redis_host"]
 
     // PostgreSQL env vars
     @JvmStatic
-    val DATABASE_DRIVER = readEnvVars("database_driver")
-    val DATABASE_HOST = readEnvVars("database_host")
-    val DATABASE_PORT = readEnvVars("database_port")
-    val DATABASE_SCHEMA = readEnvVars("database_schema")
-    val DATABASE_USERNAME = readEnvVars("database_username")
-    val DATABASE_PASSWORD = readEnvVars("database_password")
+    val DATABASE_DRIVER = dotenv["database_driver"]
+    val DATABASE_HOST = dotenv["database_host"]
+    val DATABASE_PORT = dotenv["database_port"]
+    val DATABASE_SCHEMA = dotenv["database_schema"]
+    val DATABASE_USERNAME = dotenv["database_username"]
+    val DATABASE_PASSWORD = dotenv["database_password"]
 
 
     // guild counter tokens
-    val DBL_TOKEN = readEnvVars("dbl_token")
-    val TERMINAL_TOKEN = readEnvVars("terminal_token")
+    val DBL_TOKEN = dotenv["dbl_token"]
+    val TERMINAL_TOKEN = dotenv["terminal_token"]
 
     const val PREFIX = "uni!"
 
     @JvmStatic
-    private fun readEnvVars(envVar: String): String {
-        return System.getenv(envVar) ?: throw RuntimeException("Could not read environment variable \"$envVar\", make sure it is supplied and not empty!")
+    private fun dotenv(envVar: String): String? {
+        return dotenv(envVar) ?: throw RuntimeException("Could not read environment variable \"$envVar\", make sure it is supplied and not empty!")
     }
 }
