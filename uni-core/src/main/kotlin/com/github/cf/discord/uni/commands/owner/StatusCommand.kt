@@ -43,6 +43,7 @@ class StatusCommand {
         if(author!!.isBot) return
         else if (event.message.author.id in authorOnly.authors) {
             event.jda.presence.setPresence(OnlineStatus.ONLINE, Game.of(Game.GameType.STREAMING, "${context.args} | ${EnvVars.PREFIX}help", "https://www.twitch.tv/computerfreaker"))
+            event.channel.sendMessage("i have set my status to ${context.args}")
         }else{
             event.channel.sendMessage(
                     EmbedBuilder()
