@@ -111,7 +111,8 @@ class Uni(token: String) {
                 ChangeNameCommand(),
                 ChangeNickNameCommand(),
                 TestApiCommand(),
-                SayCommand()
+                SayCommand(),
+                AmIOwnerCommand()
         )
         return this
     }

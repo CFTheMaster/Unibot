@@ -177,6 +177,8 @@ class AudioPlayerCommand : ListenerAdapter() {
                 val args = context.args ?: return
                 val audioManager = guildAudioManager.getOrPut(event.guild)
                 audioManager.loadAndPlay(event.author, event.textChannel, args, false)
+            } else{
+                event.channel.sendMessage("i'm not in a voice channel >~<").queue()
             }
         }
     }
@@ -201,6 +203,8 @@ class AudioPlayerCommand : ListenerAdapter() {
                 } else {
                     audioManager.loadAndPlay(event.author, event.textChannel, "$PREFIX_SOUNDCLOUD$args", true)
                 }
+            }else{
+                event.channel.sendMessage("i'm not in a voice channel >~<").queue()
             }
         }
     }
@@ -221,6 +225,8 @@ class AudioPlayerCommand : ListenerAdapter() {
                 val args = context.args ?: return
                 val audioManager = guildAudioManager.getOrPut(event.guild)
                 audioManager.searchAndPlay(event.author, event.textChannel, "$PREFIX_SOUNDCLOUD$args")
+            }else{
+                event.channel.sendMessage("i'm not in a voice channel >~<").queue()
             }
         }
     }
@@ -252,6 +258,8 @@ class AudioPlayerCommand : ListenerAdapter() {
                     // Single track search
                     audioManager.loadAndPlay(event.author, event.textChannel, "$PREFIX_YOUTUBE$args", true)
                 }
+            }else{
+                event.channel.sendMessage("i'm not in a voice channel >~<").queue()
             }
         }
     }
@@ -272,6 +280,8 @@ class AudioPlayerCommand : ListenerAdapter() {
                 val args = context.args ?: return
                 val audioManager = guildAudioManager.getOrPut(event.guild)
                 audioManager.searchAndPlay(event.author, event.textChannel, "$PREFIX_YOUTUBE$args")
+            }else{
+                event.channel.sendMessage("i'm not in a voice channel >~<").queue()
             }
         }
     }
@@ -290,6 +300,8 @@ class AudioPlayerCommand : ListenerAdapter() {
             if (event.channelType.isGuild) {
                 val audioManager = guildAudioManager.getOrPut(event.guild)
                 audioManager.skip(event.author, event.textChannel)
+            }else{
+                event.channel.sendMessage("this is not a guild >~<").queue()
             }
         }
     }
@@ -308,6 +320,8 @@ class AudioPlayerCommand : ListenerAdapter() {
             if (event.channelType.isGuild && event.guild.selfMember.voiceState.inVoiceChannel()) {
                 val audioManager = guildAudioManager.getOrPut(event.guild)
                 audioManager.stop(event.author, event.textChannel)
+            }else{
+                event.channel.sendMessage("i'm not in a voice channel >~<").queue()
             }
         }
     }
@@ -450,6 +464,8 @@ class AudioPlayerCommand : ListenerAdapter() {
                 val audioManager = guildAudioManager.getOrPut(event.guild)
                 // Shuffle tracks in current guild
                 audioManager.shuffle(event.author, event.textChannel)
+            }else{
+                event.channel.sendMessage("i'm not in a voice channel >~<").queue()
             }
         }
     }
@@ -469,6 +485,8 @@ class AudioPlayerCommand : ListenerAdapter() {
                 val audioManager = guildAudioManager.getOrPut(event.guild)
                 val page = context.args?.toIntOrNull() ?: 1
                 AudioEmbed.nowPlayingPaginatedEmbed(audioManager, event.textChannel, event.author, page).queue()
+            }else{
+                event.channel.sendMessage("this is a not a guild >~<").queue()
             }
         }
     }
@@ -488,6 +506,8 @@ class AudioPlayerCommand : ListenerAdapter() {
             if (event.channelType.isGuild) {
                 val audioManager = guildAudioManager.getOrPut(event.guild)
                 audioManager.clear(event.author, event.textChannel)
+            }else{
+                event.channel.sendMessage("this is not a guild >~<").queue()
             }
         }
     }
