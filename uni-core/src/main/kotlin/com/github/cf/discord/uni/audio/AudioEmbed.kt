@@ -48,8 +48,11 @@ object AudioEmbed {
                     .footerMessage(remaining, requester)
                     .build()
         }else{
-            return embed("Now Playing")
-                    .setDescription("${track.info.titleLink()}${if (track.info.isStream) "" else " (${track.duration.toDurationString()})"}".bold())
+            return embed("Added Track")
+                    .setDescription("Adding track to audio player queue:$LINE_SEPARATOR**${track.info.titleLink()}${
+                    if (track.info.isStream)
+                        ""
+                    else " (${track.duration.toDurationString()})"}**")
                     .setFooter("$remaining tracks left in queue.", "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
                     .build()
         }
