@@ -33,52 +33,16 @@ import java.awt.Color
 class TestApiCommand {
     @Command(
             prefix = "${EnvVars.PREFIX}",
-            id = "api",
-            aliases = ["testapi"],
-            description = "just a test",
-            usage = "<test>"
+            id = "hentai_api",
+            aliases = ["hentai", "testapi", "hentaiapi"],
+            description = "get a random picture from my hentai API",
+            usage = "<execute to get a random picture from my hentai API>"
     )
     @Permissions(
             allowDm = true
     )
     fun onCommand(context: CommandContext, event: MessageReceivedEvent){
         if(event.textChannel.isNSFW) {
-            if (event.message.author.id in authorOnly.authors) {
-                val author = event.author
-                if(author!!.isBot) {
-                    return
-                } else {
-                    val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt();
-                    val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt();
-                    val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt();
-                    val embedColor = Color(randomColor, randomColor1, randomColor2)
-
-                    val myAss = getTestApi()
-
-                    val embed = EmbedBuilder()
-                            .setAuthor("hentai in my city", "$myAss", null)
-                            .setColor(embedColor)
-                            .setImage("$myAss")
-                            .setFooter("powered by: https://computerfreaker.cf", "${event.jda.getUserById(138302166619258880).avatarUrl}")
-                            .build()
-                    event.channel.sendMessage(embed).queue()
-                }
-            }
-        }
-    }
-
-    @Command(
-            prefix = "${EnvVars.PREFIX}",
-            id = "animeapi",
-            aliases = ["animetestapi"],
-            description = "just a test",
-            usage = "<test>"
-    )
-    @Permissions(
-            allowDm = true
-    )
-    fun onAnimeCommand(context: CommandContext, event: MessageReceivedEvent){
-        if (event.message.author.id in authorOnly.authors) {
             val author = event.author
             if(author!!.isBot) {
                 return
@@ -88,16 +52,48 @@ class TestApiCommand {
                 val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt();
                 val embedColor = Color(randomColor, randomColor1, randomColor2)
 
-                val ohMyGod = getAnimeTestApi()
+                val myAss = getTestApi()
 
                 val embed = EmbedBuilder()
-                        .setAuthor("anime in my city", "$ohMyGod", null)
+                        .setAuthor("hentai in my city", "$myAss", "https://computerfreaker.cf/profile/profile.png")
                         .setColor(embedColor)
-                        .setImage("$ohMyGod")
+                        .setImage("$myAss")
                         .setFooter("powered by: https://computerfreaker.cf", "${event.jda.getUserById(138302166619258880).avatarUrl}")
                         .build()
                 event.channel.sendMessage(embed).queue()
             }
+        }
+    }
+
+    @Command(
+            prefix = "${EnvVars.PREFIX}",
+            id = "anime_api",
+            aliases = ["anime", "animetestapi", "animeapi"],
+            description = "get a somewhat random picture from my own API",
+            usage = "<execute to get a random picture from my API>"
+    )
+    @Permissions(
+            allowDm = true
+    )
+    fun onAnimeCommand(context: CommandContext, event: MessageReceivedEvent){
+        val author = event.author
+        if(author!!.isBot) {
+            return
+        } else {
+            val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt();
+            val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt();
+            val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt();
+            val embedColor = Color(randomColor, randomColor1, randomColor2)
+
+            val ohMyGod = getAnimeTestApi()
+
+            val embed = EmbedBuilder()
+                    .setAuthor("anime in my city", "$ohMyGod", "https://computerfreaker.cf/profile/profile.png")
+                    .setColor(embedColor)
+                    .setImage("$ohMyGod")
+                    .setFooter("powered by: https://computerfreaker.cf", "${event.jda.getUserById(138302166619258880).avatarUrl}")
+                    .build()
+            event.channel.sendMessage(embed).queue()
         }
     }
 

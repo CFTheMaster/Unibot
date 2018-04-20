@@ -25,7 +25,7 @@ import net.dv8tion.jda.core.EmbedBuilder
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 
 @CommandGroup("owner")
-class ChangeNameCommand{
+class ChangeNameCommand {
     @Command(
             prefix = "${EnvVars.PREFIX}",
             id = "changename",

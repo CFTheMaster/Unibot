@@ -22,9 +22,7 @@ import com.github.kvnxiao.discord.meirei.annotations.Permissions
 import com.github.kvnxiao.discord.meirei.command.CommandContext
 import net.dv8tion.jda.core.EmbedBuilder
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
-import net.dv8tion.jda.*
 import net.dv8tion.jda.core.JDAInfo
-import net.dv8tion.jda.core.entities.ChannelType
 import net.dv8tion.jda.core.entities.Member
 import java.awt.Color
 import java.time.Duration
@@ -75,7 +73,6 @@ class BotInfoCommand {
                     .addField("Support Server Invite: ", "[support server](https://discord.gg/rMVju6a)", true)
                     .addField("CFs API server", "[API server](https://discord.gg/gzWwtWG )", true)
                     .addField("CFs Github: ", "[CFs Github](https://github.com/CFTheMaster)", true)
-                    .addBlankField(true)
                     .setFooter("requested by ${event.author.name}#${event.author.discriminator} (${event.author.id})", "${event.author.avatarUrl}")
                     .build()
             event.textChannel.sendMessage(embed).queue()

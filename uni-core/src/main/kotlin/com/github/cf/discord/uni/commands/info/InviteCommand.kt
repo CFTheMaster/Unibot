@@ -23,7 +23,6 @@ import com.github.kvnxiao.discord.meirei.command.CommandContext
 import net.dv8tion.jda.core.EmbedBuilder
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import java.awt.Color
-import java.util.Random
 
 @CommandGroup("system")
 class InviteCommand {

@@ -58,7 +58,8 @@ class Uni(token: String) {
             // TODO: load external commands
             LOGGER.debug { "Logging in..." }
             clientBuilder
-                    .addEventListener(ReadyEventListener(),
+                    .addEventListener(
+                            ReadyEventListener(),
                             MessageLogListener(),
                             CommandListener(),
                             GuildJoinLeaveListener())

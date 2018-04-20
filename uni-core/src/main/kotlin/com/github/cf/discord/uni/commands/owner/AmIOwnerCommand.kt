@@ -11,10 +11,10 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import java.awt.Color
 
 @CommandGroup("owner")
-class AmIOwnerCommand(){
+class AmIOwnerCommand {
     @Command(
             prefix = "${EnvVars.PREFIX}",
-            id = "amiowner",
+            id = "am_i_owner",
             aliases = ["amiowner"],
             description = "see in which guilds i'm admin in",
             usage = "<>"

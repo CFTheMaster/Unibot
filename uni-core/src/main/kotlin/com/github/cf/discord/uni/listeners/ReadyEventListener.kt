@@ -31,7 +31,12 @@ import java.util.*
 class ReadyEventListener : ListenerAdapter() {
 
     override fun onReady(event: ReadyEvent) {
-        val text = arrayOf("with computerfreaker \uD83C\uDF38", "with guns \uD83C\uDF38", "\uD83D\uDC9C computerfreaker")
+        val text = arrayOf(
+                "with computerfreaker \uD83C\uDF38",
+                "with guns \uD83C\uDF38",
+                "\uD83D\uDC9C computerfreaker",
+                "is this thing on?",
+                "doing nothing...")
         val idx = Random().nextInt(text.size)
         val random = text[idx]
         event.jda.presence.setPresence(OnlineStatus.ONLINE, Game.of(Game.GameType.STREAMING, "$random | ${EnvVars.PREFIX}help", "https://www.twitch.tv/computerfreaker"))
