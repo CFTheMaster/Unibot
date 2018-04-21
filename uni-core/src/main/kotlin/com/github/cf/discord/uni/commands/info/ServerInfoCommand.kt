@@ -35,7 +35,7 @@ class ServerInfoCommand {
                     .addField("Guild Region: ", "${event.guild.region}", true)
                     .addField("Guild Creation Date: ", "${event.guild.creationTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))}", true)
                     .addField("Guild Members: ", "${event.guild.members.size}", true)
-                    .addField("Highest role: ", "${event.guild.roles.get(0) ?: "none"}\n", true)
+                    .addField("Highest role: ", "${event.guild.roles.get(0).name ?: "none"}\n", true)
                     .addField("Text Channels: ", "${event.guild.textChannels.size}", true)
                     .addField("Voice Channels: ", " ${event.guild.voiceChannels.size} ", true)
                     .addField("Custom Emojis: ", "${event.guild.emotes.size}", true)
