@@ -91,7 +91,7 @@ class UserInfoCommand {
 
         }
         else{
-            event.textChannel.sendMessage(embed).queue()
+            event.channel.sendMessage(embed).queue()
         }
         return null
     }
