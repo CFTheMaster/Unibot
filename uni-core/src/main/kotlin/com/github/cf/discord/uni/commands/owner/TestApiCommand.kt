@@ -102,13 +102,13 @@ class TestApiCommand {
                 .url("https://computerfreaker.cf/api/hentai/read.php")
                 .build()).execute()
 
-        if (response.isSuccessful) {
+        return if (response.isSuccessful) {
             val content = JSONObject(response.body()?.string())
             response.body()?.close()
-            return content.getString("url")
+            content.getString("url")
         } else {
             response.body()?.close()
-            return null
+            null
         }
     }
 
@@ -117,13 +117,13 @@ class TestApiCommand {
                 .url("https://computerfreaker.cf/api/anime/read.php")
                 .build()).execute()
 
-        if (response.isSuccessful) {
+        return if (response.isSuccessful) {
             val content = JSONObject(response.body()?.string())
             response.body()?.close()
-            return content.getString("url")
+            content.getString("url")
         } else {
             response.body()?.close()
-            return null
+            null
         }
     }
 }

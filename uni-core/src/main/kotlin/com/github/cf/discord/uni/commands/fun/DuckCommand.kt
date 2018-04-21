@@ -51,13 +51,13 @@ class DuckCommand {
                 .url(BASE_URL)
                 .build()).execute()
 
-        if (response.isSuccessful) {
+        return if (response.isSuccessful) {
             val content = JSONObject(response.body()?.string())
             response.body()?.close()
-            return content.getString("url")
+            content.getString("url")
         } else {
             response.body()?.close()
-            return null
+            null
         }
     }
 }

@@ -66,8 +66,18 @@ class LewdCatgirlCommand {
         }
     }
 
-    private fun getLewdCatgirl(): String {
-        val json = JSONObject(OkHttpClient().newCall(Request.Builder().url(BASE_URL).build()).execute().body()!!.string())
-        return json.getString("url")
+    private fun getLewdCatgirl(): String? {
+        val response = OkHttpClient().newCall(Request.Builder()
+                .url(BASE_URL)
+                .build()).execute()
+
+        return if (response.isSuccessful) {
+            val content = JSONObject(response.body()?.string())
+            response.body()?.close()
+            content.getString("url")
+        } else {
+            response.body()?.close()
+            null
+        }
     }
 }
