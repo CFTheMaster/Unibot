@@ -78,7 +78,7 @@ class UserInfoCommand {
                 .addField("User ID: ", "${member?.user?.id}", true)
                 .addField("Highest role: ", "${member?.roles?.sortedBy { it.position }?.last()?.name ?: "None"}\n", true)
                 .addField("Username: ", "${member?.user?.name}", true)
-                .addField("Nickname: ", "${member?.nickname ?: "none"}", true)
+                .addField("Nickname: ", "${member?.nickname ?: "None"}", true)
                 .addField("Joined Discord On: ", "${member?.user?.creationTime?.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))}", true)
                 .addField("Joined this server on: ", "${member?.joinDate?.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))}", true)
                 .addField("Playing: ", "${member?.game?.name ?: "nothing"}", true)
