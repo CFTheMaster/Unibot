@@ -34,8 +34,7 @@ class ReadyEventListener : ListenerAdapter() {
         val text = arrayOf(
                 "with computerfreaker \uD83C\uDF38",
                 "with guns \uD83C\uDF38",
-                "\uD83D\uDC9C computerfreaker",
-                "is this thing on?",
+                "is this thing on? \uD83D\uDC40",
                 "doing nothing...")
         val idx = Random().nextInt(text.size)
         val random = text[idx]
