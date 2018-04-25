@@ -24,10 +24,7 @@ import com.github.cf.discord.uni.commands.audio.AudioPlayerCommand
 import com.github.cf.discord.uni.commands.audio.VoiceChannelCommand
 import com.github.cf.discord.uni.commands.info.*
 import com.github.cf.discord.uni.commands.owner.*
-import com.github.cf.discord.uni.commands.query.GoogleCommand
-import com.github.cf.discord.uni.commands.query.PcPartPickerCommand
-import com.github.cf.discord.uni.commands.query.UrbanDictionaryCommand
-import com.github.cf.discord.uni.commands.query.WikipediaCommand
+import com.github.cf.discord.uni.commands.query.*
 import com.github.cf.discord.uni.commands.stateful.PollCommand
 import com.github.cf.discord.uni.commands.system.RestartCommand
 import com.github.cf.discord.uni.commands.system.ShutdownCommand
@@ -97,6 +94,7 @@ class Uni(token: String) {
                 WikipediaCommand(),
                 PcPartPickerCommand(),
                 UrbanDictionaryCommand(),
+                SauceNAOCommand(),
 
                 // Stateful
                 PollCommand(),

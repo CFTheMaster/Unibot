@@ -17,7 +17,7 @@ package com.github.cf.discord.uni.core
 import io.github.cdimascio.dotenv.dotenv
 
 object EnvVars {
-    val dotenv = dotenv{
+    private val dotenv = dotenv{
         ignoreIfMalformed = true
         ignoreIfMissing = true
     }
@@ -47,8 +47,14 @@ object EnvVars {
 
 
     // guild counter tokens
+    @JvmStatic
     val DBL_TOKEN = dotenv["dbl_token"]
+    @JvmStatic
     val TERMINAL_TOKEN = dotenv["terminal_token"]
+
+    // external API keys
+    @JvmStatic
+    val SAUCENAO = dotenv["saucenao"]
 
     const val PREFIX = "uni!"
 
