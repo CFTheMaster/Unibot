@@ -512,6 +512,31 @@ class AudioPlayerCommand : ListenerAdapter() {
         }
     }
 
+    @Command(
+            prefix = "${EnvVars.PREFIX}",
+            id = "tracks.volume",
+            aliases = ["volume","vol"],
+            description = "changes the volume of the bot"
+    )
+    fun volume(context: CommandContext, event: MessageReceivedEvent){
+        val author = event.author
+        if(author!!.isBot) return
+         else {
+            if (event.channelType.isGuild && event.guild.selfMember.voiceState.inVoiceChannel()) {
+                val audioManager = guildAudioManager.getOrPut(event.guild)
+
+                val vol = context.args!!.toInt()
+
+                // change the volume of the audio player
+                audioManager.player.volume = vol
+                event.channel.sendMessage("changed the volume to $vol").queue()
+
+            }else{
+                event.channel.sendMessage("i'm not in a voice channel >~<").queue()
+            }
+        }
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is AudioPlayerCommand) return false

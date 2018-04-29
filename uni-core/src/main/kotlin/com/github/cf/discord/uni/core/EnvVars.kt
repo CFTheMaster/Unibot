@@ -19,7 +19,8 @@ import io.github.cdimascio.dotenv.dotenv
 object EnvVars {
     private val dotenv = dotenv{
         ignoreIfMalformed = true
-        ignoreIfMissing = true
+        directory = "./"
+        filename = ".env"
     }
 
     @JvmStatic
