@@ -54,9 +54,12 @@ class LewdCatgirlCommand {
                 val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt();
                 val embedColor = Color(randomColor, randomColor1, randomColor2)
 
+                val lewdNeko = getLewdCatgirl()
+
                 val embed = EmbedBuilder()
+                        .setTitle("image link", lewdNeko)
                         .setColor(embedColor)
-                        .setImage(getLewdCatgirl())
+                        .setImage(lewdNeko)
                         .setFooter("powered by https://nekos.life", null)
                         .build()
                 event.channel.sendMessage(embed).queue()

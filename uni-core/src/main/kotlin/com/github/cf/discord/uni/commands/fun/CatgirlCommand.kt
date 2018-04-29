@@ -53,9 +53,12 @@ class CatgirlCommand {
             val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt();
             val embedColor = Color(randomColor, randomColor1, randomColor2)
 
+            val getNeko = getCatgirl()
+
             val embed = EmbedBuilder()
+                    .setTitle("image link", getNeko)
                     .setColor(embedColor)
-                    .setImage(getCatgirl())
+                    .setImage(getNeko)
                     .setFooter("powered by https://nekos.life", null)
                     .build()
             event.channel.sendMessage(embed).queue()
