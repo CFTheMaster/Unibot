@@ -15,24 +15,16 @@
  */
 package com.github.cf.discord.uni
 
-import com.github.cf.discord.uni.commands.`fun`.CatgirlCommand
-import com.github.cf.discord.uni.commands.`fun`.DuckCommand
-import com.github.cf.discord.uni.commands.`fun`.EightBallCommand
-import com.github.cf.discord.uni.commands.`fun`.LewdCatgirlCommand
-import com.github.cf.discord.uni.commands.admin.AdminCommand
-import com.github.cf.discord.uni.commands.audio.AudioPlayerCommand
-import com.github.cf.discord.uni.commands.audio.VoiceChannelCommand
+import com.github.cf.discord.uni.commands.`fun`.*
+import com.github.cf.discord.uni.commands.admin.*
+import com.github.cf.discord.uni.commands.audio.*
 import com.github.cf.discord.uni.commands.info.*
 import com.github.cf.discord.uni.commands.owner.*
 import com.github.cf.discord.uni.commands.query.*
-import com.github.cf.discord.uni.commands.stateful.PollCommand
-import com.github.cf.discord.uni.commands.system.RestartCommand
-import com.github.cf.discord.uni.commands.system.ShutdownCommand
+import com.github.cf.discord.uni.commands.stateful.*
+import com.github.cf.discord.uni.commands.system.*
 import com.github.cf.discord.uni.jsr223.KotlinScriptCommand
-import com.github.cf.discord.uni.listeners.CommandListener
-import com.github.cf.discord.uni.listeners.GuildJoinLeaveListener
-import com.github.cf.discord.uni.listeners.MessageLogListener
-import com.github.cf.discord.uni.listeners.ReadyEventListener
+import com.github.cf.discord.uni.listeners.*
 import com.github.kvnxiao.discord.meirei.Meirei
 import com.github.kvnxiao.discord.meirei.jda.MeireiJDA
 import mu.KotlinLogging
@@ -81,6 +73,7 @@ class Uni(token: String) {
                 InviteCommand(),
                 UserInfoCommand(),
                 ServerInfoCommand(),
+                VoteCommand(),
 
                 // Moderation Commands
                 AdminCommand(),
