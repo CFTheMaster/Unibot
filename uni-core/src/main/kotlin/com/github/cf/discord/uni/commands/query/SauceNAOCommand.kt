@@ -1,6 +1,5 @@
 package com.github.cf.discord.uni.commands.query
 
-import com.github.cf.discord.uni.commands.`fun`.LewdCatgirlCommand
 import com.github.cf.discord.uni.core.EnvVars
 import com.github.kvnxiao.discord.meirei.annotations.Command
 import com.github.kvnxiao.discord.meirei.annotations.CommandGroup
@@ -33,7 +32,8 @@ class SauceNAOCommand {
 
             var result: String? = null
             if(response.isSuccessful)
-                result = JSONObject(response.body()?.string()).getString("results")
+                result = JSONObject(response.body()?.string()).getJSONArray("results").getJSONObject(0).getJSONObject("data").getJSONArray("ext_urls").getString(0)
+
 
             response.body()?.close()
             return result
