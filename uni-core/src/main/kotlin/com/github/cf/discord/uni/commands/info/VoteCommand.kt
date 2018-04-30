@@ -29,8 +29,6 @@ class VoteCommand {
                     .setTitle("vote for the bot", event.jda.selfUser.avatarUrl)
                     .setColor(embedColor)
                     .setDescription("Uni Upvote: [upvote me](https://discordbots.org/bot/${event.jda.selfUser.idLong}/vote)")
-                    .addField("invite to my server ", "[server invite]( https://discord.gg/rMVju6a)", true)
-                    .addField("invite to my API server", "[API server invite](https://discord.gg/gzWwtWG)", true)
                     .setFooter("requested by ${event.author.name}#${event.author.discriminator} (${event.author.id})", "${event.author.avatarUrl}")
                     .build()
             event.textChannel.sendMessage(embed).queue()
