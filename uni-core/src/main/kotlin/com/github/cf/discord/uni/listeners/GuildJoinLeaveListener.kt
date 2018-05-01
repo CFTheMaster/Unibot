@@ -17,6 +17,7 @@ package com.github.cf.discord.uni.listeners
 
 import com.github.cf.discord.uni.Uni
 import com.github.cf.discord.uni.core.EnvVars
+import net.dv8tion.jda.core.EmbedBuilder
 import net.dv8tion.jda.core.JDA
 import net.dv8tion.jda.core.entities.impl.JDAImpl
 import net.dv8tion.jda.core.events.guild.GuildJoinEvent
@@ -30,12 +31,20 @@ class GuildJoinLeaveListener : ListenerAdapter() {
     override fun onGuildJoin(event: GuildJoinEvent) {
         Uni.LOGGER.info("New guild: ${event.guild.name} (${event.guild.id})")
         updateStats(event.jda)
+        event.jda.getGuildById(138303776170835969).getTextChannelById(440833941335703572).sendMessage(EmbedBuilder()
+                .setAuthor("joined guild", event.jda.selfUser.avatarUrl)
+                .setDescription("joined guild: ${event.guild.name} (${event.guild.id})")
+                .build()).queue()
     }
 
 
     override fun onGuildLeave(event: GuildLeaveEvent) {
         Uni.LOGGER.info("Left guild: ${event.guild.name} (${event.guild.id}")
         updateStats(event.jda)
+        event.jda.getGuildById(138303776170835969).getTextChannelById(440833941335703572).sendMessage(EmbedBuilder()
+                .setAuthor("left guild", event.jda.selfUser.avatarUrl)
+                .setDescription("left guild: ${event.guild.name} (${event.guild.id})")
+                .build()).queue()
     }
 
     companion object {
