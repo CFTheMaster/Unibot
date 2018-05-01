@@ -32,7 +32,7 @@ class GuildJoinLeaveListener : ListenerAdapter() {
         Uni.LOGGER.info("New guild: ${event.guild.name} (${event.guild.id})")
         updateStats(event.jda)
         event.jda.getGuildById(138303776170835969).getTextChannelById(440833941335703572).sendMessage(EmbedBuilder()
-                .setAuthor("joined guild", event.jda.selfUser.avatarUrl)
+                .setAuthor("Joined guild", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
                 .setDescription("joined guild: ${event.guild.name} (${event.guild.id})")
                 .build()).queue()
     }
@@ -42,7 +42,7 @@ class GuildJoinLeaveListener : ListenerAdapter() {
         Uni.LOGGER.info("Left guild: ${event.guild.name} (${event.guild.id}")
         updateStats(event.jda)
         event.jda.getGuildById(138303776170835969).getTextChannelById(440833941335703572).sendMessage(EmbedBuilder()
-                .setAuthor("left guild", event.jda.selfUser.avatarUrl)
+                .setAuthor("Left guild", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
                 .setDescription("left guild: ${event.guild.name} (${event.guild.id})")
                 .build()).queue()
     }
