@@ -99,7 +99,7 @@ class TestApiCommand {
 
     private fun getTestApi(): String? {
         val response = OkHttpClient().newCall(Request.Builder()
-                .url("https://computerfreaker.cf/api/hentai/read.php")
+                .url("https://api.computerfreaker.cf/v1/hentai")
                 .build()).execute()
 
         return if (response.isSuccessful) {
@@ -114,7 +114,7 @@ class TestApiCommand {
 
     private fun getAnimeTestApi(): String? {
         val response = OkHttpClient().newCall(Request.Builder()
-                .url("https://computerfreaker.cf/api/anime/read.php")
+                .url("https://api.computerfreaker.cf/v1/anime")
                 .build()).execute()
 
         return if (response.isSuccessful) {
