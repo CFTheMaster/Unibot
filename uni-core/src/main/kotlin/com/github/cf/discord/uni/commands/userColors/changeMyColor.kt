@@ -32,16 +32,16 @@ class changeMyColor {
             }
             else if(context.args.equals("something")){
                 event.guild.controller.removeRolesFromMember(event.guild.getMember(event.author), aNewColor.find { it.name.startsWith("#", false) }).queue()
-                val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt();
-                val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt();
-                val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt();
+                val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt()
+                val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt()
+                val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt()
                 val color = Color(randomColor, randomColor1, randomColor2)
                 val colorName = java.lang.Integer.toHexString(color.rgb)
                 val haha = event.guild.controller.createRole().setColor(color).setName(colorName).complete()
                 event.guild.controller.addSingleRoleToMember(event.guild.getMember(event.author), haha)
             }
             else{
-                val ohShit = context.args!!.toInt()
+                val ohShit = context.args!!.toInt(16)
                 val color = Color(ohShit)
                 val haha = event.guild.controller.createRole().setColor(color).setName(ohShit.toString()).complete()
                 event.guild.controller.removeRolesFromMember(event.guild.getMember(event.author), aNewColor.find { it.name.startsWith("#", false) }).queue()
