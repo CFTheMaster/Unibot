@@ -30,13 +30,7 @@ class changeMyColor {
             if(context.args.isNullOrEmpty()){
                 event.guild.controller.removeRolesFromMember(event.guild.getMember(event.author), aNewColor.find { it.name.startsWith("#", false) }).queue()
             }
-            else if(aNewColor.isEmpty()){
-                val ohShit = java.lang.Integer.parseInt("${context.args}", 16)
-                val color = Color(ohShit)
-                val haha = event.guild.controller.createRole().setColor(color).setName(ohShit.toString()).complete()
-                event.guild.controller.removeRolesFromMember(event.guild.getMember(event.author), aNewColor.find { it.name.startsWith("#", false) }).queue()
-                event.guild.controller.addSingleRoleToMember(event.guild.getMember(event.author), haha)
-            }else if(context.args.equals("something")){
+            else if(context.args.equals("something")){
                 event.guild.controller.removeRolesFromMember(event.guild.getMember(event.author), aNewColor.find { it.name.startsWith("#", false) }).queue()
                 val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt();
                 val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt();
@@ -47,9 +41,11 @@ class changeMyColor {
                 event.guild.controller.addSingleRoleToMember(event.guild.getMember(event.author), haha)
             }
             else{
-                val existedRole = aNewColor.find { it.name.equals(context.args, true) }
+                val ohShit = java.lang.Integer.parseInt("${context.args}", 16)
+                val color = Color(ohShit)
+                val haha = event.guild.controller.createRole().setColor(color).setName(ohShit.toString()).complete()
                 event.guild.controller.removeRolesFromMember(event.guild.getMember(event.author), aNewColor.find { it.name.startsWith("#", false) }).queue()
-                event.guild.controller.addSingleRoleToMember(event.guild.getMember(event.author), existedRole!!).queue()
+                event.guild.controller.addSingleRoleToMember(event.guild.getMember(event.author), haha)
             }
 
 
