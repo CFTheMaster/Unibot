@@ -31,24 +31,23 @@ class changeMyColor {
                 event.guild.controller.removeRolesFromMember(event.guild.getMember(event.author), aNewColor.find { it.name.startsWith("#", false) }).queue()
             }
             else if(context.args.equals("something")){
-                event.guild.controller.removeRolesFromMember(event.guild.getMember(event.author), aNewColor.find { it.name.startsWith("#", false) }).queue()
                 val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt()
                 val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt()
                 val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt()
                 val color = Color(randomColor, randomColor1, randomColor2)
-                val colorName = java.lang.Integer.toHexString(color.rgb)
-                val haha = event.guild.controller.createRole().setColor(color).setName(colorName).complete()
-                event.guild.controller.addSingleRoleToMember(event.guild.getMember(event.author), haha)
+                val colorName = java.lang.Integer.toHexString(color.rgb).replaceFirst("ff", "")
+                event.guild.controller.removeRolesFromMember(event.guild.getMember(event.author), aNewColor.find { it.name.startsWith("#", false) }).queue()
+                val haha = event.guild.controller.createRole().setColor(color).setName("#$colorName").complete()
+                event.guild.controller.addSingleRoleToMember(event.guild.getMember(event.author), haha).queue()
             }
             else{
                 val ohShit = java.lang.Integer.parseInt(context.args!!.replaceFirst("#", ""), 16)
+                val hexAss = java.lang.Integer.toHexString(ohShit)
                 val color = Color(ohShit)
-                val haha = event.guild.controller.createRole().setColor(color).setName(ohShit.toString()).complete()
                 event.guild.controller.removeRolesFromMember(event.guild.getMember(event.author), aNewColor.find { it.name.startsWith("#", false) }).queue()
-                event.guild.controller.addSingleRoleToMember(event.guild.getMember(event.author), haha)
+                val haha = event.guild.controller.createRole().setColor(color).setName("#$hexAss").complete()
+                event.guild.controller.addSingleRoleToMember(event.guild.getMember(event.author), haha).queue()
             }
-
-
         }
     }
 }
