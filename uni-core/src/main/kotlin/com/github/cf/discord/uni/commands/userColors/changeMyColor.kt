@@ -41,7 +41,7 @@ class changeMyColor {
                 event.guild.controller.addSingleRoleToMember(event.guild.getMember(event.author), haha)
             }
             else{
-                val ohShit = context.args!!.toInt(16)
+                val ohShit = java.lang.Integer.parseInt(context.args!!.replaceFirst("#", ""), 16)
                 val color = Color(ohShit)
                 val haha = event.guild.controller.createRole().setColor(color).setName(ohShit.toString()).complete()
                 event.guild.controller.removeRolesFromMember(event.guild.getMember(event.author), aNewColor.find { it.name.startsWith("#", false) }).queue()
