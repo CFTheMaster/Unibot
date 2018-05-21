@@ -23,6 +23,7 @@ import com.github.cf.discord.uni.commands.owner.*
 import com.github.cf.discord.uni.commands.query.*
 import com.github.cf.discord.uni.commands.stateful.*
 import com.github.cf.discord.uni.commands.system.*
+import com.github.cf.discord.uni.commands.userColors.changeMyColor
 import com.github.cf.discord.uni.jsr223.KotlinScriptCommand
 import com.github.cf.discord.uni.listeners.*
 import com.github.kvnxiao.discord.meirei.Meirei
@@ -63,6 +64,8 @@ class Uni(token: String) {
 
     private fun JDABuilder.registerCommands(): JDABuilder {
         meirei.addAnnotatedCommands(
+                //Color User
+                changeMyColor(),
                 // System
                 BotInfoCommand(),
                 HelpCommand(),
