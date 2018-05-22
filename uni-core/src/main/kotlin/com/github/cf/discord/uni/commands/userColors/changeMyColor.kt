@@ -30,11 +30,16 @@ class changeMyColor {
             val userRoleIds = event.guild.getMember(event.author).roles
             val serverRoles = event.guild.roles
 
+            val roleId = serverRoles.find { it.name.startsWith("#${context.args!!.replaceFirst("#", "")}") }?.idLong
+
+            val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt()
+            val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt()
+            val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt()
+
+            if(context.args == null){
+                event.guild.controller.removeRolesFromMember(event.guild.getMember(event.author), serverRoles.find { it.name.startsWith("#", true) }).queue()
             }
-            else if(context.args.equals("something")){
-                val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt()
-                val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt()
-                val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt()
+            else if(context.args == "something"){
                 val color = Color(randomColor, randomColor1, randomColor2)
                 val colorName = java.lang.Integer.toHexString(color.rgb).replaceFirst("ff", "")
                 event.guild.controller.removeRolesFromMember(event.guild.getMember(event.author), serverRoles.find { it.name.startsWith("#", true) }).queue()
