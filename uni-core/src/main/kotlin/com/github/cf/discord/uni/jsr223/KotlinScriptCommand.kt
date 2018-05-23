@@ -53,40 +53,42 @@ class KotlinScriptCommand {
     )
     @Permissions(allowDm = true)
     fun ktscript(context: CommandContext, event: MessageReceivedEvent) {
-        if (event.message.author.id in authorOnly.authors) {
-            val args = context.args?.getFromCodeBlock() ?: return
-            engine.setBindings(engine.createBindings().apply {
-                put("event", event)
-            }, ScriptContext.ENGINE_SCOPE)
-            try {
-                val eval: Any? = engine.eval("""import net.dv8tion.jda.core.events.message.MessageReceivedEvent${LINE_SEPARATOR}val event = bindings["event"]!! as MessageReceivedEvent$LINE_SEPARATOR$args""")
+        if(!event.author.isBot){
+            if (event.message.author.id in authorOnly.authors) {
+                val args = context.args?.getFromCodeBlock() ?: return
+                engine.setBindings(engine.createBindings().apply {
+                    put("event", event)
+                }, ScriptContext.ENGINE_SCOPE)
+                try {
+                    val eval: Any? = engine.eval("""import net.dv8tion.jda.core.events.message.MessageReceivedEvent${LINE_SEPARATOR}val event = bindings["event"]!! as MessageReceivedEvent$LINE_SEPARATOR$args""")
+                    event.channel.sendMessage(
+                            EmbedBuilder()
+                                    .setTitle("Kotlin Scripting Engine")
+                                    .setDescription("Evaluating ```kotlin$LINE_SEPARATOR$args```")
+                                    .addField("Result", eval?.toString() ?: "*`void return`*", false)
+                                    .build()
+                    ).queue()
+                    event.message.addReaction(Reactions.CHECKMARK).queue()
+                } catch (e: ScriptException) {
+                    event.message.addReaction(Reactions.CROSSMARK).queue()
+                    event.channel.sendMessage(
+                            EmbedBuilder()
+                                    .setTitle("Kotlin Scripting Engine")
+                                    .setDescription("An unexpected errorEmbed occurred in evaluating the Kotlin script.")
+                                    .addField(e.javaClass.simpleName, "```kotlin$LINE_SEPARATOR${e.message}```", false)
+                                    .build()
+                    ).queue()
+                }
+            }
+            else{
                 event.channel.sendMessage(
                         EmbedBuilder()
-                                .setTitle("Kotlin Scripting Engine")
-                                .setDescription("Evaluating ```kotlin$LINE_SEPARATOR$args```")
-                                .addField("Result", eval?.toString() ?: "*`void return`*", false)
-                                .build()
-                ).queue()
-                event.message.addReaction(Reactions.CHECKMARK).queue()
-            } catch (e: ScriptException) {
-                event.message.addReaction(Reactions.CROSSMARK).queue()
-                event.channel.sendMessage(
-                        EmbedBuilder()
-                                .setTitle("Kotlin Scripting Engine")
-                                .setDescription("An unexpected errorEmbed occurred in evaluating the Kotlin script.")
-                                .addField(e.javaClass.simpleName, "```kotlin$LINE_SEPARATOR${e.message}```", false)
+                                .setAuthor("Uni", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
+                                .setTitle("Please don't do this command")
+                                .setDescription("doing this command makes me angry please don't do it again <:OhISee:397902772865073154>")
                                 .build()
                 ).queue()
             }
-        }
-        else{
-            event.channel.sendMessage(
-                    EmbedBuilder()
-                            .setAuthor("Uni", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
-                            .setTitle("Please don't do this command")
-                            .setDescription("doing this command makes me angry please don't do it again <:OhISee:397902772865073154>")
-                            .build()
-            ).queue()
         }
     }
 }

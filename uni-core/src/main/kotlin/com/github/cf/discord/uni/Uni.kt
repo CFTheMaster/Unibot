@@ -23,8 +23,8 @@ import com.github.cf.discord.uni.commands.owner.*
 import com.github.cf.discord.uni.commands.query.*
 import com.github.cf.discord.uni.commands.stateful.*
 import com.github.cf.discord.uni.commands.system.*
-import com.github.cf.discord.uni.commands.userColors.changeMyColor
-import com.github.cf.discord.uni.jsr223.KotlinScriptCommand
+import com.github.cf.discord.uni.commands.userColors.*
+import com.github.cf.discord.uni.jsr223.*
 import com.github.cf.discord.uni.listeners.*
 import com.github.kvnxiao.discord.meirei.Meirei
 import com.github.kvnxiao.discord.meirei.jda.MeireiJDA
