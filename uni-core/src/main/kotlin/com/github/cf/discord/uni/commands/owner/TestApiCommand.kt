@@ -16,7 +16,6 @@
 package com.github.cf.discord.uni.commands.owner
 
 import com.github.cf.discord.uni.core.EnvVars
-import com.github.cf.discord.uni.data.authorOnly
 import com.github.kvnxiao.discord.meirei.annotations.Command
 import com.github.kvnxiao.discord.meirei.annotations.CommandGroup
 import com.github.kvnxiao.discord.meirei.annotations.Permissions
@@ -25,7 +24,6 @@ import net.dv8tion.jda.core.EmbedBuilder
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.ResponseBody
 import org.json.JSONObject
 import java.awt.Color
 

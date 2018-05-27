@@ -19,15 +19,13 @@ import com.github.benmanes.caffeine.cache.Cache
 import com.github.benmanes.caffeine.cache.Caffeine
 import com.github.kvnxiao.discord.meirei.annotations.Command
 import com.github.kvnxiao.discord.meirei.annotations.CommandGroup
-import com.github.kvnxiao.discord.meirei.annotations.Permissions
 import com.github.kvnxiao.discord.meirei.command.CommandContext
-import com.github.kvnxiao.discord.meirei.jda.permission.PermissionLevel
 import com.github.kvnxiao.discord.meirei.utility.GuildId
 import com.github.cf.discord.uni.audio.AudioEmbed
 import com.github.cf.discord.uni.audio.AudioEventAdapter
 import com.github.cf.discord.uni.audio.LavaplayerAudioManager
 import com.github.cf.discord.uni.core.EnvVars
-import com.github.cf.discord.uni.data.authorOnly
+import com.github.cf.discord.uni.data.botOwners
 import com.github.cf.discord.uni.database.nosql.Redis
 import com.github.cf.discord.uni.stateful.GuildStateManager
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer
@@ -39,7 +37,6 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import net.dv8tion.jda.core.EmbedBuilder
 import net.dv8tion.jda.core.Permission
 import net.dv8tion.jda.core.entities.Guild
-import net.dv8tion.jda.core.entities.Message
 import net.dv8tion.jda.core.entities.TextChannel
 import net.dv8tion.jda.core.events.ReadyEvent
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
@@ -347,7 +344,7 @@ class AudioPlayerCommand : ListenerAdapter() {
         val author = event.author
         if(author!!.isBot) {
             return
-        } else if(event.member.hasPermission(Permission.ADMINISTRATOR) || event.message.author.id in authorOnly.authors){
+        } else if(event.member.hasPermission(Permission.ADMINISTRATOR) || event.message.author.id in botOwners.authors){
             if (event.channelType.isGuild) {
                 event.channel.sendMessage(embed).queue()
                 val channelId = event.textChannel.idLong
@@ -388,7 +385,7 @@ class AudioPlayerCommand : ListenerAdapter() {
                 .build()
         val author = event.author
         if(author!!.isBot) return
-        else if(event.member.hasPermission(Permission.ADMINISTRATOR) || event.message.author.id in authorOnly.authors) {
+        else if(event.member.hasPermission(Permission.ADMINISTRATOR) || event.message.author.id in botOwners.authors) {
             // Set channel only if audio panel doesn't exit
             if (event.channelType.isGuild && !guildAudioPanelManager.contains(event.guild.idLong)) {
                 // Set channel ID in Redis
@@ -429,7 +426,7 @@ class AudioPlayerCommand : ListenerAdapter() {
         val author = event.author
         if (author!!.isBot) {
             return
-        }  else if(event.member.hasPermission(Permission.ADMINISTRATOR) || event.message.author.id in authorOnly.authors) {
+        }  else if(event.member.hasPermission(Permission.ADMINISTRATOR) || event.message.author.id in botOwners.authors) {
         // Delete channel only if audio panel exists
             if (event.channelType.isGuild && guildAudioPanelManager.contains(event.guild.idLong)) {
                 // Delete channel ID in Redis

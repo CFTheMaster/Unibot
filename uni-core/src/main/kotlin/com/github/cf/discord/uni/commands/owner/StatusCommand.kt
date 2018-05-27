@@ -22,7 +22,7 @@ import com.github.kvnxiao.discord.meirei.command.CommandContext
 import net.dv8tion.jda.core.OnlineStatus
 import net.dv8tion.jda.core.entities.Game
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
-import com.github.cf.discord.uni.data.authorOnly
+import com.github.cf.discord.uni.data.botOwners
 import com.github.kvnxiao.discord.meirei.annotations.Permissions
 import net.dv8tion.jda.core.EmbedBuilder
 
@@ -41,7 +41,7 @@ class StatusCommand {
     fun status(context: CommandContext, event: MessageReceivedEvent){
         val author = event.author
         if(author!!.isBot) return
-        else if (event.message.author.id in authorOnly.authors) {
+        else if (event.message.author.id in botOwners.authors) {
             event.jda.presence.setPresence(OnlineStatus.ONLINE, Game.of(Game.GameType.STREAMING, "${context.args} | ${EnvVars.PREFIX}help", "https://www.twitch.tv/computerfreaker"))
             event.channel.sendMessage("i have set my status to ${context.args}")
         }else{

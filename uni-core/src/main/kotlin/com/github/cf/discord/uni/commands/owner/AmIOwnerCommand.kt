@@ -1,7 +1,6 @@
 package com.github.cf.discord.uni.commands.owner
 
 import com.github.cf.discord.uni.core.EnvVars
-import com.github.cf.discord.uni.data.authorOnly.authors
 import com.github.kvnxiao.discord.meirei.annotations.Command
 import com.github.kvnxiao.discord.meirei.annotations.CommandGroup
 import com.github.kvnxiao.discord.meirei.annotations.Permissions

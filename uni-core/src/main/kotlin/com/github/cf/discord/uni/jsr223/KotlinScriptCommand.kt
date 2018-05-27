@@ -23,9 +23,8 @@ import com.github.cf.discord.uni.Lib.LINE_SEPARATOR
 import com.github.cf.discord.uni.Reactions
 import com.github.cf.discord.uni.Uni.Companion.LOGGER
 import com.github.cf.discord.uni.core.EnvVars
-import com.github.cf.discord.uni.data.authorOnly
+import com.github.cf.discord.uni.data.botOwners
 import com.github.cf.discord.uni.getFromCodeBlock
-import com.github.kvnxiao.discord.meirei.jda.permission.PermissionLevel
 import net.dv8tion.jda.core.EmbedBuilder
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import javax.script.ScriptContext
@@ -54,7 +53,7 @@ class KotlinScriptCommand {
     @Permissions(allowDm = true)
     fun ktscript(context: CommandContext, event: MessageReceivedEvent) {
         if(!event.author.isBot){
-            if (event.message.author.id in authorOnly.authors) {
+            if (event.message.author.id in botOwners.authors) {
                 val args = context.args?.getFromCodeBlock() ?: return
                 engine.setBindings(engine.createBindings().apply {
                     put("event", event)

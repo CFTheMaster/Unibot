@@ -16,7 +16,7 @@
 package com.github.cf.discord.uni.commands.system
 
 import com.github.cf.discord.uni.core.EnvVars
-import com.github.cf.discord.uni.data.authorOnly
+import com.github.cf.discord.uni.data.botOwners
 import com.github.kvnxiao.discord.meirei.annotations.Command
 import com.github.kvnxiao.discord.meirei.annotations.CommandGroup
 import com.github.kvnxiao.discord.meirei.annotations.Permissions
@@ -40,7 +40,7 @@ class ShutdownCommand {
             allowDm = true
     )
     fun onCommand(context: CommandContext, event: MessageReceivedEvent) {
-        if(event.message.author.id in authorOnly.authors){
+        if(event.message.author.id in botOwners.authors){
             event.channel.sendMessage("**Shutting down in 3 seconds.**").queue({
                 val timer = Timer()
                 timer.schedule(timerTask { exitProcess(ReturnCodes.SHUTDOWN) }, 3000)

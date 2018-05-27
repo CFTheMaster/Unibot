@@ -16,7 +16,7 @@
 package com.github.cf.discord.uni.commands.owner
 
 import com.github.cf.discord.uni.core.EnvVars
-import com.github.cf.discord.uni.data.authorOnly
+import com.github.cf.discord.uni.data.botOwners
 import com.github.kvnxiao.discord.meirei.annotations.Command
 import com.github.kvnxiao.discord.meirei.annotations.CommandGroup
 import com.github.kvnxiao.discord.meirei.annotations.Permissions
@@ -39,7 +39,7 @@ class SayCommand {
     fun sayCommand(context: CommandContext, event: MessageReceivedEvent){
         val author = event.author
         if(author!!.isBot) return
-        else if(event.message.author.id in authorOnly.authors){
+        else if(event.message.author.id in botOwners.authors){
             event.channel.sendMessage(context.args).queue()
         }else{
             event.channel.sendMessage(EmbedBuilder()
