@@ -33,7 +33,7 @@ class GuildJoinLeaveListener : ListenerAdapter() {
         Uni.LOGGER.info("New guild: ${event.guild.name} (${event.guild.id})")
         updateStats(event.jda)
         event.jda.getGuildById(138303776170835969).getTextChannelById(440833941335703572).sendMessage(EmbedBuilder()
-                .setAuthor("Joined guild", "${event.guild.iconUrl}", "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
+                .setAuthor("Joined guild", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
                 .setColor(java.lang.Integer.parseInt("#6600cc".replaceFirst("#", ""), 16))
                 .addField("Joined Guild: ", "${event.guild.name}", true)
                 .addField("Guild ID: ", "${event.guild.idLong}", true)
