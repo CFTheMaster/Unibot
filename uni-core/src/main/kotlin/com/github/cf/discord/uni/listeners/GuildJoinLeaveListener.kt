@@ -56,7 +56,7 @@ class GuildJoinLeaveListener : ListenerAdapter() {
         event.jda.getGuildById(138303776170835969).getTextChannelById(440833941335703572).sendMessage(EmbedBuilder()
                 .setAuthor("Left guild", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
                 .setColor(java.lang.Integer.parseInt("#6600cc".replaceFirst("#", ""), 16))
-                .addField("Joined Guild: ", "${event.guild.name}", true)
+                .addField("Left Guild: ", "${event.guild.name}", true)
                 .addField("Guild ID: ", "${event.guild.idLong}", true)
                 .addField("Server Owner: ", "${event.guild.owner.user.name}", true)
                 .addField("Server Owner ID: ", "${event.guild.owner.user.idLong}", true)
