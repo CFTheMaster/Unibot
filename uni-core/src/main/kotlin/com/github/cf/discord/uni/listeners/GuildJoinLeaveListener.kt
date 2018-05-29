@@ -41,9 +41,11 @@ class GuildJoinLeaveListener : ListenerAdapter() {
                 .addField("Server Owner ID: ", "${event.guild.owner.user.idLong}", true)
                 .addField("Creation Date: ", "${event.guild.creationTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))}", true)
                 .addField("Guild Members: ", "${event.guild.members.filter { it.user.isBot }.size}", true)
+                .addField("Guild Members + Bots: ","${event.guild.members.size}", true)
                 .addField("Highest role: ", "${event.guild.roles.get(0).name ?: "none"}\n", true)
                 .addField("Text Channels: ", "${event.guild.textChannels.size}", true)
                 .addField("Voice Channels: ", " ${event.guild.voiceChannels.size} ", true)
+                .addField("Total amount of guilds: ", "${event.jda.guilds.size}", true)
                 .build()).queue()
     }
 
@@ -60,9 +62,11 @@ class GuildJoinLeaveListener : ListenerAdapter() {
                 .addField("Server Owner ID: ", "${event.guild.owner.user.idLong}", true)
                 .addField("Creation Date: ", "${event.guild.creationTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))}", true)
                 .addField("Guild Members: ", "${event.guild.members.filter { it.user.isBot }.size}", true)
+                .addField("Guild Members + Bots: ","${event.guild.members.size}", true)
                 .addField("Highest role: ", "${event.guild.roles.get(0).name ?: "none"}\n", true)
                 .addField("Text Channels: ", "${event.guild.textChannels.size}", true)
                 .addField("Voice Channels: ", " ${event.guild.voiceChannels.size} ", true)
+                .addField("Total amount of guilds: ", "${event.jda.guilds.size}", true)
                 .build()).queue()
     }
 
