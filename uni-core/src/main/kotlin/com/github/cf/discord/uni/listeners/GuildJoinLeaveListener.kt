@@ -26,14 +26,24 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
+import java.time.format.DateTimeFormatter
 
 class GuildJoinLeaveListener : ListenerAdapter() {
     override fun onGuildJoin(event: GuildJoinEvent) {
         Uni.LOGGER.info("New guild: ${event.guild.name} (${event.guild.id})")
         updateStats(event.jda)
         event.jda.getGuildById(138303776170835969).getTextChannelById(440833941335703572).sendMessage(EmbedBuilder()
-                .setAuthor("Joined guild", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
-                .setDescription("joined guild: ${event.guild.name} (${event.guild.id})")
+                .setAuthor("Joined guild", "${event.guild.iconUrl}", "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
+                .setColor(java.lang.Integer.parseInt("#6600cc".replaceFirst("#", ""), 16))
+                .addField("Joined Guild: ", "${event.guild.name}", true)
+                .addField("Guild ID: ", "${event.guild.idLong}", true)
+                .addField("Server Owner: ", "${event.guild.owner.user.name}", true)
+                .addField("Server Owner ID: ", "${event.guild.owner.user.idLong}", true)
+                .addField("Creation Date: ", "${event.guild.creationTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))}", true)
+                .addField("Guild Members: ", "${event.guild.members.filter { it.user.isBot }.size}", true)
+                .addField("Highest role: ", "${event.guild.roles.get(0).name ?: "none"}\n", true)
+                .addField("Text Channels: ", "${event.guild.textChannels.size}", true)
+                .addField("Voice Channels: ", " ${event.guild.voiceChannels.size} ", true)
                 .build()).queue()
     }
 
@@ -43,7 +53,16 @@ class GuildJoinLeaveListener : ListenerAdapter() {
         updateStats(event.jda)
         event.jda.getGuildById(138303776170835969).getTextChannelById(440833941335703572).sendMessage(EmbedBuilder()
                 .setAuthor("Left guild", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
-                .setDescription("left guild: ${event.guild.name} (${event.guild.id})")
+                .setColor(java.lang.Integer.parseInt("#6600cc".replaceFirst("#", ""), 16))
+                .addField("Joined Guild: ", "${event.guild.name}", true)
+                .addField("Guild ID: ", "${event.guild.idLong}", true)
+                .addField("Server Owner: ", "${event.guild.owner.user.name}", true)
+                .addField("Server Owner ID: ", "${event.guild.owner.user.idLong}", true)
+                .addField("Creation Date: ", "${event.guild.creationTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))}", true)
+                .addField("Guild Members: ", "${event.guild.members.filter { it.user.isBot }.size}", true)
+                .addField("Highest role: ", "${event.guild.roles.get(0).name ?: "none"}\n", true)
+                .addField("Text Channels: ", "${event.guild.textChannels.size}", true)
+                .addField("Voice Channels: ", " ${event.guild.voiceChannels.size} ", true)
                 .build()).queue()
     }
 
