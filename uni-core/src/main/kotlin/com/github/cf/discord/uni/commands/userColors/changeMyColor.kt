@@ -16,7 +16,7 @@ class changeMyColor {
     }
     @Command(
             prefix = "${EnvVars.PREFIX}",
-            id = "color",
+            id = "change_my_color",
             aliases = ["rainbow"],
             description = "change your own color",
             usage = "#123456 | random | nothing to remove the color"
@@ -70,7 +70,7 @@ class changeMyColor {
 
     @Command(
             prefix = "${EnvVars.PREFIX}",
-            id = "color",
+            id = "hex_to_int",
             aliases = ["hex"],
             description = "see what the int is for your current hex",
             usage = "#123456"
@@ -82,7 +82,7 @@ class changeMyColor {
 
     @Command(
             prefix = "${EnvVars.PREFIX}",
-            id = "color",
+            id = "int_to_hex",
             aliases = ["int"],
             description = "see what the current hex is for your int",
             usage = "12345678"
