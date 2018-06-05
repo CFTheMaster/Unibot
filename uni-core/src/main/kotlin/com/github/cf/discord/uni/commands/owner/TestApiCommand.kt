@@ -95,6 +95,102 @@ class TestApiCommand {
         }
     }
 
+    @Command(
+            prefix = "${EnvVars.PREFIX}",
+            id = "baguette_api",
+            aliases = ["baguette"],
+            description = "get a somewhat random bagutte picture from my own API",
+            usage = "<execute to get a random picture from my API>"
+    )
+    @Permissions(
+            allowDm = true
+    )
+    fun onBaguetteCommand(context: CommandContext, event: MessageReceivedEvent){
+        val author = event.author
+        if(author!!.isBot) {
+            return
+        } else {
+            val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt();
+            val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt();
+            val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt();
+            val embedColor = Color(randomColor, randomColor1, randomColor2)
+
+            val baguette = getBaguette()
+
+            val embed = EmbedBuilder()
+                    .setAuthor("anime in my city", "$baguette", "https://computerfreaker.cf/profile/profile.png")
+                    .setColor(embedColor)
+                    .setImage("$baguette")
+                    .setFooter("powered by: https://api.computerfreaker.cf", "${event.jda.getUserById(138302166619258880).avatarUrl}")
+                    .build()
+            event.channel.sendMessage(embed).queue()
+        }
+    }
+
+    @Command(
+            prefix = "${EnvVars.PREFIX}",
+            id = "hug_api",
+            aliases = ["hug"],
+            description = "tag someone to hug them",
+            usage = "<execute to to hug someone>"
+    )
+    fun onHugCommand(context: CommandContext, event: MessageReceivedEvent){
+        val author = event.author
+        val mentioned = event.message.mentionedUsers
+        if(author!!.isBot) {
+            return
+        } else {
+            if (mentioned == null) event.channel.sendMessage("please tag someone")
+            else if (mentioned == author) event.channel.sendMessage("you can't hug yourself")
+            else{
+                val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt();
+                val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt();
+                val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt();
+                val embedColor = Color(randomColor, randomColor1, randomColor2)
+
+                val hug = getHug()
+
+                val embed = EmbedBuilder()
+                        .setAuthor("$mentioned gets hugged by ${event.author.name}", "$hug", "https://computerfreaker.cf/profile/profile.png")
+                        .setColor(embedColor)
+                        .setImage("$hug")
+                        .setFooter("powered by: https://api.computerfreaker.cf", "${event.jda.getUserById(138302166619258880).avatarUrl}")
+                        .build()
+                event.channel.sendMessage(embed).queue()
+            }
+        }
+    }
+
+    private fun getHug(): String? {
+        val response = OkHttpClient().newCall(Request.Builder()
+                .url("https://api.computerfreaker.cf/v1/hug")
+                .build()).execute()
+
+        return if (response.isSuccessful) {
+            val content = JSONObject(response.body()?.string())
+            response.body()?.close()
+            content.getString("url")
+        } else {
+            response.body()?.close()
+            null
+        }
+    }
+
+    private fun getBaguette(): String? {
+        val response = OkHttpClient().newCall(Request.Builder()
+                .url("https://api.computerfreaker.cf/v1/baguette")
+                .build()).execute()
+
+        return if (response.isSuccessful) {
+            val content = JSONObject(response.body()?.string())
+            response.body()?.close()
+            content.getString("url")
+        } else {
+            response.body()?.close()
+            null
+        }
+    }
+
     private fun getTestApi(): String? {
         val response = OkHttpClient().newCall(Request.Builder()
                 .url("https://api.computerfreaker.cf/v1/hentai")
