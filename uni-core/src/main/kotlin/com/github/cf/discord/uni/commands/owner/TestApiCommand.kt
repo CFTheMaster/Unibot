@@ -162,6 +162,53 @@ class TestApiCommand {
         }
     }
 
+    @Command(
+            prefix = "${EnvVars.PREFIX}",
+            id = "trap_api",
+            aliases = ["trap"],
+            description = "get a random trap from my API",
+            usage = "<execute to to hug someone>"
+    )
+    fun onTrapCommand(context: CommandContext, event: MessageReceivedEvent){
+        val author = event.author
+        if(author!!.isBot) {
+            return
+        } else {
+            if (event.textChannel.isNSFW) {
+                val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt();
+                val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt();
+                val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt();
+                val embedColor = Color(randomColor, randomColor1, randomColor2)
+
+                val trap = getTrap()
+
+                val embed = EmbedBuilder()
+                        .setAuthor("traps for life!!", "$trap", "https://computerfreaker.cf/profile/profile.png")
+                        .setColor(embedColor)
+                        .setImage("$trap")
+                        .setFooter("powered by: https://api.computerfreaker.cf", "${event.jda.getUserById(138302166619258880).avatarUrl}")
+                        .build()
+                event.channel.sendMessage(embed).queue()
+            }
+        }
+    }
+
+
+    private fun getTrap(): String? {
+        val response = OkHttpClient().newCall(Request.Builder()
+                .url("https://api.computerfreaker.cf/v1/trap")
+                .build()).execute()
+
+        return if (response.isSuccessful) {
+            val content = JSONObject(response.body()?.string())
+            response.body()?.close()
+            content.getString("url")
+        } else {
+            response.body()?.close()
+            null
+        }
+    }
+
     private fun getHug(): String? {
         val response = OkHttpClient().newCall(Request.Builder()
                 .url("https://api.computerfreaker.cf/v1/hug")
