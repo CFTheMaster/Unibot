@@ -22,6 +22,7 @@ import com.github.kvnxiao.discord.meirei.annotations.Permissions
 import com.github.kvnxiao.discord.meirei.command.CommandContext
 import net.dv8tion.jda.core.EmbedBuilder
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
+import net.dv8tion.jda.core.entities.Member
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
@@ -118,7 +119,7 @@ class TestApiCommand {
             val baguette = getBaguette()
 
             val embed = EmbedBuilder()
-                    .setAuthor("anime in my city", "$baguette", "https://computerfreaker.cf/profile/profile.png")
+                    .setAuthor("baguette", "$baguette", "https://computerfreaker.cf/profile/profile.png")
                     .setColor(embedColor)
                     .setImage("$baguette")
                     .setFooter("powered by: https://api.computerfreaker.cf", "${event.jda.getUserById(138302166619258880).avatarUrl}")
@@ -136,12 +137,12 @@ class TestApiCommand {
     )
     fun onHugCommand(context: CommandContext, event: MessageReceivedEvent){
         val author = event.author
-        val mentioned = event.member
+        val mentioned = context.args!![0] as Member
         if(author!!.isBot) {
             return
         } else {
-            if (mentioned == null) event.channel.sendMessage("please tag someone")
-            else if (mentioned.user.idLong == author.idLong) event.channel.sendMessage("you can't hug yourself")
+            if (mentioned == null) event.channel.sendMessage("please tag someone").queue()
+            else if (mentioned.user.idLong == author.idLong) event.channel.sendMessage("you can't hug yourself").queue()
             else{
                 val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt();
                 val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt();
