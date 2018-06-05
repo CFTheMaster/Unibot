@@ -67,4 +67,28 @@ class changeMyColor {
         }
 
     }
+
+    @Command(
+            prefix = "${EnvVars.PREFIX}",
+            id = "color",
+            aliases = ["hex-to-int"],
+            description = "see what the int is for your current hex",
+            usage = "#123456"
+    )
+    fun whatIsMyHexCommand(context: CommandContext, event: MessageReceivedEvent){
+        val ohShit = java.lang.Integer.parseInt(context.args!!.replaceFirst("#", ""), 16)
+        event.channel.sendMessage("your hex ${context.args} is $ohShit").queue()
+    }
+
+    @Command(
+            prefix = "${EnvVars.PREFIX}",
+            id = "color",
+            aliases = ["int-to-hex"],
+            description = "see what the current hex is for your int",
+            usage = "12345678"
+    )
+    fun whatIsMyIntCommand(context: CommandContext, event: MessageReceivedEvent){
+        val intName = java.lang.Integer.toHexString(context.args!!.toInt()).replaceFirst("ff", "")
+        event.channel.sendMessage("your int: ${context.args} is #$intName")
+    }
 }
