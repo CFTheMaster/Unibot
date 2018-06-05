@@ -41,12 +41,12 @@ class TestApiCommand {
     @Permissions(
             allowDm = true
     )
-    fun onCommand(context: CommandContext, event: MessageReceivedEvent){
-        if(event.textChannel.isNSFW) {
-            val author = event.author
-            if(author!!.isBot) {
-                return
-            } else {
+    fun onCommand(context: CommandContext, event: MessageReceivedEvent) {
+        val author = event.author
+        if (author!!.isBot) {
+            return
+        } else {
+            if (event.textChannel.isNSFW) {
                 val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt();
                 val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt();
                 val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt();
@@ -61,6 +61,8 @@ class TestApiCommand {
                         .setFooter("powered by: https://api.computerfreaker.cf", "${event.jda.getUserById(138302166619258880).avatarUrl}")
                         .build()
                 event.channel.sendMessage(embed).queue()
+            } else {
+                event.channel.sendMessage("no lewds here!!!").queue()
             }
         }
     }
@@ -189,6 +191,8 @@ class TestApiCommand {
                         .setFooter("powered by: https://api.computerfreaker.cf", "${event.jda.getUserById(138302166619258880).avatarUrl}")
                         .build()
                 event.channel.sendMessage(embed).queue()
+            } else {
+                event.channel.sendMessage("no lewds here!").queue()
             }
         }
     }
