@@ -89,6 +89,6 @@ class changeMyColor {
     )
     fun whatIsMyIntCommand(context: CommandContext, event: MessageReceivedEvent){
         val intName = java.lang.Integer.toHexString(context.args!!.toInt()).replaceFirst("ff", "")
-        event.channel.sendMessage("your int: ${context.args} is #$intName")
+        event.channel.sendMessage("your int: ${context.args} is #$intName").queue()
     }
 }
