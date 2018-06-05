@@ -136,12 +136,12 @@ class TestApiCommand {
     )
     fun onHugCommand(context: CommandContext, event: MessageReceivedEvent){
         val author = event.author
-        val mentioned = event.message.mentionedUsers
+        val mentioned = event.member
         if(author!!.isBot) {
             return
         } else {
             if (mentioned == null) event.channel.sendMessage("please tag someone")
-            else if (mentioned == author) event.channel.sendMessage("you can't hug yourself")
+            else if (mentioned.user.idLong == author.idLong) event.channel.sendMessage("you can't hug yourself")
             else{
                 val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt();
                 val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt();
