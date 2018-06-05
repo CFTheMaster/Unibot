@@ -71,7 +71,7 @@ class changeMyColor {
     @Command(
             prefix = "${EnvVars.PREFIX}",
             id = "color",
-            aliases = ["hex-to-int"],
+            aliases = ["hex"],
             description = "see what the int is for your current hex",
             usage = "#123456"
     )
@@ -83,7 +83,7 @@ class changeMyColor {
     @Command(
             prefix = "${EnvVars.PREFIX}",
             id = "color",
-            aliases = ["int-to-hex"],
+            aliases = ["int"],
             description = "see what the current hex is for your int",
             usage = "12345678"
     )
