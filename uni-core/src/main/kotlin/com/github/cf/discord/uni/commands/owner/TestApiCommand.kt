@@ -152,7 +152,7 @@ class TestApiCommand {
                 val hug = getHug()
 
                 val embed = EmbedBuilder()
-                        .setAuthor("${event.author.name} is hugging ${event.message.mentionedUsers.stream().map { i -> i.name + "#" + i.discriminator }.collect(Collectors.joining(", "))}", "$hug", "https://computerfreaker.cf/profile/profile.png")
+                        .setAuthor("${event.author.name}#${event.author.discriminator} is hugging ${event.message.mentionedUsers.stream().map { i -> i.name + "#" + i.discriminator }.collect(Collectors.joining(", "))}", "$hug", "https://computerfreaker.cf/profile/profile.png")
                         .setColor(embedColor)
                         .setImage("$hug")
                         .setFooter("powered by: https://api.computerfreaker.cf", "${event.jda.getUserById(138302166619258880).avatarUrl}")
