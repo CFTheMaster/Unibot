@@ -27,6 +27,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
 import java.awt.Color
+import java.util.stream.Collectors
 
 @CommandGroup("owner")
 class TestApiCommand {
@@ -137,12 +138,11 @@ class TestApiCommand {
     )
     fun onHugCommand(context: CommandContext, event: MessageReceivedEvent){
         val author = event.author
-        val mentioned = context.args!![0] as Member
         if(author!!.isBot) {
             return
         } else {
-            if (mentioned == null) event.channel.sendMessage("please tag someone").queue()
-            else if (mentioned.user.idLong == author.idLong) event.channel.sendMessage("you can't hug yourself").queue()
+            if (event.message.mentionedUsers.isEmpty()) event.channel.sendMessage("please tag someone").queue()
+            else if (event.message.mentionedUsers.contains(event.author)) event.channel.sendMessage("you can't hug yourself").queue()
             else{
                 val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt();
                 val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt();
@@ -152,7 +152,7 @@ class TestApiCommand {
                 val hug = getHug()
 
                 val embed = EmbedBuilder()
-                        .setAuthor("$mentioned gets hugged by ${event.author.name}", "$hug", "https://computerfreaker.cf/profile/profile.png")
+                        .setAuthor("${event.author.name} is hugging ${event.message.mentionedUsers.stream().map { i -> i.name + "#" + i.discriminator }.collect(Collectors.joining(", "))}", "$hug", "https://computerfreaker.cf/profile/profile.png")
                         .setColor(embedColor)
                         .setImage("$hug")
                         .setFooter("powered by: https://api.computerfreaker.cf", "${event.jda.getUserById(138302166619258880).avatarUrl}")
