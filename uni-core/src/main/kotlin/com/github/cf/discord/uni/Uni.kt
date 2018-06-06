@@ -46,6 +46,13 @@ class Uni(token: String) {
         return try {
             // TODO: load external commands
             LOGGER.debug { "Logging in..." }
+            LOGGER.info {
+                "_   _   _  _   ___\n"+
+                "| | | | | \\| | |_ _|\n"+
+                "| |_| | | .` |  | |\n"+
+                " \\___/  |_|\\_| |___|"
+
+            }
             clientBuilder
                     .addEventListener(
                             ReadyEventListener(),
