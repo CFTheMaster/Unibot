@@ -29,8 +29,7 @@ import com.github.cf.discord.uni.listeners.*
 import com.github.kvnxiao.discord.meirei.Meirei
 import com.github.kvnxiao.discord.meirei.jda.MeireiJDA
 import mu.KotlinLogging
-import net.dv8tion.jda.core.AccountType
-import net.dv8tion.jda.core.JDABuilder
+import net.dv8tion.jda.core.*
 
 class Uni(token: String) {
 
