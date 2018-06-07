@@ -46,8 +46,8 @@ class BotInfoCommand {
     )
     fun botInfoCommand(context: CommandContext, event: MessageReceivedEvent){
         val author = event.author
-        val mb = 1024 * 1024
-        val runtime = Runtime.getRuntime()
+        val ramUsedRaw = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()
+        val ramUsedMB = ramUsedRaw / 1048576
         val member : Member? = event.guild.getMember(event.jda.selfUser)
         if (author!!.isBot) return
         else {
@@ -65,7 +65,7 @@ class BotInfoCommand {
                     .addField("Bot Id: ", "${event.jda.selfUser.id}", true)
                     .addField("JDA Version: ", "${JDAInfo.VERSION}", true)
                     .addField("System Uptime: ", "${Duration.between(startTime, Instant.now()).formatDuration()}", true)
-                    .addField("Used Memory: ", "${runtime.totalMemory() - runtime.freeMemory() / mb}", true)
+                    .addField("Used Memory: ", "$ramUsedMB", true)
                     .addField("Guild Count: ", "${event.jda.guilds.size}", true)
                     .addField("Total Users: ", "${event.jda.users.size}", true)
                     .addField("Total Bots:", "${event.jda.users.filter { it.isBot }.size}", true)
