@@ -15,6 +15,7 @@
  */
 package com.github.cf.discord.uni.commands.info
 
+import com.sedmelluq.discord.lavaplayer.tools.PlayerLibrary;
 import com.github.cf.discord.uni.core.EnvVars
 import com.github.kvnxiao.discord.meirei.annotations.Command
 import com.github.kvnxiao.discord.meirei.annotations.CommandGroup
@@ -64,6 +65,7 @@ class BotInfoCommand {
                     .addField("Bot Name: ", "${event.jda.selfUser.name}", true)
                     .addField("Bot Id: ", "${event.jda.selfUser.id}", true)
                     .addField("JDA Version: ", "${JDAInfo.VERSION}", true)
+                    .addField("LavaPlayer Version: ", "${PlayerLibrary.VERSION}", true)
                     .addField("System Uptime: ", "${Duration.between(startTime, Instant.now()).formatDuration()}", true)
                     .addField("Used Memory: ", "$ramUsedMB", true)
                     .addField("Guild Count: ", "${event.jda.guilds.size}", true)
@@ -77,7 +79,6 @@ class BotInfoCommand {
                     .addField("Support Server Invite: ", "[Support Server](https://discord.gg/rMVju6a)", true)
                     .addField("CFs API Server", "[API Server](https://discord.gg/gzWwtWG )", true)
                     .addField("CFs Github: ", "[CFs Github](https://github.com/CFTheMaster)", true)
-                    .addBlankField(true)
                     .setFooter("requested by ${event.author.name}#${event.author.discriminator} (${event.author.id})", "${event.author.avatarUrl}")
                     .build()
             event.textChannel.sendMessage(embed).queue()
