@@ -77,6 +77,7 @@ class BotInfoCommand {
                     .addField("Support Server Invite: ", "[Support Server](https://discord.gg/rMVju6a)", true)
                     .addField("CFs API Server", "[API Server](https://discord.gg/gzWwtWG )", true)
                     .addField("CFs Github: ", "[CFs Github](https://github.com/CFTheMaster)", true)
+                    .addBlankField(true)
                     .setFooter("requested by ${event.author.name}#${event.author.discriminator} (${event.author.id})", "${event.author.avatarUrl}")
                     .build()
             event.textChannel.sendMessage(embed).queue()
