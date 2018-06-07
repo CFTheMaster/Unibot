@@ -52,15 +52,10 @@ class BotInfoCommand {
         val member : Member? = event.guild.getMember(event.jda.selfUser)
         if (author!!.isBot) return
         else {
-            val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt();
-            val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt();
-            val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt();
-            val embedColor = Color(randomColor, randomColor1, randomColor2)
-
             val time =  OffsetDateTime.parse(event.jda.selfUser.creationTime.toString()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
             val embed = EmbedBuilder()
                     .setAuthor("Uni v${HelpCommand.VERSION_NUMBER}", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
-                    .setColor(embedColor)
+                    .setColor(event.member.color)
                     .addField("Bot Devs: ", "${event.jda.getUserById(138302166619258880).name}#${event.jda.getUserById(138302166619258880).discriminator}\n<@!138302166619258880>", true)
                     .addField("Bot Name: ", "${event.jda.selfUser.name}", true)
                     .addField("Bot Id: ", "${event.jda.selfUser.id}", true)
