@@ -1,4 +1,4 @@
-package com.github.cf.discord.uni.commands.admin
+package com.github.cf.discord.uni.commands
 
 import com.github.cf.discord.uni.Uni
 import com.github.cf.discord.uni.annotations.*
