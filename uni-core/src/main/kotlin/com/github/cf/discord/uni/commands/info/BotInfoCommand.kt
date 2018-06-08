@@ -62,7 +62,7 @@ class BotInfoCommand {
                     .addField("JDA Version: ", "${JDAInfo.VERSION}", true)
                     .addField("LavaPlayer Version: ", "${PlayerLibrary.VERSION}", true)
                     .addField("System Uptime: ", "${Duration.between(startTime, Instant.now()).formatDuration()}", true)
-                    .addField("Used Memory: ", "$ramUsedMB", true)
+                    .addField("Used Memory: ", "$ramUsedMB MB", true)
                     .addField("Guild Count: ", "${event.jda.guilds.size}", true)
                     .addField("Total Users: ", "${event.jda.users.size}", true)
                     .addField("Total Bots:", "${event.jda.users.filter { it.isBot }.size}", true)
