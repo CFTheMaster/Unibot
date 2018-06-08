@@ -17,28 +17,11 @@ package com.github.cf.discord.uni
 
 import com.github.cf.discord.uni.Uni.Companion.LOGGER
 import com.github.cf.discord.uni.core.EnvVars
-import com.github.cf.discord.uni.entities.Config
-import io.github.cdimascio.dotenv.dotenv
 import org.jetbrains.kotlin.cli.common.environment.setIdeaIoUseFallback
 
 fun main(args: Array<String>) {
     setIdeaIoUseFallback()
-    val dotenv = dotenv{
-        ignoreIfMalformed = true
-        directory = "./"
-        filename = ".env"
-    }
-    val config: Config =
-        Config(
-                dotenv["bot_id"],
-                dotenv["bot_token"],
-                dotenv["bot_description"],
-                dotenv["bot_owners"]!!.split("::"),
-                dotenv["prefixes"]!!.split("::")
-
-        )
     LOGGER.debug { "Loading bot token..." }
-    val bot = Uni(config)
-
-    bot.build(0, 1, 2)
+    val bot = Uni(EnvVars.BOT_TOKEN!!)
+    bot.start()
 }

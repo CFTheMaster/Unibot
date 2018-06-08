@@ -57,9 +57,6 @@ object EnvVars {
     @JvmStatic
     val SAUCENAO = dotenv["saucenao"]
 
-    @JvmStatic
-    val PREFIXES = dotenv["prefixes"]!!.split("::")
-
     const val PREFIX = "uni!"
 
     @JvmStatic

@@ -17,12 +17,17 @@ package com.github.cf.discord.uni.extensions
 
 import com.jagrosh.jdautilities.commons.utils.FinderUtil
 import net.dv8tion.jda.core.JDA
-import net.dv8tion.jda.core.entities.Guild
-import net.dv8tion.jda.core.entities.Member
-import net.dv8tion.jda.core.entities.Role
-import net.dv8tion.jda.core.entities.User
-
+import net.dv8tion.jda.core.entities.*
 
 inline fun <reified J: JDA> J.findUsers(query: String): List<User> = FinderUtil.findUsers(query, this)
+inline fun <reified J: JDA> J.findTextChannels(query: String): List<TextChannel> = FinderUtil.findTextChannels(query, this)
+inline fun <reified J: JDA> J.findVoiceChannels(query: String): List<VoiceChannel> = FinderUtil.findVoiceChannels(query, this)
+inline fun <reified J: JDA> J.findCategories(query: String): List<Category> = FinderUtil.findCategories(query, this)
+inline fun <reified J: JDA> J.findEmotes(query: String): List<Emote> = FinderUtil.findEmotes(query, this)
+inline fun <reified G: Guild> G.findBannedUsers(query: String): List<User>? = FinderUtil.findBannedUsers(query, this)
 inline fun <reified G: Guild> G.findMembers(query: String): List<Member> = FinderUtil.findMembers(query, this)
+inline fun <reified G: Guild> G.findTextChannels(query: String): List<TextChannel> = FinderUtil.findTextChannels(query, this)
+inline fun <reified G: Guild> G.findVoiceChannels(query: String): List<VoiceChannel> = FinderUtil.findVoiceChannels(query, this)
+inline fun <reified G: Guild> G.findCategories(query: String): List<Category> = FinderUtil.findCategories(query, this)
+inline fun <reified G: Guild> G.findEmotes(query: String): List<Emote> = FinderUtil.findEmotes(query, this)
 inline fun <reified G: Guild> G.findRoles(query: String): List<Role> = FinderUtil.findRoles(query, this)
