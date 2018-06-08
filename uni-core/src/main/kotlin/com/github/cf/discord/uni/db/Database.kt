@@ -4,6 +4,7 @@ import io.sentry.Sentry
 import com.github.cf.discord.uni.Uni
 import com.github.cf.discord.uni.async.asyncTransaction
 import com.github.cf.discord.uni.db.schema.*
+import com.github.cf.discord.uni.listeners.CommandListener
 import mu.KotlinLogging
 import net.dv8tion.jda.core.entities.Guild
 import net.dv8tion.jda.core.entities.Member
@@ -296,7 +297,7 @@ object Database {
                 }.firstOrNull()
 
                 if (log != null) {
-                    EventListener.snipes.put(event.channel.idLong, log[Logs.messageId])
+                    CommandListener.snipes.put(event.channel.idLong, log[Logs.messageId])
 
                     Logs.insert {
                         it[Logs.event] = "DELETE"

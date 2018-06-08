@@ -19,7 +19,6 @@ import com.github.cf.discord.uni.async.asyncTransaction
 import org.jetbrains.exposed.sql.*
 import com.github.cf.discord.uni.db.schema.*
 import com.github.cf.discord.uni.commands.`fun`.*
-import com.github.cf.discord.uni.commands.admin.*
 import com.github.cf.discord.uni.commands.audio.*
 import com.github.cf.discord.uni.commands.info.*
 import com.github.cf.discord.uni.commands.owner.*
@@ -121,9 +120,6 @@ class Uni(token: String) {
                 UserInfoCommand(),
                 ServerInfoCommand(),
                 VoteCommand(),
-
-                // Moderation Commands
-                AdminCommand(),
 
                 // Audio
                 VoiceChannelCommand(),
