@@ -78,7 +78,7 @@ class CommandHandler {
 
         val lang = ResourceBundle.getBundle("i18n.Kyubey", locale, UTF8Control())
 
-        val usedPrefix = EnvVars.PREFIX.firstOrNull {
+        val usedPrefix = EnvVars.PREFIXES.firstOrNull {
             event.message.contentRaw.startsWith(it.toLowerCase())
         } ?: guildPrefixes.lastOrNull {
             event.message.contentRaw.startsWith(it.toLowerCase())
