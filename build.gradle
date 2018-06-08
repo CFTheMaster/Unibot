@@ -3,7 +3,6 @@ buildscript {
     ext.logback_version = '1.2.3'
     ext.junit_version = '4.12'
     ext.dokka_version = '0.9.15'
-    ext.spotless_version = '3.8.0'
     ext.shadow_version = '1.2.4'
     ext.kotlin_logging_version = '1.4.9'
 
@@ -14,7 +13,6 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
-        classpath "com.diffplug.spotless:spotless-plugin-gradle:$spotless_version"
         classpath "com.github.jengelman.gradle.plugins:shadow:$shadow_version"
     }
 }
@@ -59,7 +57,7 @@ subprojects {
         compile 'org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:0.22.2'
         compile 'io.sentry:sentry:1.6.4'
         compile 'org.postgresql:postgresql:42.2.1'
-        compile 'org.reflections:reflections:0.9.11'
+        compile 'com.github.ronmamo:Reflections:0.9.11'
         compile 'org.apache.commons:commons-lang3:3.7'
         compile 'commons-validator:commons-validator:1.6'
     }
@@ -70,13 +68,9 @@ subprojects {
     compileTestKotlin {
         kotlinOptions.jvmTarget = "1.8"
     }
-
-    spotless {
-        kotlin {
-            trimTrailingWhitespace()
-            endWithNewline()
-            ktlint("0.15.0")
-            licenseHeaderFile "${rootProject.projectDir}/docs/license_header"
-        }
-    }
 }
+jar.enabled = false
+shadowDistTar.enabled = false
+shadowDistZip.enabled = false
+distTar.enabled = false
+distZip.enabled = false
