@@ -27,16 +27,19 @@ import com.github.cf.discord.uni.commands.stateful.*
 import com.github.cf.discord.uni.commands.system.*
 import com.github.cf.discord.uni.commands.userColors.*
 import com.github.cf.discord.uni.core.EnvVars
+import com.github.cf.discord.uni.entities.Config
 import com.github.cf.discord.uni.jsr223.*
 import com.github.cf.discord.uni.listeners.*
 import com.github.kvnxiao.discord.meirei.Meirei
 import com.github.kvnxiao.discord.meirei.jda.MeireiJDA
 import mu.KotlinLogging
+import net.dv8tion.jda.bot.sharding.DefaultShardManagerBuilder
+import net.dv8tion.jda.bot.sharding.ShardManager
 import net.dv8tion.jda.core.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class Uni(token: String) {
+class Uni(private val config: Config) {
 
     companion object {
         @JvmField
@@ -48,11 +51,13 @@ class Uni(token: String) {
                 }
             }
         }
+        lateinit var shardManager: ShardManager
+        var jda: JDA? = null
     }
 
     init {
         Database.connect(
-                "jdbc:postgresql://${EnvVars.DATABASE_HOST}:${EnvVars.DATABASE_PORT}/${EnvVars.DATABASE_SCHEMA}",
+                "postgresql://${EnvVars.DATABASE_HOST}:${EnvVars.DATABASE_PORT}/${EnvVars.DATABASE_SCHEMA}",
                 "org.postgresql.Driver",
                 "${EnvVars.DATABASE_USERNAME}"
         )
@@ -74,84 +79,37 @@ class Uni(token: String) {
             )
         }.execute()
     }
+    fun build(){
+        LOGGER.debug { "Logging in..." }
+        LOGGER.info {
+            "\n_   _   _  _   ___\n"+
+                    "| | | | | \\| | |_ _|\n"+
+                    "| |_| | | .` |  | |\n"+
+                    " \\___/  |_|\\_| |___|"
 
-    private val clientBuilder = JDABuilder(AccountType.BOT)
-            .setToken(token)
-    private val meirei: Meirei = MeireiJDA(clientBuilder)
-
-    fun start(): Boolean {
-        return try {
-            // TODO: load external commands
-            LOGGER.debug { "Logging in..." }
-            LOGGER.info {
-                "_   _   _  _   ___\n"+
-                "| | | | | \\| | |_ _|\n"+
-                "| |_| | | .` |  | |\n"+
-                " \\___/  |_|\\_| |___|"
-
-            }
-            clientBuilder
-                    .addEventListener(
-                            ReadyEventListener(),
-                            MessageLogListener(),
-                            CommandListener(),
-                            GuildJoinLeaveListener())
-                    .registerCommands()
-                    .buildAsync()
-            true
-        } catch (e: Exception) {
-            LOGGER.error(e) { "An errorEmbed occurred in starting the bot!" }
-            false
         }
+        jda = JDABuilder(AccountType.BOT).apply {
+            setToken("${EnvVars.BOT_TOKEN}")
+            addEventListener(
+                    ReadyEventListener(),
+                    MessageLogListener(),
+                    CommandListener(),
+                    GuildJoinLeaveListener())
+        }.buildAsync()
+
+        Uni.jda = jda
     }
 
-    private fun JDABuilder.registerCommands(): JDABuilder {
-        meirei.addAnnotatedCommands(
-                //Color User
-                changeMyColor(),
-                // System
-                BotInfoCommand(),
-                HelpCommand(),
-                PingCommand(),
-                UptimeCommand(),
-                ShutdownCommand(),
-                RestartCommand(),
-                InviteCommand(),
-                UserInfoCommand(),
-                ServerInfoCommand(),
-                VoteCommand(),
-
-                // Audio
-                VoiceChannelCommand(),
-                AudioPlayerCommand(),
-
-                // Queryable commands,
-                GoogleCommand(),
-                WikipediaCommand(),
-                PcPartPickerCommand(),
-                UrbanDictionaryCommand(),
-                SauceNAOCommand(),
-
-                // Stateful
-                PollCommand(),
-
-                // Fun
-                EightBallCommand(),
-                CatgirlCommand(),
-                LewdCatgirlCommand(),
-                DuckCommand(),
-
-                // Scripting
-                KotlinScriptCommand(),
-
-                // Owner Only
-                StatusCommand(),
-                ChangeNameCommand(),
-                ChangeNickNameCommand(),
-                TestApiCommand(),
-                SayCommand(),
-                AmIOwnerCommand()
-        )
-        return this
+    fun build(firstShard: Int, lastShard: Int, total: Int) {
+        shardManager = DefaultShardManagerBuilder().apply {
+            setToken("${EnvVars.BOT_TOKEN}")
+            addEventListeners(ReadyEventListener(),
+                    MessageLogListener(),
+                    CommandListener(),
+                    GuildJoinLeaveListener())
+            setAutoReconnect(true)
+            setShardsTotal(total)
+            setShards(firstShard, lastShard)
+        }.build()
     }
 }
