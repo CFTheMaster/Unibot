@@ -17,6 +17,7 @@ package com.github.cf.discord.uni.core
 import io.github.cdimascio.dotenv.dotenv
 
 object EnvVars {
+
     private val dotenv = dotenv{
         ignoreIfMalformed = true
         directory = "./"
@@ -57,7 +58,7 @@ object EnvVars {
     @JvmStatic
     val SAUCENAO = dotenv["saucenao"]
 
-    const val PREFIX = "uni!"
+   const val PREFIX = "uni!"
 
     @JvmStatic
     private fun dotenv(envVar: String): String? {

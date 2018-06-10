@@ -92,22 +92,6 @@ class GuildJoinLeaveListener : ListenerAdapter() {
                     }
                 })
             }
-
-            if (EnvVars.TERMINAL_TOKEN?.isNotEmpty()!!) {
-                client.newRequest({
-                    post(RequestBody.create(MediaType.parse("application/json"), body.toString()))
-                    url("https://ls.terminal.ink/api/v1/bots/${jda.selfUser.id}")
-                    header("Authorization", EnvVars.TERMINAL_TOKEN)
-                    header("Content-Type", "application/json")
-                }).enqueue(object : Callback {
-                    override fun onResponse(call: Call, response: Response) = response.close()
-
-                    override fun onFailure(call: Call, e: IOException)
-                    {
-                        Uni.LOGGER.error("Failed to send information to ls.terminal.ink", e)
-                    }
-                })
-            }
         }
         private inline fun OkHttpClient.newRequest(lazy: Request.Builder.() -> Unit) : Call {
             val builder = Request.Builder()
