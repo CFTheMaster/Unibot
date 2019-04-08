@@ -65,7 +65,7 @@ class Uni(token: String) {
             // TODO: load external commands
             LOGGER.debug { "Logging in..." }
             LOGGER.info {
-                "_   _   _  _   ___\n"+
+                "\n_   _   _  _   ___\n"+
                 "| | | | | \\| | |_ _|\n"+
                 "| |_| | | .` |  | |\n"+
                 " \\___/  |_|\\_| |___|"
