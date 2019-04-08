@@ -58,7 +58,7 @@ object EnvVars {
     @JvmStatic
     val SAUCENAO = dotenv["saucenao"]
 
-   const val PREFIX = "uni!"
+    const val PREFIX = "uni!"
 
     @JvmStatic
     private fun dotenv(envVar: String): String? {

@@ -24,8 +24,7 @@ object Redis {
 
     private val config = Config().apply {
         this.useSingleServer()
-                .setAddress("redis://127.0.0.1:6379")
-                .setConnectionPoolSize(200)
+                .setAddress("redis://127.0.0.1:6379").connectionPoolSize = 200
     }
 
     val client: RedissonClient = Redisson.create(config)

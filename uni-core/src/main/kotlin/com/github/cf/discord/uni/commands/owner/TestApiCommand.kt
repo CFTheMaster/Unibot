@@ -47,9 +47,9 @@ class TestApiCommand {
             return
         } else {
             if (event.textChannel.isNSFW) {
-                val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt();
-                val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt();
-                val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt();
+                val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt()
+                val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt()
+                val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt()
                 val embedColor = Color(randomColor, randomColor1, randomColor2)
 
                 val myAss = getTestApi()
@@ -82,9 +82,9 @@ class TestApiCommand {
         if(author!!.isBot) {
             return
         } else {
-            val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt();
-            val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt();
-            val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt();
+            val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt()
+            val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt()
+            val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt()
             val embedColor = Color(randomColor, randomColor1, randomColor2)
 
             val ohMyGod = getAnimeTestApi()
@@ -114,9 +114,9 @@ class TestApiCommand {
         if(author!!.isBot) {
             return
         } else {
-            val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt();
-            val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt();
-            val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt();
+            val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt()
+            val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt()
+            val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt()
             val embedColor = Color(randomColor, randomColor1, randomColor2)
 
             val baguette = getBaguette()
@@ -146,9 +146,9 @@ class TestApiCommand {
             if (event.message.mentionedUsers.isEmpty()) event.channel.sendMessage("please tag someone").queue()
             else if (event.message.mentionedUsers.contains(event.author)) event.channel.sendMessage("you can't hug yourself").queue()
             else{
-                val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt();
-                val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt();
-                val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt();
+                val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt()
+                val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt()
+                val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt()
                 val embedColor = Color(randomColor, randomColor1, randomColor2)
 
                 val hug = getHug()
@@ -177,9 +177,9 @@ class TestApiCommand {
             return
         } else {
             if (event.textChannel.isNSFW) {
-                val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt();
-                val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt();
-                val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt();
+                val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt()
+                val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt()
+                val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt()
                 val embedColor = Color(randomColor, randomColor1, randomColor2)
 
                 val trap = getTrap()

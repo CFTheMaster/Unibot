@@ -48,9 +48,9 @@ class CatgirlCommand {
         if(author!!.isBot) {
             return
         } else {
-            val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt();
-            val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt();
-            val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt();
+            val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt()
+            val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt()
+            val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt()
             val embedColor = Color(randomColor, randomColor1, randomColor2)
 
             val getNeko = getCatgirl()

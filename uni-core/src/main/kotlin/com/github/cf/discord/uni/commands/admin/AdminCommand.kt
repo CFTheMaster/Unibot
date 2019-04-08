@@ -55,7 +55,7 @@ class AdminCommand {
                                 .build()).queue()
                     }
                 } catch (e: Exception) {
-                    event.channel.sendMessage("Please make sure I have the proper permission to ban ${it.toString()}")
+                    event.channel.sendMessage("Please make sure I have the proper permission to ban $it")
                 }
             }
             if(hasBanned)
@@ -115,7 +115,7 @@ class AdminCommand {
                                 .build()).queue()
                     }
                 } catch (e: Exception) {
-                    event.channel.sendMessage("Please make sure I have the proper permission to kick ${it.toString()}")
+                    event.channel.sendMessage("Please make sure I have the proper permission to kick $it")
                 }
             }
             if(hasKicked)

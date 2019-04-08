@@ -15,11 +15,29 @@
  */
 package com.github.cf.discord.uni
 
-import com.github.cf.discord.uni.commands.`fun`.*
-import com.github.cf.discord.uni.commands.admin.*
-import com.github.cf.discord.uni.commands.audio.*
-import com.github.cf.discord.uni.commands.info.*
-import com.github.cf.discord.uni.commands.owner.*
+import com.github.cf.discord.uni.commands.`fun`.EightBallCommand
+import com.github.cf.discord.uni.commands.`fun`.CatgirlCommand
+import com.github.cf.discord.uni.commands.`fun`.DuckCommand
+import com.github.cf.discord.uni.commands.`fun`.LewdCatgirlCommand
+import com.github.cf.discord.uni.commands.admin.AdminCommand
+import com.github.cf.discord.uni.commands.audio.AudioPlayerCommand
+import com.github.cf.discord.uni.commands.audio.AudioPlayerPanel
+import com.github.cf.discord.uni.commands.audio.VoiceChannelCommand
+import com.github.cf.discord.uni.commands.info.UserInfoCommand
+import com.github.cf.discord.uni.commands.info.BotInfoCommand
+import com.github.cf.discord.uni.commands.info.HelpCommand
+import com.github.cf.discord.uni.commands.info.InviteCommand
+import com.github.cf.discord.uni.commands.info.PingCommand
+import com.github.cf.discord.uni.commands.info.ServerInfoCommand
+import com.github.cf.discord.uni.commands.info.UptimeCommand
+import com.github.cf.discord.uni.commands.info.VoteCommand
+import com.github.cf.discord.uni.commands.owner.TestApiCommand
+import com.github.cf.discord.uni.commands.owner.StatusCommand
+import com.github.cf.discord.uni.commands.owner.SayCommand
+import com.github.cf.discord.uni.commands.owner.ChangeNickNameCommand
+import com.github.cf.discord.uni.commands.owner.ChangeNameCommand
+import com.github.cf.discord.uni.commands.owner.AmIOwnerCommand
+import com.github.cf.discord.uni.commands.owner.ShellCommand
 import com.github.cf.discord.uni.commands.query.*
 import com.github.cf.discord.uni.commands.stateful.*
 import com.github.cf.discord.uni.commands.system.*
@@ -116,7 +134,8 @@ class Uni(token: String) {
                 ChangeNickNameCommand(),
                 TestApiCommand(),
                 SayCommand(),
-                AmIOwnerCommand()
+                AmIOwnerCommand(),
+                ShellCommand()
         )
         return this
     }

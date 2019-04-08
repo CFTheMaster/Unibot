@@ -23,7 +23,13 @@ import net.dv8tion.jda.core.entities.impl.JDAImpl
 import net.dv8tion.jda.core.events.guild.GuildJoinEvent
 import net.dv8tion.jda.core.events.guild.GuildLeaveEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
-import okhttp3.*
+import okhttp3.OkHttpClient
+import okhttp3.Callback
+import okhttp3.Call
+import okhttp3.Response
+import okhttp3.Request
+import okhttp3.RequestBody
+import okhttp3.MediaType
 import org.json.JSONObject
 import java.io.IOException
 import java.time.format.DateTimeFormatter

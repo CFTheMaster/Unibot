@@ -17,10 +17,6 @@ package com.github.cf.discord.uni.commands.audio
 
 import com.github.benmanes.caffeine.cache.Cache
 import com.github.benmanes.caffeine.cache.Caffeine
-import com.github.kvnxiao.discord.meirei.annotations.Command
-import com.github.kvnxiao.discord.meirei.annotations.CommandGroup
-import com.github.kvnxiao.discord.meirei.command.CommandContext
-import com.github.kvnxiao.discord.meirei.utility.GuildId
 import com.github.cf.discord.uni.audio.AudioEmbed
 import com.github.cf.discord.uni.audio.AudioEventAdapter
 import com.github.cf.discord.uni.audio.LavaplayerAudioManager
@@ -28,6 +24,10 @@ import com.github.cf.discord.uni.core.EnvVars
 import com.github.cf.discord.uni.data.botOwners
 import com.github.cf.discord.uni.database.nosql.Redis
 import com.github.cf.discord.uni.stateful.GuildStateManager
+import com.github.kvnxiao.discord.meirei.annotations.Command
+import com.github.kvnxiao.discord.meirei.annotations.CommandGroup
+import com.github.kvnxiao.discord.meirei.command.CommandContext
+import com.github.kvnxiao.discord.meirei.utility.GuildId
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager
@@ -167,14 +167,14 @@ class AudioPlayerCommand : ListenerAdapter() {
     )
     fun play(context: CommandContext, event: MessageReceivedEvent) {
         val author = event.author
-        if(author!!.isBot) {
+        if (author!!.isBot) {
             return
         } else {
             if (event.channelType.isGuild && event.guild.selfMember.voiceState.inVoiceChannel()) {
                 val args = context.args ?: return
                 val audioManager = guildAudioManager.getOrPut(event.guild)
                 audioManager.loadAndPlay(event.author, event.textChannel, args, false)
-            } else{
+            } else {
                 event.channel.sendMessage("i'm not in a voice channel >~<").queue()
             }
         }
@@ -189,7 +189,7 @@ class AudioPlayerCommand : ListenerAdapter() {
     )
     fun soundcloud(context: CommandContext, event: MessageReceivedEvent) {
         val author = event.author
-        if(author!!.isBot) {
+        if (author!!.isBot) {
             return
         } else {
             if (event.channelType.isGuild && event.guild.selfMember.voiceState.inVoiceChannel()) {
@@ -200,7 +200,7 @@ class AudioPlayerCommand : ListenerAdapter() {
                 } else {
                     audioManager.loadAndPlay(event.author, event.textChannel, "$PREFIX_SOUNDCLOUD$args", true)
                 }
-            }else{
+            } else {
                 event.channel.sendMessage("i'm not in a voice channel >~<").queue()
             }
         }
@@ -215,14 +215,14 @@ class AudioPlayerCommand : ListenerAdapter() {
     )
     fun soundcloudSearch(context: CommandContext, event: MessageReceivedEvent) {
         val author = event.author
-        if(author!!.isBot) {
+        if (author!!.isBot) {
             return
         } else {
             if (event.channelType.isGuild && event.guild.selfMember.voiceState.inVoiceChannel()) {
                 val args = context.args ?: return
                 val audioManager = guildAudioManager.getOrPut(event.guild)
                 audioManager.searchAndPlay(event.author, event.textChannel, "$PREFIX_SOUNDCLOUD$args")
-            }else{
+            } else {
                 event.channel.sendMessage("i'm not in a voice channel >~<").queue()
             }
         }
@@ -237,7 +237,7 @@ class AudioPlayerCommand : ListenerAdapter() {
     )
     fun youtube(context: CommandContext, event: MessageReceivedEvent) {
         val author = event.author
-        if(author!!.isBot) {
+        if (author!!.isBot) {
             return
         } else {
             if (event.channelType.isGuild && event.guild.selfMember.voiceState.inVoiceChannel()) {
@@ -255,7 +255,7 @@ class AudioPlayerCommand : ListenerAdapter() {
                     // Single track search
                     audioManager.loadAndPlay(event.author, event.textChannel, "$PREFIX_YOUTUBE$args", true)
                 }
-            }else{
+            } else {
                 event.channel.sendMessage("i'm not in a voice channel >~<").queue()
             }
         }
@@ -270,14 +270,14 @@ class AudioPlayerCommand : ListenerAdapter() {
     )
     fun youtubeSearch(context: CommandContext, event: MessageReceivedEvent) {
         val author = event.author
-        if(author!!.isBot) {
+        if (author!!.isBot) {
             return
         } else {
             if (event.channelType.isGuild && event.guild.selfMember.voiceState.inVoiceChannel()) {
                 val args = context.args ?: return
                 val audioManager = guildAudioManager.getOrPut(event.guild)
                 audioManager.searchAndPlay(event.author, event.textChannel, "$PREFIX_YOUTUBE$args")
-            }else{
+            } else {
                 event.channel.sendMessage("i'm not in a voice channel >~<").queue()
             }
         }
@@ -297,7 +297,7 @@ class AudioPlayerCommand : ListenerAdapter() {
             if (event.channelType.isGuild) {
                 val audioManager = guildAudioManager.getOrPut(event.guild)
                 audioManager.skip(event.author, event.textChannel)
-            }else{
+            } else {
                 event.channel.sendMessage("this is not a guild >~<").queue()
             }
         }
@@ -311,13 +311,13 @@ class AudioPlayerCommand : ListenerAdapter() {
     )
     fun stop(context: CommandContext, event: MessageReceivedEvent) {
         val author = event.author
-        if(author!!.isBot) {
+        if (author!!.isBot) {
             return
         } else {
             if (event.channelType.isGuild && event.guild.selfMember.voiceState.inVoiceChannel()) {
                 val audioManager = guildAudioManager.getOrPut(event.guild)
                 audioManager.stop(event.author, event.textChannel)
-            }else{
+            } else {
                 event.channel.sendMessage("i'm not in a voice channel >~<").queue()
             }
         }
@@ -342,9 +342,9 @@ class AudioPlayerCommand : ListenerAdapter() {
                 .setDescription("i have set the current playing channel to <#${event.message.channel.id}>")
                 .build()
         val author = event.author
-        if(author!!.isBot) {
+        if (author!!.isBot) {
             return
-        } else if(event.member.hasPermission(Permission.ADMINISTRATOR) || event.message.author.id in botOwners.authors){
+        } else if (event.member.hasPermission(Permission.ADMINISTRATOR) || event.message.author.id in botOwners.authors) {
             if (event.channelType.isGuild) {
                 event.channel.sendMessage(embed).queue()
                 val channelId = event.textChannel.idLong
@@ -354,7 +354,7 @@ class AudioPlayerCommand : ListenerAdapter() {
                 // Invalidate cache
                 nowPlayingChannelCache.invalidate(event.guild.idLong)
             }
-        }else{
+        } else {
             event.channel.sendMessage(
                     EmbedBuilder()
                             .setAuthor("Uni", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
@@ -381,11 +381,11 @@ class AudioPlayerCommand : ListenerAdapter() {
                 .setColor(embedColor)
                 .setAuthor("Uni", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
                 .setTitle("music")
-                .setDescription("i have set the current update embed for the audio player panel set to channel ${event.message.channel.name.toString()}")
+                .setDescription("i have set the current update embed for the audio player panel set to channel ${event.message.channel.name}")
                 .build()
         val author = event.author
-        if(author!!.isBot) return
-        else if(event.member.hasPermission(Permission.ADMINISTRATOR) || event.message.author.id in botOwners.authors) {
+        if (author!!.isBot) return
+        else if (event.member.hasPermission(Permission.ADMINISTRATOR) || event.message.author.id in botOwners.authors) {
             // Set channel only if audio panel doesn't exit
             if (event.channelType.isGuild && !guildAudioPanelManager.contains(event.guild.idLong)) {
                 // Set channel ID in Redis
@@ -404,8 +404,7 @@ class AudioPlayerCommand : ListenerAdapter() {
                 val audioPanel = AudioPlayerPanel(event.textChannel, audioManager)
                 guildAudioPanelManager.put(event.guild.idLong, audioPanel.start())
             }
-        }
-        else{
+        } else {
             event.channel.sendMessage(
                     EmbedBuilder()
                             .setAuthor("Uni", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
@@ -426,8 +425,8 @@ class AudioPlayerCommand : ListenerAdapter() {
         val author = event.author
         if (author!!.isBot) {
             return
-        }  else if(event.member.hasPermission(Permission.ADMINISTRATOR) || event.message.author.id in botOwners.authors) {
-        // Delete channel only if audio panel exists
+        } else if (event.member.hasPermission(Permission.ADMINISTRATOR) || event.message.author.id in botOwners.authors) {
+            // Delete channel only if audio panel exists
             if (event.channelType.isGuild && guildAudioPanelManager.contains(event.guild.idLong)) {
                 // Delete channel ID in Redis
                 Redis.client.getBucket<String>("${event.guild.idLong}:setapch").delete()
@@ -435,7 +434,7 @@ class AudioPlayerCommand : ListenerAdapter() {
                 // Dispose the periodic update scheduler
                 audioPlayer.dispose()
             }
-        } else{
+        } else {
             event.channel.sendMessage(
                     EmbedBuilder()
                             .setAuthor("Uni", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
@@ -454,14 +453,14 @@ class AudioPlayerCommand : ListenerAdapter() {
     )
     fun shuffle(context: CommandContext, event: MessageReceivedEvent) {
         val author = event.author
-        if(author!!.isBot) {
+        if (author!!.isBot) {
             return
         } else {
             if (event.channelType.isGuild && event.guild.selfMember.voiceState.inVoiceChannel()) {
                 val audioManager = guildAudioManager.getOrPut(event.guild)
                 // Shuffle tracks in current guild
                 audioManager.shuffle(event.author, event.textChannel)
-            }else{
+            } else {
                 event.channel.sendMessage("i'm not in a voice channel >~<").queue()
             }
         }
@@ -475,14 +474,14 @@ class AudioPlayerCommand : ListenerAdapter() {
     )
     fun nowPlaying(context: CommandContext, event: MessageReceivedEvent) {
         val author = event.author
-        if(author!!.isBot) {
+        if (author!!.isBot) {
             return
         } else {
             if (event.channelType.isGuild) {
                 val audioManager = guildAudioManager.getOrPut(event.guild)
                 val page = context.args?.toIntOrNull() ?: 1
                 AudioEmbed.nowPlayingPaginatedEmbed(audioManager, event.textChannel, event.author, page).queue()
-            }else{
+            } else {
                 event.channel.sendMessage("this is a not a guild >~<").queue()
             }
         }
@@ -496,14 +495,14 @@ class AudioPlayerCommand : ListenerAdapter() {
     )
     fun clear(context: CommandContext, event: MessageReceivedEvent) {
         val author = event.author
-        if(author!!.isBot) {
+        if (author!!.isBot) {
             return
         } else {
             event.message.channel.sendMessage("cleared the current queue!")
             if (event.channelType.isGuild) {
                 val audioManager = guildAudioManager.getOrPut(event.guild)
                 audioManager.clear(event.author, event.textChannel)
-            }else{
+            } else {
                 event.channel.sendMessage("this is not a guild >~<").queue()
             }
         }
@@ -512,13 +511,13 @@ class AudioPlayerCommand : ListenerAdapter() {
     @Command(
             prefix = "${EnvVars.PREFIX}",
             id = "tracks.volume",
-            aliases = ["volume","vol"],
+            aliases = ["volume", "vol"],
             description = "changes the volume of the bot"
     )
-    fun volume(context: CommandContext, event: MessageReceivedEvent){
+    fun volume(context: CommandContext, event: MessageReceivedEvent) {
         val author = event.author
-        if(author!!.isBot) return
-         else {
+        if (author!!.isBot) return
+        else {
             if (event.channelType.isGuild && event.guild.selfMember.voiceState.inVoiceChannel()) {
                 val audioManager = guildAudioManager.getOrPut(event.guild)
 
@@ -528,7 +527,7 @@ class AudioPlayerCommand : ListenerAdapter() {
                 audioManager.player.volume = vol
                 event.channel.sendMessage("changed the volume to $vol").queue()
 
-            }else{
+            } else {
                 event.channel.sendMessage("i'm not in a voice channel >~<").queue()
             }
         }

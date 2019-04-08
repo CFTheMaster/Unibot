@@ -15,7 +15,7 @@
  */
 package com.github.cf.discord.uni.commands.info
 
-import com.sedmelluq.discord.lavaplayer.tools.PlayerLibrary;
+import com.sedmelluq.discord.lavaplayer.tools.PlayerLibrary
 import com.github.cf.discord.uni.core.EnvVars
 import com.github.kvnxiao.discord.meirei.annotations.Command
 import com.github.kvnxiao.discord.meirei.annotations.CommandGroup

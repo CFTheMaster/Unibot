@@ -15,7 +15,11 @@
  */
 package com.github.cf.discord.uni.extensions
 
-import net.dv8tion.jda.core.entities.*
+import net.dv8tion.jda.core.entities.User
+import net.dv8tion.jda.core.entities.Member
+import net.dv8tion.jda.core.entities.TextChannel
+import net.dv8tion.jda.core.entities.VoiceChannel
+import net.dv8tion.jda.core.entities.Role
 import java.time.OffsetDateTime
 
 infix fun List<User>.multipleUsers(argument: String): String = listOut("user", argument) { it.formattedName(true) }

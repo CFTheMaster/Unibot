@@ -23,10 +23,16 @@ import net.dv8tion.jda.core.entities.Game
 import net.dv8tion.jda.core.entities.impl.JDAImpl
 import net.dv8tion.jda.core.events.ReadyEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
-import okhttp3.*
+import okhttp3.OkHttpClient
+import okhttp3.RequestBody
+import okhttp3.Request
+import okhttp3.MediaType
+import okhttp3.Callback
+import okhttp3.Call
+import okhttp3.Response
 import org.json.JSONObject
 import java.io.IOException
-import java.util.*
+import java.util.Random
 
 class ReadyEventListener : ListenerAdapter() {
 
