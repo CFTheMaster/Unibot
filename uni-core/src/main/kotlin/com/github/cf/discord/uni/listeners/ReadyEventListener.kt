@@ -33,18 +33,22 @@ import okhttp3.Response
 import org.json.JSONObject
 import java.io.IOException
 import java.util.Random
+import java.util.concurrent.TimeUnit
+import kotlin.concurrent.fixedRateTimer
 
 class ReadyEventListener : ListenerAdapter() {
 
     override fun onReady(event: ReadyEvent) {
-        val text = arrayOf(
-                "with computerfreaker \uD83C\uDF38",
-                "with guns \uD83C\uDF38",
-                "is this thing on? \uD83D\uDC40",
-                "doing nothing...")
-        val idx = Random().nextInt(text.size)
-        val random = text[idx]
-        event.jda.presence.setPresence(OnlineStatus.ONLINE, Game.of(Game.GameType.STREAMING, "$random | ${EnvVars.PREFIX}help", "https://www.twitch.tv/computerfreaker"))
+        fixedRateTimer("change status", false, 0L, TimeUnit.MINUTES.toMillis(10)){
+            val text = arrayOf(
+                    "with computerfreaker \uD83C\uDF38",
+                    "with guns \uD83C\uDF38",
+                    "is this thing on? \uD83D\uDC40",
+                    "doing nothing...")
+            val idx = Random().nextInt(text.size)
+            val random = text[idx]
+            event.jda.presence.setPresence(OnlineStatus.ONLINE, Game.of(Game.GameType.STREAMING, "$random | ${EnvVars.PREFIX}help", "https://www.twitch.tv/computerfreaker"))
+        }
         updateStats(event.jda)
     }
 
