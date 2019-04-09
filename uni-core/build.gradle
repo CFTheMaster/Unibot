@@ -36,6 +36,8 @@ dependencies {
     compile "org.postgresql:postgresql:$postgresql_version"
     compile "org.jetbrains.exposed:exposed:$exposed_version"
     compile 'io.github.cdimascio:java-dotenv:3.1.0'
+    compile 'com.github.jasync-sql:jasync-mysql:0.9.51'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
 }
 
 jar {
