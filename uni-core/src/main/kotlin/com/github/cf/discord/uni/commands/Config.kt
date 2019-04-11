@@ -111,6 +111,7 @@ class DisableOption : Command() {
 }
 
 @Arguments(
+        Argument("name", "string"),
         Argument("option", "string"),
         Argument("channel", "textchannel")
 )
@@ -125,7 +126,8 @@ class SetChannelOption : Command() {
     )
 
     override fun run(ctx: Context) {
-        val opt = (ctx.args["option"] as String).toLowerCase().replace("setchannel ", "")
+        val name = (ctx.args["name"] as String).toLowerCase().replace("setchannel ", "")
+        val opt = (ctx.args["option"] as String).toLowerCase().replace("${options.isNotEmpty().toString().toLowerCase()} ", "")
         val channel = ctx.args["channel"] as TextChannel
 
         if (opt !in options.map(String::toLowerCase))
@@ -146,6 +148,7 @@ class SetChannelOption : Command() {
 }
 
 @Arguments(
+        Argument("name", "string"),
         Argument("option", "string"),
         Argument("role", "role")
 )
@@ -158,7 +161,8 @@ class SetRoleOption : Command() {
     )
 
     override fun run(ctx: Context) {
-        val opt = (ctx.args["option"] as String).toLowerCase().replace("setrole ", "")
+        val name = (ctx.args["name"] as String).toLowerCase().replace("setrole ", "")
+        val opt = (ctx.args["option"] as String).toLowerCase().replace("${options.isNotEmpty().toString().toLowerCase()} ", "")
         val role = ctx.args["role"] as Role
 
         if (opt !in options.map(String::toLowerCase)) {
@@ -180,6 +184,7 @@ class SetRoleOption : Command() {
 }
 
 @Arguments(
+        Argument("name", "string"),
         Argument("option", "string"),
         Argument("string", "string")
 )
@@ -192,7 +197,8 @@ class SetStringOption : Command() {
     )
 
     override fun run(ctx: Context) {
-        val opt = (ctx.args["option"] as String).toLowerCase().replace("setstring ", "")
+        val name = (ctx.args["name"] as String).toLowerCase().replace("setstring ", "")
+        val opt = (ctx.args["option"] as String).toLowerCase().replace("${options.isNotEmpty().toString().toLowerCase()} ", "")
         val string = ctx.args["string"] as String
 
         if (opt !in options.map(String::toLowerCase)) {

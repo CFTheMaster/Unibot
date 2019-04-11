@@ -17,6 +17,8 @@ class LewdCatgirl : Command(){
     override val nsfw = true
 
     override fun run(ctx: Context) {
+        val catgirl = getNeko()
+
         val embed = EmbedBuilder().apply {
             setTitle("image link", catgirl)
             setColor(6684876)
@@ -25,8 +27,6 @@ class LewdCatgirl : Command(){
         }
         ctx.send(embed.build())
     }
-
-    private val catgirl = getNeko()
 
     private fun getNeko(): String?{
         val response = OkHttpClient().newCall(Request.Builder()

@@ -16,9 +16,9 @@ class Hug : Command(){
     override val desc = "hug a user"
     override val guildOnly = true
 
-    val smolHug = getHug()
-
     override fun run(ctx: Context) {
+        val smolHug = getHug()
+
         ctx.send(EmbedBuilder().apply {
             val mem = ctx.args["user"] as Member
             setTitle("${if (ctx.args["user"] == null || ctx.author.id == mem.user.id) "trying to hug yourself " else "${mem.effectiveName}, you got a hug from ${ctx.member!!.effectiveName}"}", smolHug)

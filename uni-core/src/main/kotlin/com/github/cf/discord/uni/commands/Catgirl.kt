@@ -1,5 +1,6 @@
 package com.github.cf.discord.uni.commands
 
+
 import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.entities.Command
@@ -16,6 +17,8 @@ class Catgirl : Command(){
     override val guildOnly = false
 
     override fun run(ctx: Context) {
+        val catgirl = getNeko()
+
         val embed = EmbedBuilder().apply {
             setTitle("image link", catgirl)
             setColor(6684876)
@@ -25,7 +28,6 @@ class Catgirl : Command(){
         ctx.send(embed.build())
     }
 
-    private val catgirl = getNeko()
 
     private fun getNeko(): String?{
         val response = OkHttpClient().newCall(Request.Builder()
