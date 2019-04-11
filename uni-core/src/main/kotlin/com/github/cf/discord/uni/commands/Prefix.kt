@@ -19,7 +19,7 @@ class AddPrefix : Command(){
     override val desc = "Add a prefix"
 
     override fun run(ctx: Context) {
-        val prefixes = ctx.args["prefix"] as String
+        val prefixes = (ctx.args["prefix"] as String).toLowerCase().replace("add ", "")
 
         asyncTransaction(Uni.pool) {
             val guild = Guilds.select {
@@ -47,7 +47,7 @@ class RemPrefix : Command(){
     override val desc = "Remove a prefix"
 
     override fun run(ctx: Context) {
-        val prefixes = ctx.args["prefix"] as String
+        val prefixes = (ctx.args["prefix"] as String).toLowerCase().replace("remove ", "")
 
         asyncTransaction(Uni.pool) {
             if (ctx.storedGuild!!.prefix!!.isEmpty()) {
