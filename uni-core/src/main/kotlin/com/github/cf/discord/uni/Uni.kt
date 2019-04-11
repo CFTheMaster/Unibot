@@ -34,7 +34,7 @@ class Uni(token: String) {
     init {
         Database.connect(
                 "jdbc:postgresql://${EnvVars.DATABASE_HOST}:${EnvVars.DATABASE_PORT}/${EnvVars.DATABASE_SCHEMA}",
-                "com.mysql.jdbc.Driver",
+                "org.postgresql.Driver",
                 EnvVars.DATABASE_USERNAME!!,
                 EnvVars.DATABASE_PASSWORD!!
         )
