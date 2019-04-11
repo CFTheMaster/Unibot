@@ -80,9 +80,9 @@ class EventListener : ListenerAdapter(){
                     try {
                         cmdHandler.handleMessage(event, user, stored)
                     } catch (e: Exception){
-                        LOGGER.error("Error while trying to handkle message: $e")
+                        LOGGER.error("Error while trying to handkle message: $e") // dit gaat alleen af als de commandhandler crasht
                     }
-                }
+                }// wilde kijke als het fout gaat in DB, je moet alleen ff in de DB kijken of er een goeie date bij staat
 
                 if(stored.antiInvite){
                     val regex = "(https?)?:?(//)?discord(app)?.?(gg|io|me|com)?/(\\w+:?\\w*@)?(\\S+)(:[0-9]+)?(/|/([\\w#!:.?+=&%@!-/]))?".toRegex()

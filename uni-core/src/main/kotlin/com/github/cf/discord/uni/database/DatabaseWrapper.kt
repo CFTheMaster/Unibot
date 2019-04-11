@@ -23,6 +23,8 @@ import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import java.lang.Exception
+import java.sql.Timestamp
+import java.util.*
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ExecutorService
 
@@ -247,7 +249,7 @@ object DatabaseWrapper {
                 it[expPoints] = 0
                 it[level] = 0
                 it[lastLevelUp] = DateTime.now()
-                it[accountCreationDate] = DateTime(user.creationTime.toInstant())
+                it[accountCreationDate] = DateTime.parse(user.creationTime.toInstant().toString())
                 it[customPrefix] = ""
 
             }
@@ -257,7 +259,7 @@ object DatabaseWrapper {
                     0,
                     0,
                     DateTime.now(),
-                    DateTime(user.creationTime.toInstant()),
+                    DateTime.parse(user.creationTime.toInstant().toString()),
                     ""
             )
         } else {
