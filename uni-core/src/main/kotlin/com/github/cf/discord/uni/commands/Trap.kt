@@ -13,6 +13,7 @@ import java.awt.Color
 class Trap : Command(){
     override val desc = "execute to get a random picture from my trap API"
     override val guildOnly = true
+    override val nsfw = true
 
     override fun run(ctx: Context) {
         val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt()

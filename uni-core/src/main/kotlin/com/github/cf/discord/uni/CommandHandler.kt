@@ -71,7 +71,7 @@ class CommandHandler{
 
         val usedPrefix = Uni.prefixes.firstOrNull {
             event.message.contentRaw.startsWith(it.toLowerCase())
-        } ?: guildPrefix.firstOrNull {
+        } ?: guildPrefix?.firstOrNull {
             event.message.contentRaw.startsWith(it.toLowerCase())
         } ?: userPrefix.firstOrNull {
             event.message.contentRaw.startsWith(it.toLowerCase())

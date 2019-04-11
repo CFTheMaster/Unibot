@@ -2,6 +2,7 @@ package com.github.cf.discord.uni.commands
 
 import com.github.cf.discord.uni.Uni
 import com.github.cf.discord.uni.Uni.Companion.LOGGER
+import com.github.cf.discord.uni.Uni.Companion.prefixes
 import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.annotations.Perm
@@ -115,7 +116,7 @@ class Setup : Command(){
                         it[starboardChannel] = channel.idLong
                     }
                 }.execute().thenAccept {
-                    ctx.send("Successfully set up starboard! (You can disable starboard using `k;config disable starboard`)")
+                    ctx.send("Successfully set up starboard! (You can disable starboard using `${prefixes.firstOrNull()}config disable starboard`)")
                 }.thenApply {}.exceptionally {
                     ctx.sendError(it)
                     LOGGER.error("Error while trying to set up starboard", it)
@@ -135,7 +136,7 @@ class Setup : Command(){
                         it[modLogChannel] = channel.idLong
                     }
                 }.execute().thenAccept {
-                    ctx.send("Successfully set up modlogs! (You can disable modlogs using `k;config disable modlogs`)")
+                    ctx.send("Successfully set up modlogs! (You can disable modlogs using `${prefixes.firstOrNull()}config disable modlogs`)")
                 }.thenApply {}.exceptionally {
                     ctx.sendError(it)
                     LOGGER.error("Error while trying to set up modlogs", it)
@@ -156,7 +157,7 @@ class Setup : Command(){
                                 it[logs] = true
                             }
                         }.execute().thenAccept {
-                            ctx.send("Successfully set up message logs! (You can disable logs using `k;config disable logs`)")
+                            ctx.send("Successfully set up message logs! (You can disable logs using `${prefixes.firstOrNull()}config disable logs`)")
                         }.thenApply {}.exceptionally {
                             ctx.sendError(it)
                             LOGGER.error("Error while trying to set up logs", it)
