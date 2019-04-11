@@ -52,7 +52,7 @@ class EventListener : ListenerAdapter(){
     override fun onGenericEvent(event: Event) = waiter.emit(event)
 
     override fun onReady(event: ReadyEvent) {
-        LOGGER.info("Bot is ready for acction")
+        LOGGER.info("Bot is ready for action")
 
         if(Uni.jda == null){
             if(Uni.shardManager.shards.all { it.status == JDA.Status.CONNECTED || it.status == JDA.Status.LOADING_SUBSYSTEMS }){

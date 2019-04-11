@@ -42,6 +42,7 @@ dependencies {
     compile group: 'net.oneandone.reflections8', name: 'reflections8', version: '0.11.4'
     compile 'org.apache.commons:commons-lang3:3.7'
     compile group: 'commons-validator', name: 'commons-validator', version: '1.6'
+    compile group: 'postgresql', name: 'postgresql', version: '9.1-901-1.jdbc4'
 }
 
 jar {
