@@ -14,6 +14,7 @@ import org.json.JSONObject
 class LewdCatgirl : Command(){
     override val desc = "Change the volume of the music"
     override val guildOnly = false
+    override val nsfw = true
 
     override fun run(ctx: Context) {
         val embed = EmbedBuilder().apply {
@@ -29,7 +30,7 @@ class LewdCatgirl : Command(){
 
     private fun getNeko(): String?{
         val response = OkHttpClient().newCall(Request.Builder()
-                .url("https://nekos.life/api/v2/img/neko")
+                .url("https://nekos.life/api/v2/img/lewd")
                 .build()).execute()
 
         return if (response.isSuccessful) {

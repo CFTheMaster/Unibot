@@ -20,7 +20,7 @@ class Eval : Command(){
         try {
             val res = engine.eval(
                     "import com.github.cf.discord.uni.Uni\n" +
-                            "import com.github.cf.discord.uni.listenerrs.EventListener\n" +
+                            "import com.github.cf.discord.uni.listeners.EventListener\n" +
                             "val ctx = bindings[\"ctx\"] as com.github.cf.discord.uni.entities.Context\n" +
                             ctx.rawArgs.joinToString(" "))
             ctx.sendCode("kotlin", res ?: "null")
