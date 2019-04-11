@@ -43,7 +43,10 @@ import org.joda.time.DateTime
 import org.json.JSONObject
 import java.awt.Color
 import java.lang.Exception
+import java.time.Duration
+import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
+import java.util.Date
 import java.util.Random
 import java.util.concurrent.TimeUnit
 import kotlin.concurrent.fixedRateTimer
@@ -101,19 +104,28 @@ class EventListener : ListenerAdapter(){
                     val exists = Users.select{ Users.id.eq(event.author.idLong)}.firstOrNull() ?: return@asyncTransaction
                     val curLevel = exists[Users.level]
                     val xp = exists[Users.expPoints]
+                    val lastMsg = exists[Users.lastMessage]
 
-                    fixedRateTimer("give user some xp", false, 0L, TimeUnit.MINUTES.toMillis(20)) {
-                        xp+1
+                    val niceMeme = DateTime.now().millis
+
+                    if(DateTime.now().millis - niceMeme > TimeUnit.MINUTES.toMillis(10) && event.message.idLong > lastMsg){
+                        val xpGet = xp+1
+                        Users.update({Users.id.eq(event.author.idLong)}) {
+                            it[expPoints] = xpGet
+                            it[lastMessage] = event.message.idLong
+                        }
+
                     }
 
-                    val xpNeeded = curLevel.toFloat() * 500f * (curLevel.toFloat() / 3f)
+
+                    val xpNeeded = curLevel.toFloat() * 500f * (curLevel.toFloat() / 3f) + (xp * (xp + curLevel + xp/3))
 
                     if (xp >= xpNeeded) {
                         Users.update({
                             Users.id.eq(event.author.idLong)
                         }) {
                             it[level] = curLevel + 1
-                            it[expPoints] = 0L
+                            it[expPoints] = xp
                             it[lastLevelUp] = DateTime.now()
                         }
 

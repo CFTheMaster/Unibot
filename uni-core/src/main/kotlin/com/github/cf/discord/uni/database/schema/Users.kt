@@ -10,5 +10,6 @@ object Users : Table() {
     val level = long("level")
     val lastLevelUp =  datetime("lastLevelUp")
     val accountCreationDate = datetime("accountCreationDate")
+    val lastMessage = long("lastMsg")
     val customPrefix = varchar("customPrefix", 20)
 }

@@ -63,6 +63,7 @@ data class DBUser(
         val level: Long,
         val lastLevelUp: DateTime,
         val accountCreationDate: DateTime,
+        val lastMessage: Long,
         val customPrefix: String
 )
 
@@ -152,6 +153,7 @@ object DatabaseWrapper {
                     user[Users.level],
                     user[Users.lastLevelUp],
                     user[Users.accountCreationDate],
+                    user[Users.lastMessage],
                     user[Users.customPrefix]
             )
         }
@@ -171,6 +173,7 @@ object DatabaseWrapper {
                 it[level] = 0
                 it[lastLevelUp] = DateTime.now()
                 it[accountCreationDate] = DateTime(user.creationTime.toInstant())
+                it[lastMessage] = 1L
                 it[customPrefix] = ""
             }
         }
@@ -250,6 +253,7 @@ object DatabaseWrapper {
                 it[level] = 0
                 it[lastLevelUp] = DateTime.now()
                 it[accountCreationDate] = DateTime.parse(user.creationTime.toInstant().toString())
+                it[lastMessage] = 1L
                 it[customPrefix] = ""
 
             }
@@ -260,6 +264,7 @@ object DatabaseWrapper {
                     0,
                     DateTime.now(),
                     DateTime.parse(user.creationTime.toInstant().toString()),
+                    0L,
                     ""
             )
         } else {
@@ -269,6 +274,7 @@ object DatabaseWrapper {
                     stored[Users.level],
                     stored[Users.lastLevelUp],
                     stored[Users.accountCreationDate],
+                    stored[Users.lastMessage],
                     stored[Users.customPrefix]
             )
         }
