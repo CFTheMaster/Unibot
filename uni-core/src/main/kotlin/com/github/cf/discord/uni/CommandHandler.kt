@@ -65,7 +65,7 @@ class CommandHandler{
                 }
     }
     fun handleMessage(event: MessageReceivedEvent, user: DBUser, guild: DBGuild? = null){
-        val guildPrefix = guild?.prefix ?: "uni_"
+        val guildPrefix = guild?.prefix
 
         val userPrefix = user.customPrefix
 
@@ -75,7 +75,7 @@ class CommandHandler{
             event.message.contentRaw.startsWith(it.toLowerCase())
         } ?: userPrefix.firstOrNull {
             event.message.contentRaw.startsWith(it.toLowerCase())
-        } ?: "uni_"
+        } ?: return
 
         val allPrefixes = usedPrefix.toString().length
 
