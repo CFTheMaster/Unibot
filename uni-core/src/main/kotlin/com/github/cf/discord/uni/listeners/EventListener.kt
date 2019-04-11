@@ -126,7 +126,9 @@ class EventListener : ListenerAdapter(){
                 }
             }
         } else {
-            if(event.author.isBot) return
+            if(event.author.isBot) {
+                return
+            }
 
             DatabaseWrapper.getUserSafe(event.author).thenAccept { user ->
                 try {
