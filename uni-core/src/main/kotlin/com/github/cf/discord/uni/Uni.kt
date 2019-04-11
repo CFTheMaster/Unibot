@@ -15,50 +15,80 @@
  */
 package com.github.cf.discord.uni
 
-import com.github.cf.discord.uni.commands.`fun`.EightBallCommand
-import com.github.cf.discord.uni.commands.`fun`.CatgirlCommand
-import com.github.cf.discord.uni.commands.`fun`.DuckCommand
-import com.github.cf.discord.uni.commands.`fun`.LewdCatgirlCommand
-import com.github.cf.discord.uni.commands.admin.AdminCommand
-import com.github.cf.discord.uni.commands.audio.AudioPlayerCommand
-import com.github.cf.discord.uni.commands.audio.AudioPlayerPanel
-import com.github.cf.discord.uni.commands.audio.VoiceChannelCommand
-import com.github.cf.discord.uni.commands.info.UserInfoCommand
-import com.github.cf.discord.uni.commands.info.BotInfoCommand
-import com.github.cf.discord.uni.commands.info.HelpCommand
-import com.github.cf.discord.uni.commands.info.InviteCommand
-import com.github.cf.discord.uni.commands.info.PingCommand
-import com.github.cf.discord.uni.commands.info.ServerInfoCommand
-import com.github.cf.discord.uni.commands.info.UptimeCommand
-import com.github.cf.discord.uni.commands.info.VoteCommand
-import com.github.cf.discord.uni.commands.owner.TestApiCommand
-import com.github.cf.discord.uni.commands.owner.StatusCommand
-import com.github.cf.discord.uni.commands.owner.SayCommand
-import com.github.cf.discord.uni.commands.owner.ChangeNickNameCommand
-import com.github.cf.discord.uni.commands.owner.ChangeNameCommand
-import com.github.cf.discord.uni.commands.owner.AmIOwnerCommand
-import com.github.cf.discord.uni.commands.owner.ShellCommand
-import com.github.cf.discord.uni.commands.query.*
-import com.github.cf.discord.uni.commands.stateful.*
-import com.github.cf.discord.uni.commands.system.*
-import com.github.cf.discord.uni.commands.userColors.*
-import com.github.cf.discord.uni.jsr223.*
+import com.github.cf.discord.uni.core.EnvVars
+import com.github.cf.discord.uni.database.schema.*
+import com.github.cf.discord.uni.extensions.asyncTransaction
 import com.github.cf.discord.uni.listeners.*
-import com.github.kvnxiao.discord.meirei.Meirei
-import com.github.kvnxiao.discord.meirei.jda.MeireiJDA
+import com.github.cf.discord.uni.stateful.CoroutineDispatcher
 import mu.KotlinLogging
+import net.dv8tion.jda.bot.sharding.DefaultShardManagerBuilder
+import net.dv8tion.jda.bot.sharding.ShardManager
 import net.dv8tion.jda.core.*
+import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.SchemaUtils
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 class Uni(token: String) {
+
+    init {
+        Database.connect(
+                "jdbc:postgresql://${EnvVars.DATABASE_HOST}:${EnvVars.DATABASE_PORT}/${EnvVars.DATABASE_SCHEMA}",
+                "com.mysql.jdbc.Driver",
+                EnvVars.DATABASE_USERNAME!!,
+                EnvVars.DATABASE_PASSWORD!!
+        )
+
+        asyncTransaction(pool){
+            SchemaUtils.create(
+                    Guilds,
+                    Logs,
+                    ModLogs,
+                    Roles,
+                    Starboard,
+                    Users
+            )
+        }.execute()
+    }
 
     companion object {
         @JvmField
         val LOGGER = KotlinLogging.logger(Uni::class.java.name)
+        val pool: ExecutorService by lazy {
+            Executors.newCachedThreadPool {
+                Thread(it, "Uni-Main-Pool-Thread").apply {
+                    isDaemon = true
+                }
+            }
+        }
+        val coroutineDispatcher by lazy {
+            CoroutineDispatcher(pool)
+        }
+        var jda: JDA? = null
+
+        lateinit var shardManager: ShardManager
+        val prefix: List<String> = EnvVars.PREFIX!!.split("::")
+        val prefixes = prefix.toList()
     }
 
-    private val clientBuilder = JDABuilder(AccountType.BOT)
-            .setToken(token)
-    private val meirei: Meirei = MeireiJDA(clientBuilder)
+    fun build(){
+        jda = JDABuilder(AccountType.BOT).apply {
+            setToken(EnvVars.BOT_TOKEN)
+            addEventListener(EventListener())
+        }.buildAsync()
+
+        Uni.jda = jda
+    }
+
+    fun build(firstShard: Int, lastShard: Int, total: Int){
+        shardManager = DefaultShardManagerBuilder().apply {
+            setToken(EnvVars.BOT_TOKEN)
+            addEventListeners(EventListener())
+            setAutoReconnect(true)
+            setShardsTotal(total)
+            setShards(firstShard, lastShard)
+        }.build()
+    }
 
     fun start(): Boolean {
         return try {
@@ -71,72 +101,11 @@ class Uni(token: String) {
                 " \\___/  |_|\\_| |___|"
 
             }
-            clientBuilder
-                    .addEventListener(
-                            ReadyEventListener(),
-                            MessageLogListener(),
-                            CommandListener(),
-                            GuildJoinLeaveListener())
-                    .registerCommands()
-                    .buildAsync()
+            build()
             true
         } catch (e: Exception) {
             LOGGER.error(e) { "An errorEmbed occurred in starting the bot!" }
             false
         }
-    }
-
-    private fun JDABuilder.registerCommands(): JDABuilder {
-        meirei.addAnnotatedCommands(
-                //Color User
-                changeMyColor(),
-                // System
-                BotInfoCommand(),
-                HelpCommand(),
-                PingCommand(),
-                UptimeCommand(),
-                ShutdownCommand(),
-                RestartCommand(),
-                InviteCommand(),
-                UserInfoCommand(),
-                ServerInfoCommand(),
-                VoteCommand(),
-
-                // Moderation Commands
-                AdminCommand(),
-
-                // Audio
-                VoiceChannelCommand(),
-                AudioPlayerCommand(),
-
-                // Queryable commands,
-                GoogleCommand(),
-                WikipediaCommand(),
-                PcPartPickerCommand(),
-                UrbanDictionaryCommand(),
-                SauceNAOCommand(),
-
-                // Stateful
-                PollCommand(),
-
-                // Fun
-                EightBallCommand(),
-                CatgirlCommand(),
-                LewdCatgirlCommand(),
-                DuckCommand(),
-
-                // Scripting
-                KotlinScriptCommand(),
-
-                // Owner Only
-                StatusCommand(),
-                ChangeNameCommand(),
-                ChangeNickNameCommand(),
-                TestApiCommand(),
-                SayCommand(),
-                AmIOwnerCommand(),
-                ShellCommand()
-        )
-        return this
     }
 }

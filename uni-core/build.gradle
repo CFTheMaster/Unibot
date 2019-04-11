@@ -39,7 +39,7 @@ dependencies {
     compile 'com.github.jasync-sql:jasync-mysql:0.9.51'
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
     compile 'com.google.code.gson:gson:2.8.5'
-    compile 'com.google.guava:guava:27.1-jre'
+    compile group: 'net.oneandone.reflections8', name: 'reflections8', version: '0.11.4'
     compile 'org.apache.commons:commons-lang3:3.7'
     compile group: 'commons-validator', name: 'commons-validator', version: '1.6'
 }
