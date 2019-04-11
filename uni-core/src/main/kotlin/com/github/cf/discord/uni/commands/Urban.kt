@@ -1,0 +1,59 @@
+package com.github.cf.discord.uni.commands
+
+import com.github.cf.discord.uni.Uni.Companion.LOGGER
+import com.github.cf.discord.uni.annotations.Alias
+import com.github.cf.discord.uni.annotations.Argument
+import com.github.cf.discord.uni.annotations.Load
+import com.github.cf.discord.uni.entities.Command
+import com.github.cf.discord.uni.entities.Context
+import com.github.cf.discord.uni.utils.Http
+import net.dv8tion.jda.core.EmbedBuilder
+import okhttp3.HttpUrl
+import org.json.JSONObject
+
+@Load
+@Argument("term", "string")
+@Alias("ud", "urbandictionary", "urban")
+class Urban : Command() {
+    override val desc = "Search on the urban dictionary!"
+    override val nsfw = true
+
+    override fun run(ctx: Context) {
+        Http.get(HttpUrl.Builder().apply{
+            scheme("https")
+            host("api.urbandictionary.com")
+            addPathSegment("v0")
+            addPathSegment("define")
+            addQueryParameter("term", ctx.args["term"] as String)
+        }.build()).thenAccept{ res ->
+            val json = JSONObject(res.body()!!.string())
+
+
+            if (json.getString("result_type") == "no_results") {
+                return@thenAccept ctx.send("couldn't find anything")
+            }
+
+            val list = json.getJSONArray("list")
+
+            if (list.count() == 0) {
+                return@thenAccept ctx.send("couldn't find anything")
+            }
+
+            val item = list.getJSONObject(0)
+
+            val embed = EmbedBuilder().apply {
+                setAuthor(item.getString("author"))
+                setTitle(item.getString("word"), item.getString("permalink"))
+                descriptionBuilder.append(item.getString("definition"))
+                descriptionBuilder.append("\n\n${item.getString("example")}")
+                setFooter("${item.getInt("thumbs_up")} \uD83D\uDC4D | ${item.getInt("thumbs_down")} \uD83D\uDC4E", null)
+            }
+
+            ctx.send(embed.build())
+            res.close()
+        }.thenApply {}.exceptionally {
+            LOGGER.error("Error while trying to get definition from urban dictionary", it)
+            ctx.sendError(it)
+        }
+    }
+}
