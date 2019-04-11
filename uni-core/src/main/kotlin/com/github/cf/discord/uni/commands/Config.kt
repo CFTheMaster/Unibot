@@ -131,7 +131,7 @@ class SetChannelOption : Command() {
         val channel = ctx.args["channel"] as TextChannel
 
         if (opt !in options.map(String::toLowerCase))
-            return ctx.send("Option not found!") // TODO translation
+            return ctx.send("Option not found! $name, $opt, $channel") // TODO translation
 
         asyncTransaction(Uni.pool) {
             Guilds.update({
@@ -166,7 +166,7 @@ class SetRoleOption : Command() {
         val role = ctx.args["role"] as Role
 
         if (opt !in options.map(String::toLowerCase)) {
-            return ctx.send("Option not found!") // TODO translation
+            return ctx.send("Option not found! $name, $opt, $role") // TODO translation
         }
 
         asyncTransaction(Uni.pool) {
@@ -202,7 +202,7 @@ class SetStringOption : Command() {
         val string = ctx.args["string"] as String
 
         if (opt !in options.map(String::toLowerCase)) {
-            return ctx.send("Option not found!") // TODO translation
+            return ctx.send("Option not found! $name, $opt, $string") // TODO translation
         }
 
         asyncTransaction(Uni.pool) {
