@@ -77,8 +77,10 @@ class CommandHandler{
             event.message.contentRaw.startsWith(it.toLowerCase())
         } ?: return
 
-        var cmd = event.message.contentRaw.substring(Uni.prefixes.length).split("")[0]
-        var args = event.message.contentRaw.substring(Uni.prefixes.length).split("")
+        val allPrefixes = usedPrefix.toString().length
+
+        var cmd = event.message.contentRaw.substring(allPrefixes).split(" ")[0]
+        var args = event.message.contentRaw.substring(allPrefixes).split(" ")
 
         if(args.isNotEmpty()){
             args = args.drop(1)
