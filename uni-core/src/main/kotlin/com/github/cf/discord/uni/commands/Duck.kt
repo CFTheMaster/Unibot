@@ -16,6 +16,8 @@ class Duck : Command(){
     override val guildOnly = false
 
     override fun run(ctx: Context) {
+        val aDuck = getDucky()
+
         val embed = EmbedBuilder().apply {
             setTitle("image link", aDuck)
             setColor(6684876)
@@ -24,8 +26,6 @@ class Duck : Command(){
         }
         ctx.send(embed.build())
     }
-
-    private val aDuck = getDucky()
 
     private fun getDucky(): String? {
         val response = OkHttpClient().newCall(Request.Builder()
