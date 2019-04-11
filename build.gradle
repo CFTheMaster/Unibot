@@ -63,13 +63,4 @@ subprojects {
     compileTestKotlin {
         kotlinOptions.jvmTarget = "1.8"
     }
-
-    spotless {
-        kotlin {
-            trimTrailingWhitespace()
-            endWithNewline()
-            ktlint("0.15.0")
-            licenseHeaderFile "${rootProject.projectDir}/docs/license_header"
-        }
-    }
 }
