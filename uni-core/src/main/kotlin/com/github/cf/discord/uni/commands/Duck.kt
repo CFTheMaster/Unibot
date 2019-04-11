@@ -20,7 +20,7 @@ class Duck : Command(){
             setTitle("image link", aDuck)
             setColor(6684876)
             setImage(aDuck)
-            setFooter("powered by https://nekos.life", null)
+            setFooter("powered by https://random-d.uk/", null)
         }
         ctx.send(embed.build())
     }
