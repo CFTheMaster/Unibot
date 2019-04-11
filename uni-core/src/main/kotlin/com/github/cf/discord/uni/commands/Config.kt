@@ -21,7 +21,6 @@ class EnableOption : Command() {
     override val desc = "Enable a setting."
     override val guildOnly = true
 
-
     private val options = listOf(
             "starboard",
             "logs",
@@ -32,12 +31,12 @@ class EnableOption : Command() {
     )
 
     override fun run(ctx: Context) {
-        val opt = (ctx.args["option"] as String).toLowerCase()
+        val opt = (ctx.args["option"] as String).toLowerCase().replace("enable ", "")
 
         val humanOptions = mutableMapOf<String, String>()
 
         for (option in options) {
-            val regex = "([A-Z])".toRegex()
+            val regex = "([a-zA-Z])".toRegex()
             val letter = regex.find(option)?.groupValues?.get(0)
 
             if (letter != null)
@@ -47,7 +46,7 @@ class EnableOption : Command() {
         }
 
         if (opt !in humanOptions) {
-            return ctx.send("Option not found!") // TODO translation
+            return ctx.send("Option not found! $opt") // TODO translation
         }
 
         asyncTransaction(Uni.pool) {
@@ -79,12 +78,12 @@ class DisableOption : Command() {
     )
 
     override fun run(ctx: Context) {
-        val opt = (ctx.args["option"] as String).toLowerCase()
+        val opt = (ctx.args["option"] as String).toLowerCase().replace("disable ", "")
 
         val humanOptions = mutableMapOf<String, String>()
 
         for (option in options) {
-            val regex = "([A-Z])".toRegex()
+            val regex = "([a-zA-Z])".toRegex()
             val letter = regex.find(option)?.groupValues?.get(0)
 
             if (letter != null)
@@ -126,7 +125,7 @@ class SetChannelOption : Command() {
     )
 
     override fun run(ctx: Context) {
-        val opt = (ctx.args["option"] as String).toLowerCase()
+        val opt = (ctx.args["option"] as String).toLowerCase().replace("setchannel ", "")
         val channel = ctx.args["channel"] as TextChannel
 
         if (opt !in options.map(String::toLowerCase))
@@ -159,7 +158,7 @@ class SetRoleOption : Command() {
     )
 
     override fun run(ctx: Context) {
-        val opt = (ctx.args["option"] as String).toLowerCase()
+        val opt = (ctx.args["option"] as String).toLowerCase().replace("setrole ", "")
         val role = ctx.args["role"] as Role
 
         if (opt !in options.map(String::toLowerCase)) {
@@ -193,7 +192,7 @@ class SetStringOption : Command() {
     )
 
     override fun run(ctx: Context) {
-        val opt = (ctx.args["option"] as String).toLowerCase()
+        val opt = (ctx.args["option"] as String).toLowerCase().replace("setstring ", "")
         val string = ctx.args["string"] as String
 
         if (opt !in options.map(String::toLowerCase)) {
