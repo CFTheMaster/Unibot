@@ -102,6 +102,10 @@ class EventListener : ListenerAdapter(){
                     val curLevel = exists[Users.level]
                     val xp = exists[Users.expPoints]
 
+                    fixedRateTimer("give user some xp", false, 0L, TimeUnit.MINUTES.toMillis(20)) {
+                        xp+1
+                    }
+
                     val xpNeeded = curLevel.toFloat() * 500f * (curLevel.toFloat() / 3f)
 
                     if (xp >= xpNeeded) {
