@@ -21,7 +21,7 @@ class Hug : Command(){
 
         ctx.send(EmbedBuilder().apply {
             val mem = ctx.args["user"] as Member
-            setTitle("${if (ctx.args["user"] == null || ctx.author.id == mem.user.id) "trying to hug yourself " else "<@!${mem.user.id}>, you got a hug from <@!${ctx.member!!.user.id}>"}", smolHug)
+            setTitle("${if (ctx.args["user"] == null || ctx.author.id == mem.user.id) "trying to hug yourself " else "<@!${mem.user.name}>, you got a hug from <@!${ctx.member!!.user.name}>"}", smolHug)
             setImage(smolHug)
             setColor(6684876)
             setFooter("powered by: https://api.computerfreaker.cf", "${ctx.jda.getUserById(138302166619258880).avatarUrl}")
