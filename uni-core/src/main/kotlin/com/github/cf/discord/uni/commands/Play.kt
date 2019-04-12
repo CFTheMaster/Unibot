@@ -33,22 +33,22 @@ class Play : Command(){
     override fun run(ctx: Context) {
         if (!ctx.member!!.voiceState.inVoiceChannel()) {
             return ctx.send("failed to join the voice channel")
+        }
 
-            if (MusicManager.musicManagers[ctx.guild!!.id] == null) {
-                val manager = MusicManager.join(ctx)
+        if (MusicManager.musicManagers[ctx.guild!!.id] == null) {
+            val manager = MusicManager.join(ctx)
 
-                ctx.guild.audioManager.connectionListener = object : ConnectionListener {
-                    override fun onStatusChange(status: ConnectionStatus) {
-                        if (status == ConnectionStatus.CONNECTED)
-                            play(ctx, manager)
-                    }
-
-                    override fun onUserSpeaking(user: User, speaking: Boolean) { return }
-                    override fun onPing(ping: Long) { return }
+            ctx.guild.audioManager.connectionListener = object : ConnectionListener {
+                override fun onStatusChange(status: ConnectionStatus) {
+                    if (status == ConnectionStatus.CONNECTED)
+                        play(ctx, manager)
                 }
-            } else {
-                play(ctx, MusicManager.musicManagers[ctx.guild.id]!!)
+
+                override fun onUserSpeaking(user: User, speaking: Boolean) { return }
+                override fun onPing(ping: Long) { return }
             }
+        } else {
+            play(ctx, MusicManager.musicManagers[ctx.guild.id]!!)
         }
     }
     fun play(ctx: Context, manager: GuildMusicManager) {
