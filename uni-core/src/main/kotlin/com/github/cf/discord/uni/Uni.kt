@@ -69,6 +69,8 @@ class Uni(token: String) {
         lateinit var shardManager: ShardManager
         val prefix: List<String> = EnvVars.PREFIX!!.split("::")
         val prefixes = prefix.toList()
+
+        val MINIMUM_FOR_LEVEL_1 = 900
     }
 
     fun build(){

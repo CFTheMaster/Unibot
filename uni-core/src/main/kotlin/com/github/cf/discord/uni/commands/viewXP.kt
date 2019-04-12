@@ -1,6 +1,7 @@
 package com.github.cf.discord.uni.commands
 
 import com.github.cf.discord.uni.Uni
+import com.github.cf.discord.uni.Uni.Companion.MINIMUM_FOR_LEVEL_1
 import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.database.schema.Users
@@ -33,9 +34,7 @@ class viewXp : Command(){
                 val xp = contract[Users.expPoints]
                 val level = contract[Users.level]
 
-                val required = 900
-
-                val xpNeeded = level.toFloat() * 500f * (level.toFloat() * required.toFloat())
+                val xpNeeded = level.toFloat() * 500f + (level.toFloat() * MINIMUM_FOR_LEVEL_1.toFloat())
                 val progress = xp.toFloat() / xpNeeded * 10f
 
                 // TODO add translations for these

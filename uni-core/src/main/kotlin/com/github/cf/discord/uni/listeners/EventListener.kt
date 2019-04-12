@@ -3,6 +3,7 @@ package com.github.cf.discord.uni.listeners
 import com.github.cf.discord.uni.CommandHandler
 import com.github.cf.discord.uni.Uni
 import com.github.cf.discord.uni.Uni.Companion.LOGGER
+import com.github.cf.discord.uni.Uni.Companion.MINIMUM_FOR_LEVEL_1
 import com.github.cf.discord.uni.core.EnvVars
 import com.github.cf.discord.uni.database.DatabaseWrapper
 import com.github.cf.discord.uni.database.schema.*
@@ -116,9 +117,8 @@ class EventListener : ListenerAdapter(){
                         }
 
                     }
-                    val required = 900
 
-                    val xpNeeded = curLevel.toFloat() * 500f * (curLevel.toFloat() * required.toFloat())
+                    val xpNeeded = curLevel.toFloat() * 500f + (curLevel.toFloat() * MINIMUM_FOR_LEVEL_1.toFloat())
 
                     if (xp >= xpNeeded) {
                         Users.update({
