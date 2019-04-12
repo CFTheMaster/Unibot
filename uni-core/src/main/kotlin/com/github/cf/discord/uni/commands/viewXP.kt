@@ -33,7 +33,9 @@ class viewXp : Command(){
                 val xp = contract[Users.expPoints]
                 val level = contract[Users.level]
 
-                val xpNeeded = level.toFloat() * 500f * (level.toFloat() / 3f)
+                val required = 900
+
+                val xpNeeded = level.toFloat() * 500f * (level.toFloat() / 3f) + (required.toFloat() * (required.toFloat() + level.toFloat() + required.toFloat()/3f))
                 val progress = xp.toFloat() / xpNeeded * 10f
 
                 // TODO add translations for these
