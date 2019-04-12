@@ -27,14 +27,14 @@ class Skip : Command() {
 
         if (ctx.perms["MANAGE_SERVER"] == true) {
             manager.scheduler.next()
-            ctx.send("force_skip")
+            ctx.send("force skipped")
         } else {
             val members = manager.voiceChannel.members.filter { !it.user.isBot }
 
             if (members.size - 1 <= manager.voteSkip.size) {
                 manager.scheduler.next()
 
-                return ctx.send("voteskip success")
+                return ctx.send("voteskip was success")
             }
 
             if (manager.voteSkip.contains(ctx.author.id)) {
@@ -44,7 +44,7 @@ class Skip : Command() {
             if (members.size - 1 <= manager.voteSkip.size + 1) {
                 manager.scheduler.next()
 
-                return ctx.send("voteskip success")
+                return ctx.send("voteskip was success")
             }
 
             manager.voteSkip.add(ctx.author.id)
