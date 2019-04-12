@@ -35,7 +35,7 @@ class viewXp : Command(){
 
                 val required = 900
 
-                val xpNeeded = level.toFloat() * 500f * (level.toFloat() / 3f) + (required.toFloat() * (required.toFloat() + level.toFloat() + required.toFloat()/3f))
+                val xpNeeded = level.toFloat() * 500f * (level.toFloat() * level.toFloat())
                 val progress = xp.toFloat() / xpNeeded * 10f
 
                 // TODO add translations for these
