@@ -142,7 +142,7 @@ class Play : Command(){
                     manager.scheduler.add(track)
                 }
 
-                ctx.send("added to queue playlist tracks: ${tracks.size} to playlist: $${playlist.name}")
+                ctx.send("added to queue playlist tracks: ${tracks.size} to playlist: ${playlist.name}")
             }
         })
     }
