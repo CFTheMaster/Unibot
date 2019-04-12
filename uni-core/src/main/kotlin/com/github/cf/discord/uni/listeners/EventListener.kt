@@ -109,23 +109,23 @@ class EventListener : ListenerAdapter(){
                     val niceMeme = DateTime.now().millis
 
                     if(DateTime.now().millis - niceMeme > TimeUnit.MINUTES.toMillis(10) && event.message.idLong > lastMsg){
-                        val xpGet = xp+1
+                        val xpGet = xp+(1..5).random()
                         Users.update({Users.id.eq(event.author.idLong)}) {
                             it[expPoints] = xpGet
                             it[lastMessage] = event.message.idLong
                         }
 
                     }
+                    val required = 900
 
-
-                    val xpNeeded = curLevel.toFloat() * 500f * (curLevel.toFloat() / 3f) + (xp * (xp + curLevel + xp/3))
+                    val xpNeeded = curLevel.toFloat() * 500f * (curLevel.toFloat() / 3f) + (required.toFloat() * (required.toFloat() + curLevel.toFloat() + required.toFloat()/3f))
 
                     if (xp >= xpNeeded) {
                         Users.update({
                             Users.id.eq(event.author.idLong)
                         }) {
                             it[level] = curLevel + 1
-                            it[expPoints] = xp
+                            it[expPoints] = xp - 1
                             it[lastLevelUp] = DateTime.now()
                         }
 
