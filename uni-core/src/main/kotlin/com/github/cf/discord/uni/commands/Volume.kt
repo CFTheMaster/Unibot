@@ -1,5 +1,6 @@
 package com.github.cf.discord.uni.commands
 
+import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.annotations.Perm
@@ -10,6 +11,7 @@ import net.dv8tion.jda.core.Permission
 
 @Load
 @Perm(Permission.MANAGE_SERVER)
+@Alias("vol")
 @Argument("volume", "number", true)
 class Volume : Command(){
     override val desc = "Change the volume of the music"
