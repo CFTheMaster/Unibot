@@ -113,7 +113,7 @@ class CommandHandler{
         }
 
         if (command.nsfw && !event.textChannel.isNSFW){
-            return event.message.channel.sendMessage("this command can be only used in a nsfw channel").queue()
+            return event.message.channel.sendMessage("this command can only be used in a nsfw channel").queue()
         }
 
         if(event.author.id !in botOwners.authors){
