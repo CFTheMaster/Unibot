@@ -6,6 +6,7 @@ import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.listeners.EventListener
+import net.dv8tion.jda.core.EmbedBuilder
 
 @Load
 @Alias("--help", "-h")
@@ -49,7 +50,12 @@ class Help : Command(){
             }
 
             for (partt in parts){
-                ctx.send("```$partt```")
+                ctx.send(EmbedBuilder().apply {
+                    setTitle("all current commands")
+                    setColor(6684876)
+                    setDescription(partt)
+                    setFooter("requested by ${ctx.author.name}#${ctx.author.discriminator} (${ctx.author.id})", null)
+                }.build())
             }
         }
     }
