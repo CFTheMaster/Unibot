@@ -27,7 +27,7 @@ class UserInfo : Command(){
                     "ONLINE" -> "<:OnlineDOT:565631777025032223> "
                     "OFFLINE" -> "<:OfflineDOT:565631801935265792>"
                     "IDLE" -> "<:IdleDOT:565631819337433098>"
-                    "DONOTDISTURB" -> "<:DoNotDisturbDOT:565631840879247360>"
+                    "DO_NOT_DISTURB" -> "<:DoNotDisturbDOT:565631840879247360>"
                     else -> "<:OfflineDOT:565631801935265792>"
                 }
             }
