@@ -15,27 +15,8 @@
  */
 package com.github.cf.discord.uni.commands
 
-import com.github.kvnxiao.discord.meirei.annotations.Command
-import com.github.kvnxiao.discord.meirei.annotations.CommandGroup
-import com.github.kvnxiao.discord.meirei.annotations.Permissions
-import com.github.kvnxiao.discord.meirei.annotations.RegistryAware
-import com.github.kvnxiao.discord.meirei.command.CommandContext
-import com.github.kvnxiao.discord.meirei.command.CommandDefaults
-import com.github.kvnxiao.discord.meirei.command.CommandProperties
-import com.github.kvnxiao.discord.meirei.command.DiscordCommand
-import com.github.kvnxiao.discord.meirei.command.database.CommandRegistryRead
-import com.github.kvnxiao.discord.meirei.utility.SplitString.Companion.splitString
-import com.github.cf.discord.uni.Lib.LINE_SEPARATOR
-import com.github.cf.discord.uni.core.EnvVars
-import net.dv8tion.jda.core.EmbedBuilder
-import net.dv8tion.jda.core.entities.Message
-import net.dv8tion.jda.core.entities.MessageEmbed
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent
-import net.dv8tion.jda.core.requests.RestAction
 import java.awt.Color
-import java.util.StringJoiner
 
-@CommandGroup("system.help")
 class HelpCommand {
 
     companion object {

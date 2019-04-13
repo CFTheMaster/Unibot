@@ -1,6 +1,7 @@
 package com.github.cf.discord.uni.commands
 
 import com.github.cf.discord.uni.annotations.Load
+import com.github.cf.discord.uni.commands.HelpCommand.Companion.WEBSITE_URL
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.sedmelluq.discord.lavaplayer.tools.PlayerLibrary
@@ -47,6 +48,7 @@ class BotInfo : Command(){
             addField("Support Server Invite: ", "[Support Server](https://discord.gg/rMVju6a)", true)
             addField("CFs API Server", "[API Server](https://discord.gg/gzWwtWG )", true)
             addField("CFs Github: ", "[CFs Github](https://github.com/CFTheMaster)", true)
+            addField("Uni Website:", "[Uni website]($WEBSITE_URL)", true)
             setFooter("requested by ${ctx.author.name}#${ctx.author.discriminator} (${ctx.author.id})", "${ctx.author.avatarUrl}")
         }
 
