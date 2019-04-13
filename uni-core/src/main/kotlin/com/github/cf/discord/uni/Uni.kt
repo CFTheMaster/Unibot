@@ -106,7 +106,7 @@ class Uni(token: String) {
             build()
             true
         } catch (e: Exception) {
-            LOGGER.error(e) { "An errorEmbed occurred in starting the bot!" }
+            LOGGER.error(e) { "An error has occurred in starting the bot!" }
             false
         }
     }
