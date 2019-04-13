@@ -32,7 +32,7 @@ class EightBall : Command(){
         const val EIGHTBALL_EMOJI = "\uD83C\uDFB1"
     }
 
-    override val desc = "Change the volume of the music"
+    override val desc = "Get an answer from the magic 8ball"
     override val guildOnly = false
 
     override fun run(ctx: Context) {
