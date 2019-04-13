@@ -20,7 +20,13 @@ class Help : Command(){
             if (cmd !in EventListener.cmdHandler.commands){
                 ctx.send("command has not been found")
             } else {
-                ctx.send(EventListener.cmdHandler.help(cmd))
+                ctx.send(
+                        EmbedBuilder().apply {
+                            setTitle("Info for the command you asked")
+                            setColor(6684876)
+                            setDescription(EventListener.cmdHandler.help(cmd))
+                            setFooter("requested by ${ctx.author.name}#${ctx.author.discriminator} (${ctx.author.id})", null)
+                        }.build())
             }
         } else {
             val commands = EventListener.cmdHandler.commands
