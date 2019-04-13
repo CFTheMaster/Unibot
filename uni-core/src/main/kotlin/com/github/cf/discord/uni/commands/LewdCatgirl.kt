@@ -4,6 +4,7 @@ import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
+import com.github.cf.discord.uni.utils.CFApi
 import net.dv8tion.jda.core.EmbedBuilder
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -17,7 +18,7 @@ class LewdCatgirl : Command(){
     override val nsfw = true
 
     override fun run(ctx: Context) {
-        val catgirl = getNeko()
+        val catgirl = if (CFApi.getCFApi("nsfwneko") != null) CFApi.getCFApi("nsfwneko") else getNeko()
 
         val embed = EmbedBuilder().apply {
             setTitle("image link", catgirl)
