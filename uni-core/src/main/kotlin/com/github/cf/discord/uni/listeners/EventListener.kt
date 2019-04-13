@@ -107,8 +107,6 @@ class EventListener : ListenerAdapter(){
                     val xp = exists[Users.expPoints]
                     val lastMsg = exists[Users.lastMessage]
 
-                    val niceMeme = DateTime.now().millis
-
                     if(event.message.idLong > lastMsg){
                         val xpGet = xp+(1..5).random()
                         Users.update({Users.id.eq(event.author.idLong)}) {
