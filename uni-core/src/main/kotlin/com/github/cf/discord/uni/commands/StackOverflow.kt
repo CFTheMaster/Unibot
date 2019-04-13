@@ -32,7 +32,7 @@ class StackOverflow : Command() {
             val items = json.getJSONArray("items")
 
             if (items.count() == 0) {
-                return@thenAccept ctx.send("no_results")
+                return@thenAccept ctx.send("no results  have been found")
             }
 
             val item = items.getJSONObject(Math.floor(Math.random() * items.count()).toInt())
