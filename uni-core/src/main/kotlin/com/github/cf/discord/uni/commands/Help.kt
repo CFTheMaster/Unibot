@@ -27,10 +27,10 @@ class Help : Command(){
                     .filter { !it.value.ownerOnly }
                     .toSortedMap()
                     .map {
-                        "\t${it.key}" + " ".repeat(20 - it.key.length) + it.value.desc
+                        "\t`${it.key}`: " + " ".repeat(20 - it.key.length) + it.value.desc
                     }
 
-            val text = "Flags:\n\n\t-h, --help${" ".repeat(10)}Get help on a command!\n\nCommands:\n\n`${commands.joinToString("\n")}`"
+            val text = "Flags:\n\n\t-h, --help${" ".repeat(10)}Get help on a command!\n\nCommands:\n\n${commands.joinToString("\n")}"
             val partSize = 40
             val parts = mutableListOf<String>()
             val lines = text.split("\n")
