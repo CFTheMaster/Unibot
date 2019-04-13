@@ -34,7 +34,7 @@ class Snipe : Command() {
                     setAuthor("${log[Logs.authorName]}#${log[Logs.authorDiscrim]}", null, log[Logs.authorAvatar])
                     val regex = "(https?)?:?(//)?discord(app)?.?(gg|io|me|com)?/(\\w+:?\\w*@)?(\\S+)(:[0-9]+)?(/|/([\\w#!:.?+=&%@!-/]))?".toRegex()
                     descriptionBuilder.append(log[Logs.content].replace(regex, "[INVITE REDACTED]"))
-                    setFooter("sniped_by ${ctx.author.name}#${ctx.author.discriminator}", null)
+                    setFooter("sniped by ${ctx.author.name}#${ctx.author.discriminator}", null)
                 }
 
                 ctx.send(embed.build())
