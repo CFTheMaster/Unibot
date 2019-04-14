@@ -60,7 +60,7 @@ class Help : Command(){
                     setTitle("all current commands")
                     setColor(6684876)
                     setDescription(partt)
-                    setFooter("requested by ${ctx.author.name}#${ctx.author.discriminator} (${ctx.author.id})", null)
+                    setFooter("requested by ${ctx.author.name}#${ctx.author.discriminator} (${ctx.author.id})", ctx.author.avatarUrl)
                 }.build())
             }
         }
