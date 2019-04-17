@@ -238,7 +238,7 @@ class Config : Command() {
             setTitle("Settings")
             addField(
                     "General",
-                    "**prefixes:** ${if (ctx.storedGuild!!.prefix!!.isNotEmpty()) ctx.storedGuild.prefix.toString() else "none"}\n" +
+                    "**prefix:** ${if (ctx.storedGuild!!.prefix!!.isNotEmpty()) ctx.storedGuild.prefix.toString() else "none"}\n" +
                             "**logs:** ${if (ctx.storedGuild.logs) "enabled" else "disabled"}\n" +
                             "**mutedRole:** ${ctx.guild!!.getRoleById(ctx.storedGuild.mutedRole ?: 0L)?.asMention ?: "none"}\n" +
                             "**levelMessages:** ${if (ctx.storedGuild.levelMessages) "enabled" else "disabled"}\n" +

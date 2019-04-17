@@ -73,7 +73,7 @@ class RemPrefix : Command(){
 @Load
 class Prefix : Command() {
     override val guildOnly = true
-    override val desc = "Add, view or delete the guild's prefixes"
+    override val desc = "Add, view or delete the guild's prefix"
 
     init {
         addSubcommand(AddPrefix(), "add")
