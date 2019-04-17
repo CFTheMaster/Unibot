@@ -37,7 +37,7 @@ class Unmute : Command() {
                 .removeSingleRoleFromMember(user, role)
                 .reason("[ ${ctx.author.name}#${ctx.author.discriminator} ] ${ctx.args.getOrDefault("reason", "none")}")
                 .queue({
-                    ctx.send("unmuted_user: ${user.user.name}")
+                    ctx.send("unmuted user: ${user.user.name}")
                 }) {
                     if (it is PermissionException) {
                         ctx.send("missing permission")
