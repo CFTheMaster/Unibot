@@ -1,5 +1,5 @@
 buildscript {
-    ext.jda_version = '3.6.0_356'
+    ext.jda_version = '3.8.3_462'
     ext.jda_utilities_version = '2.0'
     ext.lavaplayer_version = '1.2.63'
     ext.meirei_version = '0.8.6'
