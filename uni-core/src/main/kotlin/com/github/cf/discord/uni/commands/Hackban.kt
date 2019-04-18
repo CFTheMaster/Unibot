@@ -22,10 +22,8 @@ class Hackban : Command(){
     override val guildOnly = true
 
     override fun run(ctx: Context) {
-        val user = ctx.args["user"] as String
-
         ctx.guild!!.controller
-                .ban(user, 24)
+                .ban(ctx.args["user"] as String, 24)
                 .reason("[ ${ctx.author.name}#${ctx.author.discriminator} ] ${ctx.args.getOrDefault("reason", "none")}")
                 .queue({
                     ctx.send("banned user")
