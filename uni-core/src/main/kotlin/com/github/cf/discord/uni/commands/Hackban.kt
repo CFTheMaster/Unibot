@@ -14,7 +14,7 @@ import net.dv8tion.jda.core.exceptions.PermissionException
 @Load
 @Perm(Permission.BAN_MEMBERS)
 @Arguments(
-        Argument("user", "user"),
+        Argument("user", "string"),
         Argument("reason", "string", true)
 )
 class Hackban : Command(){
@@ -23,7 +23,7 @@ class Hackban : Command(){
 
     override fun run(ctx: Context) {
         ctx.guild!!.controller
-                .ban(ctx.args["user"] as String, 24)
+                .ban(ctx.args["user"] as String, 0)
                 .reason("[ ${ctx.author.name}#${ctx.author.discriminator} ] ${ctx.args.getOrDefault("reason", "none")}")
                 .queue({
                     ctx.send("banned user")
