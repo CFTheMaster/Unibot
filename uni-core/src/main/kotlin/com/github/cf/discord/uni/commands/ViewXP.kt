@@ -16,9 +16,9 @@ import org.jetbrains.exposed.sql.select
 
 @Load
 @Argument("user", "user", true)
-class viewXp : Command(){
+class ViewXp : Command(){
     override val guildOnly = true
-    override val desc = "View someone's contract!"
+    override val desc = "View someone's xp!"
 
     override fun run(ctx: Context) {
         val member = ctx.args.getOrDefault("user", ctx.member!!) as Member
