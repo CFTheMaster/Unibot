@@ -34,6 +34,6 @@ class Volume : Command(){
             manager.player.volume = vol
         }
 
-        ctx.send("volume has been changed to ${(manager.player.volume / 10).toDouble()}")
+        ctx.send("volume has been changed to ${(manager.player.volume)}")
     }
 }
