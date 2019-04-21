@@ -5,6 +5,7 @@ import com.github.cf.discord.uni.Uni
 import com.github.cf.discord.uni.Uni.Companion.LOGGER
 import com.github.cf.discord.uni.Uni.Companion.MINIMUM_FOR_LEVEL_1
 import com.github.cf.discord.uni.core.EnvVars
+import com.github.cf.discord.uni.data.botOwners
 import com.github.cf.discord.uni.database.DatabaseWrapper
 import com.github.cf.discord.uni.database.schema.*
 import com.github.cf.discord.uni.extensions.addStar
@@ -18,6 +19,7 @@ import gnu.trove.map.hash.TLongLongHashMap
 import net.dv8tion.jda.core.EmbedBuilder
 import net.dv8tion.jda.core.JDA
 import net.dv8tion.jda.core.OnlineStatus
+import net.dv8tion.jda.core.Permission
 import net.dv8tion.jda.core.audit.ActionType
 import net.dv8tion.jda.core.entities.Game
 import net.dv8tion.jda.core.events.Event
@@ -92,7 +94,7 @@ class EventListener : ListenerAdapter(){
                 if(stored.antiInvite){
                     val regex = "(https?)?:?(//)?discord(app)?.?(gg|io|me|com)?/(\\w+:?\\w*@)?(\\S+)(:[0-9]+)?(/|/([\\w#!:.?+=&%@!-/]))?".toRegex()
 
-                    if(!event.member.isOwner && regex.containsMatchIn(event.message.contentRaw)){
+                    if(event.member.user.id !in botOwners.authors && !event.member.isOwner && regex.containsMatchIn(event.message.contentRaw) && !event.member.permissions.contains(Permission.KICK_MEMBERS)){
                         event.message.delete().queue ({
                             event.channel.sendMessage("please do not post any ads").queue()
                         })
