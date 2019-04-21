@@ -92,7 +92,7 @@ class EventListener : ListenerAdapter(){
                 if(stored.antiInvite){
                     val regex = "(https?)?:?(//)?discord(app)?.?(gg|io|me|com)?/(\\w+:?\\w*@)?(\\S+)(:[0-9]+)?(/|/([\\w#!:.?+=&%@!-/]))?".toRegex()
 
-                    if(regex.containsMatchIn(event.message.contentRaw)){
+                    if(!event.member.isOwner && regex.containsMatchIn(event.message.contentRaw)){
                         event.message.delete().queue ({
                             event.channel.sendMessage("please do not post any ads").queue()
                         })
