@@ -96,7 +96,7 @@ class EventListener : ListenerAdapter(){
 
                     if(event.member.user.id !in botOwners.authors && !event.member.isOwner && regex.containsMatchIn(event.message.contentRaw) && !event.member.permissions.contains(Permission.KICK_MEMBERS)){
                         event.message.delete().queue ({
-                            event.channel.sendMessage("please do not post any ads").queue()
+                            event.channel.sendMessage("${event.author.name} (${event.author.id}): please do not post any ads").queue()
                         })
                         {
                             event.channel.sendMessage("error while trying to delete message $it").queue()
