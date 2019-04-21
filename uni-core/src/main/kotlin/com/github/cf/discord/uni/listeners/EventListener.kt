@@ -120,7 +120,7 @@ class EventListener : ListenerAdapter(){
                     val ass = WewCounter.select {WewCounter.amount.eq(WewCounter.amount)}.firstOrNull() ?: return@asyncTransaction
                     val aNumberOrSomething = ass[WewCounter.amount]
 
-                    if(event.message.contentRaw.contains("wew") && event.channel.idLong == 568414725097127947L){
+                    if(event.message.contentRaw.contains("wew") && event.channel.idLong == 211956357841027072L){
                         val wewAmount = aNumberOrSomething+1
                         WewCounter.update({WewCounter.amount.eq((wewAmount-1))}) {
                             it[amount] = wewAmount
