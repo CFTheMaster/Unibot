@@ -77,20 +77,6 @@ class EventListener : ListenerAdapter(){
                     event.message.log()
                 }
 
-                if(event.message.contentRaw.contains("wew") && event.channel.idLong == 211956357841027072L){
-                    DatabaseWrapper.getWewAmountSafe().thenAccept {
-                        try {
-                            val GTFO = it.amount + 1
-                            WewCounter.update({WewCounter.amount.eq(it.amount)}) {
-                                it[amount] = GTFO
-                            }
-                            event.jda.getTextChannelById(568414725097127947L).sendMessage("wew count so far: ${it.amount}").queue()
-                        } catch (e: Exception){
-                            LOGGER.error("couldn't update the database")
-                        }
-                    }
-                }
-
                 if(event.author.isBot){
                     return@thenAccept
                 }
@@ -129,6 +115,17 @@ class EventListener : ListenerAdapter(){
                             it[lastMessage] = event.message.idLong
                         }
 
+                    }
+
+                    val ass = WewCounter.select {WewCounter.amount.eq(WewCounter.amount)}.firstOrNull() ?: return@asyncTransaction
+                    val aNumberOrSomething = ass[WewCounter.amount]
+
+                    if(event.message.contentRaw.contains("wew") && event.channel.idLong == 568414725097127947L){
+                        val wewAmount = aNumberOrSomething+1
+                        WewCounter.update({WewCounter.amount.eq((wewAmount-1))}) {
+                            it[amount] = wewAmount
+                            event.jda.getTextChannelById(568414725097127947L).sendMessage("wew count: $wewAmount").queue()
+                        }
                     }
 
                     val xpNeeded = curLevel.toDouble() * (500).toDouble() + (curLevel.toDouble() * MINIMUM_FOR_LEVEL_1.toDouble())
