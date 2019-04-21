@@ -24,7 +24,11 @@ class LewdCatgirl : Command(){
             setTitle("image link", catgirl)
             setColor(6684876)
             setImage(catgirl)
-            setFooter("powered by https://nekos.life", null)
+            if(catgirl != null){
+                setFooter("powered by https://api.computerfreaker.cf", null)
+            }else{
+                setFooter("powered by https://nekos.life", null)
+            }
         }
         ctx.send(embed.build())
     }
