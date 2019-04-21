@@ -46,7 +46,8 @@ class Uni(token: String) {
                     ModLogs,
                     Roles,
                     Starboard,
-                    Users
+                    Users,
+                    WewCounter
             )
         }.execute()
     }

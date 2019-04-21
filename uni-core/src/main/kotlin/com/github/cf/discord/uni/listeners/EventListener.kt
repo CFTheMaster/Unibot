@@ -77,9 +77,19 @@ class EventListener : ListenerAdapter(){
                     event.message.log()
                 }
 
-                /*if(event.message.contentRaw.contains("wew") && event.channel.idLong == 211956357841027072L){
-                    DatabaseWrapper.getWewAmount()
-                }*/
+                if(event.message.contentRaw.contains("wew") && event.channel.idLong == 211956357841027072L){
+                    DatabaseWrapper.getWewAmountSafe().thenAccept {
+                        try {
+                            val GTFO = it.amount + 1
+                            WewCounter.update({WewCounter.amount.eq(it.amount)}) {
+                                it[amount] = GTFO
+                            }
+                            event.jda.getTextChannelById(568414725097127947L).sendMessage("wew count so far: ${it.amount}").queue()
+                        } catch (e: Exception){
+                            LOGGER.error("couldn't update the database")
+                        }
+                    }
+                }
 
                 if(event.author.isBot){
                     return@thenAccept
@@ -89,7 +99,7 @@ class EventListener : ListenerAdapter(){
                     try {
                         cmdHandler.handleMessage(event, user, stored)
                     } catch (e: Exception){
-                        LOGGER.error("Error while trying to handkle message: $e") // dit gaat alleen af als de commandhandler crasht
+                        LOGGER.error("Error while trying to handle the message: $e") // dit gaat alleen af als de commandhandler crasht
                     }
                 }// wilde kijke als het fout gaat in DB, je moet alleen ff in de DB kijken of er een goeie date bij staat
 

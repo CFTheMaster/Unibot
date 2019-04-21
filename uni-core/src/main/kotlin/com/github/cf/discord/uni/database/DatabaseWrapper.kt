@@ -75,20 +75,6 @@ data class DBWewCounter(
 object DatabaseWrapper {
     private val pool: ExecutorService = Uni.pool
 
-    /*
-    //WIP still doesn't work
-    fun getWewAmount(amount: Long) = asyncTransaction(pool){
-        val wewCounter = WewCounter
-
-        if(wewCounter == null){
-            throw Exception("Amount is not defined")
-        } else {
-            return@asyncTransaction DBWewCounter(
-                    amount[]
-            )
-        }
-    }*/
-
     fun getGuild(guild: Guild) = getGuild(guild.idLong)
 
     fun getGuild(id: Long) = asyncTransaction(pool){
@@ -294,6 +280,24 @@ object DatabaseWrapper {
                     stored[Users.accountCreationDate],
                     stored[Users.lastMessage],
                     stored[Users.customPrefix]
+            )
+        }
+    }.execute()
+
+    fun getWewAmountSafe(): CompletableFuture<DBWewCounter> = asyncTransaction(pool){
+        val stored = WewCounter.select{ WewCounter.amount.eq(WewCounter.amount) }.firstOrNull()
+
+        if(stored == null){
+            WewCounter.insert {
+                it[amount] = 0L
+            }
+
+            DBWewCounter(
+                    0L
+            )
+        } else{
+            DBWewCounter(
+                    stored[WewCounter.amount]
             )
         }
     }.execute()
