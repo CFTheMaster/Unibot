@@ -6,6 +6,7 @@ import com.github.cf.discord.uni.core.EnvVars
 import com.github.cf.discord.uni.database.schema.Guilds
 import com.github.cf.discord.uni.database.schema.Logs
 import com.github.cf.discord.uni.database.schema.Users
+import com.github.cf.discord.uni.database.schema.WewCounter
 import com.github.cf.discord.uni.extensions.asyncTransaction
 import com.github.cf.discord.uni.extensions.log
 import com.github.cf.discord.uni.listeners.EventListener
@@ -67,9 +68,26 @@ data class DBUser(
         val customPrefix: String
 )
 
+data class DBWewCounter(
+        val amount: Long
+)
 
 object DatabaseWrapper {
     private val pool: ExecutorService = Uni.pool
+
+    /*
+    //WIP still doesn't work
+    fun getWewAmount(amount: Long) = asyncTransaction(pool){
+        val wewCounter = WewCounter
+
+        if(wewCounter == null){
+            throw Exception("Amount is not defined")
+        } else {
+            return@asyncTransaction DBWewCounter(
+                    amount[]
+            )
+        }
+    }*/
 
     fun getGuild(guild: Guild) = getGuild(guild.idLong)
 

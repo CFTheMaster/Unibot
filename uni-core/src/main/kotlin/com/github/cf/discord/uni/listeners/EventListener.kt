@@ -71,10 +71,15 @@ class EventListener : ListenerAdapter(){
 
     override fun onMessageReceived(event: MessageReceivedEvent) {
         if(event.guild != null){
+
             DatabaseWrapper.getGuildSafe(event.guild).thenAccept{ stored ->
                 if(stored.logs){
                     event.message.log()
                 }
+
+                /*if(event.message.contentRaw.contains("wew") && event.channel.idLong == 211956357841027072L){
+                    DatabaseWrapper.getWewAmount()
+                }*/
 
                 if(event.author.isBot){
                     return@thenAccept
