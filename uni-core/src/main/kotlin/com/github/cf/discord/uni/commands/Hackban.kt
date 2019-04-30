@@ -26,7 +26,7 @@ class Hackban : Command(){
                     .ban(user, 0)
                     .reason("[ ${ctx.author.name}#${ctx.author.discriminator} ] ${ctx.args.getOrDefault("reason", "none")}")
                     .queue({
-                        ctx.send("${ctx.author.name}#${ctx.author.discriminator} banned user")
+                        ctx.send("<@!$user> ($user): has been banned")
                     }) { err ->
                         if (err is PermissionException) {
                             ctx.send("permissions missing can't ban the user")
