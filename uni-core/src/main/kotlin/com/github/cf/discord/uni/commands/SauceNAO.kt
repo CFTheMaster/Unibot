@@ -24,7 +24,7 @@ class SauceNAO : Command(){
         val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt()
         val embedColor = Color(randomColor, randomColor1, randomColor2)
 
-        val image = ctx.args.isNullOrEmpty()
+        val image = ctx.msg.attachments.isNullOrEmpty()
 
         if(image){
             ctx.channel.sendMessage("what image would you like to search?").queue {
