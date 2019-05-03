@@ -1,5 +1,6 @@
 package com.github.cf.discord.uni.commands
 
+import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.core.EnvVars
@@ -9,6 +10,7 @@ import net.dv8tion.jda.core.OnlineStatus
 import net.dv8tion.jda.core.entities.Game
 
 @Load
+@Alias("presence")
 @Argument("status", "string")
 class Status : Command(){
     override val ownerOnly = true

@@ -1,5 +1,6 @@
 package com.github.cf.discord.uni.commands
 
+import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.commands.HelpCommand.Companion.WEBSITE_URL
 import com.github.cf.discord.uni.entities.Command
@@ -14,6 +15,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 
 @Load
+@Alias("bot")
 class BotInfo : Command(){
     override val desc = "gives you the bots current stats"
     override val guildOnly = false
