@@ -27,7 +27,8 @@ class EnableOption : Command() {
             "modlogs",
             "welcome",
             "levelMessages",
-            "antiInvite"
+            "antiInvite",
+            "autoRole"
     )
 
     override fun run(ctx: Context) {
@@ -74,7 +75,8 @@ class DisableOption : Command() {
             "modlogs",
             "welcome",
             "levelMessages",
-            "antiInvite"
+            "antiInvite",
+            "autoRole"
     )
 
     override fun run(ctx: Context) {
@@ -157,7 +159,8 @@ class SetRoleOption : Command() {
     override val guildOnly = true
 
     private val options = listOf(
-            "mutedRole"
+            "mutedRole",
+            "autoRole"
     )
 
     override fun run(ctx: Context) {
@@ -263,6 +266,12 @@ class Config : Command() {
                             "**welcomeChannel:** ${ctx.guild.getTextChannelById(ctx.storedGuild.welcomeChannel ?: 0L)?.asMention ?: "none"}\n" +
                             "**welcomeMessage:** ${ctx.storedGuild.welcomeMessage}\n" +
                             "**leaveMessage:** ${ctx.storedGuild.leaveMessage}",
+                    true
+            )
+            addField(
+                    "Auto Role",
+                    "**Autorole:** ${if (ctx.storedGuild.userRole) "enabled" else "disabled"}\n" +
+                            "**AutoRole:** ${ctx.guild.getRoleById(ctx.storedGuild.autoRole ?: 0L) ?: "none"}",
                     true
             )
         }

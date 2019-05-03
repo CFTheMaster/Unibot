@@ -298,6 +298,7 @@ class EventListener : ListenerAdapter(){
 
         DatabaseWrapper.getGuildSafe(event.guild).thenAccept { storedGuild ->
             val channel = event.guild.getTextChannelById(storedGuild.welcomeChannel ?: return@thenAccept) ?: return@thenAccept
+            val role = event.guild.getRoleById(storedGuild.autoRole ?: return@thenAccept) ?: return@thenAccept
 
             if (storedGuild.welcome && storedGuild.welcomeMessage.isNotBlank()) {
                 channel.sendMessage(
@@ -307,6 +308,13 @@ class EventListener : ListenerAdapter(){
                                 .replace("%SERVER%", event.guild.name)
                                 .replace("%MEMBERNUM%", (event.guild.members.indexOf(event.member) + 1).toString())
                 ).queue()
+            }
+
+            if (storedGuild.userRole && storedGuild.autoRole != 0L){
+                event.guild.controller
+                        .addSingleRoleToMember(event.member, role)
+                        .reason("auto role for guild: ${event.guild.name}")
+                        .queue()
             }
         }
     }

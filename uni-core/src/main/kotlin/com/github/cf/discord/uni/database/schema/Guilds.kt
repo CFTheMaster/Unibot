@@ -25,4 +25,7 @@ object Guilds : Table(){
     val mutedRole = long("mutedRole")
             .nullable()
     val antiInvite = bool("antiInvite")
+    val userRole = bool("userRole")
+    val autoRole = long("autoRole")
+            .nullable()
 }

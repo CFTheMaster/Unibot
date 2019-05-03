@@ -45,7 +45,9 @@ data class DBGuild(
         val leaveMessage: String,
         val levelMessages: Boolean,
         val mutedRole: Long?,
-        val antiInvite: Boolean
+        val antiInvite: Boolean,
+        val userRole: Boolean,
+        val autoRole: Long?
 )
 
 data class DBStar(
@@ -98,7 +100,9 @@ object DatabaseWrapper {
                     guild[Guilds.leaveMessage],
                     guild[Guilds.levelMessages],
                     guild[Guilds.mutedRole],
-                    guild[Guilds.antiInvite]
+                    guild[Guilds.antiInvite],
+                    guild[Guilds.userRole],
+                    guild[Guilds.autoRole]
 
 
             )
@@ -127,6 +131,8 @@ object DatabaseWrapper {
                 it[levelMessages] = false
                 it[mutedRole] = guild.roles.firstOrNull { it.name.toLowerCase() == "muted" }?.idLong
                 it[antiInvite] = false
+                it[userRole] = false
+                it[autoRole] = 0L
 
             }
         }
@@ -205,6 +211,8 @@ object DatabaseWrapper {
                 it[levelMessages] = false
                 it[mutedRole] = guild.roles.firstOrNull { it.name.toLowerCase() == "muted" }?.idLong
                 it[antiInvite] = false
+                it[userRole] = false
+                it[autoRole] = 0L
             }
 
             DBGuild(
@@ -222,7 +230,9 @@ object DatabaseWrapper {
                     "%USER% \uD83D\uDC4B",
                     false,
                     null,
-                    false
+                    false,
+                    false,
+                    0L
             )
         } else {
             DBGuild(
@@ -240,7 +250,9 @@ object DatabaseWrapper {
                     stored[Guilds.leaveMessage],
                     stored[Guilds.levelMessages],
                     stored[Guilds.mutedRole],
-                    stored[Guilds.antiInvite]
+                    stored[Guilds.antiInvite],
+                    stored[Guilds.userRole],
+                    stored[Guilds.autoRole]
             )
         }
     }.execute()
