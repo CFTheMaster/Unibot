@@ -28,7 +28,7 @@ class EnableOption : Command() {
             "welcome",
             "levelMessages",
             "antiInvite",
-            "autoRole"
+            "userRole"
     )
 
     override fun run(ctx: Context) {
@@ -76,7 +76,7 @@ class DisableOption : Command() {
             "welcome",
             "levelMessages",
             "antiInvite",
-            "autoRole"
+            "userRole"
     )
 
     override fun run(ctx: Context) {
@@ -271,7 +271,7 @@ class Config : Command() {
             addField(
                     "Auto Role",
                     "**Autorole:** ${if (ctx.storedGuild.userRole) "enabled" else "disabled"}\n" +
-                            "**AutoRole:** ${ctx.guild.getRoleById(ctx.storedGuild.autoRole ?: 0L) ?: "none"}",
+                            "**AutoRole:** ${ctx.guild.getRoleById(ctx.storedGuild.autoRole ?: 0L)?.asMention ?: "none"}",
                     true
             )
         }
