@@ -24,9 +24,9 @@ class SauceNAO : Command(){
         val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt()
         val embedColor = Color(randomColor, randomColor1, randomColor2)
 
-        val image = ctx.args.getOrDefault(ctx.msg.attachments.first().url, "nothing") as String
+        val image = ctx.args.isNullOrEmpty()
 
-        if(image == "nothing"){
+        if(image){
             ctx.channel.sendMessage("what image would you like to search?").queue {
                 EventListener.waiter.await<MessageReceivedEvent>(1, 60000L) { event ->
                     if (event.author.id == ctx.author.id && event.channel.id == ctx.channel.id) {
@@ -41,7 +41,6 @@ class SauceNAO : Command(){
                         }
                         true
                     } else{
-                        ctx.send("that's not an image")
                         false
                     }
 
@@ -50,12 +49,13 @@ class SauceNAO : Command(){
             }
         } else {
             ctx.send(EmbedBuilder().apply {
-                setDescription(getSauceNAO(image))
+                setDescription(getSauceNAO(ctx.msg.attachments.first().url))
                 setColor(embedColor)
                 setFooter("Image sauce", null)
             }.build())
         }
     }
+
     private fun getSauceNAO(image: String): String? {
         val response = OkHttpClient().newCall(Request.Builder()
                 .url("https://saucenao.com/search.php?db=999&output_type=2&api_key=${EnvVars.SAUCENAO!!}&numres=1&url=$image")
