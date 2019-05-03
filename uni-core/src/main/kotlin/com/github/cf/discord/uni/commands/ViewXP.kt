@@ -40,17 +40,12 @@ class ViewXp : Command(){
                 val xpNeeded = level.toDouble() * (500).toDouble() + (level.toDouble() * MINIMUM_FOR_LEVEL_1.toDouble())
                 val progress = xp.toDouble() / xpNeeded * (10).toDouble()
 
-                val aDateOrSomething = DateTimeFormatter.RFC_1123_DATE_TIME
-                val newDateTime = contract[Users.accountCreationDate]
-                val aShittyThingOrSomething = LocalDate.parse(newDateTime.toString(), aDateOrSomething)
-
-
                 addField(
                         "Stats",
                         """**Rank:** ${contract[Users.level]}
                             |**Progress:** [${"#".repeat(progress.toInt())}${"-".repeat(10 - progress.toInt())}] ${progress.toInt() * 10}%
                             |**Last level up** [${contract[Users.lastLevelUp]}]
-                            |**User creation date** [$aShittyThingOrSomething]
+                            |**User creation date** [${contract[Users.accountCreationDate]}]
                          """.trimMargin(),
                         true
                 )
