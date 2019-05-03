@@ -74,7 +74,7 @@ class EventListener : ListenerAdapter(){
     override fun onMessageReceived(event: MessageReceivedEvent) {
         if(event.guild != null){
             if(event.guild.idLong == 138303776170835969L){
-                if(event.message.contentRaw.contains("wew") && event.channel.idLong == 211956357841027072L){
+                if(event.message.contentRaw.toLowerCase().contains("wew") && event.channel.idLong == 211956357841027072L){
                 asyncTransaction(Uni.pool){
                     val ass = WewCounter.select {WewCounter.amount.eq(WewCounter.amount)}.firstOrNull() ?: return@asyncTransaction
                     val aNumberOrSomething = ass[WewCounter.amount]
