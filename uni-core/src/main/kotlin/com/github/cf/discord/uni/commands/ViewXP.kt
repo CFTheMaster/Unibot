@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter
 
 @Load
 @Argument("user", "user", true)
-class ViewXp : Command(){
+class ViewXP : Command(){
     override val guildOnly = true
     override val desc = "View someone's xp!"
 
