@@ -14,7 +14,6 @@ import org.json.JSONObject
 import java.awt.Color
 
 @Load
-@Argument("imageLink", "string", true)
 class SauceNAO : Command(){
     override val desc = "post an attachement with your command"
     override val guildOnly = true
@@ -27,24 +26,13 @@ class SauceNAO : Command(){
         val embedColor = Color(randomColor, randomColor1, randomColor2)
 
         val image = ctx.msg.attachments.isNullOrEmpty()
-        val arguments = (ctx.args["imageLink"] as String).isNullOrEmpty()
 
-        if(image || arguments){
+        if(image){
             ctx.channel.sendMessage("what image would you like to search?").queue {
                 EventListener.waiter.await<MessageReceivedEvent>(1, 60000L) { event ->
                     if (event.author.id == ctx.author.id && event.channel.id == ctx.channel.id) {
                         if (event.message.attachments.isNotEmpty()){
                             val result = event.message.attachments.first().url
-                            ctx.send(EmbedBuilder().apply {
-                                setDescription(getSauceNAO(result))
-                                setColor(embedColor)
-                                setFooter("Image sauce", null)
-                            }.build())
-                            return@await true
-                        }
-
-                        if(event.message.contentRaw != null){
-                            val result = ctx.args["imageLink"] as String
                             ctx.send(EmbedBuilder().apply {
                                 setDescription(getSauceNAO(result))
                                 setColor(embedColor)
@@ -62,7 +50,7 @@ class SauceNAO : Command(){
             }
         } else {
             ctx.send(EmbedBuilder().apply {
-                setDescription(getSauceNAO(if(ctx.msg.attachments.isNotEmpty()) ctx.msg.attachments.first().url else ctx.args["imageLink"] as String))
+                setDescription(getSauceNAO(ctx.msg.attachments.first().url))
                 setColor(embedColor)
                 setFooter("Image sauce", null)
             }.build())
