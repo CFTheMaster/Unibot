@@ -27,7 +27,6 @@ class Yuri : Command(){
             setImage("$miniTrap")
             setFooter("powered by: https://api.computerfreaker.cf", "${ctx.jda.getUserById(138302166619258880).avatarUrl}")
         }
-
         ctx.send(embed.build())
     }
 }
