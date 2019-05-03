@@ -13,6 +13,9 @@ import net.dv8tion.jda.core.EmbedBuilder
 import net.dv8tion.jda.core.entities.Member
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import org.jetbrains.exposed.sql.select
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @Load
 @Argument("user", "user", true)
@@ -37,12 +40,17 @@ class ViewXp : Command(){
                 val xpNeeded = level.toDouble() * (500).toDouble() + (level.toDouble() * MINIMUM_FOR_LEVEL_1.toDouble())
                 val progress = xp.toDouble() / xpNeeded * (10).toDouble()
 
+                val aDateOrSomething = DateTimeFormatter.RFC_1123_DATE_TIME
+                val newDateTime = contract[Users.accountCreationDate]
+                val aShittyThingOrSomething = LocalDate.parse(newDateTime.toString(), aDateOrSomething)
+
+
                 addField(
                         "Stats",
                         """**Rank:** ${contract[Users.level]}
                             |**Progress:** [${"#".repeat(progress.toInt())}${"-".repeat(10 - progress.toInt())}] ${progress.toInt() * 10}%
                             |**Last level up** [${contract[Users.lastLevelUp]}]
-                            |**User creation date** [${contract[Users.accountCreationDate]}]
+                            |**User creation date** [$aShittyThingOrSomething]
                          """.trimMargin(),
                         true
                 )
