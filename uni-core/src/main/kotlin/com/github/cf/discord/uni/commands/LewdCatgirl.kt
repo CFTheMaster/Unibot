@@ -13,7 +13,7 @@ import org.json.JSONObject
 @Load
 @Alias("lewdneko")
 class LewdCatgirl : Command(){
-    override val desc = "Change the volume of the music"
+    override val desc = "Get a Lewd Neko from the API"
     override val guildOnly = false
     override val nsfw = true
 
