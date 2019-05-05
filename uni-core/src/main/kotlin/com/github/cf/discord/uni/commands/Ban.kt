@@ -47,7 +47,7 @@ class Ban : Command() {
         }
 
         ctx.guild!!.controller
-                .ban(user, 24)
+                .ban(user, 7)
                 .reason("[ ${ctx.author.name}#${ctx.author.discriminator} ] ${ctx.args.getOrDefault("reason", "none")}")
                 .queue({
                     ctx.send("banned_user")
