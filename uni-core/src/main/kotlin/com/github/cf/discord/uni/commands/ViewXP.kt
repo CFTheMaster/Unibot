@@ -33,7 +33,7 @@ class ViewXP : Command(){
                                     "\n${member.user.name}"
                     )
             ctx.send(EmbedBuilder().apply {
-                setTitle("XP Info for: ${member.user.name}")
+                setTitle("XP Info for: ${member.user.name}#${member.user.discriminator}")
                 val xp = contract[Users.expPoints]
                 val level = contract[Users.level]
 
