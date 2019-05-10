@@ -44,9 +44,10 @@ class ViewXP : Command(){
                         "Stats",
                         """**Rank:** ${contract[Users.level]}
                             |**Progress:** [${"#".repeat(progress.toInt())}${"-".repeat(10 - progress.toInt())}] ${progress.toInt() * 10}%
+                            ||**User Total Exp** [${contract[Users.expPoints]}]
+                            |**Total EXP Needed to level up** [${xpNeeded.toLong()}]
                             |**Last level up** [${contract[Users.lastLevelUp]}]
                             |**User creation date** [${contract[Users.accountCreationDate]}]
-                            |**User Total Exp** [${contract[Users.expPoints]}] **Total EXP Needed to level up** [$xpNeeded]
                          """.trimMargin(),
                         true
                 )
