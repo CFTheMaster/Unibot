@@ -39,7 +39,7 @@ class ViewXP : Command(){
 
                 val xpNeeded = level.toDouble() * (500).toDouble() + (level.toDouble() * MINIMUM_FOR_LEVEL_1.toDouble())
                 val progress = xp.toDouble() / xpNeeded * (10).toDouble()
-
+                setColor(member.color)
                 addField(
                         "Stats",
                         """**Rank:** ${contract[Users.level]}
