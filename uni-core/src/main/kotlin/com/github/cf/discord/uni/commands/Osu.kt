@@ -4,14 +4,11 @@ import com.github.cf.discord.uni.annotations.*
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.entities.ThreadedCommand
 import net.dv8tion.jda.core.EmbedBuilder
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import org.json.JSONObject
 
 @Load
 @Arguments(
         Argument("username", "string"),
-        Argument("mode", "string")
+        Argument("mode", "string", true)
 )
 
 @Flags(
