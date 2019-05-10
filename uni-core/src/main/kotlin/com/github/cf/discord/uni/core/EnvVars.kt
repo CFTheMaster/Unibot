@@ -62,6 +62,9 @@ object EnvVars {
     val PREFIX = dotenv["prefix"]
 
     @JvmStatic
+    val OSU_TOKEN = dotenv["osu_token"]
+
+    @JvmStatic
     private fun dotenv(envVar: String): String? {
         return dotenv(envVar) ?: throw RuntimeException("Could not read environment variable \"$envVar\", make sure it is supplied and not empty!")
     }
