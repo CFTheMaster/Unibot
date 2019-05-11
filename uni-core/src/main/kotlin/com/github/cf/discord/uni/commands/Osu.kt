@@ -16,6 +16,8 @@ import net.dv8tion.jda.core.EmbedBuilder
         Flag("catch", 'c', "View catch the beat stats")
 )
 class Osu : ThreadedCommand() {
+    override val desc = "Get your osu stats"
+    
     override fun threadedRun(ctx: Context) {
         val username = (ctx.args["username"] as String)
         val mode = when {
