@@ -7,8 +7,7 @@ import net.dv8tion.jda.core.EmbedBuilder
 
 @Load
 @Arguments(
-        Argument("username", "string"),
-        Argument("mode", "string", true)
+        Argument("username", "string")
 )
 
 @Flags(
@@ -19,13 +18,14 @@ import net.dv8tion.jda.core.EmbedBuilder
 class Osu : ThreadedCommand() {
     override fun threadedRun(ctx: Context) {
         val username = (ctx.args["username"] as String)
-        val mode = ctx.args["mode"] as String
+        val mode = when {
+            ctx.flags.argMap.containsKey("taiko") || ctx.flags.argMap.containsKey("t") -> "1"
+            ctx.flags.argMap.containsKey("catch") || ctx.flags.argMap.containsKey("c") -> "2"
+            ctx.flags.argMap.containsKey("mania") || ctx.flags.argMap.containsKey("m") -> "3"
+            else -> "0"
+        }
 
-        val lemmyOsuUrl = "http://lemmmy.pw/osusig/sig.php?colour=hex8866ee&uname=$username&mode=${
-        if(mode == "taiko" || mode == "t") 1
-        else if (mode == "catch" || mode == "c") 2
-        else if (mode == "mania" || mode == "m") 3
-        else 0}&pp=1&removeavmargin&flagshadow&flagstroke&darkheader&darktriangles&opaqueavatar&avatarrounding=4&rankedscore&onlineindicator=undefined&xpbar&xpbarhex"
+        val lemmyOsuUrl = "http://lemmmy.pw/osusig/sig.php?colour=hex8866ee&uname=$username&mode=$mode&pp=1&removeavmargin&flagshadow&flagstroke&darkheader&darktriangles&opaqueavatar&avatarrounding=4&rankedscore&onlineindicator=undefined&xpbar&xpbarhex"
 
         ctx.send(EmbedBuilder().apply {
             setTitle("User Score For User: $username", null)
