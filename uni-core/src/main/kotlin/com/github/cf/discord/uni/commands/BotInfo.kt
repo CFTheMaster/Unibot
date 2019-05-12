@@ -1,5 +1,6 @@
 package com.github.cf.discord.uni.commands
 
+import com.github.cf.discord.uni.Uni
 import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.commands.HelpCommand.Companion.WEBSITE_URL
@@ -39,9 +40,9 @@ class BotInfo : Command(){
             addField("LavaPlayer Version: ", PlayerLibrary.VERSION, true)
             addField("System Uptime: ", Duration.between(startTime, Instant.now()).formatDuration(), true)
             addField("Used Memory: ", "$ramUsedMB MB", true)
-            addField("Guild Count: ", "${ctx.jda.guilds.size}", true)
-            addField("Total Users: ", "${ctx.jda.users.size}", true)
-            addField("Total Bots:", "${ctx.jda.users.filter { it.isBot }.size}", true)
+            addField("Guild Count: ", "${Uni.shardManager.guilds.size}", true)
+            addField("Total Users: ", "${Uni.shardManager.users.size}", true)
+            addField("Total Bots:", "${Uni.shardManager.users.filter { it.isBot }.size}", true)
             addField("Current Shard: ", "${ctx.jda.shardInfo.shardId}", true)
             addField("Total Shards: ", "${ctx.jda.shardInfo.shardTotal}", true)
             addField("Creation Date: ", time, true)

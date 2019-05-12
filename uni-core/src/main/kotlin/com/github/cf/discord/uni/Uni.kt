@@ -89,6 +89,7 @@ class Uni(token: String) {
             setToken(EnvVars.BOT_TOKEN)
             addEventListeners(EventListener())
             setAutoReconnect(true)
+            setAudioEnabled(true)
             setShardsTotal(total)
             setShards(firstShard, lastShard)
         }.build()
@@ -105,7 +106,7 @@ class Uni(token: String) {
                 " \\___/  |_|\\_| |___|"
 
             }
-            build(EnvVars.FIRST_SHARD!!.toInt(), EnvVars.LAST_SHARD!!.toInt(), EnvVars.TOTAL_SHARDS!!.toInt())
+            build(EnvVars.FIRST_SHARD!!.toInt(), (EnvVars.TOTAL_SHARDS!!.toInt() - 1), EnvVars.TOTAL_SHARDS.toInt())
             true
         } catch (e: Exception) {
             LOGGER.error(e) { "An error has occurred in starting the bot!" }

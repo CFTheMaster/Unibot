@@ -205,7 +205,7 @@ class EventListener : ListenerAdapter(){
                 .addField("Highest role: ", "${event.guild.roles.get(0).name ?: "none"}\n", true)
                 .addField("Text Channels: ", "${event.guild.textChannels.size}", true)
                 .addField("Voice Channels: ", " ${event.guild.voiceChannels.size} ", true)
-                .addField("Total amount of guilds: ", "${event.jda.guilds.size}", true)
+                .addField("Total amount of guilds: ", "${Uni.shardManager.guilds.size}", true)
                 .build()).queue()
     }
 
@@ -236,7 +236,7 @@ class EventListener : ListenerAdapter(){
                 .addField("Highest role: ", "${event.guild.roles.get(0).name ?: "none"}\n", true)
                 .addField("Text Channels: ", "${event.guild.textChannels.size}", true)
                 .addField("Voice Channels: ", " ${event.guild.voiceChannels.size} ", true)
-                .addField("Total amount of guilds: ", "${event.jda.guilds.size}", true)
+                .addField("Total amount of guilds: ", "${Uni.shardManager.guilds.size}", true)
                 .build()).queue()
     }
 
@@ -524,7 +524,7 @@ class EventListener : ListenerAdapter(){
             val idx = Random().nextInt(text.size)
             val random = text[idx]
             val prefix = Uni.prefixes.firstOrNull()
-            Uni.jda!!.presence.setPresence(OnlineStatus.ONLINE, Game.of(Game.GameType.STREAMING, "$random | ${prefix}help", "https://www.twitch.tv/computerfreaker"))
+            Uni.shardManager.setGame(Game.of(Game.GameType.STREAMING, "$random | ${prefix}help", "https://www.twitch.tv/computerfreaker"))
         }
     }
 
@@ -534,7 +534,7 @@ class EventListener : ListenerAdapter(){
         fun updateStats(){
             val jsonType = MediaType.parse("application/json")
             if (Uni.jda != null){
-                val json = mapOf("server_count" to Uni.jda!!.guilds.size)
+                val json = mapOf("server_count" to Uni.shardManager.guilds.size)
                 val body = RequestBody.create(jsonType, JSONObject(json).toString())
 
                 if(EnvVars.DBL_TOKEN!!.isNotEmpty()){
