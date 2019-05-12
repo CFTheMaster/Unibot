@@ -65,6 +65,15 @@ object EnvVars {
     val OSU_TOKEN = dotenv["osu_token"]
 
     @JvmStatic
+    val FIRST_SHARD = dotenv["first_shard"]
+
+    @JvmStatic
+    val LAST_SHARD = dotenv["last_shard"]
+
+    @JvmStatic
+    val TOTAL_SHARDS = dotenv["total_shards"]
+
+    @JvmStatic
     private fun dotenv(envVar: String): String? {
         return dotenv(envVar) ?: throw RuntimeException("Could not read environment variable \"$envVar\", make sure it is supplied and not empty!")
     }
