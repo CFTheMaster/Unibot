@@ -71,12 +71,13 @@ class Uni(token: String) {
         val prefix: List<String> = EnvVars.PREFIX!!.split("::")
         val prefixes = prefix.toList()
 
-        val MINIMUM_FOR_LEVEL_1 = 900
+        const val MINIMUM_FOR_LEVEL_1 = 900
     }
 
     fun build(){
         jda = JDABuilder(AccountType.BOT).apply {
             setToken(EnvVars.BOT_TOKEN)
+            setAutoReconnect(true)
             addEventListener(EventListener())
         }.buildAsync()
 
