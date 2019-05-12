@@ -29,8 +29,7 @@ class ViewXP : Command(){
         asyncTransaction(Uni.pool){
             val contract = Users.select{ Users.id.eq(member.user.idLong)}.firstOrNull()
                     ?: return@asyncTransaction ctx.send(
-                            "user has no xp" +
-                                    "\n${member.user.name}"
+                            if (!member.user.isBot) "user has no xp: ${member.user.name+"#"+member.user.discriminator+" (${member.user.idLong})"}" else "bots don't have exp"
                     )
             ctx.send(EmbedBuilder().apply {
                 setTitle("XP Info for: ${member.user.name}#${member.user.discriminator}")

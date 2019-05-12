@@ -17,7 +17,7 @@ import net.dv8tion.jda.core.EmbedBuilder
 )
 class Osu : ThreadedCommand() {
     override val desc = "Get your osu stats"
-    
+
     override fun threadedRun(ctx: Context) {
         val username = (ctx.args["username"] as String)
         val mode = when {
