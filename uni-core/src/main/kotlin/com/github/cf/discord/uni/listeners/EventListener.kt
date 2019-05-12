@@ -516,11 +516,7 @@ class EventListener : ListenerAdapter(){
 
     private fun startPresenceTimer() {
         fixedRateTimer("change status", false, 0L, TimeUnit.MINUTES.toMillis(10)) {
-            val text = arrayOf(
-                    "with computerfreaker \uD83C\uDF38",
-                    "with guns \uD83C\uDF38",
-                    "is this thing on? \uD83D\uDC40",
-                    "doing nothing...")
+            val text = arrayOf(EnvVars.RANDOM_TEXT!!.split("::"))
             val idx = Random().nextInt(text.size)
             val random = text[idx]
             val prefix = Uni.prefixes.firstOrNull()

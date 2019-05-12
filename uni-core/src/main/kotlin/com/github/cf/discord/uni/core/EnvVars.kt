@@ -74,6 +74,9 @@ object EnvVars {
     val TOTAL_SHARDS = dotenv["total_shards"]
 
     @JvmStatic
+    val RANDOM_TEXT = dotenv["random_text"]
+
+    @JvmStatic
     private fun dotenv(envVar: String): String? {
         return dotenv(envVar) ?: throw RuntimeException("Could not read environment variable \"$envVar\", make sure it is supplied and not empty!")
     }
