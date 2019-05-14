@@ -106,7 +106,7 @@ class Uni(token: String) {
                 " \\___/  |_|\\_| |___|"
 
             }
-            build(EnvVars.FIRST_SHARD!!.toInt(), (EnvVars.TOTAL_SHARDS!!.toInt() - 1), EnvVars.TOTAL_SHARDS.toInt())
+            build(0, (EnvVars.TOTAL_SHARDS!!.toInt() - 1), EnvVars.TOTAL_SHARDS.toInt())
             true
         } catch (e: Exception) {
             LOGGER.error(e) { "An error has occurred in starting the bot!" }
