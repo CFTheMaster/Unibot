@@ -401,6 +401,8 @@ class EventListener : ListenerAdapter(){
                     it[type] = "UNBAN"
                     it[reason] = audit.reason
                 }
+
+                DatabaseWrapper.setModLogCase(msg.idLong, audit.user.idLong, event.guild.idLong, audit.targetIdLong, case, "UNBAN", audit.reason)
             }.execute()
         }
     }
@@ -434,6 +436,8 @@ class EventListener : ListenerAdapter(){
                     it[type] = "BAN"
                     it[reason] = audit.reason
                 }
+
+                DatabaseWrapper.setModLogCase(msg.idLong, audit.user.idLong, event.guild.idLong, audit.targetIdLong, case, "BAN", audit.reason)
             }.execute()
         }
     }
@@ -473,6 +477,8 @@ class EventListener : ListenerAdapter(){
                     it[type] = "MUTE"
                     it[reason] = audit.reason
                 }
+
+                DatabaseWrapper.setModLogCase(msg.idLong, audit.user.idLong, event.guild.idLong, audit.targetIdLong, case, "MUTE", audit.reason)
             }.execute()
         }
     }
@@ -510,6 +516,8 @@ class EventListener : ListenerAdapter(){
                     it[type] = "UNMUTE"
                     it[reason] = audit.reason
                 }
+
+                DatabaseWrapper.setModLogCase(msg.idLong, audit.user.idLong, event.guild.idLong, audit.targetIdLong, case, "UNMUTE", audit.reason)
             }.execute()
         }
     }

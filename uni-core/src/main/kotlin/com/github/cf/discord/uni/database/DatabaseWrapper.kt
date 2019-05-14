@@ -3,10 +3,7 @@ package com.github.cf.discord.uni.database
 import com.github.cf.discord.uni.Uni
 import com.github.cf.discord.uni.Uni.Companion.LOGGER
 import com.github.cf.discord.uni.core.EnvVars
-import com.github.cf.discord.uni.database.schema.Guilds
-import com.github.cf.discord.uni.database.schema.Logs
-import com.github.cf.discord.uni.database.schema.Users
-import com.github.cf.discord.uni.database.schema.WewCounter
+import com.github.cf.discord.uni.database.schema.*
 import com.github.cf.discord.uni.extensions.asyncTransaction
 import com.github.cf.discord.uni.extensions.log
 import com.github.cf.discord.uni.listeners.EventListener
@@ -72,6 +69,16 @@ data class DBUser(
 
 data class DBWewCounter(
         val amount: Long
+)
+
+data class DBModLogs(
+        val messageId: Long,
+        val modId: Long,
+        val guildId: Long,
+        val targetId: Long,
+        val caseId: Int,
+        val type: String,
+        val reason: String
 )
 
 object DatabaseWrapper {
@@ -312,6 +319,29 @@ object DatabaseWrapper {
                     stored[WewCounter.amount]
             )
         }
+    }.execute()
+
+    fun setModLogCase(messageIdL: Long, modIdL: Long, guildIdL: Long, targetIdL: Long, caseIdL: Int, typeL: String, reasonL: String): CompletableFuture<DBModLogs> = asyncTransaction(pool){
+
+        ModLogs.insert {
+            it[messageId] = messageIdL
+            it[modId] = modIdL
+            it[guildId] = guildIdL
+            it[targetId] = targetIdL
+            it[caseId] = caseIdL
+            it[type] = typeL
+            it[reason] = reasonL
+            }
+
+        DBModLogs(
+                messageIdL,
+                modIdL,
+                guildIdL,
+                targetIdL,
+                caseIdL,
+                typeL,
+                reasonL)
+
     }.execute()
 
     fun logEvent(event: Event) = asyncTransaction(pool) {
