@@ -321,7 +321,7 @@ object DatabaseWrapper {
         }
     }.execute()
 
-    fun setModLogCase(messageIdL: Long, modIdL: Long, guildIdL: Long, targetIdL: Long, caseIdL: Int, typeL: String, reasonL: String): CompletableFuture<DBModLogs> = asyncTransaction(pool){
+    fun setModLogCase(messageIdL: Long, modIdL: Long, guildIdL: Long, targetIdL: Long, caseIdL: Int, typeL: String, reasonL: String) = asyncTransaction(pool){
 
         ModLogs.insert {
             it[messageId] = messageIdL

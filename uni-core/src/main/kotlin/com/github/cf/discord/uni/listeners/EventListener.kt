@@ -14,11 +14,9 @@ import com.github.cf.discord.uni.extensions.log
 import com.github.cf.discord.uni.extensions.removeStar
 import com.github.cf.discord.uni.stateful.EventWaiter
 import com.github.cf.discord.uni.utils.Http
-import com.github.jasync.sql.db.util.length
 import gnu.trove.map.hash.TLongLongHashMap
 import net.dv8tion.jda.core.EmbedBuilder
 import net.dv8tion.jda.core.JDA
-import net.dv8tion.jda.core.OnlineStatus
 import net.dv8tion.jda.core.Permission
 import net.dv8tion.jda.core.audit.ActionType
 import net.dv8tion.jda.core.entities.Game
@@ -46,13 +44,12 @@ import org.joda.time.DateTime
 import org.json.JSONObject
 import java.awt.Color
 import java.lang.Exception
-import java.time.Duration
-import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
-import java.util.Date
+import java.util.*
 import java.util.Random
 import java.util.concurrent.TimeUnit
 import kotlin.concurrent.fixedRateTimer
+import kotlin.concurrent.timerTask
 
 class EventListener : ListenerAdapter(){
     override fun onGenericEvent(event: Event) = waiter.emit(event)
@@ -342,22 +339,24 @@ class EventListener : ListenerAdapter(){
                 val audit = event.guild.auditLogs.type(ActionType.KICK).limit(2).firstOrNull { it.targetId == event.user.id } ?: return@asyncTransaction
                 val case = modlogs.count() + 1
 
-                val msg = modlogChannel.sendMessage("""
+                modlogChannel.sendMessage("""
                 **Kick** | Case $case
                 **User**: ${event.user.name}#${event.user.discriminator} (${event.user.id})
                 **Reason**: ${audit.reason ?: "`Responsible moderator, please use the reason command to set this reason`"}
                 **Responsible moderator**: ${audit.user.name}#${audit.user.discriminator} (${audit.user.id})
             """.trimIndent()).complete()
 
-                ModLogs.insert {
-                    it[messageId] = msg.idLong
-                    it[modId] = audit.user.idLong
-                    it[guildId] = event.guild.idLong
-                    it[targetId] = audit.targetIdLong
-                    it[caseId] = case
-                    it[type] = "KICK"
-                    it[reason] = audit.reason
-                }
+                Timer().schedule(
+                        timerTask {
+                            DatabaseWrapper.setModLogCase(
+                                    modlogChannel.latestMessageIdLong,
+                                    audit.user.idLong,
+                                    event.guild.idLong,
+                                    audit.targetIdLong,
+                                    case,
+                                    "KICK",
+                                    audit.reason ?: "none")
+                        },500)
             }.execute()
 
             val channel = event.guild.getTextChannelById(storedGuild.welcomeChannel ?: return@thenAccept) ?: return@thenAccept
@@ -385,24 +384,24 @@ class EventListener : ListenerAdapter(){
                 val audit = event.guild.auditLogs.type(ActionType.UNBAN).first { it.targetId == event.user.id }
                 val case = modlogs.count() + 1
 
-                val msg = modlogChannel.sendMessage("""
+                modlogChannel.sendMessage("""
                 **Unban** | Case $case
                 **User**: ${event.user.name}#${event.user.discriminator} (${event.user.id})
                 **Reason**: ${audit.reason ?: "`Responsible moderator, please use the reason command to set this reason`"}
                 **Responsible moderator**: ${audit.user.name}#${audit.user.discriminator} (${audit.user.id})
             """.trimIndent()).complete()
 
-                ModLogs.insert {
-                    it[messageId] = msg.idLong
-                    it[modId] = audit.user.idLong
-                    it[guildId] = event.guild.idLong
-                    it[targetId] = audit.targetIdLong
-                    it[caseId] = case
-                    it[type] = "UNBAN"
-                    it[reason] = audit.reason
-                }
-
-                DatabaseWrapper.setModLogCase(msg.idLong, audit.user.idLong, event.guild.idLong, audit.targetIdLong, case, "UNBAN", audit.reason)
+                Timer().schedule(
+                        timerTask {
+                            DatabaseWrapper.setModLogCase(
+                                    modlogChannel.latestMessageIdLong,
+                                    audit.user.idLong,
+                                    event.guild.idLong,
+                                    audit.targetIdLong,
+                                    case,
+                                    "UNBAN",
+                                    audit.reason ?: "none")
+                        },500)
             }.execute()
         }
     }
@@ -420,24 +419,24 @@ class EventListener : ListenerAdapter(){
                 val audit = event.guild.auditLogs.type(ActionType.BAN).first { it.targetId == event.user.id }
                 val case = modlogs.count() + 1
 
-                val msg = modlogChannel.sendMessage("""
+                modlogChannel.sendMessage("""
                 **Ban** | Case $case
                 **User**: ${event.user.name}#${event.user.discriminator} (${event.user.id})
                 **Reason**: ${audit.reason ?: "`Responsible moderator, please use the reason command to set this reason`"}
                 **Responsible moderator**: ${audit.user.name}#${audit.user.discriminator} (${audit.user.id})
             """.trimIndent()).complete()
 
-                ModLogs.insert {
-                    it[messageId] = msg.idLong
-                    it[modId] = audit.user.idLong
-                    it[guildId] = event.guild.idLong
-                    it[targetId] = audit.targetIdLong
-                    it[caseId] = case
-                    it[type] = "BAN"
-                    it[reason] = audit.reason
-                }
-
-                DatabaseWrapper.setModLogCase(msg.idLong, audit.user.idLong, event.guild.idLong, audit.targetIdLong, case, "BAN", audit.reason)
+                Timer().schedule(
+                        timerTask {
+                            DatabaseWrapper.setModLogCase(
+                                    modlogChannel.latestMessageIdLong,
+                                    audit.user.idLong,
+                                    event.guild.idLong,
+                                    audit.targetIdLong,
+                                    case,
+                                    "BAN",
+                                    audit.reason ?: "none")
+                        },500)
             }.execute()
         }
     }
@@ -461,24 +460,24 @@ class EventListener : ListenerAdapter(){
 
                 val case = modlogs.count() + 1
 
-                val msg = modlogChannel.sendMessage("""
+                modlogChannel.sendMessage("""
                 **Mute** | Case $case
                 **User**: ${event.user.name}#${event.user.discriminator} (${event.user.id})
                 **Reason**: ${audit.reason ?: "`Responsible moderator, please use the reason command to set this reason`"}
                 **Responsible moderator**: ${audit.user.name}#${audit.user.discriminator} (${audit.user.id})
             """.trimIndent()).complete()
 
-                ModLogs.insert {
-                    it[messageId] = msg.idLong
-                    it[modId] = audit.user.idLong
-                    it[guildId] = event.guild.idLong
-                    it[targetId] = audit.targetIdLong
-                    it[caseId] = case
-                    it[type] = "MUTE"
-                    it[reason] = audit.reason
-                }
-
-                DatabaseWrapper.setModLogCase(msg.idLong, audit.user.idLong, event.guild.idLong, audit.targetIdLong, case, "MUTE", audit.reason)
+                Timer().schedule(
+                        timerTask {
+                            DatabaseWrapper.setModLogCase(
+                                    modlogChannel.latestMessageIdLong,
+                                    audit.user.idLong,
+                                    event.guild.idLong,
+                                    audit.targetIdLong,
+                                    case,
+                                    "MUTE",
+                                    audit.reason ?: "none")
+                        },500)
             }.execute()
         }
     }
@@ -500,24 +499,25 @@ class EventListener : ListenerAdapter(){
 
                 val case = modlogs.count() + 1
 
-                val msg = modlogChannel.sendMessage("""
+                modlogChannel.sendMessage("""
                 **Unmute** | Case $case
                 **User**: ${event.user.name}#${event.user.discriminator} (${event.user.id})
                 **Reason**: ${audit.reason ?: "`Responsible moderator, please use the reason command to set this reason`"}
                 **Responsible moderator**: ${audit.user.name}#${audit.user.discriminator} (${audit.user.id})
             """.trimIndent()).complete()
 
-                ModLogs.insert {
-                    it[messageId] = msg.idLong
-                    it[modId] = audit.user.idLong
-                    it[guildId] = event.guild.idLong
-                    it[targetId] = audit.targetIdLong
-                    it[caseId] = case
-                    it[type] = "UNMUTE"
-                    it[reason] = audit.reason
-                }
 
-                DatabaseWrapper.setModLogCase(msg.idLong, audit.user.idLong, event.guild.idLong, audit.targetIdLong, case, "UNMUTE", audit.reason)
+                Timer().schedule(
+                        timerTask {
+                            DatabaseWrapper.setModLogCase(
+                                    modlogChannel.latestMessageIdLong,
+                                    audit.user.idLong,
+                                    event.guild.idLong,
+                                    audit.targetIdLong,
+                                    case,
+                                    "UNMUTE",
+                                    audit.reason ?: "none")
+                        },500)
             }.execute()
         }
     }
