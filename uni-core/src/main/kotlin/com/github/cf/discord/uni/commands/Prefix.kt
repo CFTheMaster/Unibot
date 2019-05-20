@@ -32,7 +32,7 @@ class AddPrefix : Command(){
                 }) {
                     it[prefix] = prefixes
                 }
-                ctx.send("prefix changed $prefixes")
+                ctx.send("Guild prefix changed $prefixes")
             } catch (e: Throwable) {
                 ctx.sendError(e)
             }
@@ -51,7 +51,7 @@ class RemPrefix : Command(){
 
         asyncTransaction(Uni.pool) {
             if (ctx.storedGuild!!.prefix!!.isEmpty()) {
-                return@asyncTransaction ctx.send("No prefix found!")
+                return@asyncTransaction ctx.send("No Guild prefix found!")
             }
 
             try {
@@ -62,7 +62,7 @@ class RemPrefix : Command(){
 
                     it[prefix] = list.toString()
                 }
-                ctx.send("prefix has been removed $prefixes")
+                ctx.send("Guild prefix has been removed $prefixes")
             } catch (e: Throwable) {
                 ctx.sendError(e)
             }

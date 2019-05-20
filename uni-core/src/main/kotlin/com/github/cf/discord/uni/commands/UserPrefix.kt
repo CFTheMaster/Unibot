@@ -24,7 +24,7 @@ class AddUserPrefix : Command(){
                 }) {
                     it[customPrefix] = prefix
                 }
-                ctx.send("prefix changed $prefix")
+                ctx.send("User (${ctx.author.name+"#"+ctx.author.discriminator+"(${ctx.author.idLong})"})prefix changed $prefix")
             } catch (e: Throwable) {
                 ctx.sendError(e)
             }
@@ -41,7 +41,7 @@ class RemUserPrefix : Command(){
 
         asyncTransaction(Uni.pool) {
             if (ctx.storedUser.customPrefix!!.isEmpty()) {
-                return@asyncTransaction ctx.send("No prefix found!")
+                return@asyncTransaction ctx.send("No User (${ctx.author.name+"#"+ctx.author.discriminator+"(${ctx.author.idLong})"}) prefix found!")
             }
 
             try {
@@ -52,7 +52,7 @@ class RemUserPrefix : Command(){
 
                     it[customPrefix] = pre
                 }
-                ctx.send("prefix has been removed $prefix")
+                ctx.send("User (${ctx.author.name+"#"+ctx.author.discriminator+"(${ctx.author.idLong})"}) prefix has been removed $prefix")
             } catch (e: Throwable) {
                 ctx.sendError(e)
             }
@@ -72,7 +72,7 @@ class UserPrefix : Command(){
 
     override fun run(ctx: Context){
 
-        ctx.send("current prefix ${
+        ctx.send("current User (${ctx.author.name+"#"+ctx.author.discriminator+"(${ctx.author.idLong})"}) prefix ${
         if(ctx.storedUser.customPrefix.isNullOrEmpty()) "none"
         else ctx.storedUser.customPrefix }")
     }

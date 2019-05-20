@@ -21,6 +21,7 @@ import gnu.trove.map.hash.TLongObjectHashMap
 import net.dv8tion.jda.core.EmbedBuilder
 import net.dv8tion.jda.core.Permission
 import net.dv8tion.jda.core.entities.Channel
+import net.dv8tion.jda.core.entities.Message
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import java.time.OffsetDateTime
 import java.time.temporal.ChronoUnit
@@ -65,19 +66,22 @@ class CommandHandler{
                 }
     }
     fun handleMessage(event: MessageReceivedEvent, user: DBUser, guild: DBGuild? = null){
-        val guildPrefix = guild?.prefix ?: "uni!"
+        val guildPrefix = guild?.prefix
 
         val userPrefix = user.customPrefix
 
+        fun checkPrefix(prefix: String?, message: Message): String? {
+            if(prefix !is String) return null
+            if(prefix.isEmpty()) return null
+            return if (message.contentRaw.startsWith(prefix)) prefix else null
+        }
+
         val usedPrefix = Uni.prefixes.firstOrNull {
             event.message.contentRaw.startsWith(it.toLowerCase())
-        } ?: guildPrefix.firstOrNull {
-            event.message.contentRaw.startsWith(it.toLowerCase())
-        } ?: userPrefix?.firstOrNull {
-            event.message.contentRaw.startsWith(it.toLowerCase())
-        } ?: return
+        } ?: checkPrefix(guildPrefix, event.message)
+        ?: checkPrefix(userPrefix, event.message)
 
-        val allPrefixes = usedPrefix.toString().length
+        val allPrefixes = usedPrefix!!.length
 
         var cmd = event.message.contentRaw.substring(allPrefixes).split(" ")[0]
         var args = event.message.contentRaw.substring(allPrefixes).split(" ")
