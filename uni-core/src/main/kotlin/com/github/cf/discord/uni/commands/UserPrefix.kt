@@ -40,7 +40,7 @@ class RemUserPrefix : Command(){
         val prefix = (ctx.args["prefix"] as String).toLowerCase().replace("remove", "")
 
         asyncTransaction(Uni.pool) {
-            if (ctx.storedUser.customPrefix.isEmpty()) {
+            if (ctx.storedUser.customPrefix!!.isEmpty()) {
                 return@asyncTransaction ctx.send("No prefix found!")
             }
 

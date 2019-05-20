@@ -73,7 +73,7 @@ class CommandHandler{
             event.message.contentRaw.startsWith(it.toLowerCase())
         } ?: guildPrefix.firstOrNull {
             event.message.contentRaw.startsWith(it.toLowerCase())
-        } ?: userPrefix.firstOrNull {
+        } ?: userPrefix?.firstOrNull {
             event.message.contentRaw.startsWith(it.toLowerCase())
         } ?: return
 
