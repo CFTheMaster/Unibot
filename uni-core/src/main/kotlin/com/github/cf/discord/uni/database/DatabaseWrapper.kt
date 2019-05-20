@@ -64,7 +64,7 @@ data class DBUser(
         val lastLevelUp: DateTime,
         val accountCreationDate: DateTime,
         val lastMessage: Long,
-        val customPrefix: String
+        val customPrefix: String?
 )
 
 data class DBWewCounter(
