@@ -11,6 +11,7 @@ import com.github.cf.discord.uni.extensions.asyncTransaction
 import net.dv8tion.jda.core.Permission
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.update
+import java.util.*
 
 @Perm(Permission.MANAGE_SERVER)
 @Argument("prefix", "string")
@@ -19,7 +20,8 @@ class AddPrefix : Command(){
     override val desc = "Add a prefix"
 
     override fun run(ctx: Context) {
-        val prefixes = (ctx.args["prefix"] as String).toLowerCase().replace("add ", "")
+        val prefixes = (ctx.args["prefix"] as String).toLowerCase().replace("add ", "").toByteArray()
+        val encode = Base64.getEncoder().encodeToString(prefixes)
 
         asyncTransaction(Uni.pool) {
             val guild = Guilds.select {
@@ -30,7 +32,7 @@ class AddPrefix : Command(){
                 Guilds.update({
                     Guilds.id.eq(ctx.guild!!.idLong)
                 }) {
-                    it[prefix] = prefixes
+                    it[prefix] = encode
                 }
                 ctx.send("Guild prefix changed $prefixes")
             } catch (e: Throwable) {
@@ -47,7 +49,8 @@ class RemPrefix : Command(){
     override val desc = "Remove a prefix"
 
     override fun run(ctx: Context) {
-        val prefixes = (ctx.args["prefix"] as String).toLowerCase().replace("remove ", "")
+        val prefixes = (ctx.args["prefix"] as String).toLowerCase().replace("remove ", "").toByteArray()
+        val encode = Base64.getEncoder().encodeToString(prefixes)
 
         asyncTransaction(Uni.pool) {
             if (ctx.storedGuild!!.prefix!!.isEmpty()) {
@@ -60,7 +63,7 @@ class RemPrefix : Command(){
                 }) {
                     val list = ctx.storedGuild.prefix
 
-                    it[prefix] = list.toString()
+                    it[prefix] = list + encode
                 }
                 ctx.send("Guild prefix has been removed $prefixes")
             } catch (e: Throwable) {

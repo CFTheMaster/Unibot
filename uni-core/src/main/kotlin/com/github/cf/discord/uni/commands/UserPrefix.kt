@@ -8,13 +8,15 @@ import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.extensions.asyncTransaction
 import org.jetbrains.exposed.sql.update
+import java.util.*
 
 @Argument("prefix", "string")
 class AddUserPrefix : Command(){
     override val desc = "add user prefix"
 
     override fun run(ctx: Context) {
-        val prefix = (ctx.args["prefix"] as String).toLowerCase().replace("add ", "")
+        val prefix = (ctx.args["prefix"] as String).toLowerCase().replace("add ", "").toByteArray()
+        val encode = Base64.getEncoder().encodeToString(prefix)
 
         asyncTransaction(Uni.pool) {
 
@@ -22,7 +24,7 @@ class AddUserPrefix : Command(){
                 Users.update({
                     Users.id.eq(ctx.author.idLong)
                 }) {
-                    it[customPrefix] = prefix
+                    it[customPrefix] = encode
                 }
                 ctx.send("User (${ctx.author.name+"#"+ctx.author.discriminator+" (${ctx.author.idLong}) "}) prefix changed $prefix")
             } catch (e: Throwable) {
@@ -37,7 +39,8 @@ class RemUserPrefix : Command(){
     override val desc = "remove user prefix"
 
     override fun run(ctx: Context) {
-        val prefix = (ctx.args["prefix"] as String).toLowerCase().replace("remove", "")
+        val prefix = (ctx.args["prefix"] as String).toLowerCase().replace("remove", "").toByteArray()
+        val encode = Base64.getEncoder().encodeToString(prefix)
 
         asyncTransaction(Uni.pool) {
             if (ctx.storedUser.customPrefix!!.isEmpty()) {
@@ -48,7 +51,7 @@ class RemUserPrefix : Command(){
                 Users.update({
                     Users.id.eq(ctx.author.idLong)
                 }) {
-                    val pre = ctx.storedUser.customPrefix
+                    val pre = encode
 
                     it[customPrefix] = pre
                 }

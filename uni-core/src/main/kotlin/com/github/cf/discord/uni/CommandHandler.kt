@@ -31,6 +31,7 @@ import org.apache.commons.validator.UrlValidator
 import org.reflections8.Reflections
 import org.reflections8.util.ClasspathHelper
 import org.reflections8.util.ConfigurationBuilder
+import java.util.*
 
 class CommandHandler{
     private val logger = Logger(this::class.jvmName)
@@ -66,9 +67,9 @@ class CommandHandler{
                 }
     }
     fun handleMessage(event: MessageReceivedEvent, user: DBUser, guild: DBGuild? = null){
-        val guildPrefix = guild?.prefix
+        val guildPrefix = String(Base64.getDecoder().decode(guild?.prefix ?: ""))
 
-        val userPrefix = user.customPrefix
+        val userPrefix = String(Base64.getDecoder().decode(user.customPrefix ?: ""))
 
         fun checkPrefix(prefix: String?, message: Message): String? {
             if(prefix !is String) return null
