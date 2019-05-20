@@ -23,6 +23,8 @@ class AddPrefix : Command(){
         val prefixes = (ctx.args["prefix"] as String).toLowerCase().replace("add ", "").toByteArray()
         val encode = Base64.getEncoder().encodeToString(prefixes)
 
+        val decoded = String(Base64.getDecoder().decode(encode))
+
         asyncTransaction(Uni.pool) {
             val guild = Guilds.select {
                 Guilds.id.eq(ctx.guild!!.idLong)
@@ -34,7 +36,7 @@ class AddPrefix : Command(){
                 }) {
                     it[prefix] = encode
                 }
-                ctx.send("Guild prefix changed $prefixes")
+                ctx.send("Guild prefix changed $decoded")
             } catch (e: Throwable) {
                 ctx.sendError(e)
             }
@@ -52,6 +54,8 @@ class RemPrefix : Command(){
         val prefixes = (ctx.args["prefix"] as String).toLowerCase().replace("remove ", "").toByteArray()
         val encode = Base64.getEncoder().encodeToString(prefixes)
 
+        val decoded = String(Base64.getDecoder().decode(encode))
+
         asyncTransaction(Uni.pool) {
             if (ctx.storedGuild!!.prefix!!.isEmpty()) {
                 return@asyncTransaction ctx.send("No Guild prefix found!")
@@ -65,7 +69,7 @@ class RemPrefix : Command(){
 
                     it[prefix] = list + encode
                 }
-                ctx.send("Guild prefix has been removed $prefixes")
+                ctx.send("Guild prefix has been removed $decoded")
             } catch (e: Throwable) {
                 ctx.sendError(e)
             }
@@ -84,9 +88,9 @@ class Prefix : Command() {
     }
 
     override fun run(ctx: Context){
-
+        val decoded = String(Base64.getDecoder().decode(ctx.storedGuild?.prefix ?: ""))
         ctx.send("current prefix ${
         if(ctx.storedGuild!!.prefix.isNullOrEmpty()) "none"
-        else ctx.storedGuild.prefix }")
+        else decoded }")
     }
 }

@@ -18,6 +18,8 @@ class AddUserPrefix : Command(){
         val prefix = (ctx.args["prefix"] as String).toLowerCase().replace("add ", "").toByteArray()
         val encode = Base64.getEncoder().encodeToString(prefix)
 
+        val decoded = String(Base64.getDecoder().decode(encode))
+
         asyncTransaction(Uni.pool) {
 
             try {
@@ -26,7 +28,7 @@ class AddUserPrefix : Command(){
                 }) {
                     it[customPrefix] = encode
                 }
-                ctx.send("User (${ctx.author.name+"#"+ctx.author.discriminator+" (${ctx.author.idLong}) "}) prefix changed $prefix")
+                ctx.send("User (${ctx.author.name+"#"+ctx.author.discriminator+" (${ctx.author.idLong}) "}) prefix changed $decoded")
             } catch (e: Throwable) {
                 ctx.sendError(e)
             }
@@ -42,6 +44,8 @@ class RemUserPrefix : Command(){
         val prefix = (ctx.args["prefix"] as String).toLowerCase().replace("remove", "").toByteArray()
         val encode = Base64.getEncoder().encodeToString(prefix)
 
+        val decoded = String(Base64.getDecoder().decode(encode))
+
         asyncTransaction(Uni.pool) {
             if (ctx.storedUser.customPrefix!!.isEmpty()) {
                 return@asyncTransaction ctx.send("No User (${ctx.author.name+"#"+ctx.author.discriminator+" (${ctx.author.idLong}) "}) prefix found!")
@@ -55,7 +59,7 @@ class RemUserPrefix : Command(){
 
                     it[customPrefix] = pre
                 }
-                ctx.send("User (${ctx.author.name+"#"+ctx.author.discriminator+" (${ctx.author.idLong}) "}) prefix has been removed $prefix")
+                ctx.send("User (${ctx.author.name+"#"+ctx.author.discriminator+" (${ctx.author.idLong}) "}) prefix has been removed $decoded")
             } catch (e: Throwable) {
                 ctx.sendError(e)
             }
@@ -74,10 +78,11 @@ class UserPrefix : Command(){
     }
 
     override fun run(ctx: Context){
+        val decoded = String(Base64.getDecoder().decode(ctx.storedUser.customPrefix))
 
         ctx.send("current User (${ctx.author.name+"#"+ctx.author.discriminator+" (${ctx.author.idLong}) "}) prefix ${
         if(ctx.storedUser.customPrefix.isNullOrEmpty()) "none"
-        else ctx.storedUser.customPrefix }")
+        else decoded }")
     }
 
 }
