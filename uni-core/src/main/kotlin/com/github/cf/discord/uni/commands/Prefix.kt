@@ -30,7 +30,7 @@ class AddPrefix : Command(){
                 Guilds.update({
                     Guilds.id.eq(ctx.guild!!.idLong)
                 }) {
-                    it[prefix] = guild[Guilds.prefix] + prefixes
+                    it[prefix] = prefixes
                 }
                 ctx.send("prefix changed $prefixes")
             } catch (e: Throwable) {
@@ -80,6 +80,10 @@ class Prefix : Command() {
         addSubcommand(RemPrefix(), "remove")
     }
 
-    override fun run(ctx: Context)
-            = ctx.send("current prefix ${if(ctx.storedGuild!!.prefix.isNullOrEmpty() ) "none" else ctx.storedGuild.prefix}")
+    override fun run(ctx: Context){
+
+        ctx.send("current prefix ${
+        if(ctx.storedGuild!!.prefix.isNullOrEmpty()) "none"
+        else ctx.storedGuild.prefix }")
+    }
 }

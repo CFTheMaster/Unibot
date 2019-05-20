@@ -188,7 +188,7 @@ class EventListener : ListenerAdapter(){
 
         updateStats()
 
-        Uni.jda!!.getGuildById(138303776170835969).getTextChannelById(440833941335703572).sendMessage(EmbedBuilder()
+        Uni.shardManager.getGuildById(138303776170835969).getTextChannelById(440833941335703572).sendMessage(EmbedBuilder()
                 .setAuthor("Joined guild", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
                 .setThumbnail(if (event.guild.iconUrl != null) event.guild.iconUrl else "https://maxcdn.icons8.com/Share/icon/Logos/discord_logo1600.png")
                 .setColor(java.lang.Integer.parseInt("#6600cc".replaceFirst("#", ""), 16))
@@ -219,7 +219,7 @@ class EventListener : ListenerAdapter(){
 
         updateStats()
 
-        event.jda.getGuildById(138303776170835969).getTextChannelById(440833941335703572).sendMessage(EmbedBuilder()
+        Uni.shardManager.getGuildById(138303776170835969).getTextChannelById(440833941335703572).sendMessage(EmbedBuilder()
                 .setAuthor("Left guild", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
                 .setThumbnail(if(event.guild.iconUrl != null) event.guild.iconUrl else "https://maxcdn.icons8.com/Share/icon/Logos/discord_logo1600.png")
                 .setColor(java.lang.Integer.parseInt("#6600cc".replaceFirst("#", ""), 16))

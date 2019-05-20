@@ -5,9 +5,11 @@ import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
+import com.github.jasync.sql.db.util.days
 import net.dv8tion.jda.core.EmbedBuilder
 import net.dv8tion.jda.core.entities.Game
 import net.dv8tion.jda.core.entities.Member
+import org.joda.time.DateTime
 import java.time.format.DateTimeFormatter
 
 @Load
@@ -40,13 +42,15 @@ class UserInfo : Command(){
             descriptionBuilder.append("**ID:** ${member.user.id}\n")
             descriptionBuilder.append("**Highest role:** ${member.roles.sortedBy { it.position }.last()?.name ?: "none"}\n")
             descriptionBuilder.append("**Playing:** ${member.game?.name ?: "nothing"}")
-
+            descriptionBuilder.append("**Joined Discord:** ${
+            member.user.creationTime.format(DateTimeFormatter.RFC_1123_DATE_TIME)
+            }")
+            descriptionBuilder.append("**${ctx.guild!!.name}: ** ${
+            member.joinDate.format(DateTimeFormatter.RFC_1123_DATE_TIME)
+            }")
+            val accountCreationDate = DateTime.now().toInstant().millis - member.user.creationTime.toInstant().toEpochMilli()
             setFooter(
-                    "Joined Discord on ${
-                    member.user.creationTime.format(DateTimeFormatter.RFC_1123_DATE_TIME)
-                    }, ${ctx.guild!!.name} on ${
-                    member.joinDate.format(DateTimeFormatter.RFC_1123_DATE_TIME)
-                    }",
+                    "**Account Days Since Creation:** ${accountCreationDate.days}",
                     null
             )
         }

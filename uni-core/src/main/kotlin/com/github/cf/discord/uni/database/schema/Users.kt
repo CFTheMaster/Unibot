@@ -12,4 +12,5 @@ object Users : Table() {
     val accountCreationDate = datetime("accountCreationDate")
     val lastMessage = long("lastMsg")
     val customPrefix = varchar("customPrefix", 20)
+            .nullable()
 }
