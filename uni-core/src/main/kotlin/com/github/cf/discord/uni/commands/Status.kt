@@ -1,5 +1,7 @@
 package com.github.cf.discord.uni.commands
 
+import com.github.cf.discord.uni.Uni
+import com.github.cf.discord.uni.Uni.Companion.prefix
 import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Load
@@ -17,7 +19,7 @@ class Status : Command(){
     override val desc = "change the status of the bot"
 
     override fun run(ctx: Context) {
-        ctx.jda.presence.setPresence(OnlineStatus.ONLINE, Game.of(Game.GameType.STREAMING, "${ctx.args["status"] as String} | ${EnvVars.PREFIX}help", "https://www.twitch.tv/computerfreaker"))
-        ctx.send(ctx.args["status"] as String)
+        Uni.shardManager.setGame(Game.of(Game.GameType.STREAMING, "${ctx.args["status"] as String} | ${prefix}help", "https://www.twitch.tv/computerfreaker"))
+        ctx.send("Status has been changed to: " + ctx.args["status"] as String)
     }
 }
