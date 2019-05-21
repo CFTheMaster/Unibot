@@ -92,6 +92,7 @@ class Uni(token: String) {
             setAudioEnabled(true)
             setShardsTotal(total)
             setShards(firstShard, lastShard)
+            setBulkDeleteSplittingEnabled(false)
         }.build()
     }
 
