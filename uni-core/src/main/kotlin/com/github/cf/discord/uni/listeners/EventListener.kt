@@ -554,7 +554,8 @@ class EventListener : ListenerAdapter(){
             } else {
                 for (shard in Uni.shardManager.shards){
                     val json = mapOf(
-                            "server_count" to Uni.shardManager.guilds.size
+                            "server_count" to Uni.shardManager.guilds.size,
+                            "shard_count" to Uni.shardManager.shardsTotal
                     )
                     val body = RequestBody.create(jsonType, JSONObject(json).toString())
 
