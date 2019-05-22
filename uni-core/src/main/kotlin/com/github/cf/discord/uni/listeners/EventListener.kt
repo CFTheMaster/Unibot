@@ -561,7 +561,7 @@ class EventListener : ListenerAdapter(){
                     val body = RequestBody.create(jsonType, JSONObject(json).toString())
 
                     if(EnvVars.DBL_TOKEN!!.isNotEmpty()){
-                        Http.post("https://discordbots.org/api/bots/${Uni.jda!!.selfUser.id}/stats", body){
+                        Http.post("https://discordbots.org/api/bots/${shard.selfUser.id}/stats", body){
                             addHeader("Authorization", EnvVars.DBL_TOKEN)
                         }.thenAccept{
                             LOGGER.info("updated stats for DBL")
