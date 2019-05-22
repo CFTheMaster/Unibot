@@ -33,7 +33,7 @@ class Help : Command(){
                     .filter { !it.value.ownerOnly }
                     .toSortedMap()
                     .map {
-                        "\t**`${it.key}`:** " + " \ndescription: " + it.value.desc + "\n"
+                        "\t**`${it.key}`:** " + " \n" + it.value.desc + "\n"
                     }
 
             val text = "Flags:\n\n\t-h, --help${" ".repeat(10)}Get help on a command!\n\nCommands:\n\n${commands.joinToString("\n")}"
