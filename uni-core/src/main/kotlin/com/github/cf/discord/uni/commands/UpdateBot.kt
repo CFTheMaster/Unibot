@@ -40,7 +40,10 @@ class UpdateBot : Command(){
             })
 
         }else {
-            ctx.send("Message to long has been send to console")
+            ctx.channel.sendMessage("Message to long has been send to console").queue({
+                val timer = Timer()
+                timer.schedule(timerTask { exitProcess(ReturnCodes.RESTART) }, 3000)
+            })
             print(output)
         }
     }
