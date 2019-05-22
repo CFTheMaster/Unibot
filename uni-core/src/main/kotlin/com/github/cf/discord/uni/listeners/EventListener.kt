@@ -538,8 +538,7 @@ class EventListener : ListenerAdapter(){
         fun updateStats(){
             val jsonType = MediaType.parse("application/json")
             if (Uni.jda != null){
-                val json = mapOf("server_count" to Uni.shardManager.guilds.size,
-                        "shard_count" to Uni.shardManager.shardsTotal)
+                val json = mapOf("server_count" to Uni.shardManager.guilds.size)
                 val body = RequestBody.create(jsonType, JSONObject(json).toString())
 
                 if(EnvVars.DBL_TOKEN!!.isNotEmpty()){
@@ -550,6 +549,26 @@ class EventListener : ListenerAdapter(){
                         it.close()
                     }.thenApply {}.exceptionally {
                         LOGGER.error("Error while updating stats", it)
+                    }
+                }
+            } else {
+                for (shard in Uni.shardManager.shards){
+                    val json = mapOf(
+                            "server_count" to shard.guilds.size,
+                            "shard_id" to shard.shardInfo.shardId,
+                            "shard_count" to Uni.shardManager.shardsTotal
+                    )
+                    val body = RequestBody.create(jsonType, JSONObject(json).toString())
+
+                    if(EnvVars.DBL_TOKEN!!.isNotEmpty()){
+                        Http.post("https://discordbots.org/api/bots/${Uni.jda!!.selfUser.id}/stats", body){
+                            addHeader("Authorization", EnvVars.DBL_TOKEN)
+                        }.thenAccept{
+                            LOGGER.info("updated stats for DBL")
+                            it.close()
+                        }.thenApply {}.exceptionally {
+                            LOGGER.error("Error while updating stats", it)
+                        }
                     }
                 }
             }
