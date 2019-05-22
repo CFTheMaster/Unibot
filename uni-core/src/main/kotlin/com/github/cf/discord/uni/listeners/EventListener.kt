@@ -554,14 +554,12 @@ class EventListener : ListenerAdapter(){
             } else {
                 for (shard in Uni.shardManager.shards){
                     val json = mapOf(
-                            "server_count" to shard.guilds.size,
-                            "shard_id" to shard.shardInfo.shardId,
-                            "shard_count" to Uni.shardManager.shardsTotal
+                            "server_count" to Uni.shardManager.guilds.size
                     )
                     val body = RequestBody.create(jsonType, JSONObject(json).toString())
 
                     if(EnvVars.DBL_TOKEN!!.isNotEmpty()){
-                        Http.post("https://discordbots.org/api/bots/${shard.selfUser.id}/stats", body){
+                        Http.post("https://discordbots.org/api/bots/${shard.selfUser.idLong}/stats", body){
                             addHeader("Authorization", EnvVars.DBL_TOKEN)
                         }.thenAccept{
                             LOGGER.info("updated stats for DBL")
