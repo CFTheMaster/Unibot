@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2017-2018 computerfreaker
+ *   Copyright (C) 2017-2019 computerfreaker
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ object AudioEmbed {
     private fun embed(title: String): EmbedBuilder = EmbedBuilder().audioDefaults(title)
 
     fun addedTrack(track: AudioTrack, remaining: Int): MessageEmbed {
-        if(track.userData != null) {
+        if (track.userData != null) {
             val requester = track.userData!! as User
             return embed("Added Track")
                     .setDescription("Adding track to audio player queue:$LINE_SEPARATOR**${track.info.titleLink()}${
@@ -47,7 +47,7 @@ object AudioEmbed {
                     else " (${track.duration.toDurationString()})"}**")
                     .footerMessage(remaining, requester)
                     .build()
-        }else{
+        } else {
             return embed("Added Track")
                     .setDescription("Adding track to audio player queue:$LINE_SEPARATOR**${track.info.titleLink()}${
                     if (track.info.isStream)
@@ -74,14 +74,13 @@ object AudioEmbed {
                     .build()
 
     fun nowPlayingEmbed(track: AudioTrack, remaining: Int): MessageEmbed {
-        if(track.userData != null) {
+        if (track.userData != null) {
             val requester = track.userData!! as User
             return embed("Now Playing")
                     .setDescription("${track.info.titleLink()}${if (track.info.isStream) "" else " (${track.duration.toDurationString()})"}".bold())
                     .footerMessage(remaining, requester)
                     .build()
-        }
-        else{
+        } else {
             return embed("Now Playing")
                     .setDescription("${track.info.titleLink()}${if (track.info.isStream) "" else " (${track.duration.toDurationString()})"}".bold())
                     .setFooter("$remaining tracks left in queue.", "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")

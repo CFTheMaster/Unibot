@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2017-2018 computerfreaker
+ *   Copyright (C) 2017-2019 computerfreaker
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
@@ -23,10 +23,10 @@ import net.dv8tion.jda.core.entities.User
 import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionAddEvent
 
 class AudioSearchEmbed(
-        private val audioManager: LavaplayerAudioManager,
-        channel: TextChannel,
-        requester: User,
-        tracks: List<AudioTrack>
+    private val audioManager: LavaplayerAudioManager,
+    channel: TextChannel,
+    requester: User,
+    tracks: List<AudioTrack>
 ) : NumericOptionEmbed<List<AudioTrack>>(channel, requester, tracks, tracks.size, true) {
 
     override fun onReactionAdd(event: GuildMessageReactionAddEvent) {

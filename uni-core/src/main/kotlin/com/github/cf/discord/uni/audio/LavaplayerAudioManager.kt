@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2017-2018 computerfreaker
+ *   Copyright (C) 2017-2019 computerfreaker
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
@@ -140,9 +140,9 @@ class LavaplayerAudioManager(private val playerManager: AudioPlayerManager) : Au
      * - no audio tracks could be found with given trackUrl
      */
     private abstract class DefaultAudioLoadResultHandler(
-            protected val audioManager: LavaplayerAudioManager,
-            protected val channel: TextChannel,
-            protected val trackUrl: String
+        protected val audioManager: LavaplayerAudioManager,
+        protected val channel: TextChannel,
+        protected val trackUrl: String
     ) : AudioLoadResultHandler {
 
         override fun loadFailed(exception: FriendlyException) {
