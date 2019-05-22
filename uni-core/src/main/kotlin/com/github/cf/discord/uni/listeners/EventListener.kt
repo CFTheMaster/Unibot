@@ -538,7 +538,7 @@ class EventListener : ListenerAdapter(){
         fun updateStats(){
             val jsonType = MediaType.parse("application/json")
             if (Uni.jda != null){
-                val json = mapOf("server_count" to Uni.shardManager.guilds.size)
+                val json = mapOf("server_count" to Uni.jda!!.guilds.size)
                 val body = RequestBody.create(jsonType, JSONObject(json).toString())
 
                 if(EnvVars.DBL_TOKEN!!.isNotEmpty()){
