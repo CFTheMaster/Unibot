@@ -82,9 +82,9 @@ class CommandHandler{
                 }
     }
     fun handleMessage(event: MessageReceivedEvent, user: DBUser, guild: DBGuild? = null){
-        val guildPrefix = String(Base64.getDecoder().decode(guild?.prefix ?: ""))
+        val guildPrefix = String(Base64.getDecoder().decode(guild?.prefix ?: "")).toLowerCase()
 
-        val userPrefix = String(Base64.getDecoder().decode(user.customPrefix ?: ""))
+        val userPrefix = String(Base64.getDecoder().decode(user.customPrefix ?: "")).toLowerCase()
 
         fun checkPrefix(prefix: String?, message: Message): String? {
             if(prefix !is String) return null
