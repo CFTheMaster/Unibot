@@ -23,7 +23,7 @@ import com.github.cf.discord.uni.entities.Context
 import java.util.concurrent.ThreadLocalRandom
 
 @Load
-@Argument("question", "string", true)
+@Argument("question", "string")
 @Alias("8ball")
 class EightBall : Command(){
     companion object {
