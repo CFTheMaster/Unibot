@@ -15,12 +15,16 @@
  */
 package com.github.cf.discord.uni.commands
 
+import com.github.cf.discord.uni.annotations.Alias
+import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import java.util.concurrent.ThreadLocalRandom
 
 @Load
+@Argument("question", "string", true)
+@Alias("8ball")
 class EightBall : Command(){
     companion object {
         private val lines = listOf(
@@ -51,7 +55,7 @@ class EightBall : Command(){
     override val guildOnly = false
 
     override fun run(ctx: Context) {
-        ctx.send("**Question:** ${ctx.args}\n$EIGHTBALL_EMOJI**: ${randAnswer()}**")
+        ctx.send("**Question:** ${ctx.args["question"] as String}\n$EIGHTBALL_EMOJI**: ${randAnswer()}**")
     }
 
     private fun randAnswer(): String {

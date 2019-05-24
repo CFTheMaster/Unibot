@@ -98,7 +98,6 @@ class Uni(token: String) {
 
     fun start(): Boolean {
         return try {
-            // TODO: load external commands
             LOGGER.debug { "Logging in..." }
             LOGGER.info {
                 "\n_   _   _  _   ___\n"+
