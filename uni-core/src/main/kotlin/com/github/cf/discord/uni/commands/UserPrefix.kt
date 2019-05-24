@@ -31,11 +31,10 @@ class AddUserPrefix : Command(){
 
     override fun run(ctx: Context) {
         val prefix = (ctx.args["prefix"] as String).toLowerCase().replace("add ", "").toByteArray()
-        val encode = Base64.getEncoder().encodeToString(prefix)
-
-        val decoded = String(Base64.getDecoder().decode(encode))
 
         asyncTransaction(Uni.pool) {
+            val encode = Base64.getEncoder().encodeToString(prefix)
+            val decoded = String(Base64.getDecoder().decode(encode))
 
             try {
                 Users.update({
@@ -57,11 +56,11 @@ class RemUserPrefix : Command(){
 
     override fun run(ctx: Context) {
         val prefix = (ctx.args["prefix"] as String).toLowerCase().replace("remove", "").toByteArray()
-        val encode = Base64.getEncoder().encodeToString(prefix)
-
-        val decoded = String(Base64.getDecoder().decode(encode))
 
         asyncTransaction(Uni.pool) {
+            val encode = Base64.getEncoder().encodeToString(prefix)
+            val decoded = String(Base64.getDecoder().decode(encode))
+
             if (ctx.storedUser.customPrefix!!.isEmpty()) {
                 return@asyncTransaction ctx.send("No User (${ctx.author.name+"#"+ctx.author.discriminator+" (${ctx.author.idLong}) "}) prefix found!")
             }
