@@ -608,7 +608,14 @@ class EventListener : ListenerAdapter(){
                             "server_count" to Uni.shardManager.guilds.size,
                             "shard_count" to Uni.shardManager.shardsTotal
                     )
+
+                    val jsonBoats = mapOf(
+                            "server_count" to Uni.shardManager.guilds.size
+                    )
+
                     val body = RequestBody.create(jsonType, JSONObject(json).toString())
+
+                    val bodyBoats = RequestBody.create(jsonType, JSONObject(jsonBoats).toString())
 
                     if(EnvVars.DBL_TOKEN!!.isNotEmpty()){
                         Http.post("https://discordbots.org/api/bots/${shard.selfUser.idLong}/stats", body){
@@ -622,7 +629,7 @@ class EventListener : ListenerAdapter(){
                     }
 
                     if(EnvVars.DISCORD_BOATS!!.isNotEmpty()){
-                        Http.post("https://discord.boats/api/bot/${shard.selfUser.idLong}", body){
+                        Http.post("https://discord.boats/api/bot/${shard.selfUser.idLong}", bodyBoats){
                             addHeader("API_TOKEN", EnvVars.DISCORD_BOATS)
                         }.thenAccept {
                             LOGGER.info("updated stats for Discord Boats")
