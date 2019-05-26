@@ -59,7 +59,8 @@ data class DBGuild(
         val mutedRole: Long?,
         val antiInvite: Boolean,
         val userRole: Boolean,
-        val autoRole: Long?
+        val autoRole: Long?,
+        val localLeveling: Boolean
 )
 
 data class DBStar(
@@ -79,7 +80,9 @@ data class DBUser(
         val lastLevelUp: DateTime,
         val accountCreationDate: DateTime,
         val lastMessage: Long,
-        val customPrefix: String?
+        val customPrefix: String?,
+        val localExp: Long,
+        val localLevel: Long
 )
 
 data class DBWewCounter(
@@ -124,7 +127,8 @@ object DatabaseWrapper {
                     guild[Guilds.mutedRole],
                     guild[Guilds.antiInvite],
                     guild[Guilds.userRole],
-                    guild[Guilds.autoRole]
+                    guild[Guilds.autoRole],
+                    guild[Guilds.localLeveling]
 
 
             )
@@ -155,6 +159,7 @@ object DatabaseWrapper {
                 it[antiInvite] = false
                 it[userRole] = false
                 it[autoRole] = 0L
+                it[localLeveling] = false
 
             }
         }
@@ -186,7 +191,9 @@ object DatabaseWrapper {
                     user[Users.lastLevelUp],
                     user[Users.accountCreationDate],
                     user[Users.lastMessage],
-                    user[Users.customPrefix]
+                    user[Users.customPrefix],
+                    user[Users.localExp],
+                    user[Users.localLevel]
             )
         }
     }.execute()
@@ -207,6 +214,8 @@ object DatabaseWrapper {
                 it[accountCreationDate] = DateTime(user.creationTime.toInstant())
                 it[lastMessage] = 1L
                 it[customPrefix] = ""
+                it[localExp] = 0L
+                it[localLevel] = 0L
             }
         }
     }.execute().exceptionally {
@@ -235,6 +244,7 @@ object DatabaseWrapper {
                 it[antiInvite] = false
                 it[userRole] = false
                 it[autoRole] = 0L
+                it[localLeveling] = false
             }
 
             DBGuild(
@@ -254,7 +264,8 @@ object DatabaseWrapper {
                     null,
                     false,
                     false,
-                    0L
+                    0L,
+                    false
             )
         } else {
             DBGuild(
@@ -274,7 +285,8 @@ object DatabaseWrapper {
                     stored[Guilds.mutedRole],
                     stored[Guilds.antiInvite],
                     stored[Guilds.userRole],
-                    stored[Guilds.autoRole]
+                    stored[Guilds.autoRole],
+                    stored[Guilds.localLeveling]
             )
         }
     }.execute()
@@ -293,6 +305,8 @@ object DatabaseWrapper {
                 it[accountCreationDate] = DateTime.parse(user.creationTime.toInstant().toString())
                 it[lastMessage] = 1L
                 it[customPrefix] = ""
+                it[localExp] = 0L
+                it[localLevel] = 0L
 
             }
 
@@ -303,7 +317,9 @@ object DatabaseWrapper {
                     DateTime.now(),
                     DateTime.parse(user.creationTime.toInstant().toString()),
                     0L,
-                    ""
+                    "",
+                    0L,
+                    0L
             )
         } else {
             DBUser(
@@ -313,7 +329,9 @@ object DatabaseWrapper {
                     stored[Users.lastLevelUp],
                     stored[Users.accountCreationDate],
                     stored[Users.lastMessage],
-                    stored[Users.customPrefix]
+                    stored[Users.customPrefix],
+                    stored[Users.localExp],
+                    stored[Users.localLevel]
             )
         }
     }.execute()

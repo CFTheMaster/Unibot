@@ -28,4 +28,6 @@ object Users : Table() {
     val lastMessage = long("lastMsg")
     val customPrefix = varchar("customPrefix", 20)
             .nullable()
+    val localExp = long("localExp")
+    val localLevel = long("localLevel")
 }

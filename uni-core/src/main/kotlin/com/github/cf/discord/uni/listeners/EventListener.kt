@@ -134,6 +134,43 @@ class EventListener : ListenerAdapter(){
                     }
                 }
 
+                if(stored.localLeveling){
+                    asyncTransaction(Uni.pool){
+                        val userExists = Users.select { Users.id.eq(event.author.idLong) }.firstOrNull() ?: return@asyncTransaction
+                        val currentLocalLevel = userExists[Users.localLevel]
+                        val localExpGotten = userExists[Users.localExp]
+
+                        val xpUpdate = localExpGotten+(1..8).random()
+                        Users.update({
+                            Users.id.eq(event.author.idLong)
+                        }) {
+                            it[localExp] = xpUpdate
+                        }
+
+                        val localExpNeeded = currentLocalLevel.toDouble() * (500).toDouble() + (currentLocalLevel.toDouble() * MINIMUM_FOR_LEVEL_1.toDouble())
+
+                        if(localExpGotten >= localExpNeeded){
+                            Users.update({
+                                Users.id.eq(event.author.idLong)
+                            }) {
+                                it[localLevel] = currentLocalLevel + 1
+                                it[localExp] = localExpGotten - 1
+                                it[lastLevelUp] = DateTime.now()
+                            }
+
+                            if (stored.levelMessages) {
+                                event.channel.sendMessage(EmbedBuilder().apply {
+                                    setTitle("${event.author.name}, you are now local rank ${currentLocalLevel + 1}!") // TODO translation
+                                    setColor(Color.ORANGE)
+
+                                }.build()).queue()
+                            }
+                        }
+                    }.execute().exceptionally {
+                        LOGGER.error("Error while trying to levelup user ${event.author.name}#${event.author.discriminator} (${event.author.id}", it)
+                    }
+                }
+
 
                 asyncTransaction(Uni.pool) {
                     val exists = Users.select{ Users.id.eq(event.author.idLong)}.firstOrNull() ?: return@asyncTransaction
@@ -147,7 +184,6 @@ class EventListener : ListenerAdapter(){
                             it[expPoints] = xpGet
                             it[lastMessage] = event.message.idLong
                         }
-
                     }
 
                     val xpNeeded = curLevel.toDouble() * (500).toDouble() + (curLevel.toDouble() * MINIMUM_FOR_LEVEL_1.toDouble())
@@ -582,6 +618,17 @@ class EventListener : ListenerAdapter(){
                             it.close()
                         }.thenApply {}.exceptionally {
                             LOGGER.error("Error while updating stats", it)
+                        }
+                    }
+
+                    if(EnvVars.DISCORD_BOATS!!.isNotEmpty()){
+                        Http.post("https://discord.boats/api/bot/${shard.selfUser.idLong}", body){
+                            addHeader("API_TOKEN", EnvVars.DISCORD_BOATS)
+                        }.thenAccept {
+                            LOGGER.info("updated stats for Discord Boats")
+                            it.close()
+                        }.thenApply {}.exceptionally {
+                            LOGGER.error("Error While Updating Stats", it)
                         }
                     }
                 }

@@ -43,4 +43,5 @@ object Guilds : Table(){
     val userRole = bool("userRole")
     val autoRole = long("autoRole")
             .nullable()
+    val localLeveling = bool("localLeveling")
 }

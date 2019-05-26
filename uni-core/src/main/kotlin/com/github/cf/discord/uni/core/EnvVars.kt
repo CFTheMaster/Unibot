@@ -77,6 +77,9 @@ object EnvVars {
     val RANDOM_TEXT = dotenv["random_text"]
 
     @JvmStatic
+    val DISCORD_BOATS = dotenv["discord_boats"]
+
+    @JvmStatic
     private fun dotenv(envVar: String): String? {
         return dotenv(envVar) ?: throw RuntimeException("Could not read environment variable \"$envVar\", make sure it is supplied and not empty!")
     }
