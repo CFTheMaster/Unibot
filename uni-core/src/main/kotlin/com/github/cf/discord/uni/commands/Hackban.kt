@@ -38,23 +38,24 @@ class Hackban : Command(){
 
     override fun run(ctx: Context) {
         val users = (ctx.args["user"] as String).split("||")
-        Timer().schedule(
-                timerTask {
-                    for (user in users){
-                        ctx.guild!!.controller
-                                .ban(user, 0)
-                                .reason("[ ${ctx.author.name}#${ctx.author.discriminator} ] ${ctx.args.getOrDefault("reason", "none")}")
-                                .queue({
-                                    ctx.send("<@!$user> ($user): has been banned")
-                                }) { err ->
-                                    if (err is PermissionException) {
-                                        ctx.send("permissions missing can't ban the user")
-                                    } else {
-                                        ctx.sendError(err)
+        for (user in users){
+            Timer().schedule(
+                    timerTask {
+                            ctx.guild!!.controller
+                                    .ban(user, 0)
+                                    .reason("[ ${ctx.author.name}#${ctx.author.discriminator} ] ${ctx.args.getOrDefault("reason", "none")}")
+                                    .queue({
+                                        ctx.send("<@!$user> ($user): has been banned")
+                                    }) { err ->
+                                        if (err is PermissionException) {
+                                            ctx.send("permissions missing can't ban the user")
+                                        } else {
+                                            ctx.sendError(err)
+                                        }
                                     }
-                                }
-                    }
 
-                },500)
+
+                    },500)
+        }
     }
 }
