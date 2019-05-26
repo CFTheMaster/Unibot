@@ -23,6 +23,8 @@ import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import net.dv8tion.jda.core.Permission
 import net.dv8tion.jda.core.exceptions.PermissionException
+import java.util.*
+import kotlin.concurrent.timerTask
 
 @Load
 @Perm(Permission.BAN_MEMBERS)
@@ -36,20 +38,23 @@ class Hackban : Command(){
 
     override fun run(ctx: Context) {
         val users = (ctx.args["user"] as String).split("||")
-        for (user in users){
-            ctx.guild!!.controller
-                    .ban(user, 0)
-                    .reason("[ ${ctx.author.name}#${ctx.author.discriminator} ] ${ctx.args.getOrDefault("reason", "none")}")
-                    .queue({
-                        ctx.send("<@!$user> ($user): has been banned")
-                    }) { err ->
-                        if (err is PermissionException) {
-                            ctx.send("permissions missing can't ban the user")
-                        } else {
-                            ctx.sendError(err)
-                        }
+        Timer().schedule(
+                timerTask {
+                    for (user in users){
+                        ctx.guild!!.controller
+                                .ban(user, 0)
+                                .reason("[ ${ctx.author.name}#${ctx.author.discriminator} ] ${ctx.args.getOrDefault("reason", "none")}")
+                                .queue({
+                                    ctx.send("<@!$user> ($user): has been banned")
+                                }) { err ->
+                                    if (err is PermissionException) {
+                                        ctx.send("permissions missing can't ban the user")
+                                    } else {
+                                        ctx.sendError(err)
+                                    }
+                                }
                     }
-        }
 
+                },500)
     }
 }
