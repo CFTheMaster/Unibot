@@ -35,7 +35,7 @@ class Hackban : Command(){
     override val guildOnly = true
 
     override fun run(ctx: Context) {
-        val users = (ctx.args["user"] as String).split("||")
+        val users = (ctx.args["user"] as String).split("__")
         for (user in users){
             ctx.guild!!.controller
                     .ban(user, 0)
