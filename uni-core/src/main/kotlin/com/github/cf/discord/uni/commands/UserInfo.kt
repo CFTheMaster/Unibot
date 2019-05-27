@@ -24,6 +24,9 @@ import net.dv8tion.jda.core.EmbedBuilder
 import net.dv8tion.jda.core.entities.Game
 import net.dv8tion.jda.core.entities.Member
 import java.time.Instant
+import java.time.OffsetDateTime
+import java.time.ZoneId
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.concurrent.TimeUnit
 
@@ -63,7 +66,7 @@ class UserInfo : Command(){
             descriptionBuilder.append("**${ctx.guild!!.name}: ** ${
             member.joinDate.format(DateTimeFormatter.RFC_1123_DATE_TIME)
             }\n")
-            val accountCreationDate = Instant.ofEpochMilli(member.user.creationTime.toEpochSecond()).nano
+            val accountCreationDate = OffsetDateTime.ofInstant(Instant.ofEpochMilli(member.user.creationTime.toEpochSecond()), ZoneId.ofOffset("GMT", ZoneOffset.ofHours(0))).nano
             val aShittyDateOrSomeStuff = TimeUnit.NANOSECONDS.toDays(accountCreationDate.toLong())
             setFooter(
                     "Account Days Since Creation: $aShittyDateOrSomeStuff",
