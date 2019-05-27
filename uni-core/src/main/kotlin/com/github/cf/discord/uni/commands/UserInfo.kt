@@ -24,9 +24,11 @@ import net.dv8tion.jda.core.EmbedBuilder
 import net.dv8tion.jda.core.entities.Game
 import net.dv8tion.jda.core.entities.Member
 import org.joda.time.DateTime
+import java.text.SimpleDateFormat
 import java.time.*
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 @Load
@@ -66,7 +68,7 @@ class UserInfo : Command(){
             member.joinDate.format(DateTimeFormatter.RFC_1123_DATE_TIME)
             }\n")
             val accountCreationDate = OffsetDateTime.ofInstant(Instant.ofEpochMilli(member.user.creationTime.toEpochSecond()), ZoneId.ofOffset("GMT", ZoneOffset.ofHours(0)))
-            val rightNowDate = ZonedDateTime.now()
+            val rightNowDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse("01/01/2015")
             val aShittyDateOrSomeStuff = ChronoUnit.DAYS.between(accountCreationDate, rightNowDate)
             setFooter(
                     "Account Days Since Creation: $aShittyDateOrSomeStuff",
