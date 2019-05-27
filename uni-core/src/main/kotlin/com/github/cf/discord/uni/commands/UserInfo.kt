@@ -68,7 +68,7 @@ class UserInfo : Command(){
             member.joinDate.format(DateTimeFormatter.RFC_1123_DATE_TIME)
             }\n")
             val accountCreationDate = OffsetDateTime.ofInstant(Instant.ofEpochMilli(member.user.creationTime.toEpochSecond()), ZoneId.ofOffset("GMT", ZoneOffset.ofHours(0)))
-            val rightNowDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse("01/01/2015")
+            val rightNowDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse("01/01/2015").toInstant()
             val aShittyDateOrSomeStuff = ChronoUnit.DAYS.between(accountCreationDate, rightNowDate)
             setFooter(
                     "Account Days Since Creation: $aShittyDateOrSomeStuff",
