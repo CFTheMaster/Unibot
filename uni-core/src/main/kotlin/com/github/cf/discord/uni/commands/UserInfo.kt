@@ -25,7 +25,12 @@ import net.dv8tion.jda.core.EmbedBuilder
 import net.dv8tion.jda.core.entities.Game
 import net.dv8tion.jda.core.entities.Member
 import org.joda.time.DateTime
+import java.time.Instant
+import java.time.OffsetDateTime
+import java.time.ZoneId
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
+import java.util.concurrent.TimeUnit
 
 @Load
 @Alias("user")
@@ -56,16 +61,18 @@ class UserInfo : Command(){
             // TODO add translations for these
             descriptionBuilder.append("**ID:** ${member.user.id}\n")
             descriptionBuilder.append("**Highest role:** ${member.roles.sortedBy { it.position }.last()?.name ?: "none"}\n")
-            descriptionBuilder.append("**Playing:** ${member.game?.name ?: "nothing"}")
+            descriptionBuilder.append("**Playing:** ${member.game?.name ?: "nothing"}\n")
             descriptionBuilder.append("**Joined Discord:** ${
             member.user.creationTime.format(DateTimeFormatter.RFC_1123_DATE_TIME)
-            }")
+            }\n")
             descriptionBuilder.append("**${ctx.guild!!.name}: ** ${
             member.joinDate.format(DateTimeFormatter.RFC_1123_DATE_TIME)
-            }")
-            val accountCreationDate = DateTime.now().toInstant().millis - member.user.creationTime.toInstant().toEpochMilli()
+            }\n")
+            val accountCreationDate = OffsetDateTime.ofInstant(Instant.ofEpochMilli(member.user.creationTime.toEpochSecond()), ZoneId.ofOffset("GMT", ZoneOffset.UTC))
+                    .nano
+            val aShittyDateOrSomeStuff = TimeUnit.NANOSECONDS.toDays(accountCreationDate.toLong())
             setFooter(
-                    "**Account Days Since Creation:** ${accountCreationDate.days}",
+                    "Account Days Since Creation: $aShittyDateOrSomeStuff",
                     null
             )
         }
