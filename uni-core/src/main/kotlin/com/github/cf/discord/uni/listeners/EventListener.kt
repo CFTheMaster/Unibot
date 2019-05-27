@@ -630,7 +630,7 @@ class EventListener : ListenerAdapter(){
 
                     if(EnvVars.DISCORD_BOATS!!.isNotEmpty()){
                         Http.post("https://discord.boats/api/bot/${shard.selfUser.idLong}", bodyBoats){
-                            addHeader("api_token", EnvVars.DISCORD_BOATS)
+                            addHeader("Authorization", EnvVars.DISCORD_BOATS)
                         }.thenAccept {
                             LOGGER.info("updated stats for Discord Boats")
                             it.close()
