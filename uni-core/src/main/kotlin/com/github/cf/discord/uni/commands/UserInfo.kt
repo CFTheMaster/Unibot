@@ -23,11 +23,10 @@ import com.github.cf.discord.uni.entities.Context
 import net.dv8tion.jda.core.EmbedBuilder
 import net.dv8tion.jda.core.entities.Game
 import net.dv8tion.jda.core.entities.Member
-import java.time.Instant
-import java.time.OffsetDateTime
-import java.time.ZoneId
-import java.time.ZoneOffset
+import org.joda.time.DateTime
+import java.time.*
 import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 import java.util.concurrent.TimeUnit
 
 @Load
@@ -66,8 +65,9 @@ class UserInfo : Command(){
             descriptionBuilder.append("**${ctx.guild!!.name}: ** ${
             member.joinDate.format(DateTimeFormatter.RFC_1123_DATE_TIME)
             }\n")
-            val accountCreationDate = OffsetDateTime.ofInstant(Instant.ofEpochMilli(member.user.creationTime.toEpochSecond()), ZoneId.ofOffset("GMT", ZoneOffset.ofHours(0))).nano
-            val aShittyDateOrSomeStuff = TimeUnit.NANOSECONDS.toDays(accountCreationDate.toLong())
+            val accountCreationDate = OffsetDateTime.ofInstant(Instant.ofEpochMilli(member.user.creationTime.toEpochSecond()), ZoneId.ofOffset("GMT", ZoneOffset.ofHours(0)))
+            val rightNowDate = ZonedDateTime.now()
+            val aShittyDateOrSomeStuff = ChronoUnit.DAYS.between(accountCreationDate, rightNowDate)
             setFooter(
                     "Account Days Since Creation: $aShittyDateOrSomeStuff",
                     null
