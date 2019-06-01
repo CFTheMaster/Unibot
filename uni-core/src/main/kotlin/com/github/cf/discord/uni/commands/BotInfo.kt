@@ -56,7 +56,7 @@ class BotInfo : Command(){
             addField("System Uptime: ", Duration.between(startTime, Instant.now()).formatDuration(), true)
             addField("Used Memory: ", "$ramUsedMB MB", true)
             addField("Guild Count: ", "${Uni.shardManager.guilds.size}", true)
-            addField("Total Users: ", "${Uni.shardManager.users.size}", true)
+            addField("Total Users: ", "${Uni.shardManager.users.filter { !it.isBot }.size}", true)
             addField("Total Bots:", "${Uni.shardManager.users.filter { it.isBot }.size}", true)
             addField("Current Shard: ", "${ctx.jda.shardInfo.shardId}", true)
             addField("Total Shards: ", "${ctx.jda.shardInfo.shardTotal}", true)
