@@ -50,7 +50,7 @@ class Ban : Command() {
                 .ban(user, 7)
                 .reason("[ ${ctx.author.name}#${ctx.author.discriminator} ] ${ctx.args.getOrDefault("reason", "none")}")
                 .queue({
-                    ctx.send("banned_user")
+                    ctx.send("<@!${user.user.idLong}> (${user.user.idLong}): has been banned")
                 }) { err ->
                     if (err is PermissionException) {
                         ctx.send("permissions missing can't ban the user")
