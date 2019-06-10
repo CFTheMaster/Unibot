@@ -55,6 +55,8 @@ class UserInfo : Command(){
 
             setThumbnail(member.user.avatarUrl)
 
+            val totalDays = ChronoUnit.DAYS.between(member.user.creationTime.toLocalDate(), OffsetDateTime.now().toLocalDate())
+
             // TODO add translations for these
             descriptionBuilder.append("**ID:** ${member.user.id}\n")
             descriptionBuilder.append("**Highest role:** ${member.roles.sortedBy { it.position }.last()?.name ?: "none"}\n")
@@ -66,7 +68,7 @@ class UserInfo : Command(){
             member.joinDate.format(DateTimeFormatter.RFC_1123_DATE_TIME)
             }\n")
             setFooter(
-                    "Hi There!",
+                    "Total amount of days since creation: $totalDays",
                     member.user.effectiveAvatarUrl
             )
         }

@@ -29,6 +29,7 @@ import java.time.Duration
 import java.time.Instant
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 
 @Load
 @Alias("bot")
@@ -42,6 +43,8 @@ class BotInfo : Command(){
         val ramUsedRaw = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()
         val ramUsedMB = ramUsedRaw / 1048576
         val member : Member? = ctx.guild!!.getMember(ctx.jda.selfUser)
+
+        val totalDays = ChronoUnit.DAYS.between(member!!.user.creationTime.toLocalDate(), OffsetDateTime.now().toLocalDate())
 
         val time =  OffsetDateTime.parse(ctx.jda.selfUser.creationTime.toString()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
@@ -61,6 +64,7 @@ class BotInfo : Command(){
             addField("Current Shard: ", "${ctx.jda.shardInfo.shardId}", true)
             addField("Total Shards: ", "${ctx.jda.shardInfo.shardTotal}", true)
             addField("Creation Date: ", time, true)
+            addField("Total Days Since Creation", totalDays.toString(), true)
             addField("Joined This server On: ", ctx.member.joinDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), true)
             addField("Ping: ", "${ctx.jda.ping}ms", true)
             addField("Avatar URL: ", "[Avatar URL](  ${ctx.jda.selfUser.avatarUrl} )", true)
