@@ -394,14 +394,14 @@ class EventListener : ListenerAdapter(){
                 **Kick** | Case $case
                 **User**: ${event.user.name}#${event.user.discriminator} (${event.user.id})
                 **Reason**: ${audit.reason ?: "`Responsible moderator, please use the reason command to set this reason`"}
-                **Responsible moderator**: ${audit.user.name}#${audit.user.discriminator} (${audit.user.id})
+                **Responsible moderator**: ${audit.user!!.name}#${audit.user!!.discriminator} (${audit.user!!.id})
             """.trimIndent()).complete()
 
                 Timer().schedule(
                         timerTask {
                             DatabaseWrapper.setModLogCase(
                                     modlogChannel.latestMessageIdLong,
-                                    audit.user.idLong,
+                                    audit.user!!.idLong,
                                     event.guild.idLong,
                                     audit.targetIdLong,
                                     case,
@@ -439,14 +439,14 @@ class EventListener : ListenerAdapter(){
                 **Unban** | Case $case
                 **User**: ${event.user.name}#${event.user.discriminator} (${event.user.id})
                 **Reason**: ${audit.reason ?: "`Responsible moderator, please use the reason command to set this reason`"}
-                **Responsible moderator**: ${audit.user.name}#${audit.user.discriminator} (${audit.user.id})
+                **Responsible moderator**: ${audit.user!!.name}#${audit.user!!.discriminator} (${audit.user!!.id})
             """.trimIndent()).complete()
 
                 Timer().schedule(
                         timerTask {
                             DatabaseWrapper.setModLogCase(
                                     modlogChannel.latestMessageIdLong,
-                                    audit.user.idLong,
+                                    audit.user!!.idLong,
                                     event.guild.idLong,
                                     audit.targetIdLong,
                                     case,
@@ -474,14 +474,14 @@ class EventListener : ListenerAdapter(){
                 **Ban** | Case $case
                 **User**: ${event.user.name}#${event.user.discriminator} (${event.user.id})
                 **Reason**: ${audit.reason ?: "`Responsible moderator, please use the reason command to set this reason`"}
-                **Responsible moderator**: ${audit.user.name}#${audit.user.discriminator} (${audit.user.id})
+                **Responsible moderator**: ${audit.user!!.name}#${audit.user!!.discriminator} (${audit.user!!.id})
             """.trimIndent()).complete()
 
                 Timer().schedule(
                         timerTask {
                             DatabaseWrapper.setModLogCase(
                                     modlogChannel.latestMessageIdLong,
-                                    audit.user.idLong,
+                                    audit.user!!.idLong,
                                     event.guild.idLong,
                                     audit.targetIdLong,
                                     case,
@@ -515,14 +515,14 @@ class EventListener : ListenerAdapter(){
                 **Mute** | Case $case
                 **User**: ${event.user.name}#${event.user.discriminator} (${event.user.id})
                 **Reason**: ${audit.reason ?: "`Responsible moderator, please use the reason command to set this reason`"}
-                **Responsible moderator**: ${audit.user.name}#${audit.user.discriminator} (${audit.user.id})
+                **Responsible moderator**: ${audit.user!!.name}#${audit.user!!.discriminator} (${audit.user!!.id})
             """.trimIndent()).complete()
 
                 Timer().schedule(
                         timerTask {
                             DatabaseWrapper.setModLogCase(
                                     modlogChannel.latestMessageIdLong,
-                                    audit.user.idLong,
+                                    audit.user!!.idLong,
                                     event.guild.idLong,
                                     audit.targetIdLong,
                                     case,
@@ -554,7 +554,7 @@ class EventListener : ListenerAdapter(){
                 **Unmute** | Case $case
                 **User**: ${event.user.name}#${event.user.discriminator} (${event.user.id})
                 **Reason**: ${audit.reason ?: "`Responsible moderator, please use the reason command to set this reason`"}
-                **Responsible moderator**: ${audit.user.name}#${audit.user.discriminator} (${audit.user.id})
+                **Responsible moderator**: ${audit.user!!.name}#${audit.user!!.discriminator} (${audit.user!!.id})
             """.trimIndent()).complete()
 
 
@@ -562,7 +562,7 @@ class EventListener : ListenerAdapter(){
                         timerTask {
                             DatabaseWrapper.setModLogCase(
                                     modlogChannel.latestMessageIdLong,
-                                    audit.user.idLong,
+                                    audit.user!!.idLong,
                                     event.guild.idLong,
                                     audit.targetIdLong,
                                     case,
