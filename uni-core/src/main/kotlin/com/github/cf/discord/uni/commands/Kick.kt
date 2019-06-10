@@ -50,7 +50,7 @@ class Kick : Command(){
                 .kick(user)
                 .reason("[ ${ctx.author.name}#${ctx.author.discriminator} ] ${ctx.args.getOrDefault("reason", "none")}")
                 .queue({
-                    ctx.send("kicked user")
+                    ctx.send("<@!${user.user.idLong}> (${user.user.idLong}): has been kicked")
                 }) { err ->
                     if (err is PermissionException) {
                         ctx.send("permissions missing can't ban the user")

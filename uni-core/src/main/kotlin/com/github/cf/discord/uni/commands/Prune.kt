@@ -20,6 +20,10 @@ import com.github.cf.discord.uni.entities.AsyncCommand
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.extensions.await
 import net.dv8tion.jda.core.Permission
+import net.dv8tion.jda.core.exceptions.PermissionException
+import java.util.*
+import java.util.concurrent.TimeUnit
+import kotlin.concurrent.timerTask
 import kotlin.math.min
 
 @Load
@@ -45,6 +49,20 @@ class Prune : AsyncCommand() {
                     it.delete().await()
                     messages++
                 }
-        ctx.send("$messages: messages have been pruned")
+        ctx.channel.sendMessage("$messages: messages have been pruned").queue({
+            Timer().schedule(
+                    timerTask {
+                        it.delete().queue()
+                    },TimeUnit.SECONDS.toMillis(10))
+
+
+        }) {
+            err ->
+            if (err is PermissionException) {
+                ctx.send("permissions missing can't ban the user")
+            } else {
+                ctx.sendError(err)
+            }
+        }
     }
 }
