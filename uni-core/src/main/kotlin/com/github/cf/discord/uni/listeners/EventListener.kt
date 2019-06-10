@@ -87,8 +87,6 @@ class EventListener : ListenerAdapter(){
     }
 
     override fun onMessageReceived(event: MessageReceivedEvent) {
-
-
         if(event.guild != null){
             if(event.guild.idLong == 138303776170835969L){
                 val totalDays = ChronoUnit.DAYS.between(event.member.user.creationTime.toLocalDate(), OffsetDateTime.now().toLocalDate())
