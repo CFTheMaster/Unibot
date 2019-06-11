@@ -106,17 +106,6 @@ class EventListener : ListenerAdapter(){
                 }
             }
 
-            DatabaseWrapper.getGuildSafe(event.guild).thenAccept { stored ->
-                if(stored.autoKick){
-                    val totalDays = ChronoUnit.DAYS.between(event.member.user.creationTime.toLocalDate(), OffsetDateTime.now().toLocalDate())
-                    if(totalDays <= 2){
-                        event.guild.controller.kick(event.member)
-                                .reason("[AutoKick] ${event.member.user.name}#${event.member.user.discriminator} (${event.member.user.idLong}) has been kicked because account was made too recent")
-                                .queue()
-                    }
-                }
-            }
-
             DatabaseWrapper.getGuildSafe(event.guild).thenAccept{ stored ->
                 if(stored.logs){
                     event.message.log()
@@ -364,6 +353,17 @@ class EventListener : ListenerAdapter(){
             }
         }.execute().thenApply {}.exceptionally {
             it.printStackTrace()
+        }
+        
+        DatabaseWrapper.getGuildSafe(event.guild).thenAccept { stored ->
+            if(stored.autoKick){
+                val totalDays = ChronoUnit.DAYS.between(event.member.user.creationTime.toLocalDate(), OffsetDateTime.now().toLocalDate())
+                if(totalDays <= 2){
+                    event.guild.controller.kick(event.member)
+                            .reason("[AutoKick] ${event.member.user.name}#${event.member.user.discriminator} (${event.member.user.idLong}) has been kicked because account was made too recent")
+                            .queue()
+                }
+            }
         }
 
         DatabaseWrapper.getGuildSafe(event.guild).thenAccept { storedGuild ->
