@@ -44,7 +44,8 @@ class EnableOption : Command() {
             "welcome",
             "levelMessages",
             "antiInvite",
-            "userRole"
+            "userRole",
+            "autoKick"
     )
 
     override fun run(ctx: Context) {
@@ -92,7 +93,8 @@ class DisableOption : Command() {
             "welcome",
             "levelMessages",
             "antiInvite",
-            "userRole"
+            "userRole",
+            "autoKick"
     )
 
     override fun run(ctx: Context) {
@@ -260,11 +262,12 @@ class Config : Command() {
             setTitle("Settings")
             addField(
                     "General",
-                    "**prefix:** ${if (ctx.storedGuild.prefix!!.isNotEmpty()) decoded else "none"}\n" +
-                            "**logs:** ${if (ctx.storedGuild.logs) "enabled" else "disabled"}\n" +
-                            "**mutedRole:** ${ctx.guild!!.getRoleById(ctx.storedGuild.mutedRole ?: 0L)?.asMention ?: "none"}\n" +
-                            "**levelMessages:** ${if (ctx.storedGuild.levelMessages) "enabled" else "disabled"}\n" +
-                            "**antiInvite:** ${if (ctx.storedGuild.antiInvite) "enabled" else "disabled"}\n",
+                    "**Prefix:** ${if (ctx.storedGuild.prefix!!.isNotEmpty()) decoded else "none"}\n" +
+                            "**Logs:** ${if (ctx.storedGuild.logs) "enabled" else "disabled"}\n" +
+                            "**Muted Role:** ${ctx.guild!!.getRoleById(ctx.storedGuild.mutedRole ?: 0L)?.asMention ?: "none"}\n" +
+                            "**Level Messages:** ${if (ctx.storedGuild.levelMessages) "enabled" else "disabled"}\n" +
+                            "**Anti Invite:** ${if (ctx.storedGuild.antiInvite) "enabled" else "disabled"}\n" +
+                            "**Auto Kick:** ${if (ctx.storedGuild.autoKick) "enabled" else "disabled"}\n",
                     true
             )
             addField(
