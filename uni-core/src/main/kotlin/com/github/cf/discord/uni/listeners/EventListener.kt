@@ -354,7 +354,7 @@ class EventListener : ListenerAdapter(){
         }.execute().thenApply {}.exceptionally {
             it.printStackTrace()
         }
-        
+
         DatabaseWrapper.getGuildSafe(event.guild).thenAccept { stored ->
             if(stored.autoKick){
                 val totalDays = ChronoUnit.DAYS.between(event.member.user.creationTime.toLocalDate(), OffsetDateTime.now().toLocalDate())
