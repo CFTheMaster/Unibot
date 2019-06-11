@@ -29,6 +29,7 @@ import net.dv8tion.jda.core.entities.Role
 import net.dv8tion.jda.core.entities.TextChannel
 import org.jetbrains.exposed.sql.Column
 import org.jetbrains.exposed.sql.update
+import java.util.*
 
 
 @Argument("option", "string")
@@ -252,11 +253,14 @@ class Config : Command() {
     }
 
     override fun run(ctx: Context) {
+        val prefixes = ctx.storedGuild!!.prefix.toString()
+        val decoded = String(Base64.getDecoder().decode(prefixes))
+
         val embed = EmbedBuilder().apply {
             setTitle("Settings")
             addField(
                     "General",
-                    "**prefix:** ${if (ctx.storedGuild!!.prefix!!.isNotEmpty()) ctx.storedGuild.prefix.toString() else "none"}\n" +
+                    "**prefix:** ${if (ctx.storedGuild.prefix!!.isNotEmpty()) decoded else "none"}\n" +
                             "**logs:** ${if (ctx.storedGuild.logs) "enabled" else "disabled"}\n" +
                             "**mutedRole:** ${ctx.guild!!.getRoleById(ctx.storedGuild.mutedRole ?: 0L)?.asMention ?: "none"}\n" +
                             "**levelMessages:** ${if (ctx.storedGuild.levelMessages) "enabled" else "disabled"}\n" +
