@@ -245,7 +245,7 @@ class SetStringOption : Command() {
 @Arguments(
         Argument("name", "string"),
         Argument("option", "string"),
-        Argument("accountAge", "long")
+        Argument("someNumber", "long")
 )
 class SetAccountAgeOption : Command() {
     override val desc = "Set an option's text."
@@ -258,10 +258,10 @@ class SetAccountAgeOption : Command() {
     override fun run(ctx: Context) {
         val name = (ctx.args["name"] as String).toLowerCase().replace("setaccountage ", "")
         val opt = (ctx.args["option"] as String).toLowerCase().replace("${options.isNotEmpty().toString().toLowerCase()} ", "")
-        val accountAge = ctx.args["accountAge"] as Long
+        val someNumber = ctx.args["someNumber"] as Long
 
         if (opt !in options.map(String::toLowerCase)) {
-            return ctx.send("Option not found! $name, $opt, $accountAge") // TODO translation
+            return ctx.send("Option not found! $name, $opt, $someNumber") // TODO translation
         }
 
         asyncTransaction(Uni.pool) {
@@ -270,11 +270,11 @@ class SetAccountAgeOption : Command() {
             }) {
                 val col = columns.first { it.name.toLowerCase() == opt } as Column<Long>
 
-                it[col] = accountAge
+                it[col] = someNumber
             }
         }.execute()
 
-        ctx.send("Role for $opt is now $accountAge!") // TODO translation
+        ctx.send("Role for $opt is now $someNumber!") // TODO translation
     }
 }
 
