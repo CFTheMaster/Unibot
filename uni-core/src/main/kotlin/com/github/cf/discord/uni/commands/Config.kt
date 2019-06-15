@@ -256,7 +256,7 @@ class SetAccountAgeOption : Command() {
     )
 
     override fun run(ctx: Context) {
-        val name = (ctx.args["name"] as String).toLowerCase().replace("setrole ", "")
+        val name = (ctx.args["name"] as String).toLowerCase().replace("setaccountage ", "")
         val opt = (ctx.args["option"] as String).toLowerCase().replace("${options.isNotEmpty().toString().toLowerCase()} ", "")
         val accountAge = ctx.args["accountAge"] as Long
 
