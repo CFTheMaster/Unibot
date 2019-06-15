@@ -288,6 +288,7 @@ class Config : Command() {
         addSubcommand(SetChannelOption(), "setchannel")
         addSubcommand(SetRoleOption(), "setrole")
         addSubcommand(SetStringOption(), "setstring")
+        addSubcommand(SetAccountAgeOption(), "setaccountage")
     }
 
     override fun run(ctx: Context) {
