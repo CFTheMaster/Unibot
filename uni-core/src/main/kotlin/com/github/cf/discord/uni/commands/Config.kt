@@ -258,7 +258,7 @@ class SetAccountAgeOption : Command() {
     override fun run(ctx: Context) {
         val name = (ctx.args["name"] as String).toLowerCase().replace("setaccountage ", "")
         val opt = (ctx.args["option"] as String).toLowerCase().replace("${options.isNotEmpty().toString().toLowerCase()} ", "")
-        val someNumber = ctx.args["someNumber"] as Long
+        val someNumber = ctx.args["someNumber"] as String
 
         if (opt !in options.map(String::toLowerCase)) {
             return ctx.send("Option not found! $name, $opt, $someNumber") // TODO translation
@@ -270,11 +270,11 @@ class SetAccountAgeOption : Command() {
             }) {
                 val col = columns.first { it.name.toLowerCase() == opt } as Column<Long>
 
-                it[col] = someNumber
+                it[col] = someNumber.toLong()
             }
         }.execute()
 
-        ctx.send("Role for $opt is now $someNumber!") // TODO translation
+        ctx.send("minimum $opt is now $someNumber!") // TODO translation
     }
 }
 
