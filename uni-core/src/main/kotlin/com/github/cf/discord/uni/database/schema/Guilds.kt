@@ -45,4 +45,5 @@ object Guilds : Table(){
             .nullable()
     val localLeveling = bool("localLeveling")
     val autoKick = bool("autoKick")
+    val accountAge = long("accountAge")
 }

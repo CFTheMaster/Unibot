@@ -61,7 +61,8 @@ data class DBGuild(
         val userRole: Boolean,
         val autoRole: Long?,
         val localLeveling: Boolean,
-        val autoKick: Boolean
+        val autoKick: Boolean,
+        val accountAge: Long
 )
 
 data class DBStar(
@@ -130,7 +131,8 @@ object DatabaseWrapper {
                     guild[Guilds.userRole],
                     guild[Guilds.autoRole],
                     guild[Guilds.localLeveling],
-                    guild[Guilds.autoKick]
+                    guild[Guilds.autoKick],
+                    guild[Guilds.accountAge]
 
 
             )
@@ -163,6 +165,7 @@ object DatabaseWrapper {
                 it[autoRole] = 0L
                 it[localLeveling] = false
                 it[autoKick] = false
+                it[accountAge] = 1L
 
             }
         }
@@ -249,6 +252,7 @@ object DatabaseWrapper {
                 it[autoRole] = 0L
                 it[localLeveling] = false
                 it[autoKick] = false
+                it[accountAge] = 1L
             }
 
             DBGuild(
@@ -270,7 +274,8 @@ object DatabaseWrapper {
                     false,
                     0L,
                     false,
-                    false
+                    false,
+                    1L
             )
         } else {
             DBGuild(
@@ -292,7 +297,8 @@ object DatabaseWrapper {
                     stored[Guilds.userRole],
                     stored[Guilds.autoRole],
                     stored[Guilds.localLeveling],
-                    stored[Guilds.autoKick]
+                    stored[Guilds.autoKick],
+                    stored[Guilds.accountAge]
             )
         }
     }.execute()

@@ -240,6 +240,42 @@ class SetStringOption : Command() {
     }
 }
 
+
+@Arguments(
+        Argument("name", "string"),
+        Argument("option", "string"),
+        Argument("int", "integer")
+)
+class SetAccountAgeOption : Command() {
+    override val desc = "Set an option's text."
+
+    private val options = listOf(
+            "accountAge"
+    )
+
+    override fun run(ctx: Context) {
+        val name = (ctx.args["name"] as String).toLowerCase().replace("setaccountage ", "")
+        val opt = (ctx.args["option"] as String).toLowerCase().replace("${options.isNotEmpty().toString().toLowerCase()} ", "")
+        val string = ctx.args["int"] as Int
+
+        if (opt !in options.map(String::toLowerCase)) {
+            return ctx.send("Option not found! $name, $opt, $string") // TODO translation
+        }
+
+        asyncTransaction(Uni.pool) {
+            Guilds.update({
+                Guilds.id.eq(ctx.guild!!.idLong)
+            }) {
+                val col = columns.first { it.name.toLowerCase() == opt } as Column<Int>
+
+                it[col] = string
+            }
+        }.execute()
+
+        ctx.send("$opt is now $string!") // TODO translation
+    }
+}
+
 @Load
 @Alias("cfg", "conf", "settings")
 class Config : Command() {
@@ -266,8 +302,7 @@ class Config : Command() {
                             "**Logs:** ${if (ctx.storedGuild.logs) "enabled" else "disabled"}\n" +
                             "**Muted Role:** ${ctx.guild!!.getRoleById(ctx.storedGuild.mutedRole ?: 0L)?.asMention ?: "none"}\n" +
                             "**Level Messages:** ${if (ctx.storedGuild.levelMessages) "enabled" else "disabled"}\n" +
-                            "**Anti Invite:** ${if (ctx.storedGuild.antiInvite) "enabled" else "disabled"}\n" +
-                            "**Auto Kick:** ${if (ctx.storedGuild.autoKick) "enabled" else "disabled"}\n",
+                            "**Anti Invite:** ${if (ctx.storedGuild.antiInvite) "enabled" else "disabled"}\n",
                     true
             )
             addField(
@@ -296,6 +331,10 @@ class Config : Command() {
                             "**AutoRole:** ${ctx.guild.getRoleById(ctx.storedGuild.autoRole ?: 0L)?.asMention ?: "none"}",
                     true
             )
+            addField("**Auto Kick:**",
+                    "**Autokick:** ${if (ctx.storedGuild.autoKick) "enabled" else "disabled"}\n" +
+                    "**Account Age:** ${ctx.storedGuild.accountAge}",
+                    true)
         }
 
         ctx.send(embed.build())
