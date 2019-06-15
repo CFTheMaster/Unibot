@@ -211,6 +211,7 @@ class SetRoleOption : Command() {
 )
 class SetStringOption : Command() {
     override val desc = "Set an option's text."
+    override val guildOnly = true
 
     private val options = listOf(
             "welcomeMessage",
@@ -244,35 +245,36 @@ class SetStringOption : Command() {
 @Arguments(
         Argument("name", "string"),
         Argument("option", "string"),
-        Argument("int", "integer")
+        Argument("accountAge", "long")
 )
 class SetAccountAgeOption : Command() {
     override val desc = "Set an option's text."
+    override val guildOnly = true
 
     private val options = listOf(
             "accountAge"
     )
 
     override fun run(ctx: Context) {
-        val name = (ctx.args["name"] as String).toLowerCase().replace("setaccountage ", "")
+        val name = (ctx.args["name"] as String).toLowerCase().replace("setrole ", "")
         val opt = (ctx.args["option"] as String).toLowerCase().replace("${options.isNotEmpty().toString().toLowerCase()} ", "")
-        val string = ctx.args["int"] as Int
+        val accountAge = ctx.args["accountAge"] as Long
 
         if (opt !in options.map(String::toLowerCase)) {
-            return ctx.send("Option not found! $name, $opt, $string") // TODO translation
+            return ctx.send("Option not found! $name, $opt, $accountAge") // TODO translation
         }
 
         asyncTransaction(Uni.pool) {
             Guilds.update({
                 Guilds.id.eq(ctx.guild!!.idLong)
             }) {
-                val col = columns.first { it.name.toLowerCase() == opt } as Column<Int>
+                val col = columns.first { it.name.toLowerCase() == opt } as Column<Long>
 
-                it[col] = string
+                it[col] = accountAge
             }
         }.execute()
 
-        ctx.send("$opt is now $string!") // TODO translation
+        ctx.send("Role for $opt is now $accountAge!") // TODO translation
     }
 }
 
