@@ -248,7 +248,7 @@ class SetStringOption : Command() {
         Argument("someNumber", "long")
 )
 class SetAccountAgeOption : Command() {
-    override val desc = "Set an option's text."
+    override val desc = "Sets miinimal amount of days for the autokick feature"
     override val guildOnly = true
 
     private val options = listOf(
