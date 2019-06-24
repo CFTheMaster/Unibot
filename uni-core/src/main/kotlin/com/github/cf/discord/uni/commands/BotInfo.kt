@@ -65,7 +65,7 @@ class BotInfo : Command(){
             addField("Total Shards: ", "${ctx.jda.shardInfo.shardTotal}", true)
             addField("Creation Date: ", time, true)
             addField("Total Days Since Creation:", totalDays.toString(), true)
-            addField("Joined This server On: ", ctx.member.joinDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), true)
+            addField("Joined This server On: ", member.joinDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), true)
             addField("Ping: ", "${ctx.jda.ping}ms", true)
             addField("Avatar URL: ", "[Avatar URL](  ${ctx.jda.selfUser.avatarUrl} )", true)
             addField("Uni Invite: ", "[Invite Me](https://discordapp.com/oauth2/authorize?client_id=${ctx.jda.selfUser.id}&scope=bot&permissions=-1)", true)
