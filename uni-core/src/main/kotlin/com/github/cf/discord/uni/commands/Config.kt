@@ -338,6 +338,7 @@ class Config : Command() {
                     "**Autokick:** ${if (ctx.storedGuild.autoKick) "enabled" else "disabled"}\n" +
                     "**Account Age:** ${ctx.storedGuild.accountAge}",
                     true)
+            setColor(ctx.member?.colorRaw ?: 6684876)
         }
 
         ctx.send(embed.build())
