@@ -89,7 +89,7 @@ class Queue : Command(){
             picker.build(ctx.channel)
         } else {
             val embed = EmbedBuilder().apply {
-                setColor(6684876)
+                setColor(ctx.member?.colorRaw ?: 6684876)
                 setTitle("queue")
                 descriptionBuilder.append(formatted)
             }

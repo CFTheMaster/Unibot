@@ -58,7 +58,7 @@ class NowPlaying : ThreadedCommand(){
             val emote = if (manager.player.isPaused) "\u23F8" else "\u25B6"
 
             descriptionBuilder.append("$position/$duration $emote")
-            setColor(6684876)
+            setColor(ctx.member?.colorRaw ?: 6684876)
         }
 
         if(manager.scheduler.queue.isNotEmpty()) {

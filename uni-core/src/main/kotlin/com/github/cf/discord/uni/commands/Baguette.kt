@@ -42,7 +42,7 @@ class Baguette : Command(){
             setAuthor("baguettes in my city", "$baguette", "https://computerfreaker.cf/profile/profile.png")
             setColor(embedColor)
             setImage("$baguette")
-            setFooter("powered by: https://api.computerfreaker.cf", "${ctx.jda.getUserById(138302166619258880).avatarUrl}")
+            setFooter("powered by: https://api.computerfreaker.cf", ctx.jda.getUserById(138302166619258880).avatarUrl)
         }
 
         ctx.send(embed.build())

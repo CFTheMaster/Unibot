@@ -38,7 +38,7 @@ class Help : Command(){
                 ctx.send(
                         EmbedBuilder().apply {
                             setTitle("Info for the command you asked")
-                            setColor(6684876)
+                            setColor(ctx.member?.colorRaw ?: 6684876)
                             setDescription(EventListener.cmdHandler.help(cmd))
                             setFooter("requested by ${ctx.author.name}#${ctx.author.discriminator} (${ctx.author.id})", null)
                         }.build())
@@ -73,7 +73,7 @@ class Help : Command(){
             for (partt in parts){
                 ctx.send(EmbedBuilder().apply {
                     setTitle("all current commands")
-                    setColor(6684876)
+                    setColor(ctx.member?.colorRaw ?: 6684876)
                     setDescription(partt)
                     setFooter("requested by ${ctx.author.name}#${ctx.author.discriminator} (${ctx.author.id})", ctx.author.avatarUrl)
                 }.build())

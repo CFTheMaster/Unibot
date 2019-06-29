@@ -37,7 +37,7 @@ class LewdCatgirl : Command(){
 
         val embed = EmbedBuilder().apply {
             setTitle("image link", catgirl)
-            setColor(6684876)
+            setColor(ctx.member?.colorRaw ?: 6684876)
             setImage(catgirl)
             if(catgirl != null){
                 setFooter("powered by https://api.computerfreaker.cf", null)
