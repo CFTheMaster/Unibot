@@ -336,7 +336,7 @@ class Config : Command() {
             )
             addField("**Auto Kick:**",
                     "**Autokick:** ${if (ctx.storedGuild.autoKick) "enabled" else "disabled"}\n" +
-                    "**Account Age:** ${ctx.storedGuild.accountAge}",
+                    "**Account Age:** ${ctx.storedGuild.accountAge} days",
                     true)
             setColor(ctx.member?.colorRaw ?: 6684876)
         }
