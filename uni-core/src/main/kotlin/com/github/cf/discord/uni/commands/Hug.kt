@@ -43,7 +43,7 @@ class Hug : Command(){
                     if (ctx.args == null || ctx.msg.mentionedMembers.first().toString() == ctx.member!!.asMention)  { "trying to hug yourself " }
                         else {
                         if(mentionedPeople.isEmpty()) return
-                            else mentionedPeople.asSequence().joinToString {it.effectiveName}.plus(", ") + " you got a hug from ${ctx.member!!.user.name}"
+                            else mentionedPeople.asSequence().joinToString { it.user.name }.plus(", ") + " you got a hug from ${ctx.member!!.user.name}"
                     },smolHug)
 
             setImage(smolHug)
