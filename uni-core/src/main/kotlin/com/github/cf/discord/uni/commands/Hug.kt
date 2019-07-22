@@ -40,7 +40,7 @@ class Hug : Command(){
         val mentionedPeople: List<Member> = ctx.msg.mentionedMembers.filterNotNull().toList()
         ctx.send(EmbedBuilder().apply {
             setTitle(
-                    if (ctx.args == null || ctx.msg.mentionedMembers.first().toString() == ctx.member!!.asMention)  { "trying to hug yourself " }
+                    if (ctx.args["user"] == null || ctx.msg.mentionedMembers[0].user.idLong == ctx.author.idLong)  { "trying to hug yourself " }
                         else {
                         if(mentionedPeople.isEmpty()) return
                             else mentionedPeople.asSequence().joinToString { it.user.name }.plus(", ") + " you got a hug from ${ctx.member!!.user.name}"
