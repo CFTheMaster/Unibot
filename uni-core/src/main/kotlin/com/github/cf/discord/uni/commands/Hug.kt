@@ -42,7 +42,7 @@ class Hug : Command(){
             setTitle(
                     if (ctx.args == null || ctx.msg.mentionedMembers.first().toString() == ctx.member!!.asMention)  { "trying to hug yourself " }
                     else
-                        mentionedPeople.asSequence().joinToString { "${it.effectiveName}, "}.removeSurrounding(" ") + " you got a hug from ${ctx.member!!.user.name}" ,smolHug)
+                        mentionedPeople.asSequence().joinToString { "${it.effectiveName}, "}.replace(" ", "")+ " you got a hug from ${ctx.member!!.user.name}" ,smolHug)
             setImage(smolHug)
             setColor(ctx.member?.colorRaw ?: 6684876)
             setFooter("powered by: https://api.computerfreaker.cf", ctx.jda.getUserById(138302166619258880).avatarUrl)
