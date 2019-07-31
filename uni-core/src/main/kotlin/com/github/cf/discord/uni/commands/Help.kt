@@ -18,6 +18,8 @@ package com.github.cf.discord.uni.commands
 import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Load
+import com.github.cf.discord.uni.commands.HelpCommand.Companion.COMMANDS_PER_PAGE
+import com.github.cf.discord.uni.embed.PaginatedEmbed
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.listeners.EventListener
@@ -48,10 +50,10 @@ class Help : Command(){
                     .filter { !it.value.ownerOnly }
                     .toSortedMap()
                     .map {
-                        "\t**`${it.key}`:** " + " \n" + it.value.desc + "\n"
+                        "\t**`${it.key}`** " + ", "
                     }
 
-            val text = "Flags:\n\n\t-h, --help${" ".repeat(10)}Get help on a command!\n\nCommands:\n\n${commands.joinToString("\n")}"
+            val text = "Flags:\n\n\t-h, --help${" ".repeat(10)}Get help on a command!\n\nCommands:\n\n${commands.joinToString("")}"
             val partSize = 40
             val parts = mutableListOf<String>()
             val lines = text.split("\n")
