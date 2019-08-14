@@ -68,7 +68,7 @@ class BotInfo : Command(){
             addField("Joined This server On: ", member.joinDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), true)
             addField("Ping: ", "${ctx.jda.ping}ms", true)
             addField("Avatar URL: ", "[Avatar URL](  ${ctx.jda.selfUser.avatarUrl} )", true)
-            addField("Uni Invite: ", "[Invite Me](https://discordapp.com/oauth2/authorize?client_id=${ctx.jda.selfUser.id}&scope=bot&permissions=-1)", true)
+            addField("Uni Invite: ", "[Invite Me](https://uni.computerfreaker.cf/invite)", true)
             addField("Support Server Invite: ", "[Support Server](https://discord.gg/DDRbw7W)", true)
             addField("CFs API Server", "[API Server](https://discord.gg/gzWwtWG )", true)
             addField("CFs Github: ", "[CFs Github](https://github.com/CFTheMaster)", true)
