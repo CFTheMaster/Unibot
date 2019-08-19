@@ -124,7 +124,7 @@ class EventListener : ListenerAdapter(){
                 }
 
                 if(stored.antiInvite){
-                    val regex = "(https?)?:?(//)?discord(app)?.?(gg|io|me|com)?/(\\w+:?\\w*@)?(\\S+)(:[0-9]+)?(/|/([\\w#!:.?+=&%@!-/]))?".toRegex()
+                    val regex = "(https?)?:?(//)?discord(app)?.?(gg|io|me|com|net)?/(\\w+:?\\w*@)?(\\S+)(:[0-9]+)?(/|/([\\w#!:.?+=&%@!-/]))?".toRegex()
 
                     if(event.member.user.id !in botOwners.authors && !event.member.isOwner && regex.containsMatchIn(event.message.contentRaw) && !event.member.permissions.contains(Permission.KICK_MEMBERS)){
                         event.message.delete().queue ({
