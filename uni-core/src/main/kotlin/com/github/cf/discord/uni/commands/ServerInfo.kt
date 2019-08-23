@@ -44,7 +44,7 @@ class ServerInfo : Command(){
             setColor(embedColor)
             addField("Guild Name: ", ctx.guild!!.name, true)
             addField("Guild ID: ", ctx.guild.id, true)
-            addField("Guild Owner: ", ctx.guild.owner.user.name, true)
+            addField("Guild Owner: ", ctx.guild.owner.user.name + "#" + ctx.guild.owner.user.discriminator, true)
             addField("Guild Region: ", "${ctx.guild.region}", true)
             addField("Guild Creation Date: ", ctx.guild.creationTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), true)
             addField("Days Since Guild Creation:", totalDays.toString(), true)
