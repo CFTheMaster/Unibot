@@ -94,9 +94,9 @@ class UserPrefix : Command(){
     override fun run(ctx: Context){
         val decoded = String(Base64.getDecoder().decode(ctx.storedUser.customPrefix))
 
-        ctx.send("current User (${ctx.author.name+"#"+ctx.author.discriminator+" (${ctx.author.idLong}) "}) prefix ${
+        ctx.send("Your current prefix is ${
         if(ctx.storedUser.customPrefix.isNullOrEmpty()) "none"
-        else decoded }")
+        else decoded } ${ctx.author.asMention}")
     }
 
 }
