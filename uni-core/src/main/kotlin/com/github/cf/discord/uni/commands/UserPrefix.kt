@@ -42,7 +42,7 @@ class AddUserPrefix : Command(){
                 }) {
                     it[customPrefix] = encode
                 }
-                ctx.send("User (${ctx.author.name+"#"+ctx.author.discriminator+" (${ctx.author.idLong}) "}) prefix changed $decoded")
+                ctx.send("Your current prefix is $decoded ${ctx.author.asMention}")
             } catch (e: Throwable) {
                 ctx.sendError(e)
             }
