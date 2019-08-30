@@ -42,7 +42,7 @@ class AddUserPrefix : Command(){
                 }) {
                     it[customPrefix] = encode
                 }
-                ctx.send("Your current prefix is $decoded ${ctx.author.asMention}")
+                ctx.send("Your current prefix is $decoded \n${ctx.author.asMention}")
             } catch (e: Throwable) {
                 ctx.sendError(e)
             }
@@ -73,7 +73,7 @@ class RemUserPrefix : Command(){
 
                     it[customPrefix] = pre
                 }
-                ctx.send("User (${ctx.author.name+"#"+ctx.author.discriminator+" (${ctx.author.idLong}) "}) prefix has been removed $decoded")
+                ctx.send("Your current prefix $decoded has been removed \n${ctx.author.asMention}")
             } catch (e: Throwable) {
                 ctx.sendError(e)
             }
@@ -96,7 +96,7 @@ class UserPrefix : Command(){
 
         ctx.send("Your current prefix is ${
         if(ctx.storedUser.customPrefix.isNullOrEmpty()) "none"
-        else decoded } ${ctx.author.asMention}")
+        else decoded } \n${ctx.author.asMention}")
     }
 
 }
