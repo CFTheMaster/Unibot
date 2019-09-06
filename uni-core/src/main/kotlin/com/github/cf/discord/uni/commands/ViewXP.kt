@@ -17,6 +17,7 @@ package com.github.cf.discord.uni.commands
 
 import com.github.cf.discord.uni.Uni
 import com.github.cf.discord.uni.Uni.Companion.MINIMUM_FOR_LEVEL_1
+import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.database.schema.Users
@@ -34,6 +35,7 @@ import java.time.format.DateTimeFormatter
 
 @Load
 @Argument("user", "user", true)
+@Alias("profile")
 class ViewXP : Command(){
     override val guildOnly = true
     override val desc = "View someone's xp!"
