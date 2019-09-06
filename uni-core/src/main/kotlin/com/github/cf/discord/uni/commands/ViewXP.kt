@@ -49,7 +49,7 @@ class ViewXP : Command(){
                             if (!member.user.isBot) "user has no xp: ${member.user.name+"#"+member.user.discriminator+" (${member.user.idLong})"}" else "bots don't have exp"
                     )
             ctx.send(EmbedBuilder().apply {
-                setAuthor("XP Info for: ${member.user.name}#${member.user.discriminator}", null, member.user.avatarUrl ?: null)
+                setAuthor("Profile Info for: ${member.user.name}#${member.user.discriminator}", null, member.user.avatarUrl ?: null)
                 val xp = contract[Users.expPoints]
                 val level = contract[Users.level]
 
