@@ -24,14 +24,14 @@ import com.github.cf.discord.uni.extensions.log
 import com.github.cf.discord.uni.listeners.EventListener
 import com.github.jasync.sql.db.Connection
 import com.github.jasync.sql.db.mysql.MySQLConnectionBuilder
-import net.dv8tion.jda.core.entities.Guild
+import net.dv8tion.jda.api.entities.Guild
 import org.joda.time.DateTime
-import net.dv8tion.jda.core.entities.Member
-import net.dv8tion.jda.core.entities.User
-import net.dv8tion.jda.core.events.Event
-import net.dv8tion.jda.core.events.message.MessageDeleteEvent
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent
-import net.dv8tion.jda.core.events.message.MessageUpdateEvent
+import net.dv8tion.jda.api.entities.Member
+import net.dv8tion.jda.api.entities.User
+import net.dv8tion.jda.api.events.Event
+import net.dv8tion.jda.api.events.message.MessageDeleteEvent
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent
+import net.dv8tion.jda.api.events.message.MessageUpdateEvent
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
@@ -217,7 +217,7 @@ object DatabaseWrapper {
                 it[expPoints] = 0
                 it[level] = 0
                 it[lastLevelUp] = DateTime.now()
-                it[accountCreationDate] = DateTime(user.creationTime.toInstant())
+                it[accountCreationDate] = DateTime(user.timeCreated.toInstant())
                 it[lastMessage] = 1L
                 it[customPrefix] = ""
                 it[localExp] = 0L
@@ -314,7 +314,7 @@ object DatabaseWrapper {
                 it[expPoints] = 0
                 it[level] = 0
                 it[lastLevelUp] = DateTime.now()
-                it[accountCreationDate] = DateTime.parse(user.creationTime.toInstant().toString())
+                it[accountCreationDate] = DateTime.parse(user.timeCreated.toInstant().toString())
                 it[lastMessage] = 1L
                 it[customPrefix] = ""
                 it[localExp] = 0L
@@ -327,7 +327,7 @@ object DatabaseWrapper {
                     0,
                     0,
                     DateTime.now(),
-                    DateTime.parse(user.creationTime.toInstant().toString()),
+                    DateTime.parse(user.timeCreated.toInstant().toString()),
                     0L,
                     "",
                     0L,

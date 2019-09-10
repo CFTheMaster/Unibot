@@ -24,8 +24,8 @@ import com.github.cf.discord.uni.listeners.EventListener
 import com.github.cf.discord.uni.music.MusicManager
 import com.github.cf.discord.uni.utils.ItemPicker
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
-import net.dv8tion.jda.core.EmbedBuilder
-import net.dv8tion.jda.core.Permission
+import net.dv8tion.jda.api.EmbedBuilder
+import net.dv8tion.jda.api.Permission
 
 @Perm(Permission.MANAGE_SERVER)
 class Clear : Command() {

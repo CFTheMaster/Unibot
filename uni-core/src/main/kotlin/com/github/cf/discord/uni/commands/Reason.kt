@@ -24,7 +24,7 @@ import com.github.cf.discord.uni.database.schema.ModLogs
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.extensions.asyncTransaction
-import net.dv8tion.jda.core.Permission
+import net.dv8tion.jda.api.Permission
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.update
@@ -87,8 +87,8 @@ class Reason : Command() {
 
                 if (log != null) {
                     ctx.guild!!
-                            .getTextChannelById(ctx.storedGuild.modlogChannel ?: return@asyncTransaction)
-                            .getMessageById(log[ModLogs.messageId])
+                            .getTextChannelById(ctx.storedGuild.modlogChannel ?: return@asyncTransaction)!!
+                            .retrieveMessageById(log[ModLogs.messageId])
                             .queue({
                                 it.editMessage(
                                         it.contentRaw.replace(

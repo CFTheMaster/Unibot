@@ -17,16 +17,16 @@ package com.github.cf.discord.uni.embed
 
 import com.github.cf.discord.uni.reactions.ReactionChangeListener
 import mu.KotlinLogging
-import net.dv8tion.jda.core.EmbedBuilder
-import net.dv8tion.jda.core.JDA
-import net.dv8tion.jda.core.entities.Message
-import net.dv8tion.jda.core.entities.TextChannel
-import net.dv8tion.jda.core.entities.User
-import net.dv8tion.jda.core.events.Event
-import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionAddEvent
-import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionRemoveAllEvent
-import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionRemoveEvent
-import net.dv8tion.jda.core.hooks.EventListener
+import net.dv8tion.jda.api.EmbedBuilder
+import net.dv8tion.jda.api.JDA
+import net.dv8tion.jda.api.entities.Message
+import net.dv8tion.jda.api.entities.TextChannel
+import net.dv8tion.jda.api.entities.User
+import net.dv8tion.jda.api.events.Event
+import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent
+import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionRemoveAllEvent
+import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionRemoveEvent
+import net.dv8tion.jda.api.hooks.EventListener
 import reactor.core.Disposable
 import reactor.core.scheduler.Schedulers
 import java.util.concurrent.TimeUnit
@@ -66,7 +66,7 @@ abstract class ReactableEmbed<T>(
     // The message id after the embed is sent
     lateinit var message: Message
 
-    override fun onEvent(event: Event) {
+    fun onEvent(event: Event) {
         when (event) {
             is GuildMessageReactionAddEvent -> if (event.messageIdLong == message.idLong && event.guild.idLong == channel.guild.idLong) this.onReactionAdd(event)
             is GuildMessageReactionRemoveEvent -> if (event.messageIdLong == message.idLong && event.guild.idLong == channel.guild.idLong) this.onReactionRemove(event)

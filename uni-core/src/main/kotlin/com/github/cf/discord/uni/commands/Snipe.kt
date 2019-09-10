@@ -22,7 +22,7 @@ import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.extensions.asyncTransaction
 import com.github.cf.discord.uni.listeners.EventListener
-import net.dv8tion.jda.core.EmbedBuilder
+import net.dv8tion.jda.api.EmbedBuilder
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.select
 

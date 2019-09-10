@@ -15,7 +15,7 @@
  */
 package com.github.cf.discord.uni.annotations
 
-import net.dv8tion.jda.core.Permission
+import net.dv8tion.jda.api.Permission
 
 @Repeatable
 annotation class Perm(val name: Permission, val optional: Boolean = false)

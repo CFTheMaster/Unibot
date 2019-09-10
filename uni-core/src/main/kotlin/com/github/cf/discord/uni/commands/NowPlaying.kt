@@ -22,7 +22,7 @@ import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.entities.ThreadedCommand
 import com.github.cf.discord.uni.music.MusicManager
 import com.github.cf.discord.uni.utils.Http
-import net.dv8tion.jda.core.EmbedBuilder
+import net.dv8tion.jda.api.EmbedBuilder
 import okhttp3.HttpUrl
 import okhttp3.Request
 import org.json.JSONObject

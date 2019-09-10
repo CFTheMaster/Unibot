@@ -19,7 +19,7 @@ import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
-import net.dv8tion.jda.core.EmbedBuilder
+import net.dv8tion.jda.api.EmbedBuilder
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject

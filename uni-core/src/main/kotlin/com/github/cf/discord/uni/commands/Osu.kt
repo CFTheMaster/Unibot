@@ -18,7 +18,7 @@ package com.github.cf.discord.uni.commands
 import com.github.cf.discord.uni.annotations.*
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.entities.ThreadedCommand
-import net.dv8tion.jda.core.EmbedBuilder
+import net.dv8tion.jda.api.EmbedBuilder
 
 @Load
 @Arguments(

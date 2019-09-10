@@ -24,9 +24,9 @@ import com.github.cf.discord.uni.database.schema.Guilds
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.extensions.asyncTransaction
-import net.dv8tion.jda.core.EmbedBuilder
-import net.dv8tion.jda.core.entities.Role
-import net.dv8tion.jda.core.entities.TextChannel
+import net.dv8tion.jda.api.EmbedBuilder
+import net.dv8tion.jda.api.entities.Role
+import net.dv8tion.jda.api.entities.TextChannel
 import org.jetbrains.exposed.sql.Column
 import org.jetbrains.exposed.sql.update
 import java.util.*

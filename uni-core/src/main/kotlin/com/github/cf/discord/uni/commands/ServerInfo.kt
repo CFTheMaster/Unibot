@@ -19,7 +19,7 @@ import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
-import net.dv8tion.jda.core.EmbedBuilder
+import net.dv8tion.jda.api.EmbedBuilder
 import java.awt.Color
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
@@ -36,7 +36,7 @@ class ServerInfo : Command(){
         val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt()
         val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt()
         val embedColor = Color(randomColor, randomColor1, randomColor2)
-        val totalDays = ChronoUnit.DAYS.between(ctx.guild!!.creationTime.toLocalDate(), OffsetDateTime.now().toLocalDate())
+        val totalDays = ChronoUnit.DAYS.between(ctx.guild!!.timeCreated.toLocalDate(), OffsetDateTime.now().toLocalDate())
 
         val embed = EmbedBuilder().apply {
             setAuthor("Guild Info", null, "${if(ctx.guild.iconUrl != null) ctx.guild.iconUrl else null}")
@@ -44,9 +44,9 @@ class ServerInfo : Command(){
             setColor(embedColor)
             addField("Guild Name: ", ctx.guild!!.name, true)
             addField("Guild ID: ", ctx.guild.id, true)
-            addField("Guild Owner: ", ctx.guild.owner.user.name + "#" + ctx.guild.owner.user.discriminator, true)
+            addField("Guild Owner: ", ctx.guild.owner!!.user.name + "#" + ctx.guild.owner!!.user.discriminator, true)
             addField("Guild Region: ", "${ctx.guild.region}", true)
-            addField("Guild Creation Date: ", ctx.guild.creationTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), true)
+            addField("Guild Creation Date: ", ctx.guild.timeCreated.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), true)
             addField("Days Since Guild Creation:", totalDays.toString(), true)
             addField("Guild Members: ", "${ctx.guild.members.size}", true)
             addField("Bots: ","${ctx.guild.members.filter { it.user.isBot }.size}", true)

@@ -26,7 +26,7 @@ abstract class ImageCommand : Command() {
 
     override fun run(ctx: Context) {
         when {
-            ctx.msg.attachments.isNotEmpty() -> imageRun(ctx, ctx.msg.attachments[0].inputStream.readBytes())
+            ctx.msg.attachments.isNotEmpty() -> imageRun(ctx, ctx.msg.attachments[0].retrieveInputStream().get().readBytes())
 
             ctx.args.containsKey("image") -> Http.get(ctx.args["image"] as String).thenAccept { res ->
                 imageRun(ctx, res.body()!!.bytes())

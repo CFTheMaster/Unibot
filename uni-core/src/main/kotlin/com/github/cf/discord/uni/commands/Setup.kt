@@ -28,9 +28,9 @@ import com.github.cf.discord.uni.extensions.asyncTransaction
 import com.github.cf.discord.uni.extensions.searchTextChannels
 import com.github.cf.discord.uni.listeners.EventListener
 import com.github.cf.discord.uni.utils.TextChannelPicker
-import net.dv8tion.jda.core.Permission
-import net.dv8tion.jda.core.entities.TextChannel
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent
+import net.dv8tion.jda.api.Permission
+import net.dv8tion.jda.api.entities.TextChannel
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import org.jetbrains.exposed.sql.update
 import java.util.concurrent.CompletableFuture
 

@@ -19,11 +19,8 @@ import com.github.cf.discord.uni.Uni.Companion.LOGGER
 import com.github.cf.discord.uni.entities.Context
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers
-import net.dv8tion.jda.core.entities.VoiceChannel
+import net.dv8tion.jda.api.entities.VoiceChannel
 import java.util.*
-import java.util.logging.Logger
-import kotlin.reflect.jvm.jvmName
-
 
 object MusicManager {
     val playerManager = DefaultAudioPlayerManager()
@@ -37,7 +34,7 @@ object MusicManager {
 
     fun join(ctx: Context): GuildMusicManager {
         LOGGER.info("New voice connection in guild ${ctx.guild!!.name}!")
-        val manager = GuildMusicManager(playerManager, ctx.event.textChannel, ctx.member!!.voiceState.channel as VoiceChannel)
+        val manager = GuildMusicManager(playerManager, ctx.event.textChannel, ctx.member!!.voiceState!!.channel as VoiceChannel)
         musicManagers[ctx.guild.id] = manager
         ctx.guild.audioManager.openAudioConnection(ctx.member.voiceState?.channel)
         ctx.guild.audioManager.sendingHandler = manager.sendingHandler

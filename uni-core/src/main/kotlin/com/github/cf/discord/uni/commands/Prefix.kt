@@ -23,7 +23,7 @@ import com.github.cf.discord.uni.database.schema.Guilds
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.extensions.asyncTransaction
-import net.dv8tion.jda.core.Permission
+import net.dv8tion.jda.api.Permission
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.update
 import java.util.*

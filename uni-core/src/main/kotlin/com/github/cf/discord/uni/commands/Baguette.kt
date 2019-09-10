@@ -19,7 +19,7 @@ import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.utils.CFApi
-import net.dv8tion.jda.core.EmbedBuilder
+import net.dv8tion.jda.api.EmbedBuilder
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
@@ -42,7 +42,7 @@ class Baguette : Command(){
             setAuthor("baguettes in my city", "$baguette", "https://computerfreaker.cf/profile/profile.png")
             setColor(embedColor)
             setImage("$baguette")
-            setFooter("powered by: https://api.computerfreaker.cf", ctx.jda.getUserById(138302166619258880).avatarUrl)
+            setFooter("powered by: https://api.computerfreaker.cf", ctx.jda.getUserById(138302166619258880)!!.avatarUrl)
         }
 
         ctx.send(embed.build())

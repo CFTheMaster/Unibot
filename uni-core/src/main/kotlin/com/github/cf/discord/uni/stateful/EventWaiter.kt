@@ -15,7 +15,7 @@
  */
 package com.github.cf.discord.uni.stateful
 
-import net.dv8tion.jda.core.events.Event
+import net.dv8tion.jda.api.events.Event
 import java.util.*
 import java.util.concurrent.CompletableFuture
 import kotlin.concurrent.timerTask

@@ -19,11 +19,11 @@ import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Arguments
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.annotations.Perm
-import net.dv8tion.jda.core.Permission
+import net.dv8tion.jda.api.Permission
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
-import net.dv8tion.jda.core.entities.Member
-import net.dv8tion.jda.core.exceptions.PermissionException
+import net.dv8tion.jda.api.entities.Member
+import net.dv8tion.jda.api.exceptions.PermissionException
 
 @Load
 @Perm(Permission.BAN_MEMBERS)
@@ -46,7 +46,7 @@ class Ban : Command() {
             return ctx.send("bot can't be banned")
         }
 
-        ctx.guild!!.controller
+        ctx.guild!!
                 .ban(user, 7)
                 .reason("[ ${ctx.author.name}#${ctx.author.discriminator} ] ${ctx.args.getOrDefault("reason", "none")}")
                 .queue({

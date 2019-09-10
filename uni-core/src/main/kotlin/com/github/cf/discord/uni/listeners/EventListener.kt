@@ -30,28 +30,29 @@ import com.github.cf.discord.uni.extensions.removeStar
 import com.github.cf.discord.uni.stateful.EventWaiter
 import com.github.cf.discord.uni.utils.Http
 import gnu.trove.map.hash.TLongLongHashMap
-import net.dv8tion.jda.core.EmbedBuilder
-import net.dv8tion.jda.core.JDA
-import net.dv8tion.jda.core.Permission
-import net.dv8tion.jda.core.audit.ActionType
-import net.dv8tion.jda.core.entities.Game
-import net.dv8tion.jda.core.events.Event
-import net.dv8tion.jda.core.events.ReadyEvent
-import net.dv8tion.jda.core.events.guild.GuildBanEvent
-import net.dv8tion.jda.core.events.guild.GuildJoinEvent
-import net.dv8tion.jda.core.events.guild.GuildLeaveEvent
-import net.dv8tion.jda.core.events.guild.GuildUnbanEvent
-import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent
-import net.dv8tion.jda.core.events.guild.member.GuildMemberLeaveEvent
-import net.dv8tion.jda.core.events.guild.member.GuildMemberRoleAddEvent
-import net.dv8tion.jda.core.events.guild.member.GuildMemberRoleRemoveEvent
-import net.dv8tion.jda.core.events.guild.voice.GuildVoiceLeaveEvent
-import net.dv8tion.jda.core.events.message.MessageDeleteEvent
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent
-import net.dv8tion.jda.core.events.message.MessageUpdateEvent
-import net.dv8tion.jda.core.events.message.react.MessageReactionAddEvent
-import net.dv8tion.jda.core.events.message.react.MessageReactionRemoveEvent
-import net.dv8tion.jda.core.hooks.ListenerAdapter
+import net.dv8tion.jda.api.EmbedBuilder
+import net.dv8tion.jda.api.JDA
+import net.dv8tion.jda.api.OnlineStatus
+import net.dv8tion.jda.api.Permission
+import net.dv8tion.jda.api.audit.ActionType
+import net.dv8tion.jda.api.entities.Activity
+import net.dv8tion.jda.api.events.Event
+import net.dv8tion.jda.api.events.ReadyEvent
+import net.dv8tion.jda.api.events.guild.GuildBanEvent
+import net.dv8tion.jda.api.events.guild.GuildJoinEvent
+import net.dv8tion.jda.api.events.guild.GuildLeaveEvent
+import net.dv8tion.jda.api.events.guild.GuildUnbanEvent
+import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent
+import net.dv8tion.jda.api.events.guild.member.GuildMemberLeaveEvent
+import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleAddEvent
+import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleRemoveEvent
+import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent
+import net.dv8tion.jda.api.events.message.MessageDeleteEvent
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent
+import net.dv8tion.jda.api.events.message.MessageUpdateEvent
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent
+import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent
+import net.dv8tion.jda.api.hooks.ListenerAdapter
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import org.jetbrains.exposed.sql.*
@@ -64,13 +65,17 @@ import java.time.Period
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.*
+import java.util.Date
 import java.util.Random
 import java.util.concurrent.TimeUnit
 import kotlin.concurrent.fixedRateTimer
+import kotlin.concurrent.scheduleAtFixedRate
 import kotlin.concurrent.timerTask
 
 class EventListener : ListenerAdapter(){
-    override fun onGenericEvent(event: Event) = waiter.emit(event)
+    private val timer = Timer(true)
+
+    fun onGenericEvent(event: Event) = waiter.emit(event)
 
     override fun onReady(event: ReadyEvent) {
         LOGGER.info("Bot is ready for action")
@@ -98,7 +103,7 @@ class EventListener : ListenerAdapter(){
                         val wewAmount = aNumberOrSomething+1
                         WewCounter.update({WewCounter.amount.eq((wewAmount-1))}) {
                             it[amount] = wewAmount
-                            event.jda.getTextChannelById(568414725097127947L).sendMessage("wew count: $wewAmount").queue()
+                            event.jda.getTextChannelById(568414725097127947L)!!.sendMessage("wew count: $wewAmount").queue()
                         }
                     }.execute().exceptionally {
                         LOGGER.error("Error while trying to add wew to the counter", it)
@@ -115,7 +120,7 @@ class EventListener : ListenerAdapter(){
                     return@thenAccept
                 }
 
-                DatabaseWrapper.getUserSafe(event.member).thenAccept {user ->
+                DatabaseWrapper.getUserSafe(event.member!!).thenAccept {user ->
                     try {
                         cmdHandler.handleMessage(event, user, stored)
                     } catch (e: Exception){
@@ -126,7 +131,7 @@ class EventListener : ListenerAdapter(){
                 if(stored.antiInvite){
                     val regex = "(https?)?:?(//)?discord(app)?.?(gg|io|me|com|net)?/(\\w+:?\\w*@)?(\\S+)(:[0-9]+)?(/|/([\\w#!:.?+=&%@!-/]))?".toRegex()
 
-                    if(event.member.user.id !in botOwners.authors && !event.member.isOwner && regex.containsMatchIn(event.message.contentRaw) && !event.member.permissions.contains(Permission.KICK_MEMBERS)){
+                    if(event.member!!.user.id !in botOwners.authors && !event.member!!.isOwner && regex.containsMatchIn(event.message.contentRaw) && !event.member!!.permissions.contains(Permission.KICK_MEMBERS)){
                         event.message.delete().queue ({
                             event.channel.sendMessage("${event.message.author.name} (${event.message.author.id}): please do not post any ads").queue()
                         })
@@ -242,15 +247,15 @@ class EventListener : ListenerAdapter(){
 
         updateStats()
 
-        Uni.shardManager.getGuildById(138303776170835969).getTextChannelById(440833941335703572).sendMessage(EmbedBuilder()
+        Uni.shardManager.getGuildById(138303776170835969)!!.getTextChannelById(440833941335703572)!!.sendMessage(EmbedBuilder()
                 .setAuthor("Joined guild", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
                 .setThumbnail(if (event.guild.iconUrl != null) event.guild.iconUrl else "https://maxcdn.icons8.com/Share/icon/Logos/discord_logo1600.png")
                 .setColor(java.lang.Integer.parseInt("#6600cc".replaceFirst("#", ""), 16))
                 .addField("Joined Guild: ", event.guild.name, true)
                 .addField("Server/Guild ID: ", "${event.guild.idLong}", true)
-                .addField("Server/Guild Owner: ", "${event.guild.owner.user.name}#${event.guild.owner.user.discriminator}", true)
-                .addField("Server/Guild Owner ID: ", "${event.guild.owner.user.idLong}", true)
-                .addField("Creation Date: ", event.guild.creationTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), true)
+                .addField("Server/Guild Owner: ", "${event.guild.owner!!.user.name}#${event.guild.owner!!.user.discriminator}", true)
+                .addField("Server/Guild Owner ID: ", "${event.guild.owner!!.user.idLong}", true)
+                .addField("Creation Date: ", event.guild.timeCreated.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), true)
                 .addField("Guild Members: ", "${event.guild.members.size}", true)
                 .addField("Bots: ", "${event.guild.members.filter { it.user.isBot }.size}", true)
                 .addField("Highest role: ", "${event.guild.roles.get(0).name ?: "none"}\n", true)
@@ -273,15 +278,15 @@ class EventListener : ListenerAdapter(){
 
         updateStats()
 
-        Uni.shardManager.getGuildById(138303776170835969).getTextChannelById(440833941335703572).sendMessage(EmbedBuilder()
+        Uni.shardManager.getGuildById(138303776170835969)!!.getTextChannelById(440833941335703572)!!.sendMessage(EmbedBuilder()
                 .setAuthor("Left guild", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
                 .setThumbnail(if(event.guild.iconUrl != null) event.guild.iconUrl else "https://maxcdn.icons8.com/Share/icon/Logos/discord_logo1600.png")
                 .setColor(java.lang.Integer.parseInt("#6600cc".replaceFirst("#", ""), 16))
                 .addField("Left Guild: ", event.guild.name, true)
                 .addField("Server/Guild ID: ", "${event.guild.idLong}", true)
-                .addField("Server/Guild Owner: ", "${event.guild.owner.user.name}#${event.guild.owner.user.discriminator}", true)
-                .addField("Server/Guild Owner ID: ", "${event.guild.owner.user.idLong}", true)
-                .addField("Creation Date: ", event.guild.creationTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), true)
+                .addField("Server/Guild Owner: ", "${event.guild.owner!!.user.name}#${event.guild.owner!!.user.discriminator}", true)
+                .addField("Server/Guild Owner ID: ", "${event.guild.owner!!.user.idLong}", true)
+                .addField("Creation Date: ", event.guild.timeCreated.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), true)
                 .addField("Guild Members: ", "${event.guild.members.size}", true)
                 .addField("Bots: ","${event.guild.members.filter { it.user.isBot }.size}", true)
                 .addField("Highest role: ", "${event.guild.roles.get(0).name ?: "none"}\n", true)
@@ -308,7 +313,7 @@ class EventListener : ListenerAdapter(){
                     return@thenAccept
                 }
 
-                event.channel.getMessageById(event.messageId).queue { msg ->
+                event.channel.retrieveMessageById(event.messageId).queue { msg ->
                     event.guild.addStar(msg, event.user)
                 }
             }
@@ -322,7 +327,7 @@ class EventListener : ListenerAdapter(){
                     return@thenAccept
                 }
 
-                event.channel.getMessageById(event.messageId).queue { msg ->
+                event.channel.retrieveMessageById(event.messageId).queue { msg ->
                     event.guild.removeStar(msg, event.user)
                 }
             }
@@ -348,7 +353,7 @@ class EventListener : ListenerAdapter(){
                 val r = event.guild.getRoleById(id)
 
                 if (r != null) {
-                    event.guild.controller.addSingleRoleToMember(event.member, r).queue()
+                    event.guild.addRoleToMember(event.member, r).queue()
                 }
             }
         }.execute().thenApply {}.exceptionally {
@@ -357,9 +362,9 @@ class EventListener : ListenerAdapter(){
 
         DatabaseWrapper.getGuildSafe(event.guild).thenAccept { stored ->
             if(stored.autoKick){
-                val totalDays = ChronoUnit.DAYS.between(event.member.user.creationTime.toLocalDate(), OffsetDateTime.now().toLocalDate())
+                val totalDays = ChronoUnit.DAYS.between(event.member.user.timeCreated.toLocalDate(), OffsetDateTime.now().toLocalDate())
                 if(totalDays <= stored.accountAge){
-                    event.guild.controller.kick(event.member)
+                    event.guild.kick(event.member)
                             .reason("[AutoKick] ${event.member.user.name}#${event.member.user.discriminator} (${event.member.user.idLong}) has been kicked because account was made too recent")
                             .queue()
                 }
@@ -384,8 +389,8 @@ class EventListener : ListenerAdapter(){
             val role = event.guild.getRoleById(storedGuild.autoRole ?: 0L) ?: return@thenAccept
 
             if (storedGuild.userRole && storedGuild.autoRole != 0L){
-                event.guild.controller
-                        .addSingleRoleToMember(event.member, role)
+                event.guild
+                        .addRoleToMember(event.member, role)
                         .reason("auto role for guild: ${event.guild.name}")
                         .queue()
             }
@@ -401,7 +406,7 @@ class EventListener : ListenerAdapter(){
 
                 val modlogs = ModLogs.select { ModLogs.guildId.eq(event.guild.idLong) }
                 val modlogChannel = event.guild.getTextChannelById(storedGuild.modlogChannel ?: return@asyncTransaction) ?: return@asyncTransaction
-                val audit = event.guild.auditLogs.type(ActionType.KICK).limit(2).firstOrNull { it.targetId == event.user.id } ?: return@asyncTransaction
+                val audit = event.guild.retrieveAuditLogs().type(ActionType.KICK).limit(2).firstOrNull { it.targetId == event.user.id } ?: return@asyncTransaction
                 val case = modlogs.count() + 1
 
                 modlogChannel.sendMessage("""
@@ -446,7 +451,7 @@ class EventListener : ListenerAdapter(){
 
                 val modlogs = ModLogs.select { ModLogs.guildId.eq(event.guild.idLong) }
                 val modlogChannel = event.guild.getTextChannelById(storedGuild.modlogChannel ?: return@asyncTransaction) ?: return@asyncTransaction
-                val audit = event.guild.auditLogs.type(ActionType.UNBAN).first { it.targetId == event.user.id }
+                val audit = event.guild.retrieveAuditLogs().type(ActionType.UNBAN).first { it.targetId == event.user.id }
                 val case = modlogs.count() + 1
 
                 modlogChannel.sendMessage("""
@@ -481,7 +486,7 @@ class EventListener : ListenerAdapter(){
 
                 val modlogs = ModLogs.select { ModLogs.guildId.eq(event.guild.idLong) }
                 val modlogChannel = event.guild.getTextChannelById(storedGuild.modlogChannel ?: return@asyncTransaction) ?: return@asyncTransaction
-                val audit = event.guild.auditLogs.type(ActionType.BAN).first { it.targetId == event.user.id }
+                val audit = event.guild.retrieveAuditLogs().type(ActionType.BAN).first { it.targetId == event.user.id }
                 val case = modlogs.count() + 1
 
                 modlogChannel.sendMessage("""
@@ -515,7 +520,7 @@ class EventListener : ListenerAdapter(){
 
                 val modlogs = ModLogs.select { ModLogs.guildId.eq(event.guild.idLong) }
                 val modlogChannel = event.guild.getTextChannelById(storedGuild.modlogChannel ?: return@asyncTransaction) ?: return@asyncTransaction
-                val audit = event.guild.auditLogs.type(ActionType.MEMBER_ROLE_UPDATE).firstOrNull { it.targetId == event.user.id } ?: return@asyncTransaction
+                val audit = event.guild.retrieveAuditLogs().type(ActionType.MEMBER_ROLE_UPDATE).firstOrNull { it.targetId == event.user.id } ?: return@asyncTransaction
 
                 Roles.insert {
                     it[userId] = event.user.idLong
@@ -556,7 +561,7 @@ class EventListener : ListenerAdapter(){
 
                 val modlogs = ModLogs.select { ModLogs.guildId.eq(event.guild.idLong) }
                 val modlogChannel = event.guild.getTextChannelById(storedGuild.modlogChannel ?: return@asyncTransaction) ?: return@asyncTransaction
-                val audit = event.guild.auditLogs.type(ActionType.MEMBER_ROLE_UPDATE).firstOrNull { it.targetId == event.user.id } ?: return@asyncTransaction
+                val audit = event.guild.retrieveAuditLogs().type(ActionType.MEMBER_ROLE_UPDATE).firstOrNull { it.targetId == event.user.id } ?: return@asyncTransaction
 
                 Roles.deleteWhere {
                     Roles.guildId.eq(event.guild.idLong) and Roles.userId.eq(event.user.idLong) and Roles.roleId.eq(event.roles.first().idLong)
@@ -588,12 +593,20 @@ class EventListener : ListenerAdapter(){
     }
 
     private fun startPresenceTimer() {
-        fixedRateTimer("change status", false, 0L, TimeUnit.MINUTES.toMillis(10)) {
-            val text = EnvVars.RANDOM_TEXT!!.split("::")
-            val idx = Random().nextInt(text.size)
-            val random = text[idx]
-            val prefix = Uni.prefixes.firstOrNull()
-            Uni.shardManager.setGame(Game.of(Game.GameType.STREAMING, "$random | ${prefix}help", "https://www.twitch.tv/computerfreaker"))
+        fixedRateTimer("change_status_timer",false, 0L, TimeUnit.MINUTES.toMillis(10L)) {
+            updateYourNamePresence()
+        }
+    }
+
+    private fun updateYourNamePresence() {
+        val text = EnvVars.RANDOM_TEXT!!.split("::")
+        val idx = (0 until text.size).random()
+        val random = text[idx]
+        val prefix = Uni.prefixes.firstOrNull()
+        if (Uni.jda != null){
+            Uni.jda!!.presence.setPresence(OnlineStatus.ONLINE, Activity.streaming("$random | ${prefix}help", "https://www.twitch.tv/computerfreaker"))
+        } else {
+            Uni.shardManager.setActivity(Activity.streaming("$random | ${prefix}help", "https://www.twitch.tv/computerfreaker"))
         }
     }
 

@@ -16,9 +16,9 @@
 package com.github.cf.discord.uni.embed
 
 import com.github.cf.discord.uni.Reactions
-import net.dv8tion.jda.core.entities.Message
-import net.dv8tion.jda.core.entities.TextChannel
-import net.dv8tion.jda.core.entities.User
+import net.dv8tion.jda.api.entities.Message
+import net.dv8tion.jda.api.entities.TextChannel
+import net.dv8tion.jda.api.entities.User
 
 /**
  * Creates an embed message with up to 9 choices, which relies on reaction listeners for stateful interactions.

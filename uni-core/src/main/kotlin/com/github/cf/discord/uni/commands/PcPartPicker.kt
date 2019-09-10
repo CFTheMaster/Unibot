@@ -27,8 +27,8 @@ import com.github.cf.discord.uni.http.HttpQuery
 import com.github.cf.discord.uni.query.pcpp.PcppBuildType
 import com.github.cf.discord.uni.query.pcpp.PcppPartsList
 import com.github.kvnxiao.discord.meirei.utility.SplitString.Companion.splitString
-import net.dv8tion.jda.core.EmbedBuilder
-import net.dv8tion.jda.core.entities.Message
+import net.dv8tion.jda.api.EmbedBuilder
+import net.dv8tion.jda.api.entities.Message
 import okhttp3.Request
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document

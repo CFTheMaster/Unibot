@@ -19,8 +19,8 @@ import com.github.cf.discord.uni.Uni
 import com.github.cf.discord.uni.database.DatabaseWrapper
 import com.github.cf.discord.uni.database.schema.Starboard
 import com.github.cf.discord.uni.database.schema.Starboard.stargazers
-import net.dv8tion.jda.core.EmbedBuilder
-import net.dv8tion.jda.core.entities.*
+import net.dv8tion.jda.api.EmbedBuilder
+import net.dv8tion.jda.api.entities.*
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
@@ -85,7 +85,7 @@ fun Guild.addStar(msg: Message, user: User) {
                 }
 
                 channel
-                        .getMessageById(star[Starboard.starId])
+                        .retrieveMessageById(star[Starboard.starId])
                         .queue({
                             it
                                     .editMessage(embed.build())
@@ -158,7 +158,7 @@ fun Guild.removeStar(msg: Message, user: User) {
 
                 if (gazers == 0) {
                     channel
-                            .getMessageById(star[Starboard.starId])
+                            .retrieveMessageById(star[Starboard.starId])
                             .queue({
                                 it.delete().queue()
                             })
@@ -168,7 +168,7 @@ fun Guild.removeStar(msg: Message, user: User) {
                     }
                 } else {
                     channel
-                            .getMessageById(star[Starboard.starId])
+                            .retrieveMessageById(star[Starboard.starId])
                             .queue({
                                 it
                                         .editMessage(embed.build())

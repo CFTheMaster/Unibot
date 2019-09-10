@@ -30,11 +30,11 @@ import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
-import net.dv8tion.jda.core.audio.hooks.ConnectionListener
-import net.dv8tion.jda.core.audio.hooks.ConnectionStatus
-import net.dv8tion.jda.core.entities.Guild
-import net.dv8tion.jda.core.entities.Member
-import net.dv8tion.jda.core.entities.User
+import net.dv8tion.jda.api.audio.hooks.ConnectionListener
+import net.dv8tion.jda.api.audio.hooks.ConnectionStatus
+import net.dv8tion.jda.api.entities.Guild
+import net.dv8tion.jda.api.entities.Member
+import net.dv8tion.jda.api.entities.User
 import okhttp3.HttpUrl
 import org.json.JSONObject
 import java.awt.Color
@@ -46,7 +46,7 @@ class Play : Command(){
     override val guildOnly = true
 
     override fun run(ctx: Context) {
-        if (!ctx.member!!.voiceState.inVoiceChannel()) {
+        if (!ctx.member!!.voiceState!!.inVoiceChannel()) {
             return ctx.send("failed to join the voice channel")
         }
 

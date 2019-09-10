@@ -34,7 +34,7 @@ object Logs : Table() {
     val authorId = long("authorId")
     val authorName = varchar("authorName", 33)
     val authorDiscrim = varchar("authorDiscrim", 4)
-    val authorAvatar = text("authorAvatar")
+    val authorAvatar = text("authorAvatar").nullable()
     val authorNick = varchar("authorNick", 33)
 
     // Guild

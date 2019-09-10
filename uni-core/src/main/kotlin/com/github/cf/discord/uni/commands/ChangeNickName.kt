@@ -27,6 +27,6 @@ class ChangeNickName : Command(){
     override val desc = "Change the nickname of the bot"
 
     override fun run(ctx: Context) {
-        ctx.guild!!.controller.setNickname(ctx.selfMember, ctx.args["nickname"] as String)
+        ctx.guild!!.modifyNickname(ctx.selfMember!!, ctx.args["nickname"] as String)
     }
 }

@@ -26,9 +26,9 @@ class Ping : Command(){
     override val guildOnly = false
 
     override fun run(ctx: Context) {
-        val receivedTime = ctx.msg.creationTime.toInstant()
+        val receivedTime = ctx.msg.timeCreated.toInstant()
         ctx.channel.sendMessage("Pong!").queue {
-            val sentTime = it.creationTime.toInstant().plusMillis(ctx.jda.ping)
+            val sentTime = it.timeCreated.toInstant().plusMillis(ctx.jda.gatewayPing)
             it.editMessage("${it.contentRaw} ${Duration.between(receivedTime, sentTime).toMillis()}ms").queue()
         }
     }

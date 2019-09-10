@@ -21,8 +21,8 @@ import com.github.cf.discord.uni.core.EnvVars
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.listeners.EventListener
-import net.dv8tion.jda.core.EmbedBuilder
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent
+import net.dv8tion.jda.api.EmbedBuilder
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject

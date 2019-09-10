@@ -21,8 +21,8 @@ import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.extensions.findMembers
 import com.github.cf.discord.uni.utils.CFApi
-import net.dv8tion.jda.core.EmbedBuilder
-import net.dv8tion.jda.core.entities.Member
+import net.dv8tion.jda.api.EmbedBuilder
+import net.dv8tion.jda.api.entities.Member
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.jetbrains.kotlin.utils.mapToIndex
@@ -48,7 +48,7 @@ class Hug : Command(){
 
             setImage(smolHug)
             setColor(ctx.member?.colorRaw ?: 6684876)
-            setFooter("powered by: https://api.computerfreaker.cf", ctx.jda.getUserById(138302166619258880).avatarUrl)
+            setFooter("powered by: https://api.computerfreaker.cf", ctx.jda.getUserById(138302166619258880)!!.avatarUrl)
         }.build())
     }
 }

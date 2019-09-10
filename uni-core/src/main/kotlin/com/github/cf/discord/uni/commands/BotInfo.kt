@@ -22,9 +22,9 @@ import com.github.cf.discord.uni.commands.HelpCommand.Companion.WEBSITE_URL
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.sedmelluq.discord.lavaplayer.tools.PlayerLibrary
-import net.dv8tion.jda.core.EmbedBuilder
-import net.dv8tion.jda.core.JDAInfo
-import net.dv8tion.jda.core.entities.Member
+import net.dv8tion.jda.api.EmbedBuilder
+import net.dv8tion.jda.api.JDAInfo
+import net.dv8tion.jda.api.entities.Member
 import java.time.Duration
 import java.time.Instant
 import java.time.OffsetDateTime
@@ -44,14 +44,14 @@ class BotInfo : Command(){
         val ramUsedMB = ramUsedRaw / 1048576
         val member : Member? = ctx.guild!!.getMember(ctx.jda.selfUser)
 
-        val totalDays = ChronoUnit.DAYS.between(member!!.user.creationTime.toLocalDate(), OffsetDateTime.now().toLocalDate())
+        val totalDays = ChronoUnit.DAYS.between(member!!.user.timeCreated.toLocalDate(), OffsetDateTime.now().toLocalDate())
 
-        val time =  OffsetDateTime.parse(ctx.jda.selfUser.creationTime.toString()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+        val time =  OffsetDateTime.parse(ctx.jda.selfUser.timeCreated.toString()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
         val embed = EmbedBuilder().apply{
             setAuthor("Uni v${HelpCommand.VERSION_NUMBER}", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
             setColor(ctx.member!!.color)
-            addField("Bot Devs: ", "${ctx.jda.getUserById(138302166619258880).name}#${ctx.jda.getUserById(138302166619258880).discriminator}\n<@!138302166619258880>", true)
+            addField("Bot Devs: ", "${ctx.jda.getUserById(138302166619258880)!!.name}#${ctx.jda.getUserById(138302166619258880)!!.discriminator}\n<@!138302166619258880>", true)
             addField("Bot Name: ", ctx.jda.selfUser.name, true)
             addField("Bot Id: ", ctx.jda.selfUser.id, true)
             addField("JDA Version: ", JDAInfo.VERSION, true)
@@ -65,8 +65,8 @@ class BotInfo : Command(){
             addField("Total Shards: ", "${ctx.jda.shardInfo.shardTotal}", true)
             addField("Creation Date: ", time, true)
             addField("Total Days Since Creation:", totalDays.toString(), true)
-            addField("Joined This server On: ", member.joinDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), true)
-            addField("Ping: ", "${ctx.jda.ping}ms", true)
+            addField("Joined This server On: ", member.timeJoined.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), true)
+            addField("Ping: ", "${ctx.jda.gatewayPing}ms", true)
             addField("Avatar URL: ", "[Avatar URL](  ${ctx.jda.selfUser.avatarUrl} )", true)
             addField("Uni Invite: ", "[Invite Me](https://uni.computerfreaker.cf/invite)", true)
             addField("Support Server Invite: ", "[Support Server](https://discord.gg/DDRbw7W)", true)

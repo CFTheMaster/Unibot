@@ -19,8 +19,8 @@ import com.github.cf.discord.uni.annotations.*
 import com.github.cf.discord.uni.entities.AsyncCommand
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.extensions.await
-import net.dv8tion.jda.core.Permission
-import net.dv8tion.jda.core.exceptions.PermissionException
+import net.dv8tion.jda.api.Permission
+import net.dv8tion.jda.api.exceptions.PermissionException
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.concurrent.timerTask

@@ -18,9 +18,9 @@ package com.github.cf.discord.uni.entities
 import com.github.cf.discord.uni.Handler.ArgParser
 import com.github.cf.discord.uni.database.DBGuild
 import com.github.cf.discord.uni.database.DBUser
-import net.dv8tion.jda.core.JDA
-import net.dv8tion.jda.core.entities.*
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent
+import net.dv8tion.jda.api.JDA
+import net.dv8tion.jda.api.entities.*
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import java.io.InputStream
 import java.util.*
 import java.util.concurrent.CompletableFuture
@@ -60,7 +60,7 @@ class Context(
             if (history.isEmpty()) {
                 fut.complete(null)
             } else {
-                fut.complete(history[0].attachments[0].inputStream)
+                fut.complete(history[0].attachments[0].retrieveInputStream().get())
             }
         }) {
             fut.complete(null)

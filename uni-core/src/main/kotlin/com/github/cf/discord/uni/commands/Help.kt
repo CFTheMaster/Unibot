@@ -23,7 +23,7 @@ import com.github.cf.discord.uni.embed.PaginatedEmbed
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.listeners.EventListener
-import net.dv8tion.jda.core.EmbedBuilder
+import net.dv8tion.jda.api.EmbedBuilder
 
 @Load
 @Alias("--help", "-h")

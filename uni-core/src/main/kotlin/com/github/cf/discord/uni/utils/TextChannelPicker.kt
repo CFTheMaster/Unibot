@@ -16,10 +16,10 @@
 package com.github.cf.discord.uni.utils
 
 import com.github.cf.discord.uni.stateful.EventWaiter
-import net.dv8tion.jda.core.Permission
-import net.dv8tion.jda.core.entities.*
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent
-import net.dv8tion.jda.core.events.message.react.MessageReactionAddEvent
+import net.dv8tion.jda.api.Permission
+import net.dv8tion.jda.api.entities.*
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent
 import java.util.concurrent.CompletableFuture
 import kotlin.math.min
 

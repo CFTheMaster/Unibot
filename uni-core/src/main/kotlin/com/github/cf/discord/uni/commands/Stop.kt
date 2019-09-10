@@ -20,7 +20,7 @@ import com.github.cf.discord.uni.annotations.Perm
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.music.MusicManager
-import net.dv8tion.jda.core.Permission
+import net.dv8tion.jda.api.Permission
 
 @Load
 @Perm(Permission.MANAGE_SERVER)

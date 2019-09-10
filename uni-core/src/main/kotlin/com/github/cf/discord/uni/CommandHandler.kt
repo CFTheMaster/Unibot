@@ -33,11 +33,11 @@ import com.github.cf.discord.uni.utils.TextChannelPicker
 import com.github.cf.discord.uni.utils.UserPicker
 import com.github.jasync.sql.db.util.length
 import gnu.trove.map.hash.TLongObjectHashMap
-import net.dv8tion.jda.core.EmbedBuilder
-import net.dv8tion.jda.core.Permission
-import net.dv8tion.jda.core.entities.Channel
-import net.dv8tion.jda.core.entities.Message
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent
+import net.dv8tion.jda.api.EmbedBuilder
+import net.dv8tion.jda.api.Permission
+import net.dv8tion.jda.api.entities.TextChannel
+import net.dv8tion.jda.api.entities.Message
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import java.time.OffsetDateTime
 import java.time.temporal.ChronoUnit
 import kotlin.reflect.jvm.jvmName
@@ -139,11 +139,11 @@ class CommandHandler{
         if(event.author.id !in botOwners.authors){
             val lastMsg = cooldown[event.author.idLong]
 
-            if (lastMsg != null && lastMsg.until(event.message.creationTime, ChronoUnit.SECONDS) < command.cooldown){
+            if (lastMsg != null && lastMsg.until(event.message.timeCreated, ChronoUnit.SECONDS) < command.cooldown){
                 return
             }
 
-            cooldown.put(event.author.idLong, event.message.creationTime)
+            cooldown.put(event.author.idLong, event.message.timeCreated)
         }
 
         if(args.isNotEmpty() && commands[cmd]?.subcommands?.get(args[0]) is Command){
@@ -179,12 +179,12 @@ class CommandHandler{
                         logger.error("Error while handling command $cmd, executed by user $name (${event.author.id} in $where", e)
                     }
                 }.thenApply {  }.exceptionally {
-                    event.channel.sendMessage(it.message).queue({}) { err ->
+                    event.channel.sendMessage(it.message!!).queue({}) { err ->
                         logger.error("Error while trying to send error", err)
                     }
                 }
             } catch (err: Exception) {
-                return event.channel.sendMessage(err.message).queue()
+                return event.channel.sendMessage(err.message!!).queue()
             }
         } else {
             val raw = args
@@ -216,7 +216,7 @@ class CommandHandler{
                     }
                 }
             } catch (err: Exception) {
-                return event.channel.sendMessage(err.message).queue()
+                return event.channel.sendMessage(err.message!!).queue()
             }
         }
     }
@@ -230,11 +230,11 @@ class CommandHandler{
         val newPerms = mutableMapOf<String, Boolean>()
 
         for (perm in perms) {
-            newPerms[perm.name.name] = event.member?.hasPermission(event.channel as Channel, perm.name)
+            newPerms[perm.name.name] = event.member?.hasPermission(event.channel as TextChannel, perm.name)
                     ?: event.member?.hasPermission(Permission.ADMINISTRATOR) ?: false
             if (!perm.optional && !newPerms[perm.name.name]!!
                     && !event.member?.hasPermission(Permission.ADMINISTRATOR)!!
-                    && event.member.user.id !in botOwners.authors)
+                    && event.member!!.user.id !in botOwners.authors)
                 throw Exception("does not have proper permissions for this command")
         }
 
@@ -290,7 +290,7 @@ class CommandHandler{
                         if (channels.size > 1) {
                             val picker = TextChannelPicker(
                                     waiter,
-                                    event.member,
+                                    event.member!!,
                                     channels,
                                     event.guild
                             )
@@ -316,7 +316,7 @@ class CommandHandler{
                             throw Exception("user not found")
 
                         if (users.size > 1) {
-                            val picker = UserPicker(waiter, event.member, users, event.guild)
+                            val picker = UserPicker(waiter, event.member!!, users, event.guild)
 
                             picker.build(event.message).thenAccept {
                                 newArgs[arg.name] = it
@@ -339,7 +339,7 @@ class CommandHandler{
                             throw Exception("role not found")
 
                         if (roles.size > 1) {
-                            val picker = RolePicker(waiter, event.member, roles, event.guild)
+                            val picker = RolePicker(waiter, event.member!!, roles, event.guild)
 
                             picker.build(event.message).thenAccept {
                                 newArgs[arg.name] = it

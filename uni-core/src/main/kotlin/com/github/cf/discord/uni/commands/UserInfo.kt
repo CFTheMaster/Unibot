@@ -20,9 +20,9 @@ import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
-import net.dv8tion.jda.core.EmbedBuilder
-import net.dv8tion.jda.core.entities.Game
-import net.dv8tion.jda.core.entities.Member
+import net.dv8tion.jda.api.EmbedBuilder
+import net.dv8tion.jda.api.entities.Activity
+import net.dv8tion.jda.api.entities.Member
 import org.joda.time.DateTime
 import java.time.*
 import java.time.format.DateTimeFormatter
@@ -39,7 +39,7 @@ class UserInfo : Command(){
     override fun run(ctx: Context) {
         val member = ctx.args["user"] as? Member ?: ctx.member!!
         val embed = EmbedBuilder().apply {
-            val statusEmote = if (member.game != null && member.game.type == Game.GameType.STREAMING) {
+            val statusEmote = if (member.activities.isNotEmpty() && member.onlineStatus.key == "streaming") {
                 "<:StreamingDOT:565631757509066752> "
             } else {
                 when (member.onlineStatus.name) {
@@ -55,17 +55,17 @@ class UserInfo : Command(){
 
             setThumbnail(member.user.avatarUrl)
 
-            val totalDays = ChronoUnit.DAYS.between(member.user.creationTime.toLocalDate(), OffsetDateTime.now().toLocalDate())
+            val totalDays = ChronoUnit.DAYS.between(member.user.timeCreated.toLocalDate(), OffsetDateTime.now().toLocalDate())
 
             // TODO add translations for these
             descriptionBuilder.append("**ID:** ${member.user.id}\n")
             descriptionBuilder.append("**Highest role:** ${member.roles.sortedBy { it.position }.last()?.name ?: "none"}\n")
-            descriptionBuilder.append("**Playing:** ${member.game?.name ?: "nothing"}\n")
+            descriptionBuilder.append("**Playing:** ${member.activities.firstOrNull()?.name ?: "nothing"}\n")
             descriptionBuilder.append("**Joined Discord:** ${
-            member.user.creationTime.format(DateTimeFormatter.RFC_1123_DATE_TIME)
+            member.user.timeCreated.format(DateTimeFormatter.RFC_1123_DATE_TIME)
             }\n")
             descriptionBuilder.append("**${ctx.guild!!.name}: ** ${
-            member.joinDate.format(DateTimeFormatter.RFC_1123_DATE_TIME)
+            member.timeJoined.format(DateTimeFormatter.RFC_1123_DATE_TIME)
             }\n")
             setFooter(
                     "Total amount of days since creation: $totalDays",

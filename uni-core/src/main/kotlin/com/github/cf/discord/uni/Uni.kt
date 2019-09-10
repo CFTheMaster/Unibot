@@ -21,9 +21,9 @@ import com.github.cf.discord.uni.extensions.asyncTransaction
 import com.github.cf.discord.uni.listeners.*
 import com.github.cf.discord.uni.stateful.CoroutineDispatcher
 import mu.KotlinLogging
-import net.dv8tion.jda.bot.sharding.DefaultShardManagerBuilder
-import net.dv8tion.jda.bot.sharding.ShardManager
-import net.dv8tion.jda.core.*
+import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder
+import net.dv8tion.jda.api.sharding.ShardManager
+import net.dv8tion.jda.api.*
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import java.util.concurrent.ExecutorService
@@ -78,18 +78,17 @@ class Uni(token: String) {
         jda = JDABuilder(AccountType.BOT).apply {
             setToken(EnvVars.BOT_TOKEN)
             setAutoReconnect(true)
-            addEventListener(EventListener())
-        }.buildAsync()
+            addEventListeners(EventListener())
+        }.build()
 
         Uni.jda = jda
     }
 
     fun build(firstShard: Int, lastShard: Int, total: Int){
         shardManager = DefaultShardManagerBuilder().apply {
-            setToken(EnvVars.BOT_TOKEN)
+            setToken(EnvVars.BOT_TOKEN!!)
             addEventListeners(EventListener())
             setAutoReconnect(true)
-            setAudioEnabled(true)
             setShardsTotal(total)
             setShards(firstShard, lastShard)
             setBulkDeleteSplittingEnabled(false)

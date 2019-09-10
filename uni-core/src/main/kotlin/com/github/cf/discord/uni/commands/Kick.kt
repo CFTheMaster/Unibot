@@ -21,9 +21,9 @@ import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.annotations.Perm
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
-import net.dv8tion.jda.core.Permission
-import net.dv8tion.jda.core.entities.Member
-import net.dv8tion.jda.core.exceptions.PermissionException
+import net.dv8tion.jda.api.Permission
+import net.dv8tion.jda.api.entities.Member
+import net.dv8tion.jda.api.exceptions.PermissionException
 
 @Load
 @Perm(Permission.KICK_MEMBERS)
@@ -46,7 +46,7 @@ class Kick : Command(){
             return ctx.send("bot can't be banned")
         }
 
-        ctx.guild!!.controller
+        ctx.guild!!
                 .kick(user)
                 .reason("[ ${ctx.author.name}#${ctx.author.discriminator} ] ${ctx.args.getOrDefault("reason", "none")}")
                 .queue({

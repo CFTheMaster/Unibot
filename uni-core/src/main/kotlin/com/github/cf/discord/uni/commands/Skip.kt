@@ -20,7 +20,7 @@ import com.github.cf.discord.uni.annotations.Perm
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.music.MusicManager
-import net.dv8tion.jda.core.Permission
+import net.dv8tion.jda.api.Permission
 
 @Load
 @Perm(Permission.MANAGE_SERVER, true)
@@ -29,7 +29,7 @@ class Skip : Command() {
     override val guildOnly = true
 
     override fun run(ctx: Context) {
-        if (!ctx.member!!.voiceState.inVoiceChannel()) {
+        if (!ctx.member!!.voiceState!!.inVoiceChannel()) {
             return ctx.send("you aren't in the voice channel")
         }
 

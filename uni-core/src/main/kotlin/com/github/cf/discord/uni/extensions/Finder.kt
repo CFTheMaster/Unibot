@@ -16,15 +16,15 @@
 package com.github.cf.discord.uni.extensions
 
 import com.jagrosh.jdautilities.commons.utils.FinderUtil
-import net.dv8tion.jda.core.JDA
-import net.dv8tion.jda.core.entities.User
-import net.dv8tion.jda.core.entities.TextChannel
-import net.dv8tion.jda.core.entities.VoiceChannel
-import net.dv8tion.jda.core.entities.Category
-import net.dv8tion.jda.core.entities.Emote
-import net.dv8tion.jda.core.entities.Member
-import net.dv8tion.jda.core.entities.Role
-import net.dv8tion.jda.core.entities.Guild
+import net.dv8tion.jda.api.JDA
+import net.dv8tion.jda.api.entities.User
+import net.dv8tion.jda.api.entities.TextChannel
+import net.dv8tion.jda.api.entities.VoiceChannel
+import net.dv8tion.jda.api.entities.Category
+import net.dv8tion.jda.api.entities.Emote
+import net.dv8tion.jda.api.entities.Member
+import net.dv8tion.jda.api.entities.Role
+import net.dv8tion.jda.api.entities.Guild
 
 inline fun <reified J: JDA> J.findUsers(query: String): List<User> = FinderUtil.findUsers(query, this)
 inline fun <reified J: JDA> J.findTextChannels(query: String): List<TextChannel> = FinderUtil.findTextChannels(query, this)

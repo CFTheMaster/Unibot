@@ -25,9 +25,9 @@ import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.extensions.asyncTransaction
 import com.github.cf.discord.uni.listeners.EventListener
-import net.dv8tion.jda.core.EmbedBuilder
-import net.dv8tion.jda.core.entities.Member
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent
+import net.dv8tion.jda.api.EmbedBuilder
+import net.dv8tion.jda.api.entities.Member
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import org.jetbrains.exposed.sql.select
 import java.text.SimpleDateFormat
 import java.time.LocalDate

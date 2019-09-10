@@ -23,8 +23,8 @@ import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.core.EnvVars
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
-import net.dv8tion.jda.core.OnlineStatus
-import net.dv8tion.jda.core.entities.Game
+import net.dv8tion.jda.api.OnlineStatus
+import net.dv8tion.jda.api.entities.Activity
 
 @Load
 @Alias("presence")
@@ -34,7 +34,7 @@ class Status : Command(){
     override val desc = "change the status of the bot"
 
     override fun run(ctx: Context) {
-        Uni.shardManager.setGame(Game.of(Game.GameType.STREAMING, "${ctx.args["status"] as String} | ${prefix}help", "https://www.twitch.tv/computerfreaker"))
+        Uni.shardManager.setActivity(Activity.streaming("${ctx.args["status"] as String} | ${prefix.firstOrNull()}help", "https://www.twitch.tv/computerfreaker"))
         ctx.send("Status has been changed to: " + ctx.args["status"] as String)
     }
 }
