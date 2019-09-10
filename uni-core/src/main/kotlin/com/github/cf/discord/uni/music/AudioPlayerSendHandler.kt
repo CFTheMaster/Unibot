@@ -39,7 +39,7 @@ class AudioPlayerSendHandler(private val audioPlayer: AudioPlayer) : AudioSendHa
 
     override fun provide20MsAudio(): ByteBuffer? {
         // flip to make it a read buffer
-        return buffer.asReadOnlyBuffer()
+        return buffer.flip() as ByteBuffer?
     }
 
     override fun isOpus(): Boolean {
