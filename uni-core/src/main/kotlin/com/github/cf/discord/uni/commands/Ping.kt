@@ -26,6 +26,6 @@ class Ping : Command(){
     override val guildOnly = false
 
     override fun run(ctx: Context) {
-        ctx.send("Gateway ping took: ${ctx.jda.gatewayPing}ms\n RestAPI ping took: ${ctx.jda.restPing}ms")
+        ctx.send("Gateway ping took: ${ctx.jda.gatewayPing}ms")
     }
 }
