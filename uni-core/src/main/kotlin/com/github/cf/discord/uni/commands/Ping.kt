@@ -27,9 +27,6 @@ class Ping : Command(){
 
     override fun run(ctx: Context) {
         val receivedTime = ctx.msg.timeCreated.toInstant()
-        ctx.channel.sendMessage("Pong!").queue {
-            val sentTime = it.timeCreated.toInstant().plusMillis(ctx.jda.gatewayPing)
-            it.editMessage("${it.contentRaw} ${Duration.between(receivedTime, sentTime).toMillis()}ms").queue()
-        }
+        ctx.channel.sendMessage("Gateway ping took: ${ctx.jda.gatewayPing}ms\n RestAPI ping took: ${ctx.jda.restPing}ms")
     }
 }
