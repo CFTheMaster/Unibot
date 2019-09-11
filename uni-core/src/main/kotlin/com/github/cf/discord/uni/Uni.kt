@@ -20,6 +20,8 @@ import com.github.cf.discord.uni.database.schema.*
 import com.github.cf.discord.uni.extensions.asyncTransaction
 import com.github.cf.discord.uni.listeners.*
 import com.github.cf.discord.uni.stateful.CoroutineDispatcher
+import com.github.natanbc.weeb4j.TokenType
+import com.github.natanbc.weeb4j.Weeb4J
 import mu.KotlinLogging
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder
 import net.dv8tion.jda.api.sharding.ShardManager
@@ -68,6 +70,7 @@ class Uni(token: String) {
         var jda: JDA? = null
 
         lateinit var shardManager: ShardManager
+        lateinit var wolkeApi: Weeb4J
         val prefix: List<String> = EnvVars.PREFIX!!.split("::")
         val prefixes = prefix.toList()
 
@@ -106,6 +109,13 @@ class Uni(token: String) {
 
             }
             build(0, (EnvVars.TOTAL_SHARDS!!.toInt() - 1), EnvVars.TOTAL_SHARDS.toInt())
+
+            if(EnvVars.WEEB_SH_TOKEN != null){
+                LOGGER.info { "Wolke API Key present, enabling Weeb4J" }
+                wolkeApi = Weeb4J.Builder()
+                        .setToken(TokenType.BEARER, EnvVars.WEEB_SH_TOKEN)
+                        .build()
+            }
             true
         } catch (e: Exception) {
             LOGGER.error(e) { "An error has occurred in starting the bot!" }
