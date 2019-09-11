@@ -1,7 +1,7 @@
 buildscript {
     ext.jda_version = '4.0.0_39'
     ext.jda_utilities_version = '3.0.2'
-    ext.lavaplayer_version = '1.3.21'
+    ext.lavaplayer_version = '1.3.22'
     ext.meirei_version = '0.8.6'
     ext.jackson_version = '2.9.4'
     ext.jsoup_version = '1.11.2'
@@ -44,6 +44,7 @@ dependencies {
     compile group: 'commons-validator', name: 'commons-validator', version: '1.6'
     compile group: 'postgresql', name: 'postgresql', version: '9.1-901-1.jdbc4'
     compile group: 'org.json', name: 'json', version: '20190722'
+    compile 'com.github.natanbc:weeb4j:3.5'
 }
 
 jar {
