@@ -74,7 +74,7 @@ fun Guild.addStar(msg: Message, user: User) {
                 }
 
                 embed.apply {
-                    setAuthor(msg.author.name + ": click me to go to the message.", msg.jumpUrl, msg.author.avatarUrl)
+                    setAuthor(msg.author.name, null, msg.author.avatarUrl)
                     setColor(getStarColor(star[Starboard.stargazers].size + 1))
 
                     if (msg.attachments.isNotEmpty()) {
@@ -89,7 +89,7 @@ fun Guild.addStar(msg: Message, user: User) {
                         .queue({
                             it
                                     .editMessage(embed.build())
-                                    .content("\u2b50 **${star[Starboard.stargazers].size + 1}** <#${msg.channel.id}> ID: ${msg.id}")
+                                    .content("\u2b50 **${star[Starboard.stargazers].size + 1}** <#${msg.channel.id}> ID: ${msg.id}\nUrl: ${msg.jumpUrl}")
                                     .queue()
                         })
 
@@ -101,7 +101,7 @@ fun Guild.addStar(msg: Message, user: User) {
                 }
             } else {
                 embed.apply {
-                    setAuthor(msg.author.name + ": click me to go to the message.", msg.jumpUrl, msg.author.avatarUrl)
+                    setAuthor(msg.author.name, null, msg.author.avatarUrl)
                     setColor(getStarColor(1))
 
                     if (msg.attachments.isNotEmpty()) {
@@ -113,7 +113,7 @@ fun Guild.addStar(msg: Message, user: User) {
 
                 channel
                         .sendMessage(embed.build())
-                        .content("\u2b50 <#${msg.channel.id}> ID: ${msg.id}")
+                        .content("\u2b50 <#${msg.channel.id}> ID: ${msg.id}\nUrl: ${msg.jumpUrl}")
                         .queue { starMsg ->
                             asyncTransaction(Uni.pool) {
                                 Starboard.insert {
@@ -151,7 +151,7 @@ fun Guild.removeStar(msg: Message, user: User) {
                 val gazers = star[Starboard.stargazers].size - 1
 
                 val embed = EmbedBuilder().apply {
-                    setAuthor(msg.author.name + ": click me to go to the message.", msg.jumpUrl, msg.author.avatarUrl)
+                    setAuthor(msg.author.name, null, msg.author.avatarUrl)
                     setColor(getStarColor(gazers))
                     setDescription(descriptionBuilder.append(msg.contentRaw))
                 }
@@ -172,7 +172,7 @@ fun Guild.removeStar(msg: Message, user: User) {
                             .queue({
                                 it
                                         .editMessage(embed.build())
-                                        .content("\u2b50 ${if (gazers == 1) "" else "**$gazers**"} <#${msg.channel.id}> ID: ${msg.id}")
+                                        .content("\u2b50 ${if (gazers == 1) "" else "**$gazers**"} <#${msg.channel.id}> ID: ${msg.id}\nUrl: ${msg.jumpUrl}")
                                         .queue()
                             })
 
