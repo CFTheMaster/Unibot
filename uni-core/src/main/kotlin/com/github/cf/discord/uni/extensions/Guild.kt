@@ -101,7 +101,7 @@ fun Guild.addStar(msg: Message, user: User) {
                 }
             } else {
                 embed.apply {
-                    setAuthor(msg.author.name, null, msg.author.avatarUrl)
+                    setAuthor(msg.author.name + ": click me to go to the message.", msg.jumpUrl, msg.author.avatarUrl)
                     setColor(getStarColor(1))
 
                     if (msg.attachments.isNotEmpty()) {
