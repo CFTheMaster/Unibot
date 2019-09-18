@@ -151,7 +151,7 @@ fun Guild.removeStar(msg: Message, user: User) {
                 val gazers = star[Starboard.stargazers].size - 1
 
                 val embed = EmbedBuilder().apply {
-                    setAuthor(msg.author.name, null, msg.author.avatarUrl)
+                    setAuthor(msg.author.name + ": click me to go to the message.", msg.jumpUrl, msg.author.avatarUrl)
                     setColor(getStarColor(gazers))
                     setDescription(descriptionBuilder.append(msg.contentRaw))
                 }
