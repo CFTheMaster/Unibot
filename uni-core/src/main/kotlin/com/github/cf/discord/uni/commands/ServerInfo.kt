@@ -48,7 +48,7 @@ class ServerInfo : Command(){
             addField("Guild Region: ", "${ctx.guild.region}", true)
             addField("Guild Creation Date: ", ctx.guild.timeCreated.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), true)
             addField("Days Since Guild Creation:", totalDays.toString(), true)
-            addField("Guild Members: ", "${ctx.guild.members.size}", true)
+            addField("Guild Members: ", "${ctx.guild.members.filter { !it.user.isBot }.size}", true)
             addField("Bots: ","${ctx.guild.members.filter { it.user.isBot }.size}", true)
             addField("Highest role: ", "${ctx.guild.roles.get(0).name ?: "none"}\n", true)
             addField("Text Channels: ", "${ctx.guild.textChannels.size}", true)
