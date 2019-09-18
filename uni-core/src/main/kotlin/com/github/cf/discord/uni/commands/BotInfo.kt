@@ -72,6 +72,7 @@ class BotInfo : Command(){
             addField("Support Server Invite: ", "[Support Server](https://discord.gg/DDRbw7W)", true)
             addField("CFs API Server", "[API Server](https://discord.gg/gzWwtWG )", true)
             addField("CFs Github: ", "[CFs Github](https://github.com/CFTheMaster)", true)
+            addField("Uni's Github Page: ", "[Uni's Github Page](https://github.com/CFTheMaster/Unibot)", true)
             addField("Uni Website:", "[Uni website]($WEBSITE_URL)", true)
             setFooter("requested by ${ctx.author.name}#${ctx.author.discriminator} (${ctx.author.id})", ctx.author.avatarUrl)
         }
