@@ -74,6 +74,7 @@ class BotInfo : Command(){
             addField("CFs Github: ", "[CFs Github](https://github.com/CFTheMaster)", true)
             addField("Uni's Github Page: ", "[Uni's Github Page](https://github.com/CFTheMaster/Unibot)", true)
             addField("Uni Website:", "[Uni website]($WEBSITE_URL)", true)
+            addBlankField(true)
             setFooter("requested by ${ctx.author.name}#${ctx.author.discriminator} (${ctx.author.id})", ctx.author.avatarUrl)
         }
 
