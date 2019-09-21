@@ -28,7 +28,7 @@ class IntToHex : Command(){
     override fun run(ctx: Context) {
         val ith = ctx.args["int"] as Int
 
-        val intName = java.lang.Integer.toHexString(ith).replaceFirst("ff", "")
-        ctx.channel.sendMessage("your int: $ith is #$intName").queue()
+        val intName = java.lang.Integer.toHexString(ith).replaceFirst("ff", "").toString()
+        ctx.channel.sendMessage("your int: ${ith.toString()} is #${intName.toString()}").queue()
     }
 }

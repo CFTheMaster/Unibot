@@ -29,6 +29,6 @@ class HexToInt : Command(){
         val hex = ctx.args["hex"] as String
 
         val ohShit = java.lang.Integer.parseInt(hex.replace("#", ""), 16)
-        ctx.channel.sendMessage("your hex $hex is $ohShit").queue()
+        ctx.channel.sendMessage("your hex ${hex.toString()} is ${ohShit.toString()}").queue()
     }
 }
