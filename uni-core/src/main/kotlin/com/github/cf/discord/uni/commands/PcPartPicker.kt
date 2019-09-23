@@ -40,13 +40,13 @@ import java.util.*
 
 @Alias("save", "s")
 @Argument("pcpp", "string")
-class PcPartPickerSaved : Command() {
+class Saved : Command() {
     override val desc = "get a saved list from PCPP"
     override val guildOnly = true
 
     override fun run(ctx: Context) {
         val args = ctx.args["pcpp"] as String
-        val (user, buildName) = splitString(args)
+        val (user, buildName) = splitString(args.replace("saved ", ""))
         user.let { userName ->
             val messageFuture = ctx.channel.sendMessage("Searching for **$userName**'s saved builds on PCPP.").submit()
 
@@ -220,7 +220,7 @@ class PcPartPicker : Command() {
     override val guildOnly = true
 
     init {
-        addSubcommand(PcPartPickerSaved())
+        addSubcommand(Saved())
     }
 
     override fun run(ctx: Context) {
