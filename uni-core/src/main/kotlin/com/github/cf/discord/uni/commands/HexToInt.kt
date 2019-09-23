@@ -28,7 +28,7 @@ class HexToInt : Command(){
     override fun run(ctx: Context) {
         val hex = ctx.args["hex"] as String
 
-        val ohShit = java.lang.Integer.parseInt(hex.replace("#", ""), 16)
-        ctx.channel.sendMessage("your hex ${hex.toString()} is ${ohShit.toString()}").queue()
+        val ohShit = Integer.parseInt(hex.replace("#", ""), 16)
+        ctx.channel.sendMessage("your hex $hex is $ohShit").queue()
     }
 }
