@@ -16,10 +16,12 @@
 package com.github.cf.discord.uni.commands
 
 import com.github.cf.discord.uni.annotations.Alias
+import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.music.MusicManager
 
+@Load
 @Alias("unpause", "resume")
 class Pause : Command() {
     override val desc = "Pause the current song!"
