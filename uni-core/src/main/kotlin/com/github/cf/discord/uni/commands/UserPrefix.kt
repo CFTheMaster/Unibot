@@ -50,37 +50,6 @@ class AddUserPrefix : Command(){
     }
 }
 
-@Argument("prefix", "string")
-class RemUserPrefix : Command(){
-    override val desc = "remove user prefix"
-
-    override fun run(ctx: Context) {
-        val prefix = (ctx.args["prefix"] as String).toLowerCase().replace("remove", "").toByteArray()
-
-        asyncTransaction(Uni.pool) {
-            val encode = Base64.getEncoder().encodeToString(prefix)
-            val decoded = String(Base64.getDecoder().decode(encode))
-
-            if (ctx.storedUser.customPrefix!!.isEmpty()) {
-                return@asyncTransaction ctx.send("No User (${ctx.author.name+"#"+ctx.author.discriminator+" (${ctx.author.idLong}) "}) prefix found!")
-            }
-
-            try {
-                Users.update({
-                    Users.id.eq(ctx.author.idLong)
-                }) {
-                    val pre = encode
-
-                    it[customPrefix] = pre
-                }
-                ctx.send("Your current prefix $decoded has been removed \n${ctx.author.asMention}")
-            } catch (e: Throwable) {
-                ctx.sendError(e)
-            }
-        }.execute()
-
-    }
-}
 
 @Load
 class UserPrefix : Command(){
@@ -88,7 +57,6 @@ class UserPrefix : Command(){
 
     init {
         addSubcommand(AddUserPrefix(), "add")
-        addSubcommand(RemUserPrefix(), "remove")
     }
 
     override fun run(ctx: Context){
