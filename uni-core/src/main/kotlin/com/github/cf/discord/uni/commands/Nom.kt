@@ -15,7 +15,7 @@
  */
 package com.github.cf.discord.uni.commands
 
-//WIP
+//WIP (Need to ask for token)
 
 import com.github.cf.discord.uni.Uni
 import com.github.cf.discord.uni.annotations.Load
