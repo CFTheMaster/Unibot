@@ -35,7 +35,8 @@ class Vote : Command(){
         val embed = EmbedBuilder().apply {
             setTitle("vote for the bot", ctx.jda.selfUser.avatarUrl)
             setColor(embedColor)
-            setDescription("Uni Upvote: [upvote me](https://discordbots.org/bot/${ctx.jda.selfUser.idLong}/vote)")
+            addField("**Uni Upvote (DiscordBots):** ","[upvote me](https://discordbots.org/bot/${ctx.jda.selfUser.idLong}/vote)", true)
+            addField("**Uni Upvote (Discord Boats):** ","[upvote me (Discord Boats)](https://discord.boats/bot/${ctx.jda.selfUser.idLong}/vote)", true)
             setFooter("requested by ${ctx.author.name}#${ctx.author.discriminator} (${ctx.author.id})", "${ctx.author.avatarUrl}")
         }
 
