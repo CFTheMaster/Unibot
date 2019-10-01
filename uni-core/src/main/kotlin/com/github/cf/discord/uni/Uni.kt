@@ -92,8 +92,7 @@ class Uni(token: String) {
             setToken(EnvVars.BOT_TOKEN!!)
             addEventListeners(EventListener())
             setAutoReconnect(true)
-            setShardsTotal(total)
-            setShards(firstShard, lastShard)
+            setShardsTotal(-1)
             setBulkDeleteSplittingEnabled(false)
         }.build()
     }
