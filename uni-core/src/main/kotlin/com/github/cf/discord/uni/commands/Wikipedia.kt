@@ -16,6 +16,7 @@
 package com.github.cf.discord.uni.commands
 
 import com.github.cf.discord.uni.Lib
+import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.entities.Command
@@ -26,6 +27,7 @@ import okhttp3.Request
 
 @Load
 @Argument("query", "string")
+@Alias("wiki")
 class Wikipedia : Command(){
     override val desc = "Search on Wikipedia!"
     override val nsfw = true

@@ -38,8 +38,8 @@ class Volume : Command(){
         if ("volume" in ctx.args) {
             val vol = ctx.args["volume"] as Int
 
-            if (vol > 100) {
-                return ctx.send("Volume can't be put above 100")
+            if (vol > 200) {
+                return ctx.send("Volume can't be put above 200")
             }
 
             if (vol < 0) {
