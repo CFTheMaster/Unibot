@@ -54,7 +54,7 @@ class Snipe : Command() {
 
                 ctx.send(embed.build())
             } else {
-                ctx.send("no_snipes")
+                ctx.send("no text has been found ;(")
             }
         }.execute()
     }
