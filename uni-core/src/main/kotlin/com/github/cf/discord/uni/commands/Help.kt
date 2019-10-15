@@ -60,7 +60,7 @@ class Help : Command(){
                             .filter { Command -> Command.value.cate == category.name }
                             .forEach { Command -> builder.append("**${Command.key}**, ") }
 
-                    addField("**`${category.title}`**", builder.toString(), true)
+                    addField("**__`${category.title}`__**", builder.toString(), true)
                 }
                 setFooter("requested by ${ctx.author.name}#${ctx.author.discriminator} (${ctx.author.id})", ctx.author.avatarUrl)
             }
