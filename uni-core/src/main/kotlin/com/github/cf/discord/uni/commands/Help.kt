@@ -20,6 +20,7 @@ import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.commands.HelpCommand.Companion.COMMANDS_PER_PAGE
 import com.github.cf.discord.uni.commands.system.Category
+import com.github.cf.discord.uni.data.botOwners
 import com.github.cf.discord.uni.embed.PaginatedEmbed
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
@@ -55,10 +56,20 @@ class Help : Command(){
                 setColor(ctx.member?.colorRaw ?: 6684876)
                 Category.values().forEach { category ->
                     val builder = StringBuilder()
-                    EventListener.cmdHandler.commands
-                            .toSortedMap().entries.stream()
-                            .filter { Command -> Command.value.cate == category.name }
-                            .forEach { Command -> builder.append("**${Command.key}**, ") }
+                    if (ctx.author.id !in botOwners.authors)
+                    {
+                        EventListener.cmdHandler.commands
+                                .toSortedMap().entries.stream()
+                                .filter { Command -> Command.value.cate == category.name && Command.value.cate !== Category.OWNER.name  }
+                                .filter { !it.value.ownerOnly }
+                                .forEach { Command -> builder.append("**${Command.key}**, ") }
+                    } else {
+                        EventListener.cmdHandler.commands
+                                .toSortedMap().entries.stream()
+                                .filter { Command -> Command.value.cate == category.name  }
+                                .forEach { Command -> builder.append("**${Command.key}**, ") }
+                    }
+
 
                     addField("**__`${category.title}`__**", builder.toString(), true)
                 }
