@@ -35,9 +35,7 @@ class AmIOwner : Command(){
             ctx.send(EmbedBuilder().apply {
                 setAuthor("Am I Owner", null, "${if(ctx.author.avatarUrl != null) ctx.author.avatarUrl else null}")
                 setColor(embedColor)
-                setDescription("""Well since you created me <@!${ctx.author.id}> yes you are <a:Jigglypuff:573815063538958337><a:HomuraRun:573815103279857664>
-                                I mean you created the source code so why shouldn't you be my owner
-                                In the end... Yes you are my owner""")
+                setDescription("Well since you created me <@!${ctx.author.id}> yes you are <a:Jigglypuff:573815063538958337><a:HomuraRun:573815103279857664>\nI mean you created the source code so why shouldn't you be my owner\nIn the end... Yes you are my owner")
             }.build())
         }else{
             ctx.send(EmbedBuilder().apply {
