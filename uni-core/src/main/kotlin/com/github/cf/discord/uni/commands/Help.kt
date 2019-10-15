@@ -73,7 +73,7 @@ class Help : Command(){
 
                     addField("**__`${
                     if (ctx.author.id !in botOwners.authors) {
-                        category.title.drop(Category.OWNER.ordinal)
+                        category.title.filterNot { category.title == Category.OWNER.title }
                     }else {
                         category.title
                     }
