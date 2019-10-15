@@ -17,6 +17,7 @@ package com.github.cf.discord.uni.commands
 
 import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Load
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.music.MusicManager
@@ -26,6 +27,7 @@ import com.github.cf.discord.uni.music.MusicManager
 class Pause : Command() {
     override val desc = "Pause the current song!"
     override val guildOnly = true
+    override val cate = Category.MUSIC.name
 
     override fun run(ctx: Context) {
         val manager = MusicManager.musicManagers[ctx.guild?.id]

@@ -15,6 +15,8 @@
  */
 package com.github.cf.discord.uni.entities
 
+import com.github.cf.discord.uni.commands.system.Category
+
 
 abstract class Command {
     val subcommands = mutableMapOf<String, Command>()
@@ -25,6 +27,7 @@ abstract class Command {
     open val guildOnly = false
     open val nsfw = false
     open val cooldown = 5
+    open val cate = Category.GENERAL.name
 
     abstract fun run(ctx: Context)
 

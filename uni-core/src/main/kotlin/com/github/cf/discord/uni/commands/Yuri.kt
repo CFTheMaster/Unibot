@@ -16,6 +16,7 @@
 package com.github.cf.discord.uni.commands
 
 import com.github.cf.discord.uni.annotations.Load
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.utils.CFApi
@@ -27,6 +28,7 @@ import java.awt.Color
 class Yuri : Command(){
     override val desc = "get a random yuri image"
     override val guildOnly = true
+    override val cate = Category.IMAGE.name
 
     override fun run(ctx: Context) {
         val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt()

@@ -19,6 +19,7 @@ package com.github.cf.discord.uni.commands
 
 import com.github.cf.discord.uni.Uni
 import com.github.cf.discord.uni.annotations.Load
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.natanbc.weeb4j.image.NsfwFilter
@@ -28,6 +29,7 @@ import net.dv8tion.jda.api.entities.Member
 class Nom : Command() {
     override val desc = "Nom people."
     override val guildOnly = true
+    override val cate = Category.IMAGE.name
 
     override fun run(ctx: Context) {
 

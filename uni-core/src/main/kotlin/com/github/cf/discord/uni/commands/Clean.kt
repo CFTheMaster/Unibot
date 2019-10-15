@@ -18,6 +18,7 @@ package com.github.cf.discord.uni.commands
 import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Load
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.entities.AsyncCommand
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.extensions.await
@@ -34,6 +35,7 @@ class Clean : AsyncCommand() {
     override val desc = "Clean the last 10 messages sent by me"
     override val guildOnly = true
     override val cooldown = 15
+    override val cate = Category.MODERATION.name
 
     override suspend fun asyncRun(ctx: Context) {
         val msgs = ctx.channel.getHistoryAround(ctx.msg, 100).await()

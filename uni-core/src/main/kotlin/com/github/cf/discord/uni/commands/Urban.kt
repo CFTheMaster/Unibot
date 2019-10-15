@@ -19,6 +19,7 @@ import com.github.cf.discord.uni.Uni.Companion.LOGGER
 import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Load
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.utils.Http
@@ -32,6 +33,7 @@ import org.json.JSONObject
 class Urban : Command() {
     override val desc = "Search on the urban dictionary!"
     override val nsfw = true
+    override val cate = Category.NSFW.title
 
     override fun run(ctx: Context) {
         Http.get(HttpUrl.Builder().apply{

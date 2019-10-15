@@ -19,6 +19,7 @@ import com.github.cf.discord.uni.Uni
 import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.commands.HelpCommand.Companion.WEBSITE_URL
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.sedmelluq.discord.lavaplayer.tools.PlayerLibrary

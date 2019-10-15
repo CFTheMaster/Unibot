@@ -17,6 +17,7 @@ package com.github.cf.discord.uni.commands
 
 import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Load
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.core.EnvVars
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.entities.ThreadedCommand
@@ -32,6 +33,7 @@ import org.json.JSONObject
 class NowPlaying : ThreadedCommand(){
     override val desc = "Get the current song"
     override val guildOnly = true
+    override val cate = Category.MUSIC.name
 
     override fun threadedRun(ctx: Context) {
         val manager = MusicManager.musicManagers[ctx.guild?.id]

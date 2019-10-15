@@ -19,6 +19,7 @@ import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Arguments
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.annotations.Perm
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import net.dv8tion.jda.api.Permission
@@ -33,6 +34,7 @@ import net.dv8tion.jda.api.exceptions.PermissionException
 class Hackban : Command(){
     override val desc = "Ban members from the guild"
     override val guildOnly = true
+    override val cate = Category.MODERATION.name
 
     override fun run(ctx: Context) {
         val users = (ctx.args["user"] as String).split("__")

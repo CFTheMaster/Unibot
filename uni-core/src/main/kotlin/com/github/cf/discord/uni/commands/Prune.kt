@@ -16,6 +16,7 @@
 package com.github.cf.discord.uni.commands
 
 import com.github.cf.discord.uni.annotations.*
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.entities.AsyncCommand
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.extensions.await
@@ -34,6 +35,7 @@ import kotlin.math.min
 @Perm(Permission.MESSAGE_MANAGE)
 class Prune : AsyncCommand() {
     override val desc = "Prune messages."
+    override val cate = Category.MODERATION.name
 
     override suspend fun asyncRun(ctx: Context) {
         val history = ctx.channel.iterableHistory.await()

@@ -17,6 +17,7 @@ package com.github.cf.discord.uni.commands
 
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.annotations.Perm
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.music.MusicManager
@@ -27,6 +28,7 @@ import net.dv8tion.jda.api.Permission
 class Skip : Command() {
     override val desc = "Skips the current song"
     override val guildOnly = true
+    override val cate = Category.MUSIC.name
 
     override fun run(ctx: Context) {
         if (!ctx.member!!.voiceState!!.inVoiceChannel()) {

@@ -17,6 +17,7 @@ package com.github.cf.discord.uni.commands
 
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.annotations.Perm
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.entities.PickerItem
@@ -44,6 +45,7 @@ class Clear : Command() {
 class Queue : Command(){
     override val desc = "View the queue!"
     override val guildOnly = true
+    override val cate = Category.MUSIC.name
 
     init {
         addSubcommand(Clear())

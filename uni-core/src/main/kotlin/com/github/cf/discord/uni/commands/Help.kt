@@ -19,6 +19,7 @@ import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.commands.HelpCommand.Companion.COMMANDS_PER_PAGE
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.embed.PaginatedEmbed
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
@@ -46,40 +47,26 @@ class Help : Command(){
                         }.build())
             }
         } else {
-            val commands = EventListener.cmdHandler.commands
-                    .filter { !it.value.ownerOnly }
-                    .toSortedMap()
-                    .map {
-                        "\t**`${it.key}`** " + ", "
-                    }
 
-            val text = "Flags:\n\n\t-h, --help${" ".repeat(10)}Get help on a command!\n\nCommands:\n\n${commands.joinToString("")}"
-            val partSize = 40
-            val parts = mutableListOf<String>()
-            val lines = text.split("\n")
-            var part = ""
+            val text = "All Commands: \nFlags:\n\n\t-h, --help\nGet help on a command!\n\n"
 
-            for (line in lines) {
-                if (part.split("\n").size >= partSize) {
-                    parts.add(part)
-                    part = ""
+            val embed = EmbedBuilder().apply {
+                setTitle(text)
+                setColor(ctx.member?.colorRaw ?: 6684876)
+                Category.values().forEach { category ->
+                    val builder = StringBuilder()
+                    EventListener.cmdHandler.commands
+                            .toSortedMap().entries.stream()
+                            .filter { Command -> Command.value.cate == category.name }
+                            .forEach { Command -> builder.append("**${Command.key}**, ") }
+
+                    addField(category.title, builder.toString(), true)
                 }
-
-                part += "$line\n"
+                setFooter("requested by ${ctx.author.name}#${ctx.author.discriminator} (${ctx.author.id})", ctx.author.avatarUrl)
             }
 
-            if (part.isNotBlank() && part.split("\n").size < partSize) {
-                parts.add(part)
-            }
 
-            for (partt in parts){
-                ctx.send(EmbedBuilder().apply {
-                    setTitle("all current commands")
-                    setColor(ctx.member?.colorRaw ?: 6684876)
-                    setDescription(partt)
-                    setFooter("requested by ${ctx.author.name}#${ctx.author.discriminator} (${ctx.author.id})", ctx.author.avatarUrl)
-                }.build())
-            }
+            ctx.send(embed.build())
         }
     }
 }

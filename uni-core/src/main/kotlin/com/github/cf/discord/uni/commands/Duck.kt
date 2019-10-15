@@ -17,6 +17,7 @@ package com.github.cf.discord.uni.commands
 
 import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Load
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import net.dv8tion.jda.api.EmbedBuilder
@@ -29,6 +30,7 @@ import org.json.JSONObject
 class Duck : Command(){
     override val desc = "Change the volume of the music"
     override val guildOnly = false
+    override val cate = Category.IMAGE.name
 
     override fun run(ctx: Context) {
         val aDuck = getDucky()

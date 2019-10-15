@@ -20,6 +20,7 @@ import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Arguments
 import com.github.cf.discord.uni.annotations.Load
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.database.schema.Guilds
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
@@ -293,6 +294,7 @@ class Config : Command() {
         addSubcommand(SetAccountAgeOption(), "setaccountage")
     }
 
+    override val cate = Category.MODERATION.name
     override fun run(ctx: Context) {
         val prefixes = ctx.storedGuild!!.prefix.toString()
         val decoded = String(Base64.getDecoder().decode(prefixes))

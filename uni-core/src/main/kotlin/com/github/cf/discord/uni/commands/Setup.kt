@@ -21,6 +21,7 @@ import com.github.cf.discord.uni.Uni.Companion.prefixes
 import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.annotations.Perm
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.database.schema.Guilds
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
@@ -40,6 +41,7 @@ import java.util.concurrent.CompletableFuture
 class Setup : Command(){
     override val desc = "Easy setup of Uni."
     override val guildOnly = true
+    override val cate = Category.MODERATION.name
 
     private val topics = listOf(
             "starboard",

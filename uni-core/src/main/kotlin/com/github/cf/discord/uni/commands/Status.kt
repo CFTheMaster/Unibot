@@ -20,6 +20,7 @@ import com.github.cf.discord.uni.Uni.Companion.prefix
 import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Load
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.core.EnvVars
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
@@ -32,6 +33,7 @@ import net.dv8tion.jda.api.entities.Activity
 class Status : Command(){
     override val ownerOnly = true
     override val desc = "change the status of the bot"
+    override val cate = Category.OWNER.name
 
     override fun run(ctx: Context) {
         Uni.shardManager.setActivity(Activity.streaming("${ctx.args["status"] as String} | ${prefix.firstOrNull()}help", "https://www.twitch.tv/computerfreaker"))

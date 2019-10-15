@@ -17,6 +17,7 @@ package com.github.cf.discord.uni.commands
 
 import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Load
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.utils.CFApi
@@ -31,6 +32,7 @@ class LewdCatgirl : Command(){
     override val desc = "Get a Lewd Neko from the API"
     override val guildOnly = false
     override val nsfw = true
+    override val cate = Category.NSFW.title
 
     override fun run(ctx: Context) {
         val catgirl = if (CFApi.getCFApi("nsfwneko") != null) CFApi.getCFApi("nsfwneko") else getNeko()

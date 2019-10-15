@@ -19,6 +19,7 @@ import com.github.cf.discord.uni.Lib
 import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Load
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.http.HttpQuery
@@ -31,6 +32,7 @@ import okhttp3.Request
 class Wikipedia : Command(){
     override val desc = "Search on Wikipedia!"
     override val nsfw = true
+    override val cate = Category.NSFW.title
 
     override fun run(ctx: Context) {
         val query = ctx.args["query"] as String

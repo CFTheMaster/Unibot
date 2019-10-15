@@ -20,6 +20,7 @@ import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Arguments
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.annotations.Perm
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.database.schema.ModLogs
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
@@ -38,6 +39,7 @@ import org.jetbrains.exposed.sql.update
 class Reason : Command() {
     override val guildOnly = true
     override val desc = "Give a reason for a case in modlogs."
+    override val cate = Category.MODERATION.name
 
     override fun run(ctx: Context) {
         if (ctx.storedGuild!!.modlogChannel == null) {

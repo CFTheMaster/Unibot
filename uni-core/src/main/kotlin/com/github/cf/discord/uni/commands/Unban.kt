@@ -19,6 +19,7 @@ import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Arguments
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.annotations.Perm
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import net.dv8tion.jda.api.Permission
@@ -33,6 +34,7 @@ import net.dv8tion.jda.api.exceptions.PermissionException
 class Unban : Command() {
     override val desc = "Unban members from the guild."
     override val guildOnly = true
+    override val cate = Category.MODERATION.name
 
     override fun run(ctx: Context) {
         val user = ctx.args["user"] as String

@@ -16,6 +16,7 @@
 package com.github.cf.discord.uni.commands
 
 import com.github.cf.discord.uni.annotations.Load
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.commands.system.ReturnCodes
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
@@ -30,6 +31,7 @@ import kotlin.system.exitProcess
 class UpdateBot : Command(){
     override val desc = "update the bot"
     override val ownerOnly = true
+    override val cate = Category.OWNER.name
 
     override fun run(ctx: Context) {
         val output = "git pull".runCommand(File("../").absoluteFile).toString()

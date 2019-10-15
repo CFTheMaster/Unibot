@@ -16,6 +16,7 @@
 package com.github.cf.discord.uni.commands
 
 import com.github.cf.discord.uni.annotations.Load
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.commands.system.ReturnCodes
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
@@ -27,6 +28,7 @@ import kotlin.system.exitProcess
 class Restart : Command(){
     override val desc = "restart the bot"
     override val ownerOnly = true
+    override val cate = Category.OWNER.name
 
     override fun run(ctx: Context) {
         ctx.channel.sendMessage("**Shutting down and restarting after 3 seconds.**").queue({

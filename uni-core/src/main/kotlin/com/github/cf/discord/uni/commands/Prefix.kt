@@ -19,6 +19,7 @@ import com.github.cf.discord.uni.Uni
 import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.annotations.Perm
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.database.schema.Guilds
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
@@ -64,6 +65,7 @@ class AddPrefix : Command(){
 class RemPrefix : Command(){
     override val guildOnly = true
     override val desc = "Remove a prefix"
+    override val cate = Category.MODERATION.name
 
     override fun run(ctx: Context) {
         val prefixes = (ctx.args["prefix"] as String).toLowerCase().replace("remove ", "").toByteArray()

@@ -98,6 +98,12 @@ a cute bot that does stuff
 | ***Owner Commands*** | **Info**
 | --- | --- |
 | `amiowner` | silly command to check if you are the bots owner |
+| `changename` | change the name of the bot|
+| `changenickname` | change the nickname of the bot|
 | `eval`| eval some code |
+| `restart` | restart the bot |
+| `say` | say something |
 | `shell` | execute commands directly to shell
+| `shutdown` | shutdown the bot |
+| `status` | change the playing status of the bot |
 | `updatebot` | update the bot |

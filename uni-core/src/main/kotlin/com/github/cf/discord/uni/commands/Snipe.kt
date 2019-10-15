@@ -17,6 +17,7 @@ package com.github.cf.discord.uni.commands
 
 import com.github.cf.discord.uni.Uni
 import com.github.cf.discord.uni.annotations.Load
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.database.schema.Logs
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
@@ -31,6 +32,7 @@ import org.jetbrains.exposed.sql.select
 class Snipe : Command() {
     override val desc = "Snipe the latest deleted message."
     override val guildOnly = true
+    override val cate = Category.MODERATION.name
 
     override fun run(ctx: Context) {
         if (!ctx.storedGuild!!.logs) {

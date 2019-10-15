@@ -16,6 +16,7 @@
 package com.github.cf.discord.uni.commands
 
 import com.github.cf.discord.uni.annotations.Load
+import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import net.dv8tion.jda.api.EmbedBuilder
@@ -24,6 +25,8 @@ import java.awt.Color
 @Load
 class AmIOwner : Command(){
     override val desc = "check if you are my owner"
+
+    override val cate = Category.OWNER.name
 
     override fun run(ctx: Context) {
         val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt()
