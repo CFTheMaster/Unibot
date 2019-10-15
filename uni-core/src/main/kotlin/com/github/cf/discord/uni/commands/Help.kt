@@ -61,7 +61,7 @@ class Help : Command(){
                         EventListener.cmdHandler.commands
                                 .toSortedMap().entries.stream()
                                 .filter { Command -> Command.value.cate == category.name && Command.value.cate !== Category.OWNER.name && !Command.value.ownerOnly}
-                                .forEach { Command -> builder.append("**${Command.key}**, ").filterNot {  it.category.name == Category.OWNER.name } }
+                                .forEach { Command -> builder.append("**`${Command.key}`**, ").filterNot {  it.category.name == Category.OWNER.name } }
                     } else {
                         EventListener.cmdHandler.commands
                                 .toSortedMap().entries.stream()
