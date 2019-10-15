@@ -66,12 +66,18 @@ class Help : Command(){
                     } else {
                         EventListener.cmdHandler.commands
                                 .toSortedMap().entries.stream()
-                                .filter { Command -> Command.value.cate == category.name  }
+                                .filter { Command -> Command.value.cate == category.name }
                                 .forEach { Command -> builder.append("**${Command.key}**, ") }
                     }
 
 
-                    addField("**__`${category.title}`__**", builder.toString(), true)
+                    addField("**__`${
+                    if (ctx.author.id !in botOwners.authors) {
+                        category.title.drop(Category.OWNER.ordinal)
+                    }else {
+                        category.title
+                    }
+                    }`__**", builder.toString(), true)
                 }
                 setFooter("requested by ${ctx.author.name}#${ctx.author.discriminator} (${ctx.author.id})", ctx.author.avatarUrl)
             }
