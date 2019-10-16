@@ -1,6 +1,8 @@
 # Unibot
 a cute bot that does stuff
 
+her invite link to add her to your server [Uni Invite](https://uni.computerfreaker.cf/invite)
+
 ## Features
 - Good Uptime
 - Easily Configurable
