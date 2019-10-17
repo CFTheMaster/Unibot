@@ -55,17 +55,13 @@ class ViewXP : Command(){
 
                 val xpNeeded = level.toDouble() * (500).toDouble() + (level.toDouble() * MINIMUM_FOR_LEVEL_1.toDouble())
                 val progress = xp.toDouble() / xpNeeded * (10).toDouble()
-                val lastLevel = level - 1
-                val xpFromLastLevel = lastLevel.toDouble() * (500).toDouble() + (level.toDouble() * MINIMUM_FOR_LEVEL_1.toDouble())
-                val allXP = xpNeeded - xpFromLastLevel
-                val currentProgress = progress - xpFromLastLevel
-                val usersCurrentXP = contract[Users.expPoints] - currentProgress
+
                 setColor(member.colorRaw ?: 6684876)
                 addField(
                         "Stats",
                         """**Rank:** ${contract[Users.level]}
-                            |**Experience Points:** [${usersCurrentXP}/${allXP.toLong()}]
-                            |**Progress:** [${"#".repeat(currentProgress.toInt())}${"-".repeat(10 - currentProgress.toInt())}] ${currentProgress.toInt() * 10}%
+                            |**Experience Points:** [${contract[Users.expPoints]}/${xpNeeded.toLong()}]
+                            |**Progress:** [${"#".repeat(progress.toInt())}${"-".repeat(10 - progress.toInt())}] ${progress.toInt() * 10}%
                             |**Last Level Up:** [${contract[Users.lastLevelUp]}]
                             |**User Creation Date:** [${contract[Users.accountCreationDate]}]
                          """.trimMargin(),
