@@ -63,7 +63,7 @@ class ViewXP : Command(){
     private fun processImg(ctx: Context, userXPPoints: Long, xpNeeded: Double, progress: Double, lastLevelUp: DateTime, userCreationDate: DateTime){
 
         try {
-            val img = ImageIO.read(URL("https://sharex.computerfreaker.cf/s5dsn5obc.jpg")).toBufferedImage()
+            val img = ImageIO.read(URL("http://localhost/pics/albums/ShareX/s5dsn5obc.jpg")).toBufferedImage()
 
             val g2d: Graphics2D = img.graphics as Graphics2D
 
