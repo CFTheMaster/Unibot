@@ -60,35 +60,43 @@ class ViewXP : Command(){
         return bufferedImage
     }
 
-    private fun processImg(ctx: Context, userXPPoints: Long, xpNeeded: Double, progress: Double, lastLevelUp: DateTime, userCreationDate: DateTime){
+    private fun processImg(ctx: Context, userXPPoints: Long, xpNeeded: Double, progress: Double, level: Long, lastLevelUp: DateTime, userCreationDate: DateTime){
 
         try {
-            val img = ImageIO.read(URL("http://localhost/pics/albums/ShareX/s5dsn5obc.jpg")).toBufferedImage()
+            val img = ImageIO.read(URL("http://192.168.1.117/pics/albums/ShareX/s5dsn5obc.jpg")).toBufferedImage()
 
             val g2d: Graphics2D = img.graphics as Graphics2D
 
+            val x = 50f
+
             g2d.setColor(Color(255, 255, 255, 125))
-            g2d.fillRect(40, 200,1150,310)
+            g2d.fillRect(40, 190,1150,380)
 
             g2d.setColor(Color.BLACK)
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("Username: ${ctx.author.name}#${ctx.author.discriminator}", 40f, 250f)
+            g2d.drawString("Username: ${ctx.author.name}#${ctx.author.discriminator}", x, 240f)
+
+
+            g2d.setColor(Color(111, 0, 0))
+            g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
+            g2d.drawString("Current level: $level", x, 300f)
 
             g2d.setColor(Color(195, 5, 100))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("Experience Points: ${userXPPoints}/${xpNeeded.toLong()}", 40f, 310f)
+            g2d.drawString("Experience Points: ${userXPPoints}/${xpNeeded.toLong()}", x, 360f)
+
 
             g2d.setColor(Color(200, 23, 12))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("User last level-up: ${lastLevelUp.toString("E yyyy/MM/dd HH:mm:ss.SSS")}", 40f, 370f)
+            g2d.drawString("User last level-up: ${lastLevelUp.toString("E yyyy/MM/dd HH:mm:ss.SSS")}", x, 420f)
 
             g2d.setColor(Color(102, 0, 204))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("User creation date: ${userCreationDate.toString("E yyyy/MM/dd HH:mm:ss.SSS")}", 40f, 430f)
+            g2d.drawString("User creation date: ${userCreationDate.toString("E yyyy/MM/dd HH:mm:ss.SSS")}", x, 480f)
 
             g2d.setColor(Color(0, 13, 255))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("Progress: [${"#".repeat(progress.toInt())}${"-".repeat(10 - progress.toInt())}] ${progress.toInt() * 10}%" , 40f, 490f)
+            g2d.drawString("Progress: [${"#".repeat(progress.toInt())}${"-".repeat(10 - progress.toInt())}] ${progress.toInt() * 10}%" , x, 540f)
 
             g2d.finalize()
 
@@ -126,7 +134,7 @@ class ViewXP : Command(){
                 val xpNeeded = level.toDouble() * (500).toDouble() + (level.toDouble() * MINIMUM_FOR_LEVEL_1.toDouble())
                 val progress = xp.toDouble() / xpNeeded * (10).toDouble()
 
-                processImg(ctx, contract[Users.expPoints], xpNeeded, progress, contract[Users.lastLevelUp], contract[Users.accountCreationDate])
+                processImg(ctx, contract[Users.expPoints], xpNeeded, progress, level, contract[Users.lastLevelUp], contract[Users.accountCreationDate])
 
         }.execute()
 
