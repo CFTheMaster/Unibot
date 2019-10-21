@@ -100,6 +100,8 @@ class ViewXP : Command(){
 
             g2d.finalize()
 
+            g2d.dispose()
+
             val writing = ImageIO.write(img, "png", File("src/main/resources/profile/${ctx.author.idLong}_profile.png"))
 
             if (writing){
@@ -107,8 +109,6 @@ class ViewXP : Command(){
             }
 
             img.flush()
-
-            g2d.dispose()
 
             println("image is done processing")
 
