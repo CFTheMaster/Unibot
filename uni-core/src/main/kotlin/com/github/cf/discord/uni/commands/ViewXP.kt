@@ -60,7 +60,7 @@ class ViewXP : Command(){
         return bufferedImage
     }
 
-    private fun processImg(ctx: Context, userXPPoints: Long, xpNeeded: Double, progress: Double, level: Long, aUser: Member, lastLevelUp: DateTime, userCreationDate: DateTime){
+    private fun processImg(ctx: Context, userXPPoints: Long, xpNeeded: Double, progress: Double, level: Long, member: Member, lastLevelUp: DateTime, userCreationDate: DateTime){
 
         try {
             val img = ImageIO.read(URL("http://192.168.1.117/pics/albums/ShareX/s5dsn5obc.jpg")).toBufferedImage()
@@ -76,7 +76,7 @@ class ViewXP : Command(){
 
             g2d.setColor(Color.BLACK)
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("Username: ${aUser.user.name}#${aUser.user.discriminator}", x, y)
+            g2d.drawString("Username: ${member.user.name}#${member.user.discriminator}", x, y)
 
 
             g2d.setColor(Color(111, 0, 0))
@@ -104,7 +104,7 @@ class ViewXP : Command(){
 
             g2d.dispose()
 
-            val writing = ImageIO.write(img, "png", File("src/main/resources/profile/${aUser.idLong}_profile.png"))
+            val writing = ImageIO.write(img, "png", File("src/main/resources/profile/${member.idLong}_profile.png"))
 
             if (writing){
                 println("writing is busy")
