@@ -63,4 +63,4 @@ uni-core/modules
 token.txt
 /kommandb/
 .env
-/profile/*
+uni-core/src/main/resources/profile/*
