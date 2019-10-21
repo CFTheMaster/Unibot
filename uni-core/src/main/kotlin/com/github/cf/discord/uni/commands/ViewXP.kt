@@ -35,8 +35,10 @@ import java.io.BufferedOutputStream
 import java.io.File
 import java.io.IOException
 import java.net.URL
+import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.imageio.ImageIO
+import kotlin.concurrent.schedule
 
 @Load
 @Argument("user", "user", true)
@@ -128,9 +130,13 @@ class ViewXP : Command(){
 
         }.execute()
 
-        val profileImg = File("src/main/resources/profile/${ctx.author.idLong}_profile.png")
+        Timer().schedule(3000){
+            val profileImg = File("src/main/resources/profile/${ctx.author.idLong}_profile.png")
 
-        ctx.channel.sendFile(profileImg).completeAfter(6, TimeUnit.SECONDS)
+            ctx.channel.sendFile(profileImg).completeAfter(6, TimeUnit.SECONDS)
+        }
+
+
 
     }
 }
