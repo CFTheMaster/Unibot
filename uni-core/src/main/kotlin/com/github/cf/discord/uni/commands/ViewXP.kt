@@ -60,7 +60,7 @@ class ViewXP : Command(){
         return bufferedImage
     }
 
-    private fun processImg(ctx: Context, userXPPoints: Long, xpNeeded: Double, progress: Double, level: Long, lastLevelUp: DateTime, userCreationDate: DateTime){
+    private fun processImg(ctx: Context, userXPPoints: Long, xpNeeded: Double, progress: Double, level: Long, aUser: Member, lastLevelUp: DateTime, userCreationDate: DateTime){
 
         try {
             val img = ImageIO.read(URL("http://192.168.1.117/pics/albums/ShareX/s5dsn5obc.jpg")).toBufferedImage()
@@ -104,7 +104,7 @@ class ViewXP : Command(){
 
             g2d.dispose()
 
-            val writing = ImageIO.write(img, "png", File("src/main/resources/profile/${ctx.author.idLong}_profile.png"))
+            val writing = ImageIO.write(img, "png", File("src/main/resources/profile/${aUser.idLong}_profile.png"))
 
             if (writing){
                 println("writing is busy")
@@ -138,12 +138,12 @@ class ViewXP : Command(){
                 val xpNeeded = level.toDouble() * (500).toDouble() + (level.toDouble() * MINIMUM_FOR_LEVEL_1.toDouble())
                 val progress = xp.toDouble() / xpNeeded * (10).toDouble()
 
-                processImg(ctx, contract[Users.expPoints], xpNeeded, progress, level, contract[Users.lastLevelUp], contract[Users.accountCreationDate])
+                processImg(ctx, contract[Users.expPoints], xpNeeded, progress, level, ctx.member,contract[Users.lastLevelUp], contract[Users.accountCreationDate])
 
         }.execute()
 
         Timer().schedule(1000){
-            val profileImg = File("src/main/resources/profile/${ctx.author.idLong}_profile.png")
+            val profileImg = File("src/main/resources/profile/${ctx.member.idLong}_profile.png")
 
             ctx.channel.sendFile(profileImg).complete()
 
