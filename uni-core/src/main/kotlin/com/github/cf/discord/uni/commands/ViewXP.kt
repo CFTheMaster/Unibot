@@ -69,23 +69,23 @@ class ViewXP : Command(){
             g2d.fillRect(40, 200,1150,310)
 
             g2d.setColor(Color.BLACK)
-            g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 30))
+            g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
             g2d.drawString("Username: ${ctx.author.name}#${ctx.author.discriminator}", 40f, 250f)
 
             g2d.setColor(Color(195, 5, 100))
-            g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 30))
+            g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
             g2d.drawString("Experience Points: ${userXPPoints}/${xpNeeded.toLong()}", 40f, 310f)
 
             g2d.setColor(Color(200, 23, 12))
-            g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 30))
+            g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
             g2d.drawString("User last level-up: ${lastLevelUp.toString("E yyyy/MM/dd HH:mm:ss.SSS")}", 40f, 370f)
 
             g2d.setColor(Color(102, 0, 204))
-            g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 30))
+            g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
             g2d.drawString("User creation date: ${userCreationDate.toString("E yyyy/MM/dd HH:mm:ss.SSS")}", 40f, 430f)
 
             g2d.setColor(Color(0, 13, 255))
-            g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 30))
+            g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
             g2d.drawString("Progress: ${"#".repeat(progress.toInt())}${"-".repeat(10 - progress.toInt())} ${progress.toInt() * 10}%" , 40f, 490f)
 
             g2d.finalize()
