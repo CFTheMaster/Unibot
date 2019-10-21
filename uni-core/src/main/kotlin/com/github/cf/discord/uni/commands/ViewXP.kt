@@ -69,10 +69,10 @@ class ViewXP : Command(){
 
             val x = 50f
 
-            val y = 240f
+            val y = 230f
 
             g2d.setColor(Color(255, 255, 255, 125))
-            g2d.fillRect(40, 190,1150,380)
+            g2d.fillRect(40, 180,1150,380)
 
             g2d.setColor(Color.BLACK)
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
