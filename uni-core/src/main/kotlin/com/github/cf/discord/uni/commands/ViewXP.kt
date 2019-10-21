@@ -108,6 +108,8 @@ class ViewXP : Command(){
 
             img.flush()
 
+            g2d.dispose()
+
             println("image is done processing")
 
         } catch (e: IOException){
