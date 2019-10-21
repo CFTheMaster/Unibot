@@ -134,6 +134,8 @@ class ViewXP : Command(){
             val profileImg = File("src/main/resources/profile/${ctx.author.idLong}_profile.png")
 
             ctx.channel.sendFile(profileImg).completeAfter(1, TimeUnit.SECONDS)
+
+            profileImg.delete()
         }
 
 
