@@ -143,7 +143,7 @@ class ViewXP : Command(){
         }.execute()
 
         Timer().schedule(1000){
-            val profileImg = File("src/main/resources/profile/${ctx.member.idLong}_profile.png")
+            val profileImg = File("src/main/resources/profile/${member.idLong}_profile.png")
 
             ctx.channel.sendFile(profileImg).complete()
 
