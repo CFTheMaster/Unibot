@@ -88,7 +88,7 @@ class ViewXP : Command(){
 
             g2d.setColor(Color(0, 13, 255))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("Progress: ${"#".repeat(progress.toInt())}${"-".repeat(10 - progress.toInt())} ${progress.toInt() * 10}%" , 40f, 490f)
+            g2d.drawString("Progress: [${"#".repeat(progress.toInt())}${"-".repeat(10 - progress.toInt())}] ${progress.toInt() * 10}%" , 40f, 490f)
 
             g2d.finalize()
 
