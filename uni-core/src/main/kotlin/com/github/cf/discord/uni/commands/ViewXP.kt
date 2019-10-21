@@ -130,7 +130,7 @@ class ViewXP : Command(){
 
         val profileImg = File("src/main/resources/profile/${ctx.author.idLong}_profile.png")
 
-        ctx.channel.sendFile(profileImg).completeAfter(3, TimeUnit.SECONDS)
+        ctx.channel.sendFile(profileImg).completeAfter(10, TimeUnit.SECONDS)
 
     }
 }
