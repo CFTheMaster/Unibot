@@ -69,34 +69,36 @@ class ViewXP : Command(){
 
             val x = 50f
 
+            val y = 240f
+
             g2d.setColor(Color(255, 255, 255, 125))
             g2d.fillRect(40, 190,1150,380)
 
             g2d.setColor(Color.BLACK)
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("Username: ${ctx.author.name}#${ctx.author.discriminator}", x, 240f)
+            g2d.drawString("Username: ${ctx.author.name}#${ctx.author.discriminator}", x, y)
 
 
             g2d.setColor(Color(111, 0, 0))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("Current level: $level", x, 300f)
+            g2d.drawString("Current level: $level", x, y + (60 * 1))
 
             g2d.setColor(Color(195, 5, 100))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("Experience Points: ${userXPPoints}/${xpNeeded.toLong()}", x, 360f)
+            g2d.drawString("Experience Points: ${userXPPoints}/${xpNeeded.toLong()}", x, y + (60 * 2))
 
 
             g2d.setColor(Color(200, 23, 12))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("User last level-up: ${lastLevelUp.toString("E yyyy/MM/dd HH:mm:ss.SSS")}", x, 420f)
+            g2d.drawString("User last level-up: ${lastLevelUp.toString("E yyyy/MM/dd HH:mm:ss.SSS")}", x, y + (60 * 3))
 
             g2d.setColor(Color(102, 0, 204))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("User creation date: ${userCreationDate.toString("E yyyy/MM/dd HH:mm:ss.SSS")}", x, 480f)
+            g2d.drawString("User creation date: ${userCreationDate.toString("E yyyy/MM/dd HH:mm:ss.SSS")}", x, y + (60 * 4))
 
             g2d.setColor(Color(0, 13, 255))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("Progress: [${"#".repeat(progress.toInt())}${"-".repeat(10 - progress.toInt())}] ${progress.toInt() * 10}%" , x, 540f)
+            g2d.drawString("Progress: [${"#".repeat(progress.toInt())}${"-".repeat(10 - progress.toInt())}] ${progress.toInt() * 10}%" , x, y + (60 * 5))
 
             g2d.finalize()
 
