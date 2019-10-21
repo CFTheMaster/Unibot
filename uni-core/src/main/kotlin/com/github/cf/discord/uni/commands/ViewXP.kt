@@ -138,7 +138,7 @@ class ViewXP : Command(){
                 val xpNeeded = level.toDouble() * (500).toDouble() + (level.toDouble() * MINIMUM_FOR_LEVEL_1.toDouble())
                 val progress = xp.toDouble() / xpNeeded * (10).toDouble()
 
-                processImg(ctx, contract[Users.expPoints], xpNeeded, progress, level, ctx.member,contract[Users.lastLevelUp], contract[Users.accountCreationDate])
+                processImg(ctx, contract[Users.expPoints], xpNeeded, progress, level, member,contract[Users.lastLevelUp], contract[Users.accountCreationDate])
 
         }.execute()
 
