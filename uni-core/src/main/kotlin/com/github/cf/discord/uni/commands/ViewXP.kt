@@ -83,7 +83,7 @@ class ViewXP : Command(){
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
             g2d.drawString("Current level: $level", x, y + (60 * 1))
 
-            g2d.setColor(Color(76, 172, 92))
+            g2d.setColor(Color(141, 166, 150))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
             g2d.drawString("Experience Points: ${userXPPoints}/${xpNeeded.toLong()}", x, y + (60 * 2))
 
