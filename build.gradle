@@ -60,13 +60,9 @@ subprojects {
 
     compileKotlin {
         kotlinOptions.jvmTarget = "1.8"
-        kotlinOptions.fork = true  // Fork your compilation into a child process
-        kotlinOptions.forkOptions.setMemoryMaximumSize("6g") // Set maximum memory
     }
     compileTestKotlin {
         kotlinOptions.jvmTarget = "1.8"
-        kotlinOptions.fork = true  // Fork your compilation into a child process
-        kotlinOptions.forkOptions.setMemoryMaximumSize("6g") // Set maximum memory
     }
 
     spotless {
