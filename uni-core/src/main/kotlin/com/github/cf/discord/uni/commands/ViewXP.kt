@@ -71,6 +71,9 @@ class ViewXP : Command(){
 
             val y = 230f
 
+            val progressWidth = 700f
+            val progressHeight = 50f
+
             g2d.setColor(Color(255, 255, 255, 125))
             g2d.fillRect(40, 180,1150,380)
 
@@ -98,7 +101,18 @@ class ViewXP : Command(){
 
             g2d.setColor(Color(0, 13, 255))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("Progress: [${"#".repeat(progress.toInt())}${"-".repeat(10 - progress.toInt())}] ${progress.toInt() * 10}%" , x, y + (60 * 5))
+            g2d.drawString("Progress: " , x, y + (60 * 5))
+            // [${"#".repeat(progress.toInt())}${"-".repeat(10 - progress.toInt())}] ${progress.toInt() * 10}%
+
+            g2d.setColor(Color(0, 0, 0))
+            g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
+            g2d.drawString("${progress.toInt()}%" , (x+490f), y + (60 * 5))
+
+            g2d.setColor(Color(0, 120, 0, 200))
+            g2d.fillRect( (x+180).toInt(), (y + (60 * 5) - 35).toInt(), (progressWidth * (progress / (100).toDouble())).toInt(), progressHeight.toInt())
+
+            g2d.setColor(Color(0, 120, 0, 200))
+            g2d.drawRect((x+180).toInt(), (y + (60 * 5) - 35).toInt(), (progressWidth).toInt(), progressHeight.toInt())
 
             g2d.finalize()
 
@@ -136,13 +150,13 @@ class ViewXP : Command(){
                 val level = contract[Users.level]
 
                 val xpNeeded = level.toDouble() * (500).toDouble() + (level.toDouble() * MINIMUM_FOR_LEVEL_1.toDouble())
-                val progress = xp.toDouble() / xpNeeded * (10).toDouble()
+                val progress = xp.toDouble() / xpNeeded * (100).toDouble()
 
                 processImg(ctx, contract[Users.expPoints], xpNeeded, progress, level, member,contract[Users.lastLevelUp], contract[Users.accountCreationDate])
 
         }.execute()
 
-        Timer().schedule(1000){
+        Timer().schedule(2000){
             val profileImg = File("src/main/resources/profile/${member.idLong}_profile.png")
 
             ctx.channel.sendFile(profileImg).complete()
