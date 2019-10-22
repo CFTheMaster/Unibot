@@ -15,15 +15,37 @@
  */
 package com.github.cf.discord.uni.commands
 
+import com.github.cf.discord.uni.Uni
+import com.github.cf.discord.uni.utils.Http
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import org.json.JSONObject
 import java.awt.Color
 
 class HelpCommand {
 
     companion object {
+
+        fun getVersionNumber(): String? {
+            val response = OkHttpClient().newCall(Request.Builder()
+                    .url("https://api.github.com/repos/CFTheMaster/Unibot/git/refs/heads/master")
+                    .build()).execute()
+
+            return if (response.isSuccessful) {
+                val content = JSONObject(response.body()?.string())
+                response.body()?.close()
+                content.getJSONObject("object").getString("sha")
+            } else {
+                response.body()?.close()
+                null
+            }
+        }
+
         const val EMBED_TITLE = "Uni Help Page"
         const val WEBSITE_URL = "https://uni.computerfreaker.cf/"
         const val COMMANDS_PER_PAGE = 10
-        const val VERSION_NUMBER = "1.1.1"
+        @JvmStatic
+        val VERSION_NUMBER = getVersionNumber()
         @JvmStatic
         val EMBED_COLOUR = Color(125, 165, 222)
     }
