@@ -75,7 +75,7 @@ class ViewXP : Command(){
             val progressHeight = 50f
 
             g2d.setColor(Color(255, 255, 255, 125))
-            g2d.fillRect(40, 180,1150,380)
+            g2d.fillRect(40, 180,1200,380)
 
             g2d.setColor(Color.BLACK)
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
