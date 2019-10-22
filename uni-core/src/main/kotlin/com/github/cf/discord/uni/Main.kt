@@ -20,8 +20,11 @@ import com.github.cf.discord.uni.core.EnvVars
 import org.jetbrains.kotlin.cli.common.environment.setIdeaIoUseFallback
 
 fun main(args: Array<String>) {
-    setIdeaIoUseFallback()
-    LOGGER.debug { "Loading..." }
-    val bot = Uni(EnvVars.BOT_TOKEN!!)
-    bot.start()
+    Thread {
+        setIdeaIoUseFallback()
+        LOGGER.debug { "Loading..." }
+        val bot = Uni(EnvVars.BOT_TOKEN!!)
+        bot.start()
+    }.start()
+
 }
