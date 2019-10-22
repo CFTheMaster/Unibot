@@ -15,29 +15,29 @@
  */
 package com.github.cf.discord.uni.commands
 
-import com.github.cf.discord.uni.Uni
-import com.github.cf.discord.uni.utils.Http
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import org.json.JSONObject
 import java.awt.Color
+import java.io.File
+import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 class HelpCommand {
 
     companion object {
 
-        fun getVersionNumber(): String? {
-            val response = OkHttpClient().newCall(Request.Builder()
-                    .url("https://api.github.com/repos/CFTheMaster/Unibot/git/refs/heads/master")
-                    .build()).execute()
+        private fun String.runCommand(workingDir: File): String? {
+            try {
+                val parts = this.split("\\s".toRegex())
+                val proc = ProcessBuilder(*parts.toTypedArray())
+                        .directory(workingDir)
+                        .redirectOutput(ProcessBuilder.Redirect.PIPE)
+                        .redirectError(ProcessBuilder.Redirect.PIPE)
+                        .start()
 
-            return if (response.isSuccessful) {
-                val content = JSONObject(response.body()?.string())
-                response.body()?.close()
-                content.getJSONObject("object").getString("sha")
-            } else {
-                response.body()?.close()
-                null
+                proc.waitFor(60, TimeUnit.MINUTES)
+                return proc.inputStream.bufferedReader().readText()
+            } catch(e: IOException) {
+                e.printStackTrace()
+                return e.toString()
             }
         }
 
@@ -45,7 +45,7 @@ class HelpCommand {
         const val WEBSITE_URL = "https://uni.computerfreaker.cf/"
         const val COMMANDS_PER_PAGE = 10
         @JvmStatic
-        val VERSION_NUMBER = getVersionNumber()
+        val VERSION_NUMBER = "git rev-parse --short HEAD".runCommand(File("../").absoluteFile).toString()
         @JvmStatic
         val EMBED_COLOUR = Color(125, 165, 222)
     }
