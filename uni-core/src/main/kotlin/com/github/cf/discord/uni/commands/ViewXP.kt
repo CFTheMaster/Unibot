@@ -93,11 +93,11 @@ class ViewXP : Command(){
 
             g2d.setColor(Color(200, 23, 12))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("User last level-up: ${lastLevelUp.toString("EEEE yyyy MMMM dd HH:mm:ss.SSS", Locale.US)}", x, y + (60 * 3))
+            g2d.drawString("Last level-up: ${lastLevelUp.toString("EEEE yyyy MMMM dd HH:mm:ss.SSS", Locale.US)}", x, y + (60 * 3))
 
             g2d.setColor(Color(102, 0, 204))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("User creation date: ${userCreationDate.toString("EEEE yyyy MMMM dd HH:mm:ss.SSS", Locale.US)}", x, y + (60 * 4))
+            g2d.drawString("Creation date: ${userCreationDate.toString("EEEE yyyy MMMM dd HH:mm:ss.SSS", Locale.US)}", x, y + (60 * 4))
 
             g2d.setColor(Color(0, 13, 255))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
