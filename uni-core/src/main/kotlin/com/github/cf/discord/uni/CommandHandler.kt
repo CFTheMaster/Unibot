@@ -86,7 +86,7 @@ class CommandHandler{
 
         val userPrefix = String(Base64.getDecoder().decode(user.customPrefix ?: "")).toLowerCase()
 
-        val customPrefix = "<@396801832711880715>"
+        val customPrefix = "<@${event.jda.selfUser.idLong}> "
 
         fun checkPrefix(prefix: String?, message: Message): String? {
             if(prefix !is String) return null
