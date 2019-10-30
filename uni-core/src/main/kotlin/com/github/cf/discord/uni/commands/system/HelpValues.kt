@@ -13,14 +13,14 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
-package com.github.cf.discord.uni.commands
+package com.github.cf.discord.uni.commands.system
 
 import java.awt.Color
 import java.io.File
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
-class HelpCommand {
+class HelpValues {
 
     companion object {
 

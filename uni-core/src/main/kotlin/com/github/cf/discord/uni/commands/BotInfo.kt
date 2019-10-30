@@ -18,8 +18,8 @@ package com.github.cf.discord.uni.commands
 import com.github.cf.discord.uni.Uni
 import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Load
-import com.github.cf.discord.uni.commands.HelpCommand.Companion.WEBSITE_URL
-import com.github.cf.discord.uni.commands.system.Category
+import com.github.cf.discord.uni.commands.system.HelpValues.Companion.WEBSITE_URL
+import com.github.cf.discord.uni.commands.system.HelpValues
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.sedmelluq.discord.lavaplayer.tools.PlayerLibrary
@@ -50,7 +50,7 @@ class BotInfo : Command(){
         val time =  OffsetDateTime.parse(ctx.jda.selfUser.timeCreated.toString()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
         val embed = EmbedBuilder().apply{
-            setAuthor("Uni v${HelpCommand.VERSION_NUMBER}", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
+            setAuthor("Uni v${HelpValues.VERSION_NUMBER}", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
             setColor(ctx.member!!.color)
             addField("Bot Devs: ", "${ctx.jda.getUserById(138302166619258880)!!.name}#${ctx.jda.getUserById(138302166619258880)!!.discriminator}\n<@!138302166619258880>", true)
             addField("Bot Name: ", ctx.jda.selfUser.name, true)

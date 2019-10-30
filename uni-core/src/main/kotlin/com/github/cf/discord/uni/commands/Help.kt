@@ -18,10 +18,8 @@ package com.github.cf.discord.uni.commands
 import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Load
-import com.github.cf.discord.uni.commands.HelpCommand.Companion.COMMANDS_PER_PAGE
 import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.data.botOwners
-import com.github.cf.discord.uni.embed.PaginatedEmbed
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.listeners.EventListener
