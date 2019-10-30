@@ -86,6 +86,8 @@ class CommandHandler{
 
         val userPrefix = String(Base64.getDecoder().decode(user.customPrefix ?: "")).toLowerCase()
 
+        val customPrefix = "<@396801832711880715>"
+
         fun checkPrefix(prefix: String?, message: Message): String? {
             if(prefix !is String) return null
             if(prefix.isEmpty()) return null
@@ -96,6 +98,7 @@ class CommandHandler{
             event.message.contentRaw.toLowerCase().startsWith(it.toLowerCase())
         } ?: checkPrefix(guildPrefix.toLowerCase(), event.message)
         ?: checkPrefix(userPrefix.toLowerCase(), event.message)
+        ?: checkPrefix(customPrefix.toLowerCase(), event.message)
 
         val allPrefixes = usedPrefix!!.length
 
