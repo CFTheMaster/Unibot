@@ -99,8 +99,8 @@ class CommandHandler{
 
         val allPrefixes = usedPrefix!!.length
 
-        var cmd = event.message.contentRaw.substring(allPrefixes).split(" ")[0]
-        var args = event.message.contentRaw.substring(allPrefixes).split(" ")
+        var cmd = event.message.contentRaw.toLowerCase().substring(allPrefixes).split(" ")[0]
+        var args = event.message.contentRaw.toLowerCase().substring(allPrefixes).split(" ")
 
         if(args.isNotEmpty()){
             args = args.drop(1)
