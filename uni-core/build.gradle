@@ -2,7 +2,6 @@ buildscript {
     ext.jda_version = '4.0.0_39'
     ext.jda_utilities_version = '3.0.2'
     ext.lavaplayer_version = '1.3.22'
-    ext.meirei_version = '0.8.6'
     ext.jackson_version = '2.9.4'
     ext.jsoup_version = '1.11.2'
     ext.redisson_version = '3.6.0'
@@ -22,7 +21,6 @@ plugins {
 mainClassName = "com.github.cf.discord.uni.MainKt"
 
 dependencies {
-    compile "com.github.kvnxiao.meirei:meirei-jda:$meirei_version"
     compile "net.dv8tion:JDA:$jda_version"
     compile "com.jagrosh:jda-utilities-commons:$jda_utilities_version"
     compile "com.sedmelluq:lavaplayer:$lavaplayer_version"
