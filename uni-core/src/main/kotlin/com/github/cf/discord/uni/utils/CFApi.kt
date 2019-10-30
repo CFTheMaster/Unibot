@@ -22,7 +22,7 @@ import org.json.JSONObject
 object CFApi{
     fun getCFApi(name: String): String? {
         val response = OkHttpClient().newCall(Request.Builder()
-                .url("http://localhost/API/web/v1/$name")
+                .url("https://api.computerfreaker.cf/v1/$name")
                 .build()).execute()
 
         return if (response.isSuccessful) {
