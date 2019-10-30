@@ -89,18 +89,18 @@ class CommandHandler{
         fun checkPrefix(prefix: String?, message: Message): String? {
             if(prefix !is String) return null
             if(prefix.isEmpty()) return null
-            return if (message.contentRaw.startsWith(prefix)) prefix else null
+            return if (message.contentRaw.toLowerCase().startsWith(prefix)) prefix else null
         }
 
         val usedPrefix = Uni.prefixes.firstOrNull {
-            event.message.contentRaw.startsWith(it.toLowerCase())
-        } ?: checkPrefix(guildPrefix, event.message)
-        ?: checkPrefix(userPrefix, event.message)
+            event.message.contentRaw.toLowerCase().startsWith(it.toLowerCase())
+        } ?: checkPrefix(guildPrefix.toLowerCase(), event.message)
+        ?: checkPrefix(userPrefix.toLowerCase(), event.message)
 
         val allPrefixes = usedPrefix!!.length
 
-        var cmd = event.message.contentRaw.toLowerCase().substring(allPrefixes).split(" ")[0]
-        var args = event.message.contentRaw.toLowerCase().substring(allPrefixes).split(" ")
+        var cmd = event.message.contentRaw.substring(allPrefixes).split(" ")[0]
+        var args = event.message.contentRaw.substring(allPrefixes).split(" ")
 
         if(args.isNotEmpty()){
             args = args.drop(1)
