@@ -44,37 +44,3 @@ dependencies {
     compile group: 'org.json', name: 'json', version: '20190722'
     compile 'com.github.natanbc:weeb4j:3.5'
 }
-
-jar {
-    manifest {
-        attributes('Implementation-Title': rootProject.name,
-                'Implementation-Version': version)
-    }
-}
-
-remotes {
-    rpi {
-        host = "$ssh_host"
-        user = "$ssh_user"
-        identity = file("${System.getProperty("user.home")}/.ssh/$ssh_id")
-    }
-}
-
-task deploy(dependsOn: shadowJar) {
-    group = "deploy"
-    doFirst {
-        ssh.run {
-            session(remotes.rpi) {
-                execute "pkill java || true"
-            }
-        }
-    }
-    doLast {
-        ssh.run {
-            session(remotes.rpi) {
-                put from: "${projectDir}/build/libs/${project.name}-${project.version}-all.jar", into: "$scp_dir/${project.name}-${project.version}-all.jar"
-                execute "cd $scp_dir; nohup $scp_dir/run.sh > /dev/null 2>&1 &"
-            }
-        }
-    }
-}
