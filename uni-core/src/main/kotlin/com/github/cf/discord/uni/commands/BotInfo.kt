@@ -53,7 +53,7 @@ class BotInfo : Command(){
             setAuthor("Uni, Git Version: ${HelpValues.VERSION_NUMBER}", null, "https://cdn.discordapp.com/avatars/396801832711880715/1d51997b035d1fa5d8441b73de87c748.png")
             setColor(ctx.member!!.color)
             addField("Bot Devs: ", "${ctx.jda.getUserById(138302166619258880)!!.name}#${ctx.jda.getUserById(138302166619258880)!!.discriminator}\n<@!138302166619258880>", true)
-            addField("Bot Name: ", ctx.jda.selfUser.name, true)
+            addField("Bot Name: ", "${ctx.jda.selfUser.name}#${ctx.jda.selfUser.discriminator}", true)
             addField("Bot Id: ", ctx.jda.selfUser.id, true)
             addField("JDA Version: ", JDAInfo.VERSION, true)
             addField("LavaPlayer Version: ", PlayerLibrary.VERSION, true)
