@@ -262,6 +262,7 @@ class EventListener : ListenerAdapter(){
                 .addField("Text Channels: ", "${event.guild.textChannels.size}", true)
                 .addField("Voice Channels: ", " ${event.guild.voiceChannels.size} ", true)
                 .addField("Total amount of guilds: ", "${Uni.shardManager.guilds.size}", true)
+                .addBlankField(true)
                 .build()).queue()
     }
 
@@ -293,6 +294,7 @@ class EventListener : ListenerAdapter(){
                 .addField("Text Channels: ", "${event.guild.textChannels.size}", true)
                 .addField("Voice Channels: ", " ${event.guild.voiceChannels.size} ", true)
                 .addField("Total amount of guilds: ", "${Uni.shardManager.guilds.size}", true)
+                .addBlankField(true)
                 .build()).queue()
     }
 
