@@ -94,7 +94,7 @@ class Reason : Command() {
                             .queue({
                                 it.editMessage(
                                         it.contentRaw.replace(
-                                                "\\*\\*Reason\\*\\*: .+\n\\*\\*Responsible moderator\\*\\*: .+".toRegex(),
+                                                "Reason: .+\nResponsible moderator: .+".toRegex(),
                                                 "**Reason**: [ ${ctx.author.name}#${ctx.author.discriminator} ] $reasonArg\n" +
                                                         "**Responsible moderator**: ${ctx.author.name}#${ctx.author.discriminator} (${ctx.author.id})"
                                         )
