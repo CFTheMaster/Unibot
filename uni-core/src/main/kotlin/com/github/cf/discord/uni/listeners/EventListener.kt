@@ -35,7 +35,9 @@ import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.OnlineStatus
 import net.dv8tion.jda.api.Permission
 import net.dv8tion.jda.api.audit.ActionType
+import net.dv8tion.jda.api.audit.AuditLogEntry
 import net.dv8tion.jda.api.entities.Activity
+import net.dv8tion.jda.api.entities.User
 import net.dv8tion.jda.api.events.Event
 import net.dv8tion.jda.api.events.ReadyEvent
 import net.dv8tion.jda.api.events.guild.GuildBanEvent
@@ -74,6 +76,17 @@ import kotlin.concurrent.timerTask
 
 class EventListener : ListenerAdapter(){
     private val timer = Timer(true)
+
+    private fun cases(caseName: String, case: Int, audit: AuditLogEntry, user: User): CharSequence{
+        val caseText = """```
+                $caseName | Case $case
+                User: ${user.name}#${user.discriminator} (${user.id})
+                Reason: ${audit.reason ?: "`Responsible moderator, please use the reason command to set this reason`"}
+                Responsible moderator: ${audit.user!!.name}#${audit.user!!.discriminator} (${audit.user!!.id})
+            ```""".trimIndent()
+
+        return caseText
+    }
 
     fun onGenericEvent(event: Event) = waiter.emit(event)
 
@@ -411,12 +424,7 @@ class EventListener : ListenerAdapter(){
                 val audit = event.guild.retrieveAuditLogs().type(ActionType.KICK).limit(2).firstOrNull { it.targetId == event.user.id } ?: return@asyncTransaction
                 val case = modlogs.count() + 1
 
-                modlogChannel.sendMessage("""
-                **Kick** | Case $case
-                **User**: ${event.user.name}#${event.user.discriminator} (${event.user.id})
-                **Reason**: ${audit.reason ?: "`Responsible moderator, please use the reason command to set this reason`"}
-                **Responsible moderator**: ${audit.user!!.name}#${audit.user!!.discriminator} (${audit.user!!.id})
-            """.trimIndent()).complete()
+                modlogChannel.sendMessage(cases("KICK", case, audit, event.user)).complete()
 
                 Timer().schedule(
                         timerTask {
@@ -456,12 +464,7 @@ class EventListener : ListenerAdapter(){
                 val audit = event.guild.retrieveAuditLogs().type(ActionType.UNBAN).first { it.targetId == event.user.id }
                 val case = modlogs.count() + 1
 
-                modlogChannel.sendMessage("""
-                **Unban** | Case $case
-                **User**: ${event.user.name}#${event.user.discriminator} (${event.user.id})
-                **Reason**: ${audit.reason ?: "`Responsible moderator, please use the reason command to set this reason`"}
-                **Responsible moderator**: ${audit.user!!.name}#${audit.user!!.discriminator} (${audit.user!!.id})
-            """.trimIndent()).complete()
+                modlogChannel.sendMessage(cases("UNBAN", case, audit, event.user)).complete()
 
                 Timer().schedule(
                         timerTask {
@@ -491,12 +494,7 @@ class EventListener : ListenerAdapter(){
                 val audit = event.guild.retrieveAuditLogs().type(ActionType.BAN).first { it.targetId == event.user.id }
                 val case = modlogs.count() + 1
 
-                modlogChannel.sendMessage("""
-                **Ban** | Case $case
-                **User**: ${event.user.name}#${event.user.discriminator} (${event.user.id})
-                **Reason**: ${audit.reason ?: "`Responsible moderator, please use the reason command to set this reason`"}
-                **Responsible moderator**: ${audit.user!!.name}#${audit.user!!.discriminator} (${audit.user!!.id})
-            """.trimIndent()).complete()
+                modlogChannel.sendMessage(cases("BAN", case, audit, event.user)).complete()
 
                 Timer().schedule(
                         timerTask {
@@ -532,12 +530,7 @@ class EventListener : ListenerAdapter(){
 
                 val case = modlogs.count() + 1
 
-                modlogChannel.sendMessage("""
-                **Mute** | Case $case
-                **User**: ${event.user.name}#${event.user.discriminator} (${event.user.id})
-                **Reason**: ${audit.reason ?: "`Responsible moderator, please use the reason command to set this reason`"}
-                **Responsible moderator**: ${audit.user!!.name}#${audit.user!!.discriminator} (${audit.user!!.id})
-            """.trimIndent()).complete()
+                modlogChannel.sendMessage(cases("MUTE", case, audit, event.user)).complete()
 
                 Timer().schedule(
                         timerTask {
@@ -571,12 +564,7 @@ class EventListener : ListenerAdapter(){
 
                 val case = modlogs.count() + 1
 
-                modlogChannel.sendMessage("""
-                **Unmute** | Case $case
-                **User**: ${event.user.name}#${event.user.discriminator} (${event.user.id})
-                **Reason**: ${audit.reason ?: "`Responsible moderator, please use the reason command to set this reason`"}
-                **Responsible moderator**: ${audit.user!!.name}#${audit.user!!.discriminator} (${audit.user!!.id})
-            """.trimIndent()).complete()
+                modlogChannel.sendMessage(cases("UNMUTE", case, audit, event.user)).complete()
 
 
                 Timer().schedule(
