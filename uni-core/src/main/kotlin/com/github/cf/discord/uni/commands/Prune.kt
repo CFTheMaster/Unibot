@@ -51,7 +51,7 @@ class Prune : AsyncCommand() {
                     it.delete().await()
                     messages++
                 }
-        ctx.channel.sendMessage("$messages: messages have been pruned").queue({
+        ctx.channel.sendMessage("$messages messages have been pruned").queue({
             Timer().schedule(
                     timerTask {
                         it.delete().queue()
