@@ -19,6 +19,15 @@ buildscript {
     }
 }
 
+plugins {
+    id "java"
+    id "kotlin"
+    id "application"
+    id "org.jetbrains.dokka"
+    id "com.github.johnrengelman.shadow"
+    id "com.diffplug.gradle.spotless"
+}
+
 allprojects {
     group 'com.github.cf'
     version '1.0.0'
@@ -26,15 +35,6 @@ allprojects {
     wrapper{
         gradleVersion = '6.0.1'
         distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
-    }
-
-    plugins {
-        id "java"
-        id "kotlin"
-        id "application"
-        id "org.jetbrains.dokka"
-        id "com.github.johnrengelman.shadow"
-        id "com.diffplug.gradle.spotless"
     }
 }
 
