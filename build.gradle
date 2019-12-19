@@ -21,7 +21,7 @@ buildscript {
 
 plugins {
     id "java"
-    id "kotlin"
+    id "base"
     id "application"
     id "org.jetbrains.dokka"
     id "com.github.johnrengelman.shadow"
