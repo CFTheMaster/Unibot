@@ -27,14 +27,6 @@ allprojects {
         gradleVersion = '6.0.1'
         distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
     }
-}
-
-subprojects {
-    repositories {
-        jcenter()
-        maven { url "https://jitpack.io" }
-        maven { url "https://dl.bintray.com/kotlin/exposed" }
-    }
 
     plugins {
         id "java"
@@ -44,6 +36,16 @@ subprojects {
         id "com.github.johnrengelman.shadow"
         id "com.diffplug.gradle.spotless"
     }
+}
+
+subprojects {
+    repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
+        maven { url "https://dl.bintray.com/kotlin/exposed" }
+    }
+
+
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
