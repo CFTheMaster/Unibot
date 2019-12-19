@@ -23,7 +23,7 @@ allprojects {
     group 'com.github.cf'
     version '1.0.0'
 
-    task wrapper(type: Wrapper) {
+    wrapper{
         gradleVersion = '6.0.1'
         distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
     }
