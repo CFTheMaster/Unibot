@@ -37,12 +37,12 @@ subprojects {
     }
 
     plugins {
-        id: "java"
-        id: "kotlin"
-        id: "application"
-        id: "org.jetbrains.dokka"
-        id: "com.github.johnrengelman.shadow"
-        id: "com.diffplug.gradle.spotless"
+        id "java"
+        id "kotlin"
+        id "application"
+        id "org.jetbrains.dokka"
+        id "com.github.johnrengelman.shadow"
+        id "com.diffplug.gradle.spotless"
     }
 
     sourceCompatibility = 1.8
