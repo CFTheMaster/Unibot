@@ -21,10 +21,10 @@ buildscript {
 
 allprojects {
     group 'com.github.cf'
-    version '0.9.9-SNAPSHOT'
+    version '1.0.0'
 
     task wrapper(type: Wrapper) {
-        gradleVersion = '4.5.1'
+        gradleVersion = '6.0.1'
         distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
     }
 }
