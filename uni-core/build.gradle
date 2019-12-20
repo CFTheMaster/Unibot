@@ -34,7 +34,6 @@ dependencies {
     compile "org.postgresql:postgresql:$postgresql_version"
     compile "org.jetbrains.exposed:exposed:$exposed_version"
     compile 'io.github.cdimascio:java-dotenv:3.1.0'
-    compile 'com.github.jasync-sql:jasync-mysql:0.9.51'
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
     compile 'com.google.code.gson:gson:2.8.5'
     compile group: 'net.oneandone.reflections8', name: 'reflections8', version: '0.11.4'
@@ -43,4 +42,5 @@ dependencies {
     compile group: 'postgresql', name: 'postgresql', version: '9.1-901-1.jdbc4'
     compile group: 'org.json', name: 'json', version: '20190722'
     compile 'com.github.natanbc:weeb4j:3.5'
+    compile 'org.jetbrains.kotlin:kotlin-compiler-embeddable:1.3.61'
 }

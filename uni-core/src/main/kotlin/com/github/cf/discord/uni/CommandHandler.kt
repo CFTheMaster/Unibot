@@ -31,8 +31,7 @@ import com.github.cf.discord.uni.utils.Logger
 import com.github.cf.discord.uni.utils.RolePicker
 import com.github.cf.discord.uni.utils.TextChannelPicker
 import com.github.cf.discord.uni.utils.UserPicker
-import com.github.jasync.sql.db.util.length
-import gnu.trove.map.hash.TLongObjectHashMap
+import gnu.trove.TLongObjectHashMap
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.Permission
 import net.dv8tion.jda.api.entities.TextChannel

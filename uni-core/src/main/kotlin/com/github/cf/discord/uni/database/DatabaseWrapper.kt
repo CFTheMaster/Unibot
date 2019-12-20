@@ -22,8 +22,6 @@ import com.github.cf.discord.uni.database.schema.*
 import com.github.cf.discord.uni.extensions.asyncTransaction
 import com.github.cf.discord.uni.extensions.log
 import com.github.cf.discord.uni.listeners.EventListener
-import com.github.jasync.sql.db.Connection
-import com.github.jasync.sql.db.mysql.MySQLConnectionBuilder
 import net.dv8tion.jda.api.entities.Guild
 import org.joda.time.DateTime
 import net.dv8tion.jda.api.entities.Member

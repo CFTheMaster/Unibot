@@ -29,7 +29,7 @@ import com.github.cf.discord.uni.extensions.log
 import com.github.cf.discord.uni.extensions.removeStar
 import com.github.cf.discord.uni.stateful.EventWaiter
 import com.github.cf.discord.uni.utils.Http
-import gnu.trove.map.hash.TLongLongHashMap
+import gnu.trove.TLongLongHashMap
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.OnlineStatus
