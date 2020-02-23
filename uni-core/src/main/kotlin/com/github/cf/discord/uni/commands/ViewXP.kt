@@ -84,6 +84,9 @@ class ViewXP : Command(){
             g2d.setColor(Color(102, 17, 187, 125))
             g2d.fillRect(10, 10,580,127)
 
+            g2d.setColor(Color(255, 255, 255, 125))
+            g2d.fillRect(10, 680,1500,50)
+
             g2d.drawImage(profilePicture, 10,  10, null)
 
             g2d.setColor(Color.BLACK)
