@@ -85,7 +85,7 @@ class ViewXP : Command(){
 
             g2d.setColor(Color.BLACK)
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("Username: ${member.user.name}#${member.user.discriminator}", 140, 80)
+            g2d.drawString("${member.user.name}#${member.user.discriminator}", 150, 80)
 
 
             g2d.setColor(Color(111, 0, 0))
@@ -114,10 +114,10 @@ class ViewXP : Command(){
             g2d.drawString("${progress.toInt()}%" , (x+530f), y + (60 * 5) + 2)
 
             g2d.setColor(Color(0, 120, 0, 120))
-            g2d.fillRect( (x+200).toInt(), (y + (60 * 5) - 35).toInt(), (progressWidth * (progress / (100).toDouble())).toInt(), progressHeight.toInt())
+            g2d.fillRect( (x).toInt(), (y - 35).toInt(), (progressWidth * (progress / (100).toDouble())).toInt(), progressHeight.toInt())
 
             g2d.setColor(Color(0, 120, 0, 120))
-            g2d.drawRect((x+200).toInt(), (y + (60 * 5) - 35).toInt(), (progressWidth).toInt(), progressHeight.toInt())
+            g2d.drawRect((x).toInt(), (y - 35).toInt(), (progressWidth).toInt(), progressHeight.toInt())
 
             g2d.finalize()
 
