@@ -206,7 +206,7 @@ class EventListener : ListenerAdapter(){
                         }
                     }
 
-                    val xpNeeded = curLevel.toDouble() * (500).toDouble() + MINIMUM_FOR_LEVEL_1
+                    val xpNeeded = curLevel.toDouble() * (500).toDouble() + (MINIMUM_FOR_LEVEL_1 * curLevel.toDouble())
 
                     if (xp >= xpNeeded) {
                         Users.update({
