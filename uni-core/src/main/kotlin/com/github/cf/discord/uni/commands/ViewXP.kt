@@ -85,7 +85,7 @@ class ViewXP : Command(){
 
             g2d.setColor(Color.BLACK)
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("Username: ${member.user.name}#${member.user.discriminator}", 70, 70)
+            g2d.drawString("Username: ${member.user.name}#${member.user.discriminator}", 140, 80)
 
 
             g2d.setColor(Color(111, 0, 0))
