@@ -88,7 +88,7 @@ class ViewXP : Command(){
 
             g2d.setColor(Color(0, 0, 142))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("Experience Points: ${userXPPoints}/${xpNeeded.toLong()}, Total: ", x, y + (60 * 2))
+            g2d.drawString("Experience Points: ${userXPPoints}/${xpNeeded.toLong()}, Total: $totalExp", x, y + (60 * 2))
 
 
             g2d.setColor(Color(200, 23, 12))
