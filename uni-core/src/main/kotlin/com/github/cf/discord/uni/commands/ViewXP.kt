@@ -60,7 +60,7 @@ class ViewXP : Command(){
         return bufferedImage
     }
 
-    private fun processImg(ctx: Context, userXPPoints: Long, xpNeeded: Double, progress: Double, level: Long, member: Member, lastLevelUp: DateTime, userCreationDate: DateTime){
+    private fun processImg(ctx: Context, userXPPoints: Double, xpNeeded: Double, progress: Double, level: Long, member: Member, lastLevelUp: DateTime, userCreationDate: DateTime){
 
         try {
             val img = ImageIO.read(URL("https://cdn.discordapp.com/attachments/410793614747369472/681104046844805190/unknown.png")).toBufferedImage()
@@ -152,14 +152,16 @@ class ViewXP : Command(){
                     val xpNeeded = level.toDouble() * (500).toDouble() + (level.toDouble() * MINIMUM_FOR_LEVEL_1.toDouble())
                     val progress = xp.toDouble() / xpNeeded * (100).toDouble()
 
-                    processImg(ctx, contract[Users.expPoints], xpNeeded, progress, level, member,contract[Users.lastLevelUp], contract[Users.accountCreationDate])
+                    processImg(ctx, xp.toDouble(), xpNeeded, progress, level, member,contract[Users.lastLevelUp], contract[Users.accountCreationDate])
                 } else {
                     val xpNeeded = level.toDouble() * (500).toDouble() + (level.toDouble() * MINIMUM_FOR_LEVEL_1.toDouble())
                     val xpFromLastLevel = (level.toDouble() - 1) * (500).toDouble() + ((level.toDouble() - 1) * MINIMUM_FOR_LEVEL_1.toDouble())
                     val progress = (xp.toDouble() - xpFromLastLevel) / (xpNeeded - xpFromLastLevel) * (100).toDouble()
+                    val curExp = xp.toDouble() - xpFromLastLevel
+                    val expNeeded = xpNeeded - xpFromLastLevel
 
 
-                    processImg(ctx, xp, xpNeeded, progress, level, member,contract[Users.lastLevelUp], contract[Users.accountCreationDate])
+                    processImg(ctx, curExp, expNeeded, progress, level, member,contract[Users.lastLevelUp], contract[Users.accountCreationDate])
                 }
 
 
