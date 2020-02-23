@@ -31,9 +31,11 @@ import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import java.awt.*
 import java.awt.image.BufferedImage
+import java.awt.image.ImageObserver
 import java.io.BufferedOutputStream
 import java.io.File
 import java.io.IOException
+import java.io.InputStream
 import java.net.URL
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -64,6 +66,7 @@ class ViewXP : Command(){
 
         try {
             val img = ImageIO.read(URL("https://cdn.discordapp.com/attachments/410793614747369472/681104046844805190/unknown.png")).toBufferedImage()
+            val profilePicture = ImageIO.read(File(ctx.member!!.user.avatarUrl ?: "https://maxcdn.icons8.com/Share/icon/Logos/discord_logo1600.png")).toBufferedImage()
 
             val g2d: Graphics2D = img.graphics as Graphics2D
 
@@ -76,6 +79,8 @@ class ViewXP : Command(){
 
             g2d.setColor(Color(255, 255, 255, 125))
             g2d.fillRect(40, 180,1200,380)
+
+            g2d.drawImage(profilePicture, 10,  10, null)
 
             g2d.setColor(Color.BLACK)
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
