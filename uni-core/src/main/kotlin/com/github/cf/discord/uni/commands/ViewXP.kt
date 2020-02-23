@@ -60,7 +60,7 @@ class ViewXP : Command(){
         return bufferedImage
     }
 
-    private fun processImg(ctx: Context, userXPPoints: Long, xpNeeded: Double, progress: Double, level: Long, member: Member, lastLevelUp: DateTime, userCreationDate: DateTime){
+    private fun processImg(ctx: Context, userXPPoints: Long, totalExp: Long ,xpNeeded: Float, progress: Float, level: Long, member: Member, lastLevelUp: DateTime, userCreationDate: DateTime){
 
         try {
             val img = ImageIO.read(URL("https://cdn.discordapp.com/attachments/410793614747369472/681104046844805190/unknown.png")).toBufferedImage()
@@ -88,7 +88,7 @@ class ViewXP : Command(){
 
             g2d.setColor(Color(0, 0, 142))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("Experience Points: ${userXPPoints}/${xpNeeded.toLong()}", x, y + (60 * 2))
+            g2d.drawString("Experience Points: ${userXPPoints}/${xpNeeded.toLong()}, Total: ", x, y + (60 * 2))
 
 
             g2d.setColor(Color(200, 23, 12))
@@ -149,22 +149,22 @@ class ViewXP : Command(){
                 val level = contract[Users.level]
 
                 if(level == 1.toLong()){
-                    val xpNeeded =  (level.toDouble() * (50).toDouble()) * (MINIMUM_FOR_LEVEL_1 * (level.toDouble() / (3).toDouble()))
+                    val xpNeeded =  (level.toFloat() * 50f) * (MINIMUM_FOR_LEVEL_1 * (level.toFloat() / 3f))
                     val progress = xp.toDouble() / xpNeeded * (100).toDouble()
 
-                    processImg(ctx, xp, xpNeeded, progress, level, member,contract[Users.lastLevelUp], contract[Users.accountCreationDate])
+                    processImg(ctx, xp, 0,xpNeeded, progress, level, member,contract[Users.lastLevelUp], contract[Users.accountCreationDate])
                 } else {
 
                     val previousLevel = level - 1
 
-                    val xpNeeded = (level.toDouble() * (50).toDouble()) * (MINIMUM_FOR_LEVEL_1 * (level.toDouble() / (3).toDouble()))
-                    val xpFromLastLevel =  ((previousLevel.toDouble() - 1f) * (50).toDouble()) * (MINIMUM_FOR_LEVEL_1 * (previousLevel.toDouble() / (3).toDouble()))
-                    val progress = (xp.toDouble() - xpFromLastLevel) / (xpNeeded - xpFromLastLevel) * (100).toDouble()
-                    val curExp = xp - xpFromLastLevel
+                    val xpNeeded = (level.toFloat() * 50f) * (MINIMUM_FOR_LEVEL_1 * (level.toFloat() / 3f))
+                    val xpFromLastLevel =  (previousLevel.toFloat() - 1f) * 50f * (MINIMUM_FOR_LEVEL_1 * (previousLevel.toFloat() / (3f)))
+                    val progress = (xp.toFloat() - xpFromLastLevel) / (xpNeeded - xpFromLastLevel) * (100).toFloat()
+                    val curExp = xp.toFloat() - xpFromLastLevel
                     val expTillLevel = xpNeeded - xpFromLastLevel
 
 
-                    processImg(ctx, curExp.toLong(), expTillLevel, progress, level, member,contract[Users.lastLevelUp], contract[Users.accountCreationDate])
+                    processImg(ctx, curExp.toLong(), xp, expTillLevel, progress, level, member,contract[Users.lastLevelUp], contract[Users.accountCreationDate])
                 }
 
 
