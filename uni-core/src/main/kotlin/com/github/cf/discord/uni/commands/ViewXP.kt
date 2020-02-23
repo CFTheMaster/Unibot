@@ -152,7 +152,7 @@ class ViewXP : Command(){
                     val xpNeeded =  (level.toFloat() * 50f) * (MINIMUM_FOR_LEVEL_1 * (level.toFloat() / 3f))
                     val progress = xp.toFloat() / xpNeeded * 100f
 
-                    processImg(ctx, xp, 0,xpNeeded, progress, level, member,contract[Users.lastLevelUp], contract[Users.accountCreationDate])
+                    processImg(ctx, xp, xp,xpNeeded, progress, level, member,contract[Users.lastLevelUp], contract[Users.accountCreationDate])
                 } else {
 
                     val previousLevel = level - 1
