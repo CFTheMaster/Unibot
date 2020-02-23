@@ -81,6 +81,9 @@ class ViewXP : Command(){
             g2d.setColor(Color(255, 255, 255, 125))
             g2d.fillRect(40, 180,1200,380)
 
+            g2d.setColor(Color(102, 17, 187, 125))
+            g2d.fillRect(10, 10,400,100)
+
             g2d.drawImage(profilePicture, 10,  10, null)
 
             g2d.setColor(Color.BLACK)
@@ -94,7 +97,7 @@ class ViewXP : Command(){
 
             g2d.setColor(Color(0, 0, 142))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("XP For Level: ${userXPPoints}/${xpNeeded.toLong()}, Total: $totalExp", x+200, y + (60 * 2))
+            g2d.drawString("XP For Level: ${userXPPoints}/${xpNeeded.toLong()}, Total: $totalExp", x+200, y + (60 * 1))
 
 
             g2d.setColor(Color(200, 23, 12))
