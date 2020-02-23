@@ -65,8 +65,9 @@ class ViewXP : Command(){
     private fun processImg(ctx: Context, userXPPoints: Long, totalExp: Long ,xpNeeded: Float, progress: Float, level: Long, member: Member, lastLevelUp: DateTime, userCreationDate: DateTime){
 
         try {
+
             val img = ImageIO.read(URL("https://cdn.discordapp.com/attachments/410793614747369472/681104046844805190/unknown.png")).toBufferedImage()
-            val profilePicture = ImageIO.read(URL(ctx.member!!.user.avatarUrl ?: "https://maxcdn.icons8.com/Share/icon/Logos/discord_logo1600.png")).toBufferedImage()
+            val profilePicture = ImageIO.read(URL(member.user.avatarUrl ?: "https://maxcdn.icons8.com/Share/icon/Logos/discord_logo1600.png")).toBufferedImage()
 
             val g2d: Graphics2D = img.graphics as Graphics2D
 
