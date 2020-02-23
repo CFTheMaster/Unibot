@@ -148,10 +148,21 @@ class ViewXP : Command(){
                 val xp = contract[Users.expPoints]
                 val level = contract[Users.level]
 
-                val xpNeeded = level.toDouble() * (500).toDouble() + (level.toDouble() * MINIMUM_FOR_LEVEL_1.toDouble())
-                val progress = xp.toDouble() / xpNeeded * (100).toDouble()
+                if(level == 1.toLong()){
+                    val xpNeeded = level.toDouble() * (500).toDouble() + (level.toDouble() * MINIMUM_FOR_LEVEL_1.toDouble())
+                    val progress = xp.toDouble() / xpNeeded * (100).toDouble()
 
-                processImg(ctx, contract[Users.expPoints], xpNeeded, progress, level, member,contract[Users.lastLevelUp], contract[Users.accountCreationDate])
+                    processImg(ctx, contract[Users.expPoints], xpNeeded, progress, level, member,contract[Users.lastLevelUp], contract[Users.accountCreationDate])
+                } else {
+                    val xpNeeded = level.toDouble() * (500).toDouble() + (level.toDouble() * MINIMUM_FOR_LEVEL_1.toDouble())
+                    val xpFromLastLevel = (level.toDouble() - 1) * (500).toDouble() + ((level.toDouble() - 1) * MINIMUM_FOR_LEVEL_1.toDouble())
+                    val progress = (xp.toDouble() - xpFromLastLevel) / (xpNeeded - xpFromLastLevel) * (100).toDouble()
+
+                    processImg(ctx, contract[Users.expPoints], xpNeeded, progress, level, member,contract[Users.lastLevelUp], contract[Users.accountCreationDate])
+                }
+
+
+
 
         }.execute()
 
