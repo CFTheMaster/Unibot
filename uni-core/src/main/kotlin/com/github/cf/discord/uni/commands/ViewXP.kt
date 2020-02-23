@@ -85,7 +85,7 @@ class ViewXP : Command(){
             g2d.fillRect(10, 10,580,127)
 
             g2d.setColor(Color(255, 255, 255, 125))
-            g2d.fillRect(0, 666,1500,40)
+            g2d.fillRect(0, 669,1500,40)
 
             g2d.drawImage(profilePicture, 10,  10, null)
 
@@ -109,7 +109,7 @@ class ViewXP : Command(){
 
             g2d.setColor(Color(102, 0, 204))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 30))
-            g2d.drawString("User created acount: ${userCreationDate.toString("EEEE yyyy MMMM dd HH:mm:ss.SSS", Locale.US)}", 10, 700)
+            g2d.drawString("User created acount: ${userCreationDate.toString("EEEE yyyy MMMM dd HH:mm:ss.SSS", Locale.US)}", 300, 700)
 
             g2d.setColor(Color(0, 0, 0))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
