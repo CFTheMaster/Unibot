@@ -82,7 +82,7 @@ class ViewXP : Command(){
             g2d.fillRect(40, 180,1200,380)
 
             g2d.setColor(Color(102, 17, 187, 125))
-            g2d.fillRect(0, 0,1500,137)
+            g2d.fillRect(0, 0,1500,133)
 
             g2d.setColor(Color(209,183,234, 125))
             g2d.fillRect(0, 669,1500,40)
