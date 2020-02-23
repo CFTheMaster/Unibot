@@ -90,7 +90,7 @@ class ViewXP : Command(){
 
             g2d.setColor(Color(111, 0, 0))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("Current level: $level", x, y + (60 * 1))
+            g2d.drawString("level: $level", x, y)
 
             g2d.setColor(Color(0, 0, 142))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
