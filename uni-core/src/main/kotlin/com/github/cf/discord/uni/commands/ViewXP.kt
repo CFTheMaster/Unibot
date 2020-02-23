@@ -158,7 +158,7 @@ class ViewXP : Command(){
                     val previousLevel = level - 1
 
                     val xpNeeded = (level.toDouble() * (50).toDouble()) * (MINIMUM_FOR_LEVEL_1 * (level.toDouble() / (3).toDouble()))
-                    val xpFromLastLevel =  (previousLevel.toDouble() * (50).toDouble()) * (MINIMUM_FOR_LEVEL_1 * (level.toDouble() / (3).toDouble()))
+                    val xpFromLastLevel =  ((previousLevel.toDouble() - 1f) * (50).toDouble()) * (MINIMUM_FOR_LEVEL_1 * (previousLevel.toDouble() / (3).toDouble()))
                     val progress = (xp.toDouble() - xpFromLastLevel) / (xpNeeded - xpFromLastLevel) * (100).toDouble()
                     val curExp = xp - xpFromLastLevel
                     val expTillLevel = xpNeeded - xpFromLastLevel
