@@ -96,7 +96,7 @@ class ViewXP : Command(){
 
             g2d.setColor(Color(111, 0, 0))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("Level: $level", x, y)
+            g2d.drawString("Level: $level", x, y+(60*3))
 
             g2d.setColor(Color(0, 0, 142))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
@@ -105,7 +105,7 @@ class ViewXP : Command(){
 
             g2d.setColor(Color(200, 23, 12))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("Last level-up: ${lastLevelUp.toString("EEEE yyyy MMMM dd HH:mm:ss.SSS", Locale.US)}", x, y + (60 * 3))
+            g2d.drawString("Last level-up: ${lastLevelUp.toString("EEEE yyyy MMMM dd HH:mm:ss.SSS", Locale.US)}", x, y + (60 * 5))
 
             g2d.setColor(Color(102, 0, 204))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 30))
@@ -113,13 +113,13 @@ class ViewXP : Command(){
 
             g2d.setColor(Color(0, 0, 0))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("${progress.toInt()}%" , (x+530f), y +(60*2) + 2)
+            g2d.drawString("${progress.toInt()}%" , (x+530f), y +(60*3) + 2)
 
             g2d.setColor(Color(0, 120, 0, 120))
-            g2d.fillRect( (x+200).toInt(), (y+(60*2) - 35).toInt(), (progressWidth * (progress / (100).toDouble())).toInt(), progressHeight.toInt())
+            g2d.fillRect( (x+200).toInt(), (y+(60*3) - 35).toInt(), (progressWidth * (progress / (100).toDouble())).toInt(), progressHeight.toInt())
 
             g2d.setColor(Color(0, 120, 0, 120))
-            g2d.drawRect((x+200).toInt(), (y +(60*2)- 35).toInt(), (progressWidth).toInt(), progressHeight.toInt())
+            g2d.drawRect((x+200).toInt(), (y +(60*3)- 35).toInt(), (progressWidth).toInt(), progressHeight.toInt())
 
             g2d.finalize()
 
