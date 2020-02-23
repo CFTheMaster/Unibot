@@ -100,7 +100,7 @@ class ViewXP : Command(){
 
             g2d.setColor(Color(0, 0, 142))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("XP For Level: ${userXPPoints}/${xpNeeded.toLong()}, Total: $totalExp", x+200, y + (60 * 1))
+            g2d.drawString("XP For Level: ${userXPPoints}/${xpNeeded.toLong()}, Total: $totalExp", x+200, y+(60*3-10))
 
 
             g2d.setColor(Color(200, 23, 12))
@@ -113,13 +113,13 @@ class ViewXP : Command(){
 
             g2d.setColor(Color(0, 0, 0))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("${progress.toInt()}%" , (x+530f), y +(60*3) + 2)
+            g2d.drawString("${progress.toInt()}%" , (x+530f), y +(60*3-10) + 2)
 
             g2d.setColor(Color(0, 120, 0, 120))
-            g2d.fillRect( (x+200).toInt(), (y+(60*3) - 35).toInt(), (progressWidth * (progress / (100).toDouble())).toInt(), progressHeight.toInt())
+            g2d.fillRect( (x+200).toInt(), (y+(60*3-10) - 35).toInt(), (progressWidth * (progress / (100).toDouble())).toInt(), progressHeight.toInt())
 
             g2d.setColor(Color(0, 120, 0, 120))
-            g2d.drawRect((x+200).toInt(), (y +(60*3)- 35).toInt(), (progressWidth).toInt(), progressHeight.toInt())
+            g2d.drawRect((x+200).toInt(), (y +(60*3-10)- 35).toInt(), (progressWidth).toInt(), progressHeight.toInt())
 
             g2d.finalize()
 
