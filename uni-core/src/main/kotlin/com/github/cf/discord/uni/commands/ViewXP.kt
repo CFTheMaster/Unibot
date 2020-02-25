@@ -91,7 +91,7 @@ class ViewXP : Command(){
             g2d.drawString("${member.user.name}#${member.user.discriminator}", 140, 74)
 
 
-            g2d.setColor(Color(102,0,204))
+            g2d.setColor(Color(255,255,255))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
             g2d.drawString("Level: $level", x, y+(60*3-10))
 
