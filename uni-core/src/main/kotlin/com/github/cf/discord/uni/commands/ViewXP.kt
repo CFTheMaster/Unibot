@@ -100,7 +100,7 @@ class ViewXP : Command(){
             g2d.drawString("XP For Level: ${userXPPoints}/${xpNeeded.toLong()}, Total: $totalExp", x+200, y+(60*2-10))
 
 
-            g2d.setColor(Color(255,165,255))
+            g2d.setColor(Color(70,0,0))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 30))
             g2d.drawString("Last level-up: ${lastLevelUp.toString("EEEE yyyy MMMM dd HH:mm:ss.SSS", Locale.US)}", 200, 700)
 
