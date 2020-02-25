@@ -99,7 +99,7 @@ class ViewXP : Command(){
             g2d.setColor(Color(123,213,139))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
             g2d.drawString(textForExp, x+200, y+(60*2-10))
-            val somethingToWrite = g2d.getFontMetrics(Font.getFont("sans_serif")).stringWidth(textForExp)
+            val somethingToWrite = g2d.getFontMetrics(Font.getFont(Font.SANS_SERIF)).stringWidth(textForExp)
 
 
             g2d.setColor(Color(0,0,0,140))
@@ -180,13 +180,13 @@ class ViewXP : Command(){
 
         }.execute()
 
-        /*Timer().schedule(2000){
+        Timer().schedule(2000){
             val profileImg = File("src/main/resources/profile/${member.idLong}_profile.png")
 
             ctx.channel.sendFile(profileImg).complete()
 
             profileImg.delete()
-        }*/
+        }
 
 
 
