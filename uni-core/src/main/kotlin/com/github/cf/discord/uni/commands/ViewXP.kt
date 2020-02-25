@@ -79,7 +79,7 @@ class ViewXP : Command(){
             val progressHeight = 50f
 
             g2d.setColor(Color(255, 255, 255, 125))
-            g2d.fillRect(40, 180,1200,380)
+            g2d.fillRect((x+200).toInt(), (y +(60*3-10)- 35).toInt(), (progressWidth).toInt(), progressHeight.toInt())
 
             g2d.setColor(Color(102, 17, 187, 125))
             g2d.fillRect(0, 0,1500,129)
@@ -90,26 +90,22 @@ class ViewXP : Command(){
             g2d.drawImage(profilePicture, 0,  0, null)
 
             g2d.setColor(Color.BLACK)
-            g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
+            g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
             g2d.drawString("${member.user.name}#${member.user.discriminator}", 140, 74)
 
 
             g2d.setColor(Color(111, 0, 0))
-            g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
+            g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
             g2d.drawString("Level: $level", x, y+(60*3-10))
 
             g2d.setColor(Color(0, 0, 142))
-            g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
+            g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
             g2d.drawString("XP For Level: ${userXPPoints}/${xpNeeded.toLong()}, Total: $totalExp", x+200, y+(60*2-10))
 
 
-            g2d.setColor(Color(200, 23, 12))
-            g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
-            g2d.drawString("Last level-up: ${lastLevelUp.toString("EEEE yyyy MMMM dd HH:mm:ss.SSS", Locale.US)}", x, y + (60 * 5))
-
             g2d.setColor(Color(102, 0, 204))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 30))
-            g2d.drawString("User created acount: ${userCreationDate.toString("EEEE yyyy MMMM dd HH:mm:ss.SSS", Locale.US)}", 200, 700)
+            g2d.drawString("Last level-up: ${lastLevelUp.toString("EEEE yyyy MMMM dd HH:mm:ss.SSS", Locale.US)}", 200, 700)
 
             g2d.setColor(Color(0, 0, 0))
             g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
