@@ -108,7 +108,7 @@ class ViewXP : Command(){
             g2d.drawString("Last level-up: ${lastLevelUp.toString("EEEE yyyy MMMM dd HH:mm:ss.SSS", Locale.US)}", 200, 700)
 
             g2d.setColor(Color(0, 0, 0))
-            g2d.setFont(Font(Font.SANS_SERIF, Font.PLAIN, 40))
+            g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
             g2d.drawString("${progress.toInt()}%" , (x+530f), y +(60*3-10) + 2)
 
             g2d.setColor(Color(0, 120, 0, 120))
