@@ -78,36 +78,45 @@ class ViewXP : Command(){
             val progressWidth = 700f
             val progressHeight = 50f
 
+            val xpText = "XP For Level: ${userXPPoints}/${xpNeeded.toLong()}, Total: $totalExp"
+            val username = "${member.user.name}#${member.user.discriminator}"
+            val lastLevelUpText = "Last level-up: ${lastLevelUp.toString("EEEE yyyy MMMM dd HH:mm:ss.SSS", Locale.US)}"
+
             g2d.setColor(Color(255, 255, 255, 120))
             g2d.fillRect((x+200).toInt(), (y +(60*3-10)- 35).toInt(), (progressWidth).toInt(), progressHeight.toInt())
-
-            g2d.setColor(Color(102, 17, 187, 60))
-            g2d.fillRect(0, 0,1500,129)
 
             g2d.drawImage(profilePicture, 0,  0, null)
 
             g2d.setColor(Color(255,255,255))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
-            g2d.drawString("${member.user.name}#${member.user.discriminator}", 140, 40)
+            g2d.drawString(username, 140, 40)
+
+            val stringWidth1 = g2d.getFontMetrics(g2d.font).stringWidth(username)
+            g2d.setColor(Color(102, 17, 187, 60))
+            g2d.fillRect(0, 0,stringWidth1,129)
 
 
             g2d.setColor(Color(255,255,255))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
             g2d.drawString("Level: $level", 140, 85)
 
-            val XPText = "XP For Level: ${userXPPoints}/${xpNeeded.toLong()}, Total: $totalExp"
+
             g2d.setColor(Color(123,255,139))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
-            val stringWidth = g2d.getFontMetrics(g2d.font).stringWidth(XPText)
+            val stringWidth = g2d.getFontMetrics(g2d.font).stringWidth(xpText)
             val stringHeight = g2d.getFontMetrics(g2d.font).height
-            g2d.drawString(XPText, x+200, y+(60*2-10))
+            g2d.drawString(xpText, x+200, y+(60*2-10))
 
-            g2d.setColor(Color(0,0,0,100))
+            g2d.setColor(Color(0,0,0,120))
             g2d.fillRect((x+200).toInt(), (y+(60*1)+20).toInt(),  stringWidth+2, stringHeight-10)
 
             g2d.setColor(Color(255,255,255))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 25))
-            g2d.drawString("Last level-up: ${lastLevelUp.toString("EEEE yyyy MMMM dd HH:mm:ss.SSS", Locale.US)}", 143, 120)
+            g2d.drawString(lastLevelUpText, 143, 120)
+
+            val stringWidth2 = g2d.getFontMetrics(g2d.font).stringWidth(username)
+            g2d.setColor(Color(102, 17, 187, 60))
+            g2d.fillRect(0, 0,stringWidth2,129)
 
             g2d.setColor(Color(1,1,1, 200))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
