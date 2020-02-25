@@ -103,7 +103,7 @@ class ViewXP : Command(){
             g2d.drawString(XPText, x+200, y+(60*2-10))
 
             g2d.setColor(Color(0,0,0,140))
-            g2d.fillRect((x+200).toInt(), (y+(60*1)+20).toInt(),  stringWidth+2, stringHeight+2)
+            g2d.fillRect((x+200).toInt(), (y+(60*1)+20).toInt(),  stringWidth+2, stringHeight-10)
 
             g2d.setColor(Color(255,255,255))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 25))
