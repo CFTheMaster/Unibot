@@ -96,7 +96,7 @@ class ViewXP : Command(){
             g2d.drawString("Level: $level", 140, 85)
 
             val XPText = "XP For Level: ${userXPPoints}/${xpNeeded.toLong()}, Total: $totalExp"
-            g2d.setColor(Color(123,213,139))
+            g2d.setColor(Color(255,255,255))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
             val stringWidth = g2d.getFontMetrics(g2d.font).stringWidth(XPText)
             val stringHeight = g2d.getFontMetrics(g2d.font).height
