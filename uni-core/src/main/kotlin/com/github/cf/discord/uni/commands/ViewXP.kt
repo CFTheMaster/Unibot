@@ -108,7 +108,7 @@ class ViewXP : Command(){
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
             g2d.drawString("${progress.toInt()}%" , (x+530f), y +(60*3-10) + 2)
 
-            g2d.setColor(Color(0,120,0, 120))
+            g2d.setColor(Color(0,120,0, 70))
             g2d.fillRect( (x+200).toInt(), (y+(60*3-10) - 35).toInt(), (progressWidth * (progress / (100).toDouble())).toInt(), progressHeight.toInt())
 
             g2d.setColor(Color(0, 120, 0, 120))
