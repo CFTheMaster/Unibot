@@ -98,12 +98,14 @@ class ViewXP : Command(){
 
             g2d.setColor(Color(123,255,139))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
+
+            g2d.drawString(xpText, x+200, y+(60*2-10))
+
             val stringWidth = g2d.getFontMetrics(g2d.font).stringWidth(xpText)
             val stringHeight = g2d.getFontMetrics(g2d.font).height
 
             g2d.setColor(Color(0,0,0,120))
             g2d.fillRect((x+200).toInt(), (y+(60*1)+20).toInt(),  stringWidth+2, stringHeight-10)
-            g2d.drawString(xpText, x+200, y+(60*2-10))
 
             g2d.setColor(Color(255,255,255))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 25))
