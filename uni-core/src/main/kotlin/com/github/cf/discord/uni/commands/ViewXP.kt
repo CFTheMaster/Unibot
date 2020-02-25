@@ -88,19 +88,19 @@ class ViewXP : Command(){
 
             g2d.setColor(Color(102,0,204))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
-            g2d.drawString("${member.user.name}#${member.user.discriminator}", 140, 74)
+            g2d.drawString("${member.user.name}#${member.user.discriminator}", 140, 40)
 
 
             g2d.setColor(Color(255,255,255))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
-            g2d.drawString("Level: $level", x, y+(60*3-10))
+            g2d.drawString("Level: $level", 140, 80)
 
-            g2d.setColor(Color(255,255,1))
+            g2d.setColor(Color(0,120,90))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
             g2d.drawString("XP For Level: ${userXPPoints}/${xpNeeded.toLong()}, Total: $totalExp", x+200, y+(60*2-10))
 
 
-            g2d.setColor(Color(255,255,0))
+            g2d.setColor(Color(0,120,90))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 30))
             g2d.drawString("Last level-up: ${lastLevelUp.toString("EEEE yyyy MMMM dd HH:mm:ss.SSS", Locale.US)}", 200, 700)
 
