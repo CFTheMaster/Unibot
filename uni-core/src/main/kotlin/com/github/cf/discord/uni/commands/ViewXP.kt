@@ -78,10 +78,10 @@ class ViewXP : Command(){
             val progressWidth = 700f
             val progressHeight = 50f
 
-            g2d.setColor(Color(255, 255, 255, 125))
+            g2d.setColor(Color(255, 255, 255, 200))
             g2d.fillRect((x+200).toInt(), (y +(60*3-10)- 35).toInt(), (progressWidth).toInt(), progressHeight.toInt())
 
-            g2d.setColor(Color(102, 17, 187, 125))
+            g2d.setColor(Color(102, 17, 187, 170))
             g2d.fillRect(0, 0,1500,129)
 
             g2d.drawImage(profilePicture, 0,  0, null)
@@ -95,20 +95,20 @@ class ViewXP : Command(){
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
             g2d.drawString("Level: $level", x, y+(60*3-10))
 
-            g2d.setColor(Color(102,0,204))
+            g2d.setColor(Color(255,255,255))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
             g2d.drawString("XP For Level: ${userXPPoints}/${xpNeeded.toLong()}, Total: $totalExp", x+200, y+(60*2-10))
 
 
-            g2d.setColor(Color(102, 0, 204))
+            g2d.setColor(Color(255,255,255))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 30))
             g2d.drawString("Last level-up: ${lastLevelUp.toString("EEEE yyyy MMMM dd HH:mm:ss.SSS", Locale.US)}", 200, 700)
 
-            g2d.setColor(Color(0, 0, 0))
+            g2d.setColor(Color(255,255,255))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
             g2d.drawString("${progress.toInt()}%" , (x+530f), y +(60*3-10) + 2)
 
-            g2d.setColor(Color(0, 120, 0, 120))
+            g2d.setColor(Color(255,255,255))
             g2d.fillRect( (x+200).toInt(), (y+(60*3-10) - 35).toInt(), (progressWidth * (progress / (100).toDouble())).toInt(), progressHeight.toInt())
 
             g2d.setColor(Color(0, 120, 0, 120))
