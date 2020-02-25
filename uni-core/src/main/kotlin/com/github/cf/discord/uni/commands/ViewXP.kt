@@ -99,7 +99,7 @@ class ViewXP : Command(){
             g2d.setColor(Color(123,213,139))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
             g2d.drawString(textForExp, x+200, y+(60*2-10))
-            val somethingToWrite = g2d.getFontMetrics(Font.getFont(Font.SANS_SERIF)).stringWidth(textForExp)
+            val somethingToWrite = g2d.getFontMetrics(g2d.font).stringWidth(textForExp)
 
 
             g2d.setColor(Color(0,0,0,140))
