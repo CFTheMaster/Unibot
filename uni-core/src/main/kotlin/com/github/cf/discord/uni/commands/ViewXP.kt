@@ -180,13 +180,13 @@ class ViewXP : Command(){
 
         }.execute()
 
-        Timer().schedule(2000){
+        /*Timer().schedule(2000){
             val profileImg = File("src/main/resources/profile/${member.idLong}_profile.png")
 
             ctx.channel.sendFile(profileImg).complete()
 
             profileImg.delete()
-        }
+        }*/
 
 
 
