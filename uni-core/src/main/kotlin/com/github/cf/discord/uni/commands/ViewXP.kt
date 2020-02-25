@@ -109,9 +109,9 @@ class ViewXP : Command(){
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 25))
             g2d.drawString(lastLevelUpText, 143, 120)
 
-            val stringWidth2 = g2d.getFontMetrics(g2d.font).stringWidth(username)
+            val stringWidth2 = g2d.getFontMetrics(g2d.font).stringWidth(lastLevelUpText)
             g2d.setColor(Color(102, 17, 187, 60))
-            g2d.fillRect(140, 0,stringWidth2,129)
+            g2d.fillRect(140, 0,stringWidth2+50,129)
 
             g2d.setColor(Color(1,1,1, 200))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
