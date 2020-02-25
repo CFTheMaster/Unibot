@@ -95,17 +95,12 @@ class ViewXP : Command(){
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
             g2d.drawString("Level: $level", 140, 85)
 
-            val textForExp = "XP For Level: ${userXPPoints}/${xpNeeded.toLong()}, Total: $totalExp"
             g2d.setColor(Color(123,213,139))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
-            g2d.drawString(textForExp, x+200, y+(60*2-10))
-            val somethingToWrite = g2d.getFontMetrics(g2d.font).stringWidth(textForExp)
-
+            g2d.drawString("XP For Level: ${userXPPoints}/${xpNeeded.toLong()}, Total: $totalExp", x+200, y+(60*2-10))
 
             g2d.setColor(Color(0,0,0,140))
-            g2d.fillRect((x+200).toInt(), (y+(60*1)+20).toInt(), somethingToWrite, 30)
-
-
+            g2d.fillRect((x+200).toInt(), (y+(60*1)+20).toInt(), 800, 30)
 
             g2d.setColor(Color(255,255,255))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 25))
