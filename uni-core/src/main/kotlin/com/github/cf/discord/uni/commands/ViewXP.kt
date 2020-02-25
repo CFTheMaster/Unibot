@@ -78,10 +78,10 @@ class ViewXP : Command(){
             val progressWidth = 700f
             val progressHeight = 50f
 
-            g2d.setColor(Color(255, 255, 255, 200))
+            g2d.setColor(Color(255, 255, 255, 30))
             g2d.fillRect((x+200).toInt(), (y +(60*3-10)- 35).toInt(), (progressWidth).toInt(), progressHeight.toInt())
 
-            g2d.setColor(Color(102, 17, 187, 170))
+            g2d.setColor(Color(102, 17, 187, 60))
             g2d.fillRect(0, 0,1500,129)
 
             g2d.drawImage(profilePicture, 0,  0, null)
