@@ -42,7 +42,7 @@ class Osu : ThreadedCommand() {
             else -> "0"
         }
 
-        val lemmyOsuUrl = "https://computerfreaker.cf/osu/sig.php?colour=hex8866ee&uname=$username&mode=$mode&pp=1&removeavmargin&flagshadow&flagstroke&darkheader&darktriangles&opaqueavatar&avatarrounding=4&rankedscore&onlineindicator=undefined&xpbar&xpbarhex"
+        val lemmyOsuUrl = "https://osu.computerfreaker.pw/sig.php?colour=hex8866ee&uname=$username&mode=$mode&pp=1&removeavmargin&flagshadow&flagstroke&darkheader&darktriangles&opaqueavatar&avatarrounding=4&rankedscore&onlineindicator=undefined&xpbar&xpbarhex"
 
         ctx.send(EmbedBuilder().apply {
             setTitle("User Score For User: $username", null)
