@@ -593,7 +593,7 @@ class EventListener : ListenerAdapter(){
         val random = text[idx]
         val prefix = Uni.prefixes.firstOrNull()
         if (Uni.jda != null){
-            Uni.jda!!.presence.setPresence(OnlineStatus.ONLINE, Activity.streaming("$random | ${prefix}help", "https://www.twitch.tv/computerfreaker"))
+            Uni.jda!!.presence.setPresence(OnlineStatus.ONLINE, Activity.streaming("${random.replace("__xx__", Uni.shardManager.guilds.size.toString(), true)} | ${prefix}help", "https://www.twitch.tv/computerfreaker"))
         } else {
             Uni.shardManager.setActivity(Activity.streaming("$random | ${prefix}help", "https://www.twitch.tv/computerfreaker"))
         }
