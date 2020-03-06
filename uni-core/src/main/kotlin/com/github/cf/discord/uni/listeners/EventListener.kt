@@ -593,9 +593,9 @@ class EventListener : ListenerAdapter(){
         val random = text[idx]
         val prefix = Uni.prefixes.firstOrNull()
         if (Uni.jda != null){
-            Uni.jda!!.presence.setPresence(OnlineStatus.ONLINE, Activity.streaming("${random.replace("__xx__", Uni.shardManager.guilds.size.toString(), true)} | ${prefix}help", "https://www.twitch.tv/computerfreaker"))
+            Uni.jda!!.presence.setPresence(OnlineStatus.ONLINE, Activity.streaming("${random.replace("__xx__", "${Uni.shardManager.getUserById(138302166619258880L)?.name}#${Uni.shardManager.getUserById(138302166619258880L)?.discriminator}", false)} | ${prefix}help", "https://www.twitch.tv/computerfreaker"))
         } else {
-            Uni.shardManager.setActivity(Activity.streaming("${random.replace("__xx__", Uni.shardManager.guilds.size.toString(), true)} | ${prefix}help", "https://www.twitch.tv/computerfreaker"))
+            Uni.shardManager.setActivity(Activity.streaming("${random.replace("__xx__", "${Uni.shardManager.getUserById(138302166619258880L)?.name}#${Uni.shardManager.getUserById(138302166619258880L)?.discriminator}", false)} | ${prefix}help", "https://www.twitch.tv/computerfreaker"))
         }
     }
 
