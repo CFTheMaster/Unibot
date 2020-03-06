@@ -595,7 +595,7 @@ class EventListener : ListenerAdapter(){
         if (Uni.jda != null){
             Uni.jda!!.presence.setPresence(OnlineStatus.ONLINE, Activity.streaming("${random.replace("__xx__", Uni.shardManager.guilds.size.toString(), true)} | ${prefix}help", "https://www.twitch.tv/computerfreaker"))
         } else {
-            Uni.shardManager.setActivity(Activity.streaming("$random | ${prefix}help", "https://www.twitch.tv/computerfreaker"))
+            Uni.shardManager.setActivity(Activity.streaming("${random.replace("__xx__", Uni.shardManager.guilds.size.toString()} | ${prefix}help", "https://www.twitch.tv/computerfreaker"))
         }
     }
 
