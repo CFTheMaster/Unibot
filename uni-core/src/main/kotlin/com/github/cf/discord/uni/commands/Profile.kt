@@ -45,9 +45,9 @@ import kotlin.concurrent.schedule
 @Load
 @Argument("user", "user", true)
 @Alias("profile")
-class ViewXP : Command(){
+class Profile : Command(){
     override val guildOnly = true
-    override val desc = "View someone's xp!"
+    override val desc = "View someone's profile!"
 
     private fun Image.toBufferedImage(): BufferedImage {
         if (this is BufferedImage) {
@@ -96,8 +96,8 @@ class ViewXP : Command(){
             g2d.drawString("Level: $level", 140, 85)
 
 
-            g2d.setColor(Color(123,255,139))
-            g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
+            g2d.setColor(Color(255,255,255))
+            g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 30))
 
             g2d.drawString(xpText, x+200, y+(60*2-10))
 
