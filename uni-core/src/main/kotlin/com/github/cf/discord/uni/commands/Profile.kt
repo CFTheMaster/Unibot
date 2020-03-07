@@ -44,7 +44,7 @@ import kotlin.concurrent.schedule
 
 @Load
 @Argument("user", "user", true)
-@Alias("profile")
+@Alias("viewxp", "xp")
 class Profile : Command(){
     override val guildOnly = true
     override val desc = "View someone's profile!"
