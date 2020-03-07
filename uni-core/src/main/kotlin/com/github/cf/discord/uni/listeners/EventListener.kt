@@ -328,7 +328,7 @@ class EventListener : ListenerAdapter(){
                 }
 
                 event.channel.retrieveMessageById(event.messageId).queue { msg ->
-                    event.guild.addStar(msg, event.user)
+                    event.guild.addStar(msg, event.user!!)
                 }
             }
         }
@@ -342,7 +342,7 @@ class EventListener : ListenerAdapter(){
                 }
 
                 event.channel.retrieveMessageById(event.messageId).queue { msg ->
-                    event.guild.removeStar(msg, event.user)
+                    event.guild.removeStar(msg, event.user!!)
                 }
             }
         }

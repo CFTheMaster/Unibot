@@ -73,7 +73,7 @@ abstract class PaginatedEmbed<T>(
 
     private fun onReaction(event: GenericGuildMessageReactionEvent) {
         // Only accept reactions from user who issued the embed command
-        if (event.member.user.idLong == requester.idLong) {
+        if (event.member!!.user.idLong == requester.idLong) {
             when (event.reactionEmote.name) {
                 Reactions.LEFT_ARROW -> this.onLeft()
                 Reactions.RIGHT_ARROW -> this.onRight()

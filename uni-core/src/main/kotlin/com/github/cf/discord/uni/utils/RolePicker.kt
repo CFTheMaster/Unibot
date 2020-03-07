@@ -63,10 +63,10 @@ class RolePicker(
             msg.addReaction(downEmote).queue()
 
             waiter.await<MessageReactionAddEvent>(20, timeout) {
-                if (it.messageId == msg.id && it.user.id == user.user.id) {
+                if (it.messageId == msg.id && it.user!!.id == user.user.id) {
                     when (it.reactionEmote.name) {
                         upEmote -> {
-                            it.reaction.removeReaction(it.user).queue()
+                            it.reaction.removeReaction(it.user!!).queue()
                             if (index - 1 >= 0) {
                                 index--
                                 msg.editMessage(text).queue()
@@ -74,7 +74,7 @@ class RolePicker(
                         }
 
                         downEmote -> {
-                            it.reaction.removeReaction(it.user).queue()
+                            it.reaction.removeReaction(it.user!!).queue()
                             if (index + 1 <= roles.size) {
                                 index++
                                 msg.editMessage(text).queue()

@@ -97,17 +97,17 @@ class ItemPicker(
             msg.addReaction(rightEmote).queue()
 
             waiter.await<MessageReactionAddEvent>(30, timeout) {
-                if (it.messageId == msg.id && it.user.id == user.user.id) {
+                if (it.messageId == msg.id && it.user?.id == user.user.id) {
                     when (it.reactionEmote.name) {
                         leftEmote -> {
-                            it.reaction.removeReaction(it.user).queue()
+                            it.reaction.removeReaction(it.user!!).queue()
                             if (index - 1 >= 0) {
                                 msg.editMessage(embeds[--index]).queue()
                             }
                         }
 
                         rightEmote -> {
-                            it.reaction.removeReaction(it.user).queue()
+                            it.reaction.removeReaction(it.user!!).queue()
                             if (index + 1 <= items.size - 1) {
                                 msg.editMessage(embeds[++index]).queue()
                             }
