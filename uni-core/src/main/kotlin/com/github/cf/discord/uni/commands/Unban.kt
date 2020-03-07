@@ -43,10 +43,10 @@ class Unban : Command() {
                 .unban(user)
                 .reason("[ ${ctx.author.name}#${ctx.author.discriminator} ] ${ctx.args.getOrDefault("reason", "none")}")
                 .queue({
-                    ctx.send("unbanned_user <@$user>")
+                    ctx.send("I have unbanned <@$user> from ${ctx.guild.name}")
                 }) { err ->
                     if (err is PermissionException) {
-                        ctx.send("Missing ${err.permission.name} Permsission to ban that <@!$user>")
+                        ctx.send("Missing ${err.permission.name} Permission to ban that <@!$user>")
                     } else {
                         ctx.sendError(err)
                     }
