@@ -24,21 +24,15 @@ import com.github.cf.discord.uni.database.schema.Users
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.extensions.asyncTransaction
-import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Member
 import org.jetbrains.exposed.sql.select
 import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
 import java.awt.*
 import java.awt.image.BufferedImage
-import java.awt.image.ImageObserver
-import java.io.BufferedOutputStream
 import java.io.File
 import java.io.IOException
-import java.io.InputStream
 import java.net.URL
 import java.util.*
-import java.util.concurrent.TimeUnit
 import javax.imageio.ImageIO
 import kotlin.concurrent.schedule
 
