@@ -38,7 +38,7 @@ class StackOverflow : Command() {
             host("api.stackexchange.com")
             addPathSegments("2.2/search/advanced")
             addQueryParameter("order", "desc")
-            addQueryParameter("sort", "relevance")
+            addQueryParameter("sort", "votes")
             addQueryParameter("site", "stackoverflow")
             addQueryParameter("q", query)
         }.build()).thenAccept { res ->
