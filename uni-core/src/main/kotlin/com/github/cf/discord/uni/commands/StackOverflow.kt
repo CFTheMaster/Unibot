@@ -37,7 +37,7 @@ class StackOverflow : Command() {
             scheme("https")
             host("api.stackexchange.com")
             addPathSegments("2.2/search/advanced")
-            addQueryParameter("order", "asc")
+            addQueryParameter("order", "desc")
             addQueryParameter("sort", "relevance")
             addQueryParameter("site", "stackoverflow")
             addQueryParameter("q", query)
