@@ -39,8 +39,8 @@ class ServerInfo : Command(){
         val totalDays = ChronoUnit.DAYS.between(ctx.guild!!.timeCreated.toLocalDate(), OffsetDateTime.now().toLocalDate())
 
         val embed = EmbedBuilder().apply {
-            setAuthor("Guild Info", null, "${if(ctx.guild.iconUrl != null) ctx.guild.iconUrl else null}")
-            setThumbnail("${if(ctx.guild.iconUrl != null) ctx.guild.iconUrl else null}")
+            setAuthor("Guild Info", null, "${if(ctx.guild.iconUrl != null) ctx.guild.iconUrl else "https://maxcdn.icons8.com/Share/icon/Logos/discord_logo1600.png"}")
+            setThumbnail("${if(ctx.guild.iconUrl != null) ctx.guild.iconUrl else "https://maxcdn.icons8.com/Share/icon/Logos/discord_logo1600.png"}")
             setColor(embedColor)
             addField("Guild Name: ", ctx.guild!!.name, true)
             addField("Guild ID: ", ctx.guild.id, true)
