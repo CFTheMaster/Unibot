@@ -16,5 +16,5 @@
 package com.github.cf.discord.uni.data
 
 object botOwners {
-    val authors = arrayOf("138302166619258880")
+    val authors = arrayOf("138302166619258880", "155797352282718208")
 }
