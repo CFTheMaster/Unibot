@@ -15,6 +15,7 @@
  */
 package com.github.cf.discord.uni.commands
 
+import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
@@ -22,6 +23,7 @@ import net.dv8tion.jda.api.EmbedBuilder
 import java.awt.Color
 
 @Load
+@Alias("upvote")
 class Vote : Command(){
     override val desc = "get the link to vote on this bot"
     override val guildOnly = false
