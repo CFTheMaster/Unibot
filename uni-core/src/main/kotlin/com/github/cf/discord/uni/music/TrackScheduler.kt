@@ -16,6 +16,7 @@
 package com.github.cf.discord.uni.music
 
 import com.github.cf.discord.uni.core.EnvVars
+import com.github.cf.discord.uni.database.DatabaseWrapper
 import com.github.cf.discord.uni.utils.Http
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer
@@ -28,6 +29,7 @@ import net.dv8tion.jda.api.EmbedBuilder
 import org.json.JSONObject
 import java.awt.Color
 import java.util.concurrent.LinkedBlockingQueue
+import java.util.concurrent.TimeUnit
 import kotlin.concurrent.timerTask
 
 class TrackScheduler(private val player: AudioPlayer, private val manager: GuildMusicManager) : AudioEventAdapter() {
@@ -74,7 +76,7 @@ class TrackScheduler(private val player: AudioPlayer, private val manager: Guild
             }
 
             if (manager.autoplay && track.info.uri.indexOf("youtube") > -1) {
-                val qs = "?key=${EnvVars.GOOGLE_API_KEY}&part=snippet&maxResults=10&type=video&relatedToVideoId=${track.info.identifier}"
+                val qs = "?key=${DatabaseWrapper.getCore().get(10, TimeUnit.SECONDS).googleApiKey}&part=snippet&maxResults=10&type=video&relatedToVideoId=${track.info.identifier}"
 
                 Http.get("https://www.googleapis.com/youtube/v3/search$qs").thenAccept { res ->
                     val id = JSONObject(res.body()!!.string())

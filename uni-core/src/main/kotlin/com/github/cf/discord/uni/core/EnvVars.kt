@@ -24,17 +24,6 @@ object EnvVars {
         filename = ".env"
     }
 
-    @JvmStatic
-    val BOT_TOKEN = dotenv["bot_token"]
-    @JvmStatic
-    val LAVAPLAYER_NICONICO_EMAIL = dotenv["lavaplayer_niconico_email"]
-    @JvmStatic
-    val LAVAPLAYER_NICONICO_PASSWORD = dotenv["lavaplayer_niconico_password"]
-    @JvmStatic
-    val GOOGLE_API_KEY = dotenv["google_api_key"]
-    @JvmStatic
-    val GOOGLE_SEARCH_ENGINE = dotenv["google_search_engine_id"]
-
     // Redis env vars
     val REDIS_HOST = dotenv["redis_host"]
 
@@ -48,36 +37,14 @@ object EnvVars {
     val DATABASE_PASSWORD = dotenv["database_password"]
 
 
-    // guild counter tokens
-    @JvmStatic
-    val DBL_TOKEN = dotenv["dbl_token"]
-    @JvmStatic
-    val TERMINAL_TOKEN = dotenv["terminal_token"]
-
-    // external API keys
-    @JvmStatic
-    val SAUCENAO = dotenv["saucenao"]
-
     @JvmStatic
     val PREFIX = dotenv["prefix"]
-
-    @JvmStatic
-    val OSU_TOKEN = dotenv["osu_token"]
-
-    @JvmStatic
-    val FIRST_SHARD = dotenv["first_shard"]
-
-    @JvmStatic
-    val LAST_SHARD = dotenv["last_shard"]
-
+    
     @JvmStatic
     val TOTAL_SHARDS = dotenv["total_shards"]
 
     @JvmStatic
     val RANDOM_TEXT = dotenv["random_text"]
-
-    @JvmStatic
-    val DISCORD_BOATS = dotenv["discord_boats"]
 
     @JvmStatic
     val WEEB_SH_TOKEN = dotenv["weeb_token"]

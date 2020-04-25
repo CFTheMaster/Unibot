@@ -23,7 +23,7 @@ fun main(args: Array<String>) {
     Thread {
         setIdeaIoUseFallback()
         LOGGER.debug { "Loading..." }
-        val bot = Uni(EnvVars.BOT_TOKEN!!)
+        val bot = Uni()
         bot.start()
     }.start()
 
