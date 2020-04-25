@@ -608,9 +608,9 @@ class EventListener : ListenerAdapter(){
                 val json = mapOf("server_count" to Uni.jda!!.guilds.size)
                 val body = RequestBody.create(jsonType, JSONObject(json).toString())
 
-                if(EnvVars.DBL_TOKEN!!.isNotEmpty()){
+                if(DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).dblToken!!.isNotEmpty()){
                     Http.post("https://discordbots.org/api/bots/${Uni.jda!!.selfUser.id}/stats", body){
-                        addHeader("Authorization", EnvVars.DBL_TOKEN)
+                        addHeader("Authorization", DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).dblToken!!)
                     }.thenAccept{
                         LOGGER.info("updated stats for DBL")
                         it.close()
@@ -633,9 +633,9 @@ class EventListener : ListenerAdapter(){
 
                     val bodyBoats = RequestBody.create(jsonType, JSONObject(jsonBoats).toString())
 
-                    if(EnvVars.DBL_TOKEN!!.isNotEmpty()){
+                    if(DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).dblToken!!.isNotEmpty()){
                         Http.post("https://discordbots.org/api/bots/${shard.selfUser.idLong}/stats", body){
-                            addHeader("Authorization", EnvVars.DBL_TOKEN)
+                            addHeader("Authorization", DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).dblToken!!)
                         }.thenAccept{
                             LOGGER.info("updated stats for DBL")
                             it.close()
@@ -644,9 +644,9 @@ class EventListener : ListenerAdapter(){
                         }
                     }
 
-                    if(EnvVars.DISCORD_BOATS!!.isNotEmpty()){
+                    if(DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).discordBoatsToken!!.isNotEmpty()){
                         Http.post("https://discord.boats/api/v2/bot/${shard.selfUser.idLong}", bodyBoats){
-                            addHeader("Authorization", EnvVars.DISCORD_BOATS)
+                            addHeader("Authorization", DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).discordBoatsToken!!)
                         }.thenAccept {
                             LOGGER.info("updated stats for Discord Boats")
                             it.close()

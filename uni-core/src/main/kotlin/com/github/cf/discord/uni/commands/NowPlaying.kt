@@ -19,6 +19,8 @@ import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.core.EnvVars
+import com.github.cf.discord.uni.database.DatabaseWrapper
+import com.github.cf.discord.uni.database.schema.Core
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.entities.ThreadedCommand
 import com.github.cf.discord.uni.music.MusicManager
@@ -27,6 +29,7 @@ import net.dv8tion.jda.api.EmbedBuilder
 import okhttp3.HttpUrl
 import okhttp3.Request
 import org.json.JSONObject
+import java.util.concurrent.TimeUnit
 
 @Load
 @Alias("np")
@@ -73,7 +76,7 @@ class NowPlaying : ThreadedCommand(){
                     addPathSegment("youtube")
                     addPathSegment("v3")
                     addPathSegment("search")
-                    addQueryParameter("key", EnvVars.GOOGLE_API_KEY)
+                    addQueryParameter("key", DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).googleApiKey)
                     addQueryParameter("part", "snippet")
                     addQueryParameter("maxResults", "10")
                     addQueryParameter("type", "video")

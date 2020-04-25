@@ -16,6 +16,7 @@
 package com.github.cf.discord.uni
 
 import com.github.cf.discord.uni.core.EnvVars
+import com.github.cf.discord.uni.database.DatabaseWrapper
 import com.github.cf.discord.uni.database.schema.*
 import com.github.cf.discord.uni.extensions.asyncTransaction
 import com.github.cf.discord.uni.listeners.*
@@ -28,8 +29,12 @@ import net.dv8tion.jda.api.sharding.ShardManager
 import net.dv8tion.jda.api.*
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.selectAll
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 
 class Uni(token: String) {
 
@@ -42,14 +47,15 @@ class Uni(token: String) {
         )
 
         asyncTransaction(pool){
-            SchemaUtils.create(
+            SchemaUtils.createMissingTablesAndColumns(
                     Guilds,
                     Logs,
                     ModLogs,
                     Roles,
                     Starboard,
                     Users,
-                    WewCounter
+                    WewCounter,
+                    Core
             )
         }.execute()
     }
@@ -79,7 +85,7 @@ class Uni(token: String) {
 
     fun build(){
         jda = JDABuilder(AccountType.BOT).apply {
-            setToken(EnvVars.BOT_TOKEN)
+            setToken(DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).discordToken)
             setAutoReconnect(true)
             addEventListeners(EventListener())
         }.build()
@@ -89,7 +95,7 @@ class Uni(token: String) {
 
     fun build(firstShard: Int, lastShard: Int, total: Int){
         shardManager = DefaultShardManagerBuilder().apply {
-            setToken(EnvVars.BOT_TOKEN!!)
+            setToken(DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).discordToken)
             addEventListeners(EventListener())
             setAutoReconnect(true)
             setShardsTotal(-1)

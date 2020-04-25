@@ -15,10 +15,8 @@
  */
 package com.github.cf.discord.uni.commands
 
-import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Load
-import com.github.cf.discord.uni.commands.system.Category
-import com.github.cf.discord.uni.core.EnvVars
+import com.github.cf.discord.uni.database.DatabaseWrapper
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.listeners.EventListener
@@ -28,6 +26,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
 import java.awt.Color
+import java.util.concurrent.TimeUnit
 
 @Load
 class SauceNAO : Command(){
@@ -75,7 +74,7 @@ class SauceNAO : Command(){
 
     private fun getSauceNAO(image: String): String? {
         val response = OkHttpClient().newCall(Request.Builder()
-                .url("https://saucenao.com/search.php?db=999&output_type=2&api_key=${EnvVars.SAUCENAO!!}&numres=1&url=$image")
+                .url("https://saucenao.com/search.php?db=999&output_type=2&api_key=${DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).sauceNaoToken}&numres=1&url=$image")
                 .build()).execute()
 
         var result: String? = null

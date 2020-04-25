@@ -19,6 +19,8 @@ import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.core.EnvVars
+import com.github.cf.discord.uni.database.DatabaseWrapper
+import com.github.cf.discord.uni.database.schema.Core
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.entities.PickerItem
@@ -39,6 +41,7 @@ import net.dv8tion.jda.api.entities.User
 import okhttp3.HttpUrl
 import org.json.JSONObject
 import java.awt.Color
+import java.util.concurrent.TimeUnit
 
 @Load
 @Argument("url|query", "string")
@@ -83,7 +86,7 @@ class Play : Command(){
                     addPathSegment("youtube")
                     addPathSegment("v3")
                     addPathSegment("search")
-                    addQueryParameter("key", EnvVars.GOOGLE_API_KEY)
+                    addQueryParameter("key", DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).googleApiKey)
                     addQueryParameter("part", "snippet")
                     addQueryParameter("maxResults", "10")
                     addQueryParameter("type", "video")

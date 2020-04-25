@@ -99,8 +99,40 @@ data class DBModLogs(
         val reason: String
 )
 
+data class DBCore(
+        val discordToken: String,
+        val nicoNicoEmail: String,
+        val nicoNicoPassword: String,
+        val googleApiKey: String,
+        val googleSearchEngineID: String,
+        val dblToken: String?,
+        val sauceNaoToken: String,
+        val osuToken: String,
+        val discordBoatsToken: String?
+)
+
 object DatabaseWrapper {
     private val pool: ExecutorService = Uni.pool
+
+    fun getCore(): CompletableFuture<DBCore> = asyncTransaction(pool){
+        val core = Core.select { Core.discordToken.isNotNull() }.firstOrNull()
+
+        if(core == null){
+            throw Exception("nothing found, put stuff in the database")
+        } else {
+            return@asyncTransaction DBCore(
+                    core[Core.discordToken],
+                    core[Core.nicoNicoEmail],
+                    core[Core.nicoNicoPassword],
+                    core[Core.googleApiKey],
+                    core[Core.googleSearchEngineID],
+                    core[Core.dblToken]!!,
+                    core[Core.sauceNaoToken],
+                    core[Core.osuToken],
+                    core[Core.discordBoatsToken]!!
+            )
+        }
+    }.execute()
 
     fun getGuild(guild: Guild) = getGuild(guild.idLong)
 
@@ -131,8 +163,6 @@ object DatabaseWrapper {
                     guild[Guilds.localLeveling],
                     guild[Guilds.autoKick],
                     guild[Guilds.accountAge]
-
-
             )
         }
     }.execute()

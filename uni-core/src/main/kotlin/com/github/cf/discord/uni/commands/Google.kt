@@ -20,11 +20,14 @@ import com.github.cf.discord.uni.annotations.Argument
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.core.EnvVars
+import com.github.cf.discord.uni.database.DatabaseWrapper
+import com.github.cf.discord.uni.database.schema.Core
 import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
 import com.github.cf.discord.uni.http.HttpQuery
 import okhttp3.HttpUrl
 import okhttp3.Request
+import java.util.concurrent.TimeUnit
 
 @Load
 @Argument("query", "string")
@@ -34,8 +37,8 @@ class Google : Command(){
                 .scheme("https")
                 .host("www.googleapis.com")
                 .addPathSegments("customsearch/v1")
-                .addQueryParameter("cx", EnvVars.GOOGLE_SEARCH_ENGINE)
-                .addQueryParameter("key", EnvVars.GOOGLE_API_KEY)
+                .addQueryParameter("cx", DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).googleSearchEngineID)
+                .addQueryParameter("key", DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).googleApiKey)
                 .build()
     }
 
