@@ -48,7 +48,7 @@ class Osu : ThreadedCommand() {
             setTitle("User Score For User: $username", null)
             setImage(lemmyOsuUrl)
             setColor(ctx.member?.color)
-            setFooter("Image Provided By https://www.computerfreaker.cf/osu", null)
+            setFooter("Image Provided By https://osu.computerfreaker.pw/", null)
         }.build())
     }
 }
