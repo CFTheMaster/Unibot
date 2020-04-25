@@ -43,7 +43,7 @@ class SauceNAO : Command(){
         val image = ctx.msg.attachments
         val args = ctx.args
 
-        if(image.isNullOrEmpty() && args.isNullOrEmpty()){
+        if(image.isNullOrEmpty() || args.isNullOrEmpty()){
             ctx.channel.sendMessage("what image would you like to search?").queue {
                 EventListener.waiter.await<MessageReceivedEvent>(1, 60000L) { event ->
                     if (event.author.id == ctx.author.id && event.channel.id == ctx.channel.id) {
