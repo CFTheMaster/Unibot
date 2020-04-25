@@ -36,7 +36,7 @@ class Duck : Command(){
         val aDuck = getDucky()
 
         val embed = EmbedBuilder().apply {
-            setTitle("image link", aDuck)
+            setTitle("Quack Quack (image link)", aDuck)
             setColor(ctx.member?.colorRaw ?: 6684876)
             setImage(aDuck)
             setFooter("powered by https://random-d.uk/", null)

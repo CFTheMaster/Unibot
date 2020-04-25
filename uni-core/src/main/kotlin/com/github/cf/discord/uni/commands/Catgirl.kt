@@ -38,7 +38,7 @@ class Catgirl : Command(){
         val catgirl = if (CFApi.getCFApi("neko") != null) CFApi.getCFApi("neko") else getNeko()
 
         val embed = EmbedBuilder().apply {
-            setTitle("image link", catgirl)
+            setTitle("catgirls in my city", catgirl)
             setColor(ctx.member?.colorRaw ?: 6684876)
             setImage(catgirl)
             if(catgirl != null){
