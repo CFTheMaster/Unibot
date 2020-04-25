@@ -76,7 +76,7 @@ class NowPlaying : ThreadedCommand(){
                     addPathSegment("youtube")
                     addPathSegment("v3")
                     addPathSegment("search")
-                    addQueryParameter("key", DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).googleApiKey)
+                    addQueryParameter("key", DatabaseWrapper.getCore().get(10, TimeUnit.SECONDS).googleApiKey)
                     addQueryParameter("part", "snippet")
                     addQueryParameter("maxResults", "10")
                     addQueryParameter("type", "video")
