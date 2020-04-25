@@ -36,10 +36,9 @@ object EnvVars {
     val DATABASE_USERNAME = dotenv["database_username"]
     val DATABASE_PASSWORD = dotenv["database_password"]
 
-
     @JvmStatic
     val PREFIX = dotenv["prefix"]
-    
+
     @JvmStatic
     val TOTAL_SHARDS = dotenv["total_shards"]
 
