@@ -40,9 +40,10 @@ class SauceNAO : Command(){
         val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt()
         val embedColor = Color(randomColor, randomColor1, randomColor2)
 
-        val image = ctx.msg.attachments.isNullOrEmpty()
+        val image = ctx.msg.attachments
+        val args = ctx.args
 
-        if(image){
+        if(image.isNullOrEmpty() && args.isNullOrEmpty()){
             ctx.channel.sendMessage("what image would you like to search?").queue {
                 EventListener.waiter.await<MessageReceivedEvent>(1, 60000L) { event ->
                     if (event.author.id == ctx.author.id && event.channel.id == ctx.channel.id) {
@@ -64,11 +65,21 @@ class SauceNAO : Command(){
                 }
             }
         } else {
-            ctx.send(EmbedBuilder().apply {
-                setDescription(getSauceNAO(ctx.msg.attachments.first().url))
-                setColor(embedColor)
-                setFooter("Image sauce", null)
-            }.build())
+            if(image.isNotEmpty()){
+                ctx.send(EmbedBuilder().apply {
+                    setDescription(getSauceNAO(ctx.msg.attachments.first().url))
+                    setColor(embedColor)
+                    setFooter("Image sauce", null)
+                }.build())
+            }
+            if(args.isNotEmpty()){
+                ctx.send(EmbedBuilder().apply {
+                    setDescription(getSauceNAO(ctx.args.toString()))
+                    setColor(embedColor)
+                    setFooter("Image sauce", null)
+                }.build())
+            }
+
         }
     }
 
