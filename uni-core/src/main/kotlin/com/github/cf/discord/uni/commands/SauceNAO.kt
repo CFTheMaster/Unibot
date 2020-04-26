@@ -55,24 +55,7 @@ class SauceNAO : ThreadedCommand(){
         }
 
         if(parser == null){
-            ctx.channel.sendMessage("what image would you like to search?").queue {
-                EventListener.waiter.await<MessageReceivedEvent>(1, 60000L) { event ->
-                    if (event.author.id == ctx.author.id && event.channel.id == ctx.channel.id) {
-                        if (event.message.attachments.isNotEmpty()) {
-                            val result = event.message.attachments.first().url
-                            ctx.send(EmbedBuilder().apply {
-                                setDescription(getSauceNAO(result))
-                                setColor(embedColor)
-                                setFooter("Image sauce", null)
-                            }.build())
-                            return@await true
-                        }
-                        true
-                    } else {
-                        false
-                    }
-                }
-            }
+            ctx.send("please do uni!saucenao --help to see how to use this")
         } else {
             ctx.send(EmbedBuilder().apply {
                 setDescription(getSauceNAO(parser))
