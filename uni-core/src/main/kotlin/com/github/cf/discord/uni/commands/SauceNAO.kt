@@ -34,8 +34,7 @@ import java.util.concurrent.TimeUnit
 )
 @Flags(
         Flag("link", 'l', "Get source of link"),
-        Flag("image", 'i', "Get source of image"),
-        Flag("catch", 'c', "View catch the beat stats")
+        Flag("image", 'i', "Get source of image")
 )
 class SauceNAO : ThreadedCommand(){
     override val desc = "post an attachement with your command"
