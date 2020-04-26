@@ -15,10 +15,10 @@
  */
 package com.github.cf.discord.uni.commands
 
-import com.github.cf.discord.uni.annotations.Load
+import com.github.cf.discord.uni.annotations.*
 import com.github.cf.discord.uni.database.DatabaseWrapper
-import com.github.cf.discord.uni.entities.Command
 import com.github.cf.discord.uni.entities.Context
+import com.github.cf.discord.uni.entities.ThreadedCommand
 import com.github.cf.discord.uni.listeners.EventListener
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
@@ -29,25 +29,36 @@ import java.awt.Color
 import java.util.concurrent.TimeUnit
 
 @Load
-class SauceNAO : Command(){
+@Arguments(
+        Argument("link", "string", true)
+)
+@Flags(
+        Flag("link", 'l', "Get source of link"),
+        Flag("image", 'i', "Get source of image"),
+        Flag("catch", 'c', "View catch the beat stats")
+)
+class SauceNAO : ThreadedCommand(){
     override val desc = "post an attachement with your command"
     override val guildOnly = true
 
-    override fun run(ctx: Context) {
+    override fun threadedRun(ctx: Context) {
 
         val randomColor = (Math.floor(Math.random() * (255)) + 1).toInt()
         val randomColor1 = (Math.floor(Math.random() * (255)) + 1).toInt()
         val randomColor2 = (Math.floor(Math.random() * (255)) + 1).toInt()
         val embedColor = Color(randomColor, randomColor1, randomColor2)
 
-        val image = ctx.msg.attachments
-        val args = ctx.args
+        val parser = when {
+            ctx.flags.argMap.containsKey("link") || ctx.flags.argMap.containsKey("l") -> (ctx.args["link"] as? String)
+            ctx.flags.argMap.containsKey("image") || ctx.flags.argMap.containsKey("i") -> ctx.msg.attachments.first().url
+            else -> null
+        }
 
-        if(image.isNullOrEmpty() || args.isNullOrEmpty()){
+        if(parser == null){
             ctx.channel.sendMessage("what image would you like to search?").queue {
                 EventListener.waiter.await<MessageReceivedEvent>(1, 60000L) { event ->
                     if (event.author.id == ctx.author.id && event.channel.id == ctx.channel.id) {
-                        if (event.message.attachments.isNotEmpty()){
+                        if (event.message.attachments.isNotEmpty()) {
                             val result = event.message.attachments.first().url
                             ctx.send(EmbedBuilder().apply {
                                 setDescription(getSauceNAO(result))
@@ -57,32 +68,19 @@ class SauceNAO : Command(){
                             return@await true
                         }
                         true
-                    } else{
+                    } else {
                         false
                     }
-
-
                 }
             }
         } else {
-            if(image.isNotEmpty()){
-                ctx.send(EmbedBuilder().apply {
-                    setDescription(getSauceNAO(ctx.msg.attachments.first().url))
-                    setColor(embedColor)
-                    setFooter("Image sauce", null)
-                }.build())
-            }
-            if(args.isNotEmpty()){
-                ctx.send(EmbedBuilder().apply {
-                    setDescription(getSauceNAO(ctx.args.toString()))
-                    setColor(embedColor)
-                    setFooter("Image sauce", null)
-                }.build())
-            }
-
+            ctx.send(EmbedBuilder().apply {
+                setDescription(getSauceNAO(parser))
+                setColor(embedColor)
+                setFooter("Image sauce", null)
+            }.build())
         }
     }
-
     private fun getSauceNAO(image: String): String? {
         val response = OkHttpClient().newCall(Request.Builder()
                 .url("https://saucenao.com/search.php?db=999&output_type=2&api_key=${DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).sauceNaoToken}&numres=1&url=$image")
