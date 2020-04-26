@@ -55,7 +55,7 @@ class SauceNAO : ThreadedCommand(){
         }
 
         if(parser == null){
-            ctx.send("please do uni!saucenao --help to see how to use this")
+            ctx.send("please do\n`uni!saucenao --help`\non how to use this command")
         } else {
             ctx.send(EmbedBuilder().apply {
                 setDescription(getSauceNAO(parser))
