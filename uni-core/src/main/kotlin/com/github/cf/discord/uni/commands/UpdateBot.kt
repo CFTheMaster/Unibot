@@ -15,6 +15,7 @@
  */
 package com.github.cf.discord.uni.commands
 
+import com.github.cf.discord.uni.annotations.Alias
 import com.github.cf.discord.uni.annotations.Load
 import com.github.cf.discord.uni.commands.system.Category
 import com.github.cf.discord.uni.commands.system.ReturnCodes
@@ -28,6 +29,7 @@ import kotlin.concurrent.timerTask
 import kotlin.system.exitProcess
 
 @Load
+@Alias("update")
 class UpdateBot : Command(){
     override val desc = "update the bot"
     override val ownerOnly = true
