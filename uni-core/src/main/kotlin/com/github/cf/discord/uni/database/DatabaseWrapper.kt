@@ -108,7 +108,8 @@ data class DBCore(
         val dblToken: String?,
         val sauceNaoToken: String,
         val osuToken: String,
-        val discordBoatsToken: String?
+        val discordBoatsToken: String?,
+        val discordServicesToken: String?
 )
 
 object DatabaseWrapper {
@@ -129,7 +130,8 @@ object DatabaseWrapper {
                     core[Core.dblToken]!!,
                     core[Core.sauceNaoToken],
                     core[Core.osuToken],
-                    core[Core.discordBoatsToken]!!
+                    core[Core.discordBoatsToken]!!,
+                    core[Core.discordServicesToken]!!
             )
         }
     }.execute()

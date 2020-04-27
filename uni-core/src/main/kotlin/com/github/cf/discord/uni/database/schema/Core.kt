@@ -30,5 +30,7 @@ object Core : Table(){
     val osuToken = varchar("osuToken", 200)
     val discordBoatsToken = varchar("discordBoatsToken", 900)
             .nullable()
+    val discordServicesToken = varchar("discordServicesToken", 900)
+            .nullable()
 
 }

@@ -629,9 +629,16 @@ class EventListener : ListenerAdapter(){
                             "server_count" to Uni.shardManager.guilds.size
                     )
 
+                    val jsonServices = mapOf(
+                            "servers" to Uni.shardManager.guilds.size,
+                            "shards" to Uni.shardManager.shardsTotal
+                    )
+
                     val body = RequestBody.create(jsonType, JSONObject(json).toString())
 
                     val bodyBoats = RequestBody.create(jsonType, JSONObject(jsonBoats).toString())
+
+                    val bodyServices = RequestBody.create(jsonType, JSONObject(jsonServices).toString())
 
                     if(DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).dblToken!!.isNotEmpty()){
                         Http.post("https://discordbots.org/api/bots/${shard.selfUser.idLong}/stats", body){
@@ -649,6 +656,17 @@ class EventListener : ListenerAdapter(){
                             addHeader("Authorization", DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).discordBoatsToken!!)
                         }.thenAccept {
                             LOGGER.info("updated stats for Discord Boats")
+                            it.close()
+                        }.thenApply {}.exceptionally {
+                            LOGGER.error("Error While Updating Stats", it)
+                        }
+                    }
+
+                    if(DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).discordServicesToken!!.isNotEmpty()){
+                        Http.post("api.discordservices.net/bot/${shard.selfUser.idLong}/stats", bodyServices){
+                            addHeader("Authorization", DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).discordServicesToken!!)
+                        }.thenAccept {
+                            LOGGER.info("updated stats for Discord Services")
                             it.close()
                         }.thenApply {}.exceptionally {
                             LOGGER.error("Error While Updating Stats", it)
