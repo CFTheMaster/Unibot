@@ -663,7 +663,7 @@ class EventListener : ListenerAdapter(){
                     }
 
                     if(DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).discordServicesToken!!.isNotEmpty()){
-                        Http.post("api.discordservices.net/bot/${shard.selfUser.idLong}/stats", bodyServices){
+                        Http.post("https://api.discordservices.net/bot/${shard.selfUser.idLong}/stats", bodyServices){
                             addHeader("Authorization", DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).discordServicesToken!!)
                         }.thenAccept {
                             LOGGER.info("updated stats for Discord Services")
