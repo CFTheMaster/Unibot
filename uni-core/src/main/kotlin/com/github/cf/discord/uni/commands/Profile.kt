@@ -44,23 +44,28 @@ class Profile : Command(){
     override val desc = "View someone's profile!"
 
     private fun Image.toBufferedImage(): BufferedImage {
-        if (this is BufferedImage) {
-            return this
+        try{
+            if (this is BufferedImage) {
+                return this
+            }
+            val bufferedImage = BufferedImage(this.getWidth(null), this.getHeight(null), BufferedImage.TYPE_INT_ARGB)
+
+            val graphics2D = bufferedImage.createGraphics()
+            graphics2D.drawImage(this, 0, 0, null)
+            graphics2D.dispose()
+
+            return bufferedImage
+        } catch (e: IOException){
+            println(e)
         }
-        val bufferedImage = BufferedImage(this.getWidth(null), this.getHeight(null), BufferedImage.TYPE_INT_ARGB)
-
-        val graphics2D = bufferedImage.createGraphics()
-        graphics2D.drawImage(this, 0, 0, null)
-        graphics2D.dispose()
-
-        return bufferedImage
+        return error("help")
     }
 
     private fun processImg(ctx: Context, userXPPoints: Long, totalExp: Long ,xpNeeded: Float, progress: Float, level: Long, member: Member, lastLevelUp: DateTime, userCreationDate: DateTime){
 
         try {
 
-            val img = ImageIO.read(URL("https://computerfreaker.pw/uni/uni.png")).toBufferedImage()
+            val img = ImageIO.read(URL("http://192.168.1.123:9999/uni/uni.png")).toBufferedImage()
             val profilePicture = ImageIO.read(URL(member.user.avatarUrl ?: "https://maxcdn.icons8.com/Share/icon/Logos/discord_logo1600.png")).toBufferedImage()
 
             val g2d: Graphics2D = img.graphics as Graphics2D
