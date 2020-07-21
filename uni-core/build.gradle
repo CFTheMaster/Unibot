@@ -5,7 +5,7 @@ buildscript {
     ext.jackson_version = '2.11.1'
     ext.jsoup_version = '1.13.1'
     ext.redisson_version = '3.13.2'
-    ext.hikaricp_version = '2.13.0'
+    ext.hikaricp_version = '2.7.6'
     ext.postgresql_version = '42.2.14'
     ext.exposed_version = '0.9.1'
     ext.ssh_host = System.getenv("ssh_host")
