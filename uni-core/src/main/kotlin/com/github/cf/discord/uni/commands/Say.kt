@@ -35,8 +35,10 @@ class Say : Command(){
         val say = ctx.args["say"] as String
         if (say.contains("\'")) {
             say.replace("\'", "\\'")
+            ctx.send(say)
         } else if (say.contains("\"")){
             say.replace("\"", "\\\"")
+            ctx.send(say)
         }
         ctx.send(say)
     }
