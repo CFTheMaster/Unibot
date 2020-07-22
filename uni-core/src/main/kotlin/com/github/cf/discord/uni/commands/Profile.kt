@@ -175,7 +175,7 @@ class Profile : Command(){
                     val expTillLevel = xpNeeded - xpFromLastLevel
 
 
-                    processImg(ctx, curExp.toLong(), xp, expTillLevel, progress, level, member,contract[Users.lastLevelUp], contract[Users.accountCreationDate])
+                    processImg(ctx, curExp.toLong(), xp, expTillLevel, progress, level, ctx.member!! ,contract[Users.lastLevelUp], contract[Users.accountCreationDate])
                 }
 
 
