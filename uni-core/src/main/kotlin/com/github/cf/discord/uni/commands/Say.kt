@@ -32,8 +32,7 @@ class Say : Command(){
     override val cate = Category.OWNER.name
 
     override fun run(ctx: Context) {
-        val say = ctx.rawArgs.toMutableList().spliterator()
-        val endOfTheText = StringBuilder().append(say).toString()
+        val endOfTheText = StringBuilder().append(ctx.rawArgs.stream()).toString()
         ctx.send(endOfTheText)
     }
 }
