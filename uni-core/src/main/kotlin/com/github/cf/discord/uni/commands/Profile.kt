@@ -64,12 +64,14 @@ class Profile : Command(){
     private fun processImg(ctx: Context, userXPPoints: Long, totalExp: Long ,xpNeeded: Float, progress: Float, level: Long, member: Member, lastLevelUp: DateTime, userCreationDate: DateTime){
 
         try {
+
             val avatarUrl = member.user.avatarUrl.orEmpty()
-            val readImage = URL(avatarUrl).openStream()
+            val getImage = URL(avatarUrl).openConnection()
+            getImage.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2")
 
 
             val img = ImageIO.read(URL("http://192.168.1.123:9999/uni/uni.png")).toBufferedImage()
-            val profilePicture = ImageIO.read(readImage).toBufferedImage()
+            val profilePicture = ImageIO.read(getImage.getInputStream()).toBufferedImage()
 
             val g2d: Graphics2D = img.graphics as Graphics2D
 
