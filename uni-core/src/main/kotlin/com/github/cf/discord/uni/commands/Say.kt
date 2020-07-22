@@ -32,12 +32,10 @@ class Say : Command(){
     override val cate = Category.OWNER.name
 
     override fun run(ctx: Context) {
-        val say = ctx.args["say"] as String
-        if (say.contains("\'")) {
-            say.replace("\'", "\\\'")
-        } else if (say.contains("\"")) {
-            say.replace("\"", "\\\"")
+        val say = ctx.args["say"] as CharArray
+        if (say.contains('\'') || say.contains('\"')) {
+            say.forEach { it.plus("\\") }
         }
-        ctx.send(say)
+        ctx.send(say.toString())
     }
 }
