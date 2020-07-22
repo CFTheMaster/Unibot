@@ -32,7 +32,7 @@ class Say : Command(){
     override val cate = Category.OWNER.name
 
     override fun run(ctx: Context) {
-        val say = ctx.args["say"] as CharSequence
-        ctx.send(say.chars().toString())
+        val say = ctx.args["say"] as String
+        ctx.send(say.chars().asLongStream().toArray().toString())
     }
 }
