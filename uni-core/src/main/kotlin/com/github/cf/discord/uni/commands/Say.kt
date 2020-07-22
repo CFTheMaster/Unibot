@@ -32,7 +32,7 @@ class Say : Command(){
     override val cate = Category.OWNER.name
 
     override fun run(ctx: Context) {
-        val endOfTheText = StringBuilder().append(ctx.args).toString()
+        val endOfTheText = ctx.args["say"] as String
         ctx.send(endOfTheText)
     }
 }
