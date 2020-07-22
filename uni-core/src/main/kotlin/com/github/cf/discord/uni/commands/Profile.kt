@@ -65,9 +65,11 @@ class Profile : Command(){
 
         try {
             val avatarUrl = member.user.avatarUrl.orEmpty()
+            val readImage = URL(avatarUrl).openStream()
+
 
             val img = ImageIO.read(URL("http://192.168.1.123:9999/uni/uni.png")).toBufferedImage()
-            val profilePicture = ImageIO.read(URL(avatarUrl)).toBufferedImage()
+            val profilePicture = ImageIO.read(readImage).toBufferedImage()
 
             val g2d: Graphics2D = img.graphics as Graphics2D
 
