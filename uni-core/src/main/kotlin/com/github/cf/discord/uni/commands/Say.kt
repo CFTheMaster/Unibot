@@ -34,8 +34,9 @@ class Say : Command(){
     override fun run(ctx: Context) {
         val say = ctx.args["say"] as String
         if (say.contains("\'") || say.contains("\"")) {
-            val array = say.toByteArray(Charsets.UTF_8)
-            ctx.send(array.toString(Charsets.UTF_8))
+            say.replace("\'", "\u0027")
+            say.replace("\"", "\u0022")
+            ctx.send(say)
         } else {
             ctx.send(say)
         }
