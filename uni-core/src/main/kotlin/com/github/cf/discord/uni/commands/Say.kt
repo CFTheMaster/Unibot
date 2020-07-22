@@ -32,9 +32,7 @@ class Say : Command(){
     override val cate = Category.OWNER.name
 
     override fun run(ctx: Context) {
-        val say = ctx.rawArgs as String
-        say.replace("\'", "\u0027")
-        say.replace("\"", "\u0022")
-        ctx.send(say)
+        val say = ctx.rawArgs.toMutableList().stream()
+        ctx.send(say.toString())
     }
 }
