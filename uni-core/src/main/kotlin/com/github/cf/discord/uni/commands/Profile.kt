@@ -66,7 +66,7 @@ class Profile : Command(){
         try {
 
             val img = ImageIO.read(URL("http://192.168.1.123:9999/uni/uni.png")).toBufferedImage()
-            val profilePicture = ImageIO.read(URL(member.user.avatarUrl ?: "https://maxcdn.icons8.com/Share/icon/Logos/discord_logo1600.png")).toBufferedImage()
+            val profilePicture = ImageIO.read(URL(member.user.avatarUrl.orEmpty())).toBufferedImage()
 
             val g2d: Graphics2D = img.graphics as Graphics2D
 
