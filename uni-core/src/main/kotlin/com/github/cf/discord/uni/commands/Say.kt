@@ -33,11 +33,10 @@ class Say : Command(){
 
     override fun run(ctx: Context) {
         val say = ctx.args["say"] as String
-        val regex = Regex("/([\\\", \\'])\\w+/g")
         if (say.contains("\'")) {
-            say.replaceFirst(regex, "\\\'")
+            say.replace("\'", "\\\'")
         } else if (say.contains("\"")) {
-            say.replaceFirst(regex, "\\\"")
+            say.replace("\"", "\\\"")
         }
         ctx.send(say)
     }
