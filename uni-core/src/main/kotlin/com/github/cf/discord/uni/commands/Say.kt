@@ -32,7 +32,7 @@ class Say : Command(){
     override val cate = Category.OWNER.name
 
     override fun run(ctx: Context) {
-        val endOfTheText = StringBuilder().append(ctx.rawArgs.stream()).toString()
+        val endOfTheText = StringBuilder().append(ctx.args).toString()
         ctx.send(endOfTheText)
     }
 }
