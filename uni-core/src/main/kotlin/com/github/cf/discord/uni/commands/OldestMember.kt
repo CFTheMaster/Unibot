@@ -36,7 +36,7 @@ class OldestMember : Command(){
     override val guildOnly = true
     override val cate = Category.GENERAL.name
 
-    fun run(ctx: Context) {
+    override fun run(ctx: Context) {
         val member = ctx.member
 
         val embed = EmbedBuilder().apply {
