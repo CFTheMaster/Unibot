@@ -31,16 +31,15 @@ import kotlin.math.max
 
 @Load
 @Alias("og")
-class OldestMember : Command(){
+abstract class OldestMember : Command(){
     override val desc = "Get the oldest members"
     override val guildOnly = true
     override val cate = Category.GENERAL.name
 
-    val member: Member? = null
-    override fun run(ctx: Context) {
+    fun run(ctx: Context, member: Member?) {
 
         val embed = EmbedBuilder().apply {
-            setAuthor("Oldest Members", null, Guild.ICON_URL)
+            setAuthor("Oldest Members", null, ctx.guild!!.iconUrl)
 
             member?.let {
                 val joins = ctx.guild!!.memberCache.sortedWith(Comparator.comparing(Member::getTimeJoined))
