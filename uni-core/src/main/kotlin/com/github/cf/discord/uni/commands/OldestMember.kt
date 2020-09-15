@@ -43,7 +43,7 @@ class OldestMember : Command(){
             setAuthor("Oldest Members", null, ctx.guild!!.iconUrl)
 
             member?.let {
-                val joins = ctx.guild!!.memberCache.sortedWith(Comparator.comparing(Member::getTimeJoined))
+                val joins = ctx.guild.members.sortedWith(Comparator.comparing(Member::getTimeJoined))
                 var index = joins.indexOf(member)
                 appendDescription("**Join Date*:* ${member.timeJoined.format(DateTimeFormatter.ISO_LOCAL_DATE)} `[#${index + 1}]`")
                 appendDescription("**Join Order:** ")
