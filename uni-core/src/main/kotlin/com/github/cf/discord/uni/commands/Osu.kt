@@ -34,6 +34,7 @@ class Osu : ThreadedCommand() {
     override val desc = "Get your osu stats"
 
     override fun threadedRun(ctx: Context) {
+
         val username = (ctx.args["username"] as String)
         val mode = when {
             ctx.flags.argMap.containsKey("taiko") || ctx.flags.argMap.containsKey("t") -> "1"
