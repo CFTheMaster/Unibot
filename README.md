@@ -109,3 +109,8 @@ her invite link to add her to your server [Uni Invite](https://discordapp.com/oa
 | `shutdown` | shutdown the bot |
 | `status` | change the playing status of the bot |
 | `updatebot` | update the bot |
+
+
+## License
+### Current License:
+This project is protected under the [Apache License 2.0](https://github.com/CFTheMaster/Unibot/blob/master/LICENSE), for more information click on the link.
