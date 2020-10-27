@@ -78,7 +78,7 @@ class EventListener : ListenerAdapter(){
     private val timer = Timer(true)
 
     private fun cases(caseName: String, case: Int, audit: AuditLogEntry, user: User): CharSequence{
-        val caseText = "```$caseName | Case $case\n" +
+         val caseText = "```$caseName | Case $case\n" +
                 "User: ${user.name}#${user.discriminator} (${user.id})\n" +
                 "Reason: ${audit.reason ?: "`Responsible moderator, please use the reason command to set this reason`"}\n" +
                 "Responsible moderator: ${audit.user!!.name}#${audit.user!!.discriminator} (${audit.user!!.id})\n" +
