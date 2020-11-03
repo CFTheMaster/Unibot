@@ -27,6 +27,7 @@ import mu.KotlinLogging
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder
 import net.dv8tion.jda.api.sharding.ShardManager
 import net.dv8tion.jda.api.*
+import net.dv8tion.jda.api.requests.GatewayIntent
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
@@ -94,13 +95,14 @@ class Uni {
     }
 
     fun build(firstShard: Int, lastShard: Int, total: Int){
-        shardManager = DefaultShardManagerBuilder().apply {
-            setToken(DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).discordToken)
-            addEventListeners(EventListener())
-            setAutoReconnect(true)
-            setShardsTotal(-1)
-            setBulkDeleteSplittingEnabled(false)
-        }.build()
+        shardManager = DefaultShardManagerBuilder
+                .createDefault(DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).discordToken)
+                .addEventListeners(EventListener())
+                .enableIntents(GatewayIntent.GUILD_BANS, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_PRESENCES, GatewayIntent.DIRECT_MESSAGES, GatewayIntent.GUILD_PRESENCES)
+                .setAutoReconnect(true)
+                .setShardsTotal(-1)
+                .setBulkDeleteSplittingEnabled(false)
+                .build()
     }
 
     fun start(): Boolean {
