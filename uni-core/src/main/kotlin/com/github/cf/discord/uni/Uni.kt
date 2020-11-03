@@ -98,7 +98,6 @@ class Uni {
         shardManager = DefaultShardManagerBuilder
                 .createDefault(DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).discordToken)
                 .addEventListeners(EventListener())
-                .enableIntents(GatewayIntent.GUILD_BANS, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_PRESENCES, GatewayIntent.DIRECT_MESSAGES, GatewayIntent.GUILD_PRESENCES)
                 .setAutoReconnect(true)
                 .setShardsTotal(-1)
                 .setBulkDeleteSplittingEnabled(false)
