@@ -101,6 +101,7 @@ class Uni {
                 .setAutoReconnect(true)
                 .setShardsTotal(-1)
                 .setBulkDeleteSplittingEnabled(false)
+                .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_BANS, GatewayIntent.GUILD_PRESENCES, GatewayIntent.GUILD_MESSAGES)
                 .build()
     }
 
