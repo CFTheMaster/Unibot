@@ -85,7 +85,7 @@ class Profile : Command(){
             val progressWidth = 700f
             val progressHeight = 50f
 
-            val xpText = "XP For Level: ${userXPPoints}/${xpNeeded.toLong()}, Total: $totalExp"
+            val xpText = "XP For Level: ${userXPPoints}/${xpNeeded.toLong()}"
             val username = "${member.user.name}#${member.user.discriminator}"
             val lastLevelUpText = "Last level-up: ${lastLevelUp.toString("EEEE yyyy MMMM dd HH:mm:ss.SSS", Locale.US)}"
 
@@ -100,7 +100,7 @@ class Profile : Command(){
 
             g2d.setColor(Color(255,255,255))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
-            g2d.drawString("Level: $level", 140, 85)
+            g2d.drawString("Lv.: $level, Total Exp: $totalExp", 140, 85)
 
 
             g2d.setColor(Color(0,0,0))
@@ -118,19 +118,21 @@ class Profile : Command(){
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 25))
             g2d.drawString(lastLevelUpText, 143, 120)
 
-            val stringWidth2 = g2d.getFontMetrics(g2d.font).stringWidth(lastLevelUpText)
-            g2d.setColor(Color(102, 17, 187, 60))
-            g2d.fillRect(140, 0,stringWidth2+50,129)
-
             g2d.setColor(Color(1,1,1, 200))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
             g2d.drawString("${progress.toInt()}%" , (x+530f), y +(60*3-10) + 2)
+
+            val stringWidth2 = g2d.getFontMetrics(g2d.font).stringWidth(lastLevelUpText)
+            g2d.setColor(Color(102, 17, 187, 60))
+            g2d.fillRect(0, 0,720,1280)
 
             g2d.setColor(Color(0,120,0, 120))
             g2d.fillRect( (x+200).toInt(), (y+(60*3-10) - 35).toInt(), (progressWidth * (progress / (100).toDouble())).toInt(), progressHeight.toInt())
 
             g2d.setColor(Color(0, 120, 0, 160))
             g2d.drawRect((x+200).toInt(), (y +(60*3-10)- 35).toInt(), (progressWidth).toInt(), progressHeight.toInt())
+
+
 
             g2d.finalize()
 
