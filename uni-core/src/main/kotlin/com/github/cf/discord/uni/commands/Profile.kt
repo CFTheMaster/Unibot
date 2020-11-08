@@ -109,9 +109,9 @@ class Profile : Command(){
 
             //val stringWidth2 = g2d.getFontMetrics(g2d.font).stringWidth(lastLevelUpText)
 
-            val gradiantColor: GradientPaint = GradientPaint(0f,0f, Color(102,0,204, 255), 1280f, 132f, Color(204, 0, 102) )
+            val gradiantColor: GradientPaint = GradientPaint(0f,0f, Color(102,0,204, 255), 1280f, 132f, Color(204, 0, 102), true )
 
-            g2d.setColor(gradiantColor)
+            g2d.setPaint(gradiantColor)
             g2d.setStroke(BasicStroke(4f))
             g2d.fillRect(0, 0, 1280, 132)
 
