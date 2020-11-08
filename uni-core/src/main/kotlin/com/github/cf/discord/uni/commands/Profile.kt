@@ -85,52 +85,62 @@ class Profile : Command(){
             val progressWidth = 700f
             val progressHeight = 50f
 
-            val xpText = "XP For Level: ${userXPPoints}/${xpNeeded.toLong()}"
+            val xpCurrentText = "Current: $userXPPoints Out Of ${xpNeeded.toLong()}"
             val username = "${member.user.name}#${member.user.discriminator}"
-            val lastLevelUpText = "Last level-up: ${lastLevelUp.toString("EEEE yyyy MMMM dd HH:mm:ss.SSS", Locale.US)}"
+            // val lastLevelUpText = "Last level-up: ${lastLevelUp.toString("EEEE yyyy MMMM dd HH:mm:ss.SSS", Locale.US)}"
+            val levelString = "Lv.: $level"
+            val totalExpString = "Total Exp: $totalExp"
 
             g2d.setColor(Color(255, 255, 255, 120))
             g2d.fillRect((x+200).toInt(), (y +(60*3-10)- 35).toInt(), (progressWidth).toInt(), progressHeight.toInt())
 
-            g2d.drawImage(profilePicture, 0,  0, null)
+
+
+            val stringHeight = g2d.getFontMetrics(g2d.font).height
+
+            g2d.setColor(Color(0,120,0, 255))
+            g2d.fillRect( (x+200).toInt(), (y+(60*3-10) - 35).toInt(), (progressWidth * (progress / (100).toDouble())).toInt(), progressHeight.toInt())
+
+            g2d.setColor(Color(0, 120, 0, 160))
+            g2d.drawRect((x+200).toInt(), (y +(60*3-10)- 35).toInt(), (progressWidth).toInt(), progressHeight.toInt())
+
+            g2d.setColor(Color(0, 0, 255, 255))
+            g2d.fillRect((x+200).toInt(), (y +(60*4-10)- 35).toInt(), 700, 50)
+
+            //val stringWidth2 = g2d.getFontMetrics(g2d.font).stringWidth(lastLevelUpText)
+
+            g2d.setColor(Color(102,0,204, 255))
+            g2d.setStroke(BasicStroke(4f))
+            g2d.fillRect(0, 0, 1280, 132)
 
             g2d.setColor(Color(255,255,255))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
             g2d.drawString(username, 140, 40)
 
             g2d.setColor(Color(255,255,255))
-            g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
-            g2d.drawString("Lv.: $level, Total Exp: $totalExp", 140, 85)
-
-
-            g2d.setColor(Color(0,0,0))
-            g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 30))
-
-            g2d.drawString(xpText, x+200, y+(60*2-10))
-
-            val stringWidth = g2d.getFontMetrics(g2d.font).stringWidth(xpText)
-            val stringHeight = g2d.getFontMetrics(g2d.font).height
-
-            g2d.setColor(Color(255,255,255,120))
-            g2d.fillRect((x+200).toInt(), (y+(60*1)+20).toInt(),  stringWidth+2, stringHeight+5)
-
-            g2d.setColor(Color(255,255,255))
-            g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 25))
-            g2d.drawString(lastLevelUpText, 20, 1240)
+            g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 24))
+            g2d.drawString(totalExpString, 140, 75)
 
             g2d.setColor(Color(1,1,1, 200))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
-            g2d.drawString("${progress.toInt()}%" , (x+530f), y +(60*3-10) + 2)
+            g2d.drawString("${progress.toInt()}%" , (x+730f), y +(60*3-10) + 2)
 
-            val stringWidth2 = g2d.getFontMetrics(g2d.font).stringWidth(lastLevelUpText)
-            g2d.setColor(Color(102, 17, 187, 60))
-            g2d.fillRect(0, 0,1280,720)
+            g2d.setColor(Color(1,1,1, 200))
+            g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
+            g2d.drawString(levelString , (x+250f), y +(60*3-10) + 2)
 
-            g2d.setColor(Color(0,120,0, 120))
-            g2d.fillRect( (x+200).toInt(), (y+(60*3-10) - 35).toInt(), (progressWidth * (progress / (100).toDouble())).toInt(), progressHeight.toInt())
+            g2d.setColor(Color(255,255,0))
+            g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 30))
+            g2d.drawString(xpCurrentText, x+250, y+(60*4-10))
 
-            g2d.setColor(Color(0, 120, 0, 160))
-            g2d.drawRect((x+200).toInt(), (y +(60*3-10)- 35).toInt(), (progressWidth).toInt(), progressHeight.toInt())
+            g2d.drawImage(profilePicture, 1,  1, null)
+
+            g2d.setColor(Color(1,1,1, 0))
+            g2d.draw(Rectangle(100, 100))
+
+            g2d.setColor(Color(1,1,1, 255))
+            g2d.setStroke(BasicStroke(4f))
+            g2d.draw(Rectangle(2, 2, 129, 129))
 
 
 

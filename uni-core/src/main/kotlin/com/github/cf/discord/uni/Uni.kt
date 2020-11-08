@@ -86,11 +86,14 @@ class Uni {
     }
 
     fun build(){
-        jda = JDABuilder(AccountType.BOT).apply {
-            setToken(DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).discordToken)
-            setAutoReconnect(true)
-            addEventListeners(EventListener())
-        }.build()
+        jda = JDABuilder
+                .createDefault(DatabaseWrapper.getCore().get(1, TimeUnit.SECONDS).discordToken)
+                .addEventListeners(EventListener())
+                .setAutoReconnect(true)
+                .setBulkDeleteSplittingEnabled(false)
+                .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_BANS, GatewayIntent.GUILD_MESSAGES)
+                .setChunkingFilter(ChunkingFilter.ALL)
+                .build()
 
         Uni.jda = jda
     }
