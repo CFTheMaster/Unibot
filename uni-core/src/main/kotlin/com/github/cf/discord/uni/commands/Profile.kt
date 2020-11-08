@@ -124,7 +124,7 @@ class Profile : Command(){
 
             val stringWidth2 = g2d.getFontMetrics(g2d.font).stringWidth(lastLevelUpText)
             g2d.setColor(Color(102, 17, 187, 60))
-            g2d.fillRect(0, 0,720,1280)
+            g2d.fillRect(0, 0,1280,720)
 
             g2d.setColor(Color(0,120,0, 120))
             g2d.fillRect( (x+200).toInt(), (y+(60*3-10) - 35).toInt(), (progressWidth * (progress / (100).toDouble())).toInt(), progressHeight.toInt())
