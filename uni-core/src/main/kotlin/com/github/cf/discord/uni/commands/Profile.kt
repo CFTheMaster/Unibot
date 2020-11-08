@@ -116,7 +116,7 @@ class Profile : Command(){
 
             g2d.setColor(Color(255,255,255))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 25))
-            g2d.drawString(lastLevelUpText, 143, 120)
+            g2d.drawString(lastLevelUpText, 20, 1240)
 
             g2d.setColor(Color(1,1,1, 200))
             g2d.setFont(Font(Font.SANS_SERIF, Font.BOLD, 40))
