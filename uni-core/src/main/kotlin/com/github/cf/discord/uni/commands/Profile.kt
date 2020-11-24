@@ -69,7 +69,7 @@ class Profile : Command(){
             val getImage = URL(avatarUrl).openConnection()
             getImage.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2")
 
-            val getBG = URL("https://computerfreaker.pw/uni/uni.png").openConnection()
+            val getBG = URL("https://computerfreaker.pw/uni/20201124174001.jpg").openConnection()
             getBG.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2")
 
 
