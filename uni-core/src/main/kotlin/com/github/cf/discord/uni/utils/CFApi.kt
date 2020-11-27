@@ -23,6 +23,7 @@ object CFApi{
     fun getCFApi(name: String): String? {
         val response = OkHttpClient().newCall(Request.Builder()
                 .url("https://api.computerfreaker.cf/v1/$name")
+                .header("User-Agent", "Uni#9912/2.0 (JDA) CFsAPI/396801832711880715")
                 .build()).execute()
 
         return if (response.isSuccessful) {
