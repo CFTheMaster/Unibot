@@ -46,9 +46,9 @@ class Urban : Command() {
             val json = JSONObject(res.body()!!.string())
 
 
-            if (json.getString("result_type") == "no_results") {
+            /*if (json.getString("result_type") == "no_results") {
                 return@thenAccept ctx.send("couldn't find anything")
-            }
+            }*/
 
             val list = json.getJSONArray("list")
 
