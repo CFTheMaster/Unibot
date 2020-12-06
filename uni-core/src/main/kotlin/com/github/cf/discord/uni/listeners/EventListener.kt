@@ -139,8 +139,6 @@ class EventListener : ListenerAdapter(){
                         } catch (e: Exception){
                             LOGGER.error("Error while trying to handle the message: $e")
                         }
-                    } else {
-                        return
                     }
                     
                 }
