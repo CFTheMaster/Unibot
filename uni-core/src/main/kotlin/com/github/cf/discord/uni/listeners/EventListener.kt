@@ -245,7 +245,7 @@ class EventListener : ListenerAdapter(){
     }
 
     override fun onMessageDelete(event: MessageDeleteEvent) {
-        if(event.guild != null && !event.author.isBot) {
+        if(event.guild != null) {
             DatabaseWrapper.getGuildSafe(event.guild).thenAccept { guild ->
                 if (guild.logs) {
                     DatabaseWrapper.logEvent(event)
@@ -311,7 +311,7 @@ class EventListener : ListenerAdapter(){
     }
 
     override fun onMessageUpdate(event: MessageUpdateEvent) {
-        if(event.guild != null && !event.author.isBot) {
+        if(event.guild != null) {
             DatabaseWrapper.getGuildSafe(event.guild).thenAccept { guild ->
                 if (guild.logs) {
                     event.message.log("UPDATE")
