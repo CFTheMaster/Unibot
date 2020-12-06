@@ -11,8 +11,12 @@
     </root>
 
     <logger name="ch.qos.logback" level="OFF" additivity="false"/>
-    
+
     <logger name="Exposed" level="warn" additivity="false">
+       <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <logger name="Uni" level="FATAL" additivity="false">
        <appender-ref ref="STDOUT"/>
     </logger>
 
