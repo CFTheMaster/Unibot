@@ -11,5 +11,9 @@
     </root>
 
     <logger name="ch.qos.logback" level="OFF" additivity="false"/>
+    
+    <logger name="Exposed" level="warn" additivity="false">
+       <appender-ref ref="STDOUT"/>
+    </logger>
 
 </configuration>
