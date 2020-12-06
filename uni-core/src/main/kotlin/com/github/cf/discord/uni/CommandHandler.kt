@@ -103,7 +103,6 @@ class CommandHandler{
             } else {
                 return
             }
-
         } ?: checkPrefix(guildPrefix.toLowerCase(), event.message)
         ?: checkPrefix(userPrefix.toLowerCase(), event.message)
         ?: checkPrefix(customPrefix.toLowerCase(), event.message)
