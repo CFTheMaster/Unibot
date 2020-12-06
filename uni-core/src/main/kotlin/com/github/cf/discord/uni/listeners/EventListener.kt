@@ -140,7 +140,7 @@ class EventListener : ListenerAdapter(){
                             LOGGER.error("Error while trying to handle the message: $e")
                         }
                     }
-                    
+
                 }
 
                 if(stored.antiInvite){
