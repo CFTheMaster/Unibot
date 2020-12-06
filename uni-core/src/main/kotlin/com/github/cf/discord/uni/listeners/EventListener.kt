@@ -134,9 +134,7 @@ class EventListener : ListenerAdapter(){
 
                 DatabaseWrapper.getUserSafe(event.member!!).thenAccept {user ->
                     try {
-                        if(!event.author.isBot && !event.message.embeds.isNullOrEmpty()){
-                            cmdHandler.handleMessage(event, user, stored)
-                        }
+                        cmdHandler.handleMessage(event, user, stored)
                     } catch (e: Exception){
                         LOGGER.error("Error while trying to handle the message: $e")
                     }
