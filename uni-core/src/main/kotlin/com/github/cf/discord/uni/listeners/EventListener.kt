@@ -321,7 +321,7 @@ class EventListener : ListenerAdapter(){
     }
 
     override fun onMessageReactionAdd(event: MessageReactionAddEvent) {
-        if (event.guild != null && event.reaction.reactionEmote.name == "\u2b50" && !event.author.isBot) {
+        if (event.guild != null && event.reaction.reactionEmote.name == "\u2b50") {
             DatabaseWrapper.getGuildSafe(event.guild).thenAccept { guild ->
                 if (!guild.starboard) {
                     return@thenAccept
@@ -335,7 +335,7 @@ class EventListener : ListenerAdapter(){
     }
 
     override fun onMessageReactionRemove(event: MessageReactionRemoveEvent) {
-        if (event.guild != null && event.reaction.reactionEmote.name == "\u2b50" && !event.author.isBot) {
+        if (event.guild != null && event.reaction.reactionEmote.name == "\u2b50") {
             DatabaseWrapper.getGuildSafe(event.guild).thenAccept { guild ->
                 if (!guild.starboard) {
                     return@thenAccept
