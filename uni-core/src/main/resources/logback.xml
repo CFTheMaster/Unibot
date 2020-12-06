@@ -6,7 +6,7 @@
         </encoder>
     </appender>
 
-    <root level="debug">
+    <root level="info">
         <appender-ref ref="STDOUT"/>
     </root>
 
@@ -15,5 +15,4 @@
     <logger name="Exposed" level="warn" additivity="false">
        <appender-ref ref="STDOUT"/>
     </logger>
-
 </configuration>

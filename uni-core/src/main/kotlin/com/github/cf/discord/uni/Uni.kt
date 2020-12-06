@@ -112,7 +112,7 @@ class Uni {
 
     fun start(): Boolean {
         return try {
-            LOGGER.debug { "Logging in..." }
+            LOGGER.info { "Logging in..." }
             LOGGER.info {
                 "\n_   _   _  _   ___\n"+
                 "| | | | | \\| | |_ _|\n"+

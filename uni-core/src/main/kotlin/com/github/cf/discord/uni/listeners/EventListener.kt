@@ -104,7 +104,7 @@ class EventListener : ListenerAdapter(){
     }
 
     override fun onMessageReceived(event: MessageReceivedEvent) {
-        if(event.guild != null){
+        if(event.guild != null && !event.author.isBot){
             if(event.guild.idLong == 138303776170835969L){
                 if(event.message.contentRaw.toLowerCase().contains("wew") && event.channel.idLong == 211956357841027072L){
                 asyncTransaction(Uni.pool){
@@ -245,7 +245,7 @@ class EventListener : ListenerAdapter(){
     }
 
     override fun onMessageDelete(event: MessageDeleteEvent) {
-        if (event.guild != null) {
+        if(event.guild != null && !event.author.isBot) {
             DatabaseWrapper.getGuildSafe(event.guild).thenAccept { guild ->
                 if (guild.logs) {
                     DatabaseWrapper.logEvent(event)
@@ -311,7 +311,7 @@ class EventListener : ListenerAdapter(){
     }
 
     override fun onMessageUpdate(event: MessageUpdateEvent) {
-        if (event.guild != null) {
+        if(event.guild != null && !event.author.isBot) {
             DatabaseWrapper.getGuildSafe(event.guild).thenAccept { guild ->
                 if (guild.logs) {
                     event.message.log("UPDATE")
@@ -321,7 +321,7 @@ class EventListener : ListenerAdapter(){
     }
 
     override fun onMessageReactionAdd(event: MessageReactionAddEvent) {
-        if (event.guild != null && event.reaction.reactionEmote.name == "\u2b50") {
+        if (event.guild != null && event.reaction.reactionEmote.name == "\u2b50" && !event.author.isBot) {
             DatabaseWrapper.getGuildSafe(event.guild).thenAccept { guild ->
                 if (!guild.starboard) {
                     return@thenAccept
@@ -335,7 +335,7 @@ class EventListener : ListenerAdapter(){
     }
 
     override fun onMessageReactionRemove(event: MessageReactionRemoveEvent) {
-        if (event.guild != null && event.reaction.reactionEmote.name == "\u2b50") {
+        if (event.guild != null && event.reaction.reactionEmote.name == "\u2b50" && !event.author.isBot) {
             DatabaseWrapper.getGuildSafe(event.guild).thenAccept { guild ->
                 if (!guild.starboard) {
                     return@thenAccept
