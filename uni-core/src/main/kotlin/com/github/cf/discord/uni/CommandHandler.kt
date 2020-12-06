@@ -81,6 +81,10 @@ class CommandHandler{
                 }
     }
     fun handleMessage(event: MessageReceivedEvent, user: DBUser, guild: DBGuild? = null){
+        if(event.author.isBot){
+            return
+        }
+
         val guildPrefix = String(Base64.getDecoder().decode(guild?.prefix ?: "")).toLowerCase()
 
         val userPrefix = String(Base64.getDecoder().decode(user.customPrefix ?: "")).toLowerCase()
@@ -94,7 +98,12 @@ class CommandHandler{
         }
 
         val usedPrefix = Uni.prefixes.firstOrNull {
-            event.message.contentRaw.toLowerCase().startsWith(it.toLowerCase())
+            if(event.message.contentRaw.toLowerCase().startsWith(it.toLowerCase())){
+                event.message.contentRaw.toLowerCase().startsWith(it.toLowerCase())
+            } else {
+                return
+            }
+
         } ?: checkPrefix(guildPrefix.toLowerCase(), event.message)
         ?: checkPrefix(userPrefix.toLowerCase(), event.message)
         ?: checkPrefix(customPrefix.toLowerCase(), event.message)
