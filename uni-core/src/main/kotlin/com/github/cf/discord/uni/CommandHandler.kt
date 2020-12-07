@@ -97,15 +97,16 @@ class CommandHandler{
             return if (message.contentRaw.toLowerCase().startsWith(prefix)) prefix else null
         }
 
-        val usedPrefix = Uni.prefixes.firstOrNull {
-            if(event.message.contentRaw.toLowerCase().startsWith(it.toLowerCase())){
-                event.message.contentRaw.toLowerCase().startsWith(it.toLowerCase())
-            } else {
-                return
-            }
-        } ?: checkPrefix(guildPrefix.toLowerCase(), event.message)
+
+        val usedPrefix = checkPrefix(guildPrefix.toLowerCase(), event.message)
         ?: checkPrefix(userPrefix.toLowerCase(), event.message)
         ?: checkPrefix(customPrefix.toLowerCase(), event.message)
+        ?: if(Uni.prefixes.firstOrNull { event.message.contentRaw.toLowerCase().startsWith(it.toLowerCase()) }.isNullOrEmpty()) return else {
+            Uni.prefixes.firstOrNull {
+                event.message.contentRaw.toLowerCase().startsWith(it.toLowerCase())
+            }
+        }
+
 
         val allPrefixes = usedPrefix!!.length
 
