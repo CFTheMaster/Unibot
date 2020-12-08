@@ -36,8 +36,8 @@ class Invite : Command(){
             setTitle("invite for bot/support server")
             setColor(embedColor)
             setDescription("Uni invite: [click me](https://discordapp.com/oauth2/authorize?client_id=396801832711880715&scope=bot&permissions=-1)")
-            addField("invite to my server ", "[server invite](https://discord.gg/DDRbw7W)", true)
-            addField("invite to my API server", "[API server invite](https://discord.gg/gzWwtWG)", true)
+            addField("invite to the support server ", "[server invite](https://discord.gg/DDRbw7W)", true)
+            addField("invite to the API server", "[API server invite](https://discord.gg/gzWwtWG)", true)
             setFooter("requested by ${ctx.author.name}#${ctx.author.discriminator} (${ctx.author.id})", "${ctx.author.avatarUrl}")
         }
         ctx.send(embed.build())
