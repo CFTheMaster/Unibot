@@ -1,11 +1,11 @@
 buildscript {
-    ext.jda_version = '4.2.0_214'
+    ext.jda_version = '4.2.0_224'
     ext.jda_utilities_version = '3.0.4'
-    ext.lavaplayer_version = '1.3.53'
-    ext.jackson_version = '2.11.1'
+    ext.lavaplayer_version = '1.3.65'
+    ext.jackson_version = '2.12.0'
     ext.jsoup_version = '1.13.1'
-    ext.redisson_version = '3.13.2'
-    ext.hikaricp_version = '2.7.6'
+    ext.redisson_version = '3.14.1'
+    ext.hikaricp_version = '3.4.5'
     ext.postgresql_version = '42.2.14'
     ext.exposed_version = '0.9.1'
     ext.ssh_host = System.getenv("ssh_host")
