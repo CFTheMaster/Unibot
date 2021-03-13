@@ -1,13 +1,23 @@
 buildscript {
-    ext.jda_version = '4.2.0_224'
-    ext.jda_utilities_version = '3.0.4'
-    ext.lavaplayer_version = '1.3.65'
-    ext.jackson_version = '2.12.0'
+    ext.jda_version = '4.2.0_241'
+    ext.jda_utilities_version = '3.0.5'
+    ext.lavaplayer_version = '1.3.73'
+    ext.jackson_version = '2.12.2'
     ext.jsoup_version = '1.13.1'
-    ext.redisson_version = '3.14.1'
-    ext.hikaricp_version = '3.4.5'
-    ext.postgresql_version = '42.2.14'
+    ext.redisson_version = '3.15.1'
+    ext.hikaricp_version = '4.0.3'
+    ext.postgresql_version = '42.2.19'
     ext.exposed_version = '0.9.1'
+    ext.json_version = '20210307'
+    ext.weeb4j_version = '3.5'
+    ext.reflections8_version = "0.11.7"
+    ext.kotlin_compiler_embeddable_version = "1.4.31"
+    ext.common_validator_version = '1.7'
+    ext.gson_version = "2.8.6"
+    ext.mysql_version = "8.0.23"
+    ext.java_dotenv_version = "5.2.2"
+    ext.apache_commons_lang_version = "3.12.0"
+    ext.ssh_version = "2.10.1"
     ext.ssh_host = System.getenv("ssh_host")
     ext.ssh_user = System.getenv("ssh_user")
     ext.ssh_id = System.getenv("ssh_id")
@@ -15,7 +25,7 @@ buildscript {
 }
 
 plugins {
-    id 'org.hidetake.ssh' version '2.9.0'
+    id 'org.hidetake.ssh' version "$ssh_version"
 }
 
 mainClassName = "com.github.cf.discord.uni.MainKt"
@@ -33,14 +43,14 @@ dependencies {
     compile "com.zaxxer:HikariCP:$hikaricp_version"
     compile "org.postgresql:postgresql:$postgresql_version"
     compile "org.jetbrains.exposed:exposed:$exposed_version"
-    compile 'io.github.cdimascio:java-dotenv:3.1.0'
-    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
-    compile 'com.google.code.gson:gson:2.8.5'
-    compile group: 'net.oneandone.reflections8', name: 'reflections8', version: '0.11.4'
-    compile 'org.apache.commons:commons-lang3:3.7'
-    compile group: 'commons-validator', name: 'commons-validator', version: '1.6'
-    compile group: 'postgresql', name: 'postgresql', version: '9.1-901-1.jdbc4'
-    compile group: 'org.json', name: 'json', version: '20190722'
-    compile 'com.github.natanbc:weeb4j:3.5'
-    compile 'org.jetbrains.kotlin:kotlin-compiler-embeddable:1.3.61'
+    compile "io.github.cdimascio:java-dotenv:$java_dotenv_version"
+    compile group: 'mysql', name: 'mysql-connector-java', version: "$mysql_version"
+    compile "com.google.code.gson:gson:$gson_version"
+    compile group: 'net.oneandone.reflections8', name: 'reflections8', version: "$reflections8_version"
+    compile "org.apache.commons:commons-lang3:$apache_commons_lang_version"
+    compile group: 'commons-validator', name: 'commons-validator', version: "$common_validator_version"
+    compile group: 'org.postgresql', name: 'postgresql', version: "$postgresql_version"
+    compile group: 'org.json', name: 'json', version: "$json_version"
+    compile "com.github.natanbc:weeb4j:$weeb4j_version"
+    compile "org.jetbrains.kotlin:kotlin-compiler-embeddable:$kotlin_compiler_embeddable_version"
 }
