@@ -33,6 +33,7 @@ subprojects {
         jcenter()
         maven { url "https://jitpack.io" }
         maven { url "https://dl.bintray.com/kotlin/exposed" }
+        maven { url 'https://m2.dv8tion.net/releases' }
     }
 
     apply plugin: 'maven-publish'
